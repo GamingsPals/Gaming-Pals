@@ -22,7 +22,8 @@ app.controller('ProfileController',function($scope,middleware,ActorService,$rout
     $scope.ActorService = ActorService;
     $scope.ActorService.UserProfile($routeParams.username);
     $scope.rateUser = function(){
-        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{},$rootScope.csrf.token);
+        $scope.rateform[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
+        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
     }
 
 });

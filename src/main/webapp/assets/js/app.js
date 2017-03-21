@@ -48,28 +48,41 @@ app.controller('ProfileController',function($scope,middleware,ActorService,$rout
     $scope.ActorService = ActorService;
     $scope.ActorService.UserProfile($routeParams.username);
     $scope.rateUser = function(){
-        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{},$rootScope.csrf.token);
+        $scope.rateform[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
+        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
     }
 
 });;
-app.service("xhr",function($http){
+app.service("xhr",function($http) {
 
 
-    this.get = function(url,callback){
-        $http.get(url).then(function(data){
+    this.get = function (url, callback) {
+        $http.get(url).then(function (data) {
             callback(data);
         });
     };
 
-    this.post = function(url,data,callback,csrf){
+    this.post = function (url, data, callback) {
         console.log(csrf);
-        $http.defaults.headers.post['X-CSRF-TOKEN']=csrf;
-        $http.post(url,data
-        ).then(
-            function(responseData) {
-               callback(responseData);
-            });
-    }
+        $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
+        $http({
+            method: 'POST',
+            url: url,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRF-TOKEN': data._csrf
+
+            },
+            transformRequest: function (obj) {
+                let str = [];
+                for (let p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+            },
+            data: data
+        });
+    };
 });
 
 app.service("localization",function(xhr,$cookies){
@@ -256,7 +269,8 @@ app.service("middleware",function(auth,$location){
         return true;
     }
 
-});;;app.directive("follow",function($compile,auth,$rootScope,ActorService){
+});
+;;app.directive("follow",function($compile,auth,$rootScope,ActorService){
     return {
         restrict:"A",
         terminal: true,

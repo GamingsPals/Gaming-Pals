@@ -30,7 +30,6 @@ public class RatingController extends ApiAbstractController {
     @RequestMapping(value = "/user/{user}/rate",method = RequestMethod.POST)
     public Object rate(@PathVariable User user, Rating rating, HttpServletResponse response)
             throws Exception{
-        System.out.println(user.getId());
         System.out.println( rating.getAttitude());
         try{
             Assert.notNull(user);
