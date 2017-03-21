@@ -299,5 +299,63 @@
 		<property name="user" ref="user1"/>
 		<property name="username" value="ozumas" />
         <property name="game" ref="game1"/>
+        <property name="leagues">
+        	<list>
+        		<ref bean="league1" />
+        	</list>
+        </property>
 	</bean>
+	
+	<bean id="summoner2" class="domain.Summoner">
+		<property name="user" ref="user2"/>
+		<property name="username" value="pabmorle" />
+        <property name="game" ref="game1"/>
+		<property name="leagues">
+        	<list>
+        		<ref bean="league2" />
+        	</list>
+        </property>
+	</bean>
+	
+	<bean id="summoner3" class="domain.Summoner">
+		<property name="user" ref="user3"/>
+		<property name="username" value="cargamram" />
+        <property name="game" ref="game1"/>
+		<property name="leagues">
+        	<list>
+        		<ref bean="league3" />
+        	</list>
+        </property>
+	</bean>
+	
+	<bean id="league1" class="domain.League">
+		<property name="rankedType" value="ranked"/>
+		<property name="tier" value="GOLD" />
+        <property name="wins" value="200"/>
+        <property name="losses" value="50"/>
+        <property name="division" value="2"/>
+        <property name="points" value="20"/>
+        <property name="summoner" ref="summoner1"/>
+	</bean>
+	
+	<bean id="league2" class="domain.League">
+		<property name="rankedType" value="ranked"/>
+		<property name="tier" value="SILVER" />
+        <property name="wins" value="180"/>
+        <property name="losses" value="60"/>
+        <property name="division" value="3"/>
+        <property name="points" value="15"/>
+        <property name="summoner" ref="summoner2"/>
+	</bean>
+	
+	<bean id="league3" class="domain.League">
+		<property name="rankedType" value="ranked"/>
+		<property name="tier" value="PLATINUM" />
+        <property name="wins" value="260"/>
+        <property name="losses" value="40"/>
+        <property name="division" value="1"/>
+        <property name="points" value="50"/>
+        <property name="summoner" ref="summoner3"/>
+	</bean>
+	
 </beans>

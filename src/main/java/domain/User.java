@@ -63,7 +63,7 @@ public class User extends Actor {
 	private Collection<User>			followerUsers;
 	private Collection<ReportUser>		createReports;
 	private Collection<Language>		languages;
-    private Collection<GameInfo> gameInfo;
+    private Collection<GameInfo> 		gameInfo;
 
 
 	@Valid
