@@ -1,0 +1,61 @@
+$color-base-blue-1: rgb(115, 175, 201);
+$color-base-blue-2: rgb(92, 139, 151);;
+$color-base-blue-3: rgba(54,83,93,1);
+$color-base-blue-4: rgb(35, 66, 79);
+$color-base-blue-42: rgba(35, 66, 79,0.85);
+$color-base-blue-5: rgb(2, 20, 25);
+$color-base-blue-52: rgba(2, 20, 25,0.85);
+$color-base-blue-6: rgb(2, 8, 12);
+
+$color-base-white-1:rgba(255,255,255,1);
+$color-base-white-2:rgba(255,255,255,0.88);
+$color-base-white-3:rgba(255,255,255,0.78);
+$color-base-white-4:rgba(255,255,255,0.58);
+$color-base-white-5:rgba(255,255,255,0.38);
+$color-base-white-6:rgba(255,255,255,0.18);
+$color-base-white-7:rgba(255,255,255,0.06);
+
+$color-base-black-1:rgba(0,0,0,1);
+$color-base-black-2:rgba(0,0,0,0.88);
+$color-base-black-3:rgba(0,0,0,0.78);
+$color-base-black-4:rgba(0,0,0,0.58);
+$color-base-black-5:rgba(0,0,0,0.38);
+$color-base-black-6:rgba(0,0,0,0.18);
+$color-base-black-7:rgba(0,0,0,0.06);
+
+$color-base-red-3: rgba(217, 95, 58, 0.84);
+
+$color-base-green-3: rgba(103, 217, 122, 0.84);
+
+$color-base-magenta-3: rgba(203, 67, 135, 0.78);
+
+$min-width-responsive:0px;
+$max-width-responsive: 1024px;
+
+.bg-blue3{
+  background-color: $color-base-blue-3;
+  color:$color-base-white-1;
+}
+
+.red3{
+ color: $color-base-red-3;
+}
+
+.bg-red3{
+  background-color: $color-base-red-3;
+  color:$color-base-white-1;
+}
+
+.bg-green3{
+  background-color: $color-base-green-3;
+  color:$color-base-white-1;
+}
+
+.bg-magenta3{
+  background-color: $color-base-magenta-3;
+  color:$color-base-white-1;
+}
+
+.size-1-5{
+  font-size:1.5em;
+}

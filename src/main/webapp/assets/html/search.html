@@ -1,0 +1,36 @@
+<form class="search-filter">
+    <h1>Search Pals</h1>
+    <div class="col s6">
+    <label for="name">
+        Name
+    </label>
+    <input type="text" id="name" class="s8" name="name" ng-model="search.name" placeholder="Filter by name..."/>
+    <label for="game">
+        Game
+    </label>
+    <select class="s8" id="game" name="game" ng-model="search.game">
+        <option value="">Select a Game</option>
+        <option value="lol">League of Legends</option>
+    </select>
+    </div>
+    <div class="col s6">
+        <span ng-show="search.game=='lol'">
+             <label for="tier">
+            Tier
+        </label>
+        <select multiple id="tier" name="tier" ng-model="search.tier">
+            <option value="BRONZE">Bronze</option>
+            <option value="SILVER">Silver</option>
+            <option value="GOLD">Gold</option>
+            <option value="PLATINUM">Platinum</option>
+            <option value="DIAMOND">Diamond</option>
+            <option value="MASTER">Master</option>
+            <option value="CHALLENGER">Challenger</option>
+        </select>
+        </span>
+    </div>
+    <input type="submit" name="submit" value="Filter" />
+
+</form>
+
+{{search}}

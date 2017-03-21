@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="moderator1" />
+		<property name="password" value="38caf4a470117125b995f7ce53e6e6b9" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MODERATOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- CreditCards -->
+	<bean id="CreditCard1" class="domain.CreditCard">
+		<property name="holderName" value="user1" />
+		<property name="brandName" value="Master Card" />
+		<property name="number" value="5751322855058309" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvvCode" value="200" />
+	</bean>
+
+	<bean id="CreditCard2" class="domain.CreditCard">
+		<property name="holderName" value="user1" />
+		<property name="brandName" value="Visa" />
+		<property name="number" value="4532908352606142" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvvCode" value="220" />
+	</bean>
+
+	<bean id="CreditCard3" class="domain.CreditCard">
+		<property name="holderName" value="user3" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="349788920645835" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2017" />
+		<property name="cvvCode" value="220" />
+	</bean>
+
+
+
+	<!-- Admins -->
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Admin 1" />
+		<property name="surname" value="Surname Admin 1" />
+		<property name="email" value="adminitrator1@mail.com" />
+		<property name="picture" value="http://edsvideolibrary.com/images/avatars/1.png" />
+		<property name="userAccount" ref="userAccount1" />
+		
+		
+	</bean>
+	
+	<!-- Moderators -->
+	<bean id="moderator1" class="domain.Moderator">
+		<property name="name" value="Mod 1" />
+		<property name="surname" value="Surname Mod 1" />
+		<property name="email" value="mod1@mail.com" />
+		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
+		<property name="userAccount" ref="userAccount2" />
+		
+	</bean>
+
+
+	<!-- Users -->
+	<bean id="user1" class="domain.User">
+		<property name="name" value="User 1" />
+		<property name="surname" value="Surname User 1" />
+		<property name="email" value="user1@mail.com" />
+		<property name="picture" value="http://khojmaster.com/ui/user/realestate/assets/img/no-user.jpg" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="age" value="18" />
+		<property name="languages">
+			<list>
+				<ref bean="language1"/>
+				<ref bean="language2"/>
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user2"/>
+				<ref bean="user3"/>
+			</list>
+		</property>
+		<property name="verify" value="false" />
+		<property name="creditCard" ref="CreditCard1"/>
+		
+	</bean>
+	
+	<bean id="user2" class="domain.User">
+		<property name="name" value="User 2" />
+		<property name="surname" value="Surname User 2" />
+		<property name="email" value="user2@mail.com" />
+		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="age" value="18" />
+		<property name="languages">
+			<list>
+				<ref bean="language1"/>
+				<ref bean="language2"/>
+			</list>
+		</property>
+        <property name="followingUsers">
+            <list>
+                <ref bean="user1"/>
+            </list>
+        </property>
+		<property name="verify" value="true" />
+		<property name="creditCard" ref="CreditCard2"/>
+		
+	</bean>
+	
+	<bean id="user3" class="domain.User">
+		<property name="name" value="User 3" />
+		<property name="surname" value="Surname User 3" />
+		<property name="email" value="user3@mail.com" />
+		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="age" value="18" />
+		<property name="languages">
+			<list>
+				<ref bean="language1"/>
+				<ref bean="language2"/>
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="creditCard" ref="CreditCard3"/>
+	</bean>
+
+	
+	<!-- Teams -->
+	<bean id="Team1" class="domain.Team">
+		<property name="name" value="Team1" />
+		<property name="picture" value="http://www.foto.com/a.jpg" />
+		<property name="users">
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user2"/>
+				
+			</list>
+		</property>
+		<property name="tournaments">
+			<list>
+				<ref bean="Tournament1"/>
+				
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="Team2" class="domain.Team">
+		<property name="name" value="Team2" />
+		<property name="picture" value="http://www.foto.com/a.jpg" />
+		<property name="users">
+			<list>
+				<ref bean="user3"/>
+			</list>
+		</property>
+		<property name="tournaments">
+			<list>
+				<ref bean="Tournament1"/>
+				
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Tournaments -->
+	<bean id="Tournament1" class="domain.Tournament">
+		<property name="momentCreate" value="10/01/2017 10:20" />
+		<property name="title" value="Tournament 1"/>
+		<property name="description" value="Description 1"/>
+		<property name="prize" value="Viaje a roma"/>
+		<property name="limitTeams" value="4"/>
+		<property name="limitInscription" value="15/01/2017 10:20"/>
+		<property name="limitEnd" value="20/01/2017 10:20"/>
+		
+	</bean>
+
+	
+	<!-- User Reports -->
+	<bean id="ReportUser1" class="domain.ReportUser">
+		<property name="picture" value="http://www.report.com/picture2.jpg" />
+		<property name="comment" value="Dijo cosas feas sobre mi madre." />
+		<property name="userReporter" ref="user1" />
+		<property name="userReported" ref="user2" />
+		
+	</bean>
+	
+	<!-- Ratings -->
+	<bean id="Rating1" class="domain.Rating">
+		<property name="skill" value="1" />
+		<property name="knowledge" value="1" />
+		<property name="attitude" value="1" />
+		<property name="comment" value="Buen jugador" />
+		<property name="ratingUser" ref="user1" />
+		<property name="ratedUser" ref="user2" />
+	</bean>
+	
+	<bean id="Rating2" class="domain.Rating">
+		<property name="skill" value="1" />
+		<property name="knowledge" value="1" />
+		<property name="attitude" value="1" />
+		<property name="comment" value="Mal jugador" />
+		<property name="ratingUser" ref="user3" />
+		<property name="ratedUser" ref="user2" />
+	</bean>
+	
+	<bean id="language1" class="domain.Language">
+		<property name="language" value="es" />
+		<property name="users">
+			<list>
+				<ref bean="user1"/>	
+				<ref bean="user2"/>
+				<ref bean="user3"/>			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="language2" class="domain.Language">
+		<property name="language" value="en" />
+		<property name="users">
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user2"/>
+				<ref bean="user3"/>			
+			</list>
+		</property>
+	</bean>
+
+    <bean id="game1" class="domain.Game">
+        <property name="name" value="League Of Legends"/>
+        <property name="tag" value="lol" />
+    </bean>
+
+	<bean id="summoner1" class="domain.Summoner">
+		<property name="user" ref="user1"/>
+		<property name="username" value="ozumas" />
+        <property name="game" ref="game1"/>
+	</bean>
+</beans>

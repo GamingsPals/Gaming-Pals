@@ -1,0 +1,46 @@
+@import "fonts.scss";
+@import "vars.scss";
+@import "mixins.scss";
+@import "cols.scss";
+@import "util.scss";
+@import "card.scss";
+@import "menu.scss";
+@import "forms.scss";
+@import "headers.scss";
+@import "tables.scss";
+@import "sldr.scss";
+@import "profile.scss";
+
+.center-container{
+  margin-left:4%;
+  margin-right:4%;
+  @include om(){
+    margin-left:0;
+    margin-right:0;
+  }
+}
+
+
+
+
+.container{
+  transition: all 0.5s ease-out;
+}
+
+
+
+
+footer{
+  min-height:300px;
+  background-color: $color-base-black-1;
+  color:$color-base-white-1;
+}
+
+ul{
+  margin:0;
+  padding:0;
+  list{
+    list-style: none;
+  }
+}
+

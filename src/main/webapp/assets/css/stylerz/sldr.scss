@@ -1,0 +1,36 @@
+.slides{
+  li{
+    min-height: 300px;
+    position:relative;
+    background-size: 100%;
+    @include om() {
+      background-size: auto;
+    }
+    .game-icon{
+      position: absolute;
+      right:35px;
+      top:20px;
+      width:200px!important;
+    }
+    .letter{
+      position:absolute;
+      padding:30px;
+      bottom:15px;
+      left:30px;
+      background-size:cover;
+      background-repeat:no-repeat;
+      background:fixed;
+      background-color: $color-base-black-5;
+      color:$color-base-white-1;
+      border-radius:4px;
+      font-size:1.6em;
+      max-width:80%;
+    }
+  }
+  .lolslider{
+    background-image: url("../images/lolslider.jpg");
+  }
+  .dotaslider{
+    background-image: url("../images/dota2slider.jpg");
+  }
+}

@@ -1,0 +1,38 @@
+table{
+  min-width:95%;
+  overflow: auto;
+  margin:0;
+  border-collapse: collapse;
+  thead{
+    tr{
+      th,td{
+        text-align: left;
+        text-transform: uppercase;
+        padding:15px;
+        background-color: $color-base-blue-2;
+        color:$color-base-white-1;
+      }
+    }
+  }
+  tbody{
+    tr{
+      color:$color-base-black-1;
+      background-color: $color-base-black-6;
+      td{
+        padding:10px;
+        text-align: center;
+      }
+      &:nth-child(even){
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.table-rating{
+  td,th{
+    img{
+      width:30px;
+    }
+  }
+}

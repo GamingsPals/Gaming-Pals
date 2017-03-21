@@ -1,0 +1,189 @@
+<div class="profile-header">
+    <div class="profile-left-panel">
+        <div class="profile-avatar">
+            <img ng-src="{{ActorService.actor.actor.picture}}"/>
+        </div>
+        <div class="profile-info">
+            <h1>{{ActorService.actor.actor.name}}</h1>
+            <div class="profile-info-follow"><div follow="ActorService.actor.actor"></div> </div>
+
+            <div class="profile-info-flags" >
+                <img  ng-repeat="lan in ActorService.actor.actor.languages" ng-src="assets/images/flags/{{lan.language}}.png" />
+            </div>
+        </div>
+        <div class="profile-stats">
+            Stats <small>(0-5)</small>
+            <ul>
+                <li><h2>Skill</h2> <span class="green">{{ActorService.actor.actor.avgskill}}</span></li>
+                <li><h2>Knowledge</h2> <span class="green">{{ActorService.actor.actor.avgknowledge}}</span></li>
+                <li><h2>Attitude</h2> <span class="red">{{ActorService.actor.actor.avgattitude}}</span></li>
+            </ul>
+            <small>out of {{ActorService.actor.actor.nRatings}} ratings</small>
+        </div>
+    </div>
+</div>
+<div class="profile-nav">
+    <ul>
+        <li class="active"><a class="profile-tabs" href="#" data-card="profile-gameprofiles">Game Profiles</a></li>
+        <li><a  href="#" class="profile-tabs" data-card="profile-following">Following</a></li>
+        <li><a  href="#" class="profile-tabs" data-card="profile-followers">Followers</a></li>
+        <li><a  href="#" class="profile-tabs" data-card="profile-teams">Teams</a></li>
+        <li><a  href="#" class="profile-tabs" data-card="profile-ratings">Ratings</a></li>
+    </ul>
+</div>
+<div class="profile-main">
+    <div id="profile-gameprofiles" class="profile-cards">
+        <h1>Game Profiles</h1>
+        <div ng-show="ActorService.actor.actor.gameInfo.length==0">
+            This user hasn't got any game registered.
+        </div>
+        <div class="card bg-blue3" ng-repeat="i in ActorService.actor.actor.gameInfo">
+            <div class="card-image">
+                <img ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
+            </div>
+            <div class="card-info">
+                <h1>Username</h1>
+                {{i.username}}
+            </div>
+        </div>
+    </div>
+    <div id="profile-followers" class="hidden profile-cards">
+        <h1>Followers</h1>
+        <div ng-show="ActorService.actor.followers.length==0">
+            This user hasn't got any follower! Be the first.
+        </div>
+        <div class="card bg-blue3" ng-repeat="i in ActorService.actor.followers">
+            <div class="card-image">
+                <img ng-src="{{i.picture}}" />
+            </div>
+            <div class="card-info">
+                <a href="profile/{{i.name}}"> <h1>{{i.name}}</h1></a>
+                <p><rating actor="i"></rating></p>
+                <div class="flags">
+                    <img  ng-repeat="lan in i.languages"
+                          ng-src="assets/images/flags/{{lan.language}}.png" />
+                </div>
+            </div>
+            <div class="card-buttons">
+                <div follow="i"></div>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="profile-following" class="hidden profile-cards">
+        <h1>Following</h1>
+        <div ng-show="ActorService.actor.following.length==0">
+            This user doesn't follow anybody
+        </div>
+        <div class="card bg-blue3" ng-repeat="i in ActorService.actor.following">
+            <div class="card-image">
+                <img ng-src="{{i.picture}}" />
+            </div>
+            <div class="card-info">
+                <a href="profile/{{i.name}}"> <h1>{{i.name}}</h1></a>
+                <p>Rating: <rating actor="i"></rating></p>
+                <div class="flags">
+                    <img  ng-repeat="lan in i.languages"
+                          ng-src="assets/images/flags/{{lan.language}}.png" />
+                </div>
+            </div>
+            <div class="card-buttons">
+                <div follow="i"></div>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="profile-teams" class="hidden profile-cards">
+        <h1>Teams</h1>
+        <div ng-show="ActorService.actor.teams.length==0">
+            This user hasn't got any team.
+        </div>
+        <div class="card bg-blue3" ng-repeat="i in ActorService.actor.teams">
+            <div class="card-image">
+                <img ng-src="{{i.picture}}" />
+            </div>
+            <div class="card-info">
+                <a href="profile/{{i.name}}"> <h1>{{i.name}}</h1></a>
+            </div>
+            <div class="card-buttons">
+
+            </div>
+    </div>
+
+
+</div>
+    <div id="profile-ratings" class="hidden profile-cards">
+        <h1>Ratings</h1>
+        <div ng-show="ActorService.actor.actor.ratingsReceived.length==0">
+            This user hasn't got any rating yet! Be the first.
+        </div>
+        <a href="#" class="block" not-principal="ActorService.actor.actor" ng-click="writerating=true"
+           ng-init="writerating=false" ng-show="writerating==false">Write a Rating</a>
+        <div is-auth  ng-show="writerating==true" class="search-filter">
+            <div class="float-right">
+                <a href="" ng-click="writerating=false" class="red3 size-1-5"><i class="fa fa-close"></i> </a>
+            </div>
+        <h2 class="text-center">Write a Rating</h2>
+        <form class="forms-center" ng-submit="rateUser()">
+            <input type="hidden" ng-model="rateform.csrf"
+                   name="{{csrf.parameterName}}"
+                   value="{{csrf.token}}"/>
+            <div>
+                <div class="col s1">
+                    <label for="attitude">
+                        Attitude
+                    </label>
+                    <input id="attitude" ng-model="rateform.attitude" name="attitude" placeholder="0-5" type="number" min="0" max="5" />
+                </div>
+                <div class="col s1">
+                    <label for="knowledge">
+                        Knowledge
+                    </label>
+                    <input id="knowledge" name="knowledge" ng-model="rateform.knowledge" placeholder="0-5" type="number" min="0" max="5" />
+                </div>
+                <div class="col s1">
+                    <label for="skill">
+                       Skill
+                    </label>
+                    <input id="skill" name="skill" ng-model="rateform.skill" placeholder="0-5" type="number" min="0" max="5" />
+                </div>
+            </div>
+            <label for="comment">
+                Comment
+            </label>
+           <textarea class="not-resizable"  ng-model="rateform.comment" id="comment" name="comment"></textarea>
+
+            <input type="submit" value="Rate" />
+        </form>
+        </div>
+        <div class="card-rating col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
+            <div class="col s2">
+                <a href="profile/{{r.ratingUser.name}}">{{r.ratingUser.name}}</a>
+                <img ng-src="{{r.ratingUser.picture}}"/>
+            </div>
+            <div class="col s9">
+                <div class="card-rating-text">{{r.comment}}</div>
+                <div>
+                    <rating actor="r.ratingUser"></rating>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    $(".profile-tabs").on("click",function(e){
+        e.preventDefault();
+        let object = $(this);
+        let card = $(this).data("card");
+        if (!$(this).parent("li").hasClass("active")){
+            $(".profile-cards").hide(300);
+            $("#"+card).show(200);
+            $(".active").removeClass("active");
+            $(this).parent("li").addClass("active");
+        }
+        e.stopPropagation();
+    })
+</script>

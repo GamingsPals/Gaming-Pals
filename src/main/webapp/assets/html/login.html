@@ -1,0 +1,24 @@
+
+<h2 class="text-center">{{loc.loginview.message}}</h2>
+<form action="j_spring_security_check" method="POST" id="credentials" class="forms-center">
+
+	<label for="username">
+		{{loc.loginview.username}}
+	</label>
+
+    <input type="hidden"
+           name="{{csrf.parameterName}}"
+           value="{{csrf.token}}"/>
+	<input type="text" id="username" class="s10" name="username" placeholder="{{loc.username}}"/>
+	<label for="password">
+		{{loc.loginview.password}}
+	</label>
+	<input type="password" id="password" class="s10" name="password" placeholder="{{loc.password}}"/>
+
+	<input type="submit" value="{{loc.send}}" />
+	
+</form>
+
+<div class="forms-center">
+	{{loc.loginview.donthaveaccount}} <a href="signup">{{loc.signup}}</a>
+</div>

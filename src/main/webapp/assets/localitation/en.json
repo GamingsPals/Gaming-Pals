@@ -1,0 +1,23 @@
+{
+  "home" : "Home",
+  "pals" : "Pals",
+  "tournaments" :"Tournaments",
+  "profile": "Profile",
+  "profileview": {
+    "follow" : "Follow",
+    "unfollow" : "UnFollow",
+    "following": "Following"
+  },
+  "send" :"Send",
+  "signup": "Sign up",
+  "login": "Login",
+  "logout": "Logout",
+  "lolslider": "Join our  League Of Legends. 0% Toxicity 100% Fun",
+  "dotaslider": "Dota 2 Community coming soon!",
+  "loginview":{
+    "password": "Password",
+    "username" : "Username",
+    "message" : "Join our community and start playing better and happier",
+    "donthaveaccount": "Don't have an account yet?"
+  }
+}

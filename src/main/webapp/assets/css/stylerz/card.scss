@@ -1,0 +1,52 @@
+.card{
+  @extend .s12,.box;
+  h1,h2{
+    border:0;
+    font-size:1.1em;
+  }
+  padding:5px;
+  margin-top:5px;
+  margin-bottom:5px;
+  .card-image{
+    @extend .s1, .col;
+    padding:5px;
+    border-right:1px solid $color-base-white-5;
+    img{
+      vertical-align: text-top;
+      width:60px;
+    }
+  }
+  .card-info{
+    @extend .s8, .col;
+  }
+  .card-buttons{
+    @extend .s3, .col;
+  }
+}
+
+.card-small{
+  @extend .card;
+  width:80%;
+  padding:8px;
+  margin-top:6px;
+  margin-bottom:6px;
+}
+
+.card-rating{
+  padding:5px;
+  @extend .box;
+  margin-right:5px;
+  background-color: $color-base-white-1;
+  opacity:1;
+  border:1px solid $color-base-black-6;
+  border-radius:4pt;
+  img{
+    width:60px;
+    height:60px;
+    vertical-align: middle;
+  }
+  .card-rating-text{
+    margin-top:5px;
+    margin-bottom:5px;
+  }
+}

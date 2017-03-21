@@ -1,0 +1,206 @@
+
+app.service("xhr",function($http){
+
+
+    this.get = function(url,callback){
+        $http.get(url).then(function(data){
+            callback(data);
+        });
+    };
+
+    this.post = function(url,data,callback,csrf){
+        console.log(csrf);
+        $http.defaults.headers.post['X-CSRF-TOKEN']=csrf;
+        $http.post(url,data
+        ).then(
+            function(responseData) {
+               callback(responseData);
+            });
+    }
+});
+
+app.service("localization",function(xhr,$cookies){
+    this.loc = {};
+    this.base_lan = 'en';
+
+    this.init = function($scope){
+        let object = this;
+        language = this.getLanguage($cookies);
+
+        xhr.get("assets/localitation/"+this.base_lan+".json",function(data){
+            Object.assign(object, data.data);
+            if (language != object.base_lan) {
+                xhr.get("assets/localitation/" + language + ".json", function (data) {
+                    Object.assign(object, data.data);
+                });
+            }
+        });
+    };
+
+    this.getLanguage = function(cookies){
+        return (typeof cookies.get("language")!= 'undefined') ? cookies.get("language") : "en";
+    }
+});
+
+
+app.service("MainPageService",function(xhr,ActorService){
+    this.main = {};
+
+    this.mainData = function(){
+        let object = this;
+        xhr.get("api/main",function(data){
+            object.main = data.data;
+            data.data.bestclassified = object.processActors(data.data.bestclassified);
+        })
+    };
+
+    this.processActors = function (actors) {
+        actors.forEach(function(a,e){
+            actors[e] = ActorService.processActor(a);
+        });
+
+        return actors;
+    }
+
+});
+
+app.service("ActorService",function(xhr,auth){
+
+    this.actor = {};
+
+    this.UserProfile = function(name){
+        let object = this;
+        xhr.get("api/user/"+name,function(data){
+            object.actor = data.data;
+            object.processActors();
+        })
+    };
+
+    this.rate = function(user,data){
+        console.log(data);
+        let object = this;
+        xhr.post("api/user/"+user+"/rate", data, function(data){
+            object.actor = data.data;
+            object.processActors();
+        })
+    };
+
+    this.followOrUnfollow = function(id,callback){
+        let object = this;
+        xhr.get("api/user/"+id+"/follow",function(data){
+            if (typeof callback!== "undefined") callback(data);
+            auth.load(()=>{},true);
+        })
+    };
+
+    this.processActors = function(){
+        let object = this;
+        this.actor.actor = this.processActor(this.actor.actor);
+        this.actor.followers.forEach(function(a,e){
+            object.actor.followers[e] =  object.processActor(a);
+        });
+        this.actor.following.forEach(function(a,e){
+            object.actor.following[e] =  object.processActor(a);
+        });
+        if (this.actor.actor.ratingsReceived != null){
+            this.actor.actor.ratingsReceived.forEach(function(a,e){
+                object.actor.actor.ratingsReceived[e].ratingUser =  object.processActor(a.ratingUser);
+            });
+        }
+    };
+
+    this.processActor = function(actor){
+        actor.avgknowledge = 0;
+        actor.avgattitude = 0;
+        actor.avgskill = 0;
+        let object = this;
+        actor.ratingsReceived.forEach(function(a){
+            actor.avgknowledge += a.knowledge;
+            actor.avgattitude += a.attitude;
+            actor.avgskill += a.skill;
+        });
+        let nRatings = (actor.ratingsReceived.length>0) ? actor.ratingsReceived.length : 1;
+        actor.avgknowledge = Math.round((actor.avgknowledge/nRatings) * 100) / 100;
+        actor.avgattitude = Math.round((actor.avgattitude/nRatings) * 100) / 100;
+        actor.avgskill = Math.round((actor.avgskill/nRatings) * 100) / 100;
+        actor.nRatings = actor.ratingsReceived.length;
+        actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
+        return actor;
+    };
+
+});
+
+app.service("auth", function(xhr){
+
+    this.principal = {};
+    this.load = function(callback,force){
+        let object = this;
+        if (Object.keys(object.principal).length==0 || force==true) {
+            xhr.get("api/isauthenticated", function (data) {
+                object.principal = data.data;
+                callback();
+            })
+        }else{
+            callback();
+        }
+    };
+
+    this.isPrincipal = function(actor){
+        if (typeof actor === "undefined" || !this.isLoaded() || !this.isAuthenticated()) return false;
+        return this.principal.actor.id == actor.id;
+    };
+
+    this.isPrincipalFollowing = function(actor){
+        if(typeof actor==="undefined" || typeof this.principal.actor==="undefined"){
+            return false;
+        }
+        return typeof this.principal.following.find((a)=> {return a.id == actor.id}) !== "undefined";
+    };
+
+    this.isLoaded = function(){
+        return !Object.keys(this.principal).length==0;
+    };
+
+    this.isAuthenticated = function(){
+        if (!this.isLoaded()) return false;
+        return this.principal.authenticated;
+    };
+
+    this.hasRole = function(rol){
+        let result = false;
+        let rolesAuthority = this.principal.roles;
+        rolesAuthority.forEach(function(b){
+            if (b.authority.toLowerCase() == rol.toLowerCase()){
+                result = true;
+            }
+        });
+        return result;
+    }
+
+});
+
+app.service("middleware",function(auth,$location){
+
+    this.needRol = function(rol){
+        let object = this;
+        auth.load(function(){
+            if (!auth.principal.authenticated) {
+                if ( rol.toLowerCase() != "NONE".toLowerCase()) {
+                    return object.goTo('login');
+                }
+                return true;
+            }
+            if (rol.toLowerCase() == "ANY".toLowerCase()) return true;
+            if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase())){
+                return object.goTo('');
+            }
+        });
+    };
+
+
+    this.goTo = function(path){
+        $location.path(path);
+        return true;
+    }
+
+});

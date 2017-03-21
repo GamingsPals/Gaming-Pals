@@ -1,0 +1,96 @@
+.box{
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  transition: 0.4s;
+  &:hover{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+}
+
+
+.button{
+  @extend .box;
+  padding:8px;
+  padding-right:30px;
+  padding-left:30px;
+  display: inline-block;
+  border:0;
+  border-radius:2px;
+  background-color: $color-base-blue-3;
+  color:$color-base-white-2!important;
+  transition: 0.5s all ease-out;
+  &:hover{
+    cursor: pointer;
+    color:$color-base-white-2!important;
+    background-color: $color-base-blue-2;
+  }
+}
+
+.grey-button{
+  @extend .button;
+  background-color: $color-base-white-2;
+  color:$color-base-blue-2!important;
+  transition: 0.2s all ease-out;
+  &:hover{
+    cursor: pointer;
+    background-color: $color-base-white-3;
+    color:$color-base-blue-3!important;;
+  }
+}
+.om {
+  display: none;
+  @include om(){
+    display: block!important;
+  }
+}
+
+.op {
+  @include om(){
+    display: none!important;
+  }
+}
+
+
+.fixed{
+  position: fixed;
+}
+.hidden{
+  display: none;
+}
+
+
+
+
+.label{
+  font-size:0.8em;
+  padding:5px 10px 5px 10px;
+  border-radius:2pt;
+}
+
+.list-horizontal{
+  margin:0;
+  padding:0;
+  li{
+    display: inline-table;
+    list-style: none;
+    margin-right:5px;
+  }
+}
+
+.block{
+  display: block;
+}
+
+.separator{
+  border-bottom: 1px solid $color-base-black-3;
+  margin-top:10px;
+  margin-bottom:10px;
+  display: block;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.float-right{
+  float:right;
+}

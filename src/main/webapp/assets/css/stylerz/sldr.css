@@ -1,0 +1,21 @@
+.sldr {
+  max-width: 825px;
+  margin: 0 auto;
+  overflow: visible;
+  position: relative;
+  clear: both;
+  display: block; }
+
+.sldr > ul.animate {
+  -webkit-transition: margin 0.75s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: margin 0.75s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: margin 0.75s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: margin 0.75s cubic-bezier(0.86, 0, 0.07, 1);
+  /* ease-in-out */ }
+
+.sldr > ul > li {
+  float: left;
+  display: block;
+  width: 825px; }
+
+/*# sourceMappingURL=sldr.css.map */

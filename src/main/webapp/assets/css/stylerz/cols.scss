@@ -1,0 +1,47 @@
+.col{
+  display:inline-table;
+  box-sizing: border-box!important;
+}
+.s1{
+  width:8%;
+}
+.s2{
+  width:16%;
+}
+.s3{
+  width:24%;
+}
+.s4{
+  width:33%;
+}
+.s5{
+  width:41%;
+}
+.s6{
+  width:49%;
+}
+.s7{
+  width:58%;
+}
+.s8{
+  width:66%;
+}
+.s9{
+  width:74%;
+}
+.s10{
+  width:83%;
+}
+.s11{
+  width:91%;
+}
+.s12{
+  width:99%;
+}
+
+.s1,.s2,.s3,.s4,.s5,.s6,.s7,.s8,.s9,.s10,.s11,.s12{
+  box-sizing: border-box!important;
+  @include om(){
+      width:100%!important;
+  }
+}
