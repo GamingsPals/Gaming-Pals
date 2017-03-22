@@ -90,6 +90,18 @@ app.directive("isAuth", function(auth){
 
 });
 
+app.directive("hasRole", function(auth){
+    return{
+        restrict: "A",
+        link: function(scope,element,attrs){
+            if (!auth.isAuthenticated()){
+                $(element).hide();
+            }
+        }
+    }
+
+});
+
 app.directive("notPrincipal", function(auth,ActorService){
     return{
         scope: {

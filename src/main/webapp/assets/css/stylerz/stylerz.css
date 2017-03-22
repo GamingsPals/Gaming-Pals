@@ -164,6 +164,9 @@
   .ngdialog.ngdialog-theme-default .ngdialog-content {
     width: 100% !important; } }
 
+.hide {
+  display: none; }
+
 .card, .card-small {
   border-radius: 4pt;
   padding: 10px;
@@ -224,7 +227,6 @@ a {
 
 .nav-menu ul {
   height: 100%;
-  width: 20%;
   margin: 0;
   z-index: 9999;
   padding: 0;
@@ -253,7 +255,7 @@ a {
       background-color: rgba(0, 0, 0, 0.18); }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .nav-menu ul {
-      width: 50%; } }
+      width: 70%; } }
 
 .open {
   transform: translate3d(0%, 0, 0) !important; }
@@ -287,9 +289,10 @@ a {
     display: inline-table;
     margin: 0;
     width: 50%;
-    margin-left: 10%;
+    margin-left: 5%;
     padding: 0; }
     .nav-horizontal ul li {
+      position: relative;
       list-style: none;
       display: inline-table;
       color: white;
@@ -304,6 +307,21 @@ a {
       .nav-horizontal ul li:hover {
         color: #73afc9;
         border-bottom: 4px solid #73afc9; }
+      .nav-horizontal ul li:hover > ul {
+        display: block; }
+      .nav-horizontal ul li ul {
+        position: absolute;
+        display: none;
+        top: 15px;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background-color: rgba(35, 66, 79, 0.85);
+        color: white; }
+        .nav-horizontal ul li ul li {
+          padding: 15px;
+          display: list-item;
+          list-style: none; }
   .nav-horizontal .nav-horizontal-login {
     width: 20%; }
 
@@ -315,7 +333,7 @@ a {
   background-color: transparent;
   width: 100%; }
   .fixed-hor-menu ul {
-    width: 40%; }
+    width: 60%; }
     .fixed-hor-menu ul li {
       border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;
@@ -424,12 +442,12 @@ table {
     color: white; }
   table tbody tr {
     color: black;
-    background-color: rgba(0, 0, 0, 0.18); }
+    background-color: rgba(0, 0, 0, 0.18) !important; }
     table tbody tr td {
       padding: 10px;
-      text-align: center; }
+      text-align: left; }
     table tbody tr:nth-child(even) {
-      background-color: transparent; }
+      background-color: transparent !important; }
 
 .table-rating td img, .table-rating th img {
   width: 30px; }

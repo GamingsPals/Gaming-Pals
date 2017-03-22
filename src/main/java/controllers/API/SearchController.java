@@ -2,6 +2,7 @@ package controllers.API;
 
 import domain.Actor;
 import domain.User;
+import forms.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +11,10 @@ import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/api")
@@ -23,8 +26,16 @@ public class SearchController extends ApiAbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/search")
-    public Object search(User u,HttpServletRequest request, HttpServletResponse response) {
+    public Object search(SearchForm searchForm, HttpServletRequest request, HttpServletResponse response) {
+        Collection<User> result;
         try{
+            if (searchForm.getGame()!= null) {
+                result =  userService.usersForGameTag(searchForm.getGame());
+                if (searchForm.getTier()!= null){
+                   result =  userService.usersFromGameAndTier(searchForm.getGame(),searchForm.getTier());
+                }
+                return result;
+            }
             return userService.findAll();
         }catch (Exception e){
             return internalservererror(response);

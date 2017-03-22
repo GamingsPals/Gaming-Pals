@@ -13,10 +13,24 @@ app.controller('MainController',function($scope,localization,$rootScope,auth,Mai
 app.controller('HomeController',function($scope){
 });
 
-app.controller('SearchController',function($scope,ActorService){
-    $scope.As = ActorService;
+app.controller('SearchController',function($scope,SearchService){
+    $scope.As = SearchService;
     $scope.As.findAll();
+    $scope.filter = function(filter){
+        $scope.As.filter(filter);
+    }
 });
+
+app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
+    middleware.needRol("ADMIN");
+    $scope.As = ActorService;
+    $scope.As.reportedUsers();
+    $scope.showImage = function(image){
+        $scope.image = image;
+        dialog.open("showImage",$scope);
+    }
+});
+
 
 app.controller('LoginController',function(middleware){
     middleware.needRol("NONE");

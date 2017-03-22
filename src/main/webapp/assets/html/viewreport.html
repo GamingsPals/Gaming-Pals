@@ -1,0 +1,21 @@
+
+
+<h1>Report list</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Reported Used</td>
+        <td>Comment</td>
+        <td>Image</td>
+        <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in As.reportedList ">
+        <td><a href="profile/{{i.reportedUser.userAccount.username}}" >{{i.reportedUser.userAccount.username}}</a></td>
+        <td>{{i.comment}}</td>
+        <td><a href="#" class="button" ng-click="showImage(i.picture)">View</a></td>
+        <td><a href="#"><i class="fa fa-gear"></i> </a> </td>
+    </tr>
+    </tbody>
+</table>

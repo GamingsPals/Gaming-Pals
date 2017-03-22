@@ -81,6 +81,24 @@ app.service("localization",function(xhr,$cookies){
 });
 
 
+app.service("SearchService", function(xhr){
+    this.search = [];
+
+    this.filter = function(filter){
+        let object = this;
+        xhr.get("api/search?"+$.param(filter),function(data){
+            object.search = data.data;
+        })
+    };
+
+    this.findAll = function(){
+        let object = this;
+        xhr.get("api/search",function(data){
+            object.search = data.data;
+        })
+    };
+});
+
 app.service("MainPageService",function(xhr,ActorService){
     this.main = {};
 
@@ -107,6 +125,7 @@ app.service("ActorService",function(xhr,auth){
     this.actor = {};
     this.notFound = false;
     this.search = [];
+    this.reportedList = {};
 
     this.UserProfile = function(name){
         let object = this;
@@ -120,12 +139,15 @@ app.service("ActorService",function(xhr,auth){
     };
 
 
-    this.findAll = function(){
-      let object = this;
-        xhr.get("api/search",function(data){
-            object.search = data.data;
-        })
+    this.reportedUsers = function(){
+        let object = this;
+        xhr.get("api/report/user/list" ,function(response){
+            object.reportedList = response.data;
+        });
     };
+
+
+
 
     this.rate = function(user,data,sucess,error){
         let object = this;
@@ -222,6 +244,7 @@ app.service("auth", function(xhr){
 
     this.hasRole = function(rol){
         let result = false;
+        if (!this.isLoaded() || !("roles" in this.principal)) return false;
         let rolesAuthority = this.principal.roles;
         rolesAuthority.forEach(function(b){
             if (b.authority.toLowerCase() == rol.toLowerCase()){
@@ -236,6 +259,7 @@ app.service("auth", function(xhr){
 app.service("middleware",function(auth,$location){
 
     this.needRol = function(rol){
+        console.log("ey");
         let object = this;
         auth.load(function(){
             if (!auth.principal.authenticated) {
@@ -245,7 +269,19 @@ app.service("middleware",function(auth,$location){
                 return true;
             }
             if (rol.toLowerCase() == "ANY".toLowerCase()) return true;
-            if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase())){
+            let result = false;
+            console.log(rol);
+            if (rol.indexOf(',')!="-1"){
+                let roles =  rol.split(",");
+                console.log(roles);
+                roles.forEach(function(a){
+                    if ((auth.hasRole(rol))){
+                        result = true;
+                    }
+                });
+                console.log(result);
+            }
+            if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');
             }
         });

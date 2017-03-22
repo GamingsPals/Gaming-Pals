@@ -8,6 +8,10 @@ let app =
                 .when("/login", {
                     templateUrl : "assets/html/login.html",
                     controller: "LoginController"
+                }).
+                when("/user/reported/list", {
+                    templateUrl: "assets/html/viewreport.html",
+                    controller: "ReportedUserListController"
                 })
                 .when("/profile/:username", {
                     templateUrl : "assets/html/profile.html",
@@ -39,10 +43,24 @@ let app =
 app.controller('HomeController',function($scope){
 });
 
-app.controller('SearchController',function($scope,ActorService){
-    $scope.As = ActorService;
+app.controller('SearchController',function($scope,SearchService){
+    $scope.As = SearchService;
     $scope.As.findAll();
+    $scope.filter = function(filter){
+        $scope.As.filter(filter);
+    }
 });
+
+app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
+    middleware.needRol("ADMIN");
+    $scope.As = ActorService;
+    $scope.As.reportedUsers();
+    $scope.showImage = function(image){
+        $scope.image = image;
+        dialog.open("showImage",$scope);
+    }
+});
+
 
 app.controller('LoginController',function(middleware){
     middleware.needRol("NONE");
@@ -154,6 +172,24 @@ app.service("localization",function(xhr,$cookies){
 });
 
 
+app.service("SearchService", function(xhr){
+    this.search = [];
+
+    this.filter = function(filter){
+        let object = this;
+        xhr.get("api/search?"+$.param(filter),function(data){
+            object.search = data.data;
+        })
+    };
+
+    this.findAll = function(){
+        let object = this;
+        xhr.get("api/search",function(data){
+            object.search = data.data;
+        })
+    };
+});
+
 app.service("MainPageService",function(xhr,ActorService){
     this.main = {};
 
@@ -180,6 +216,7 @@ app.service("ActorService",function(xhr,auth){
     this.actor = {};
     this.notFound = false;
     this.search = [];
+    this.reportedList = {};
 
     this.UserProfile = function(name){
         let object = this;
@@ -193,12 +230,15 @@ app.service("ActorService",function(xhr,auth){
     };
 
 
-    this.findAll = function(){
-      let object = this;
-        xhr.get("api/search",function(data){
-            object.search = data.data;
-        })
+    this.reportedUsers = function(){
+        let object = this;
+        xhr.get("api/report/user/list" ,function(response){
+            object.reportedList = response.data;
+        });
     };
+
+
+
 
     this.rate = function(user,data,sucess,error){
         let object = this;
@@ -295,6 +335,7 @@ app.service("auth", function(xhr){
 
     this.hasRole = function(rol){
         let result = false;
+        if (!this.isLoaded() || !("roles" in this.principal)) return false;
         let rolesAuthority = this.principal.roles;
         rolesAuthority.forEach(function(b){
             if (b.authority.toLowerCase() == rol.toLowerCase()){
@@ -309,6 +350,7 @@ app.service("auth", function(xhr){
 app.service("middleware",function(auth,$location){
 
     this.needRol = function(rol){
+        console.log("ey");
         let object = this;
         auth.load(function(){
             if (!auth.principal.authenticated) {
@@ -318,7 +360,19 @@ app.service("middleware",function(auth,$location){
                 return true;
             }
             if (rol.toLowerCase() == "ANY".toLowerCase()) return true;
-            if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase())){
+            let result = false;
+            console.log(rol);
+            if (rol.indexOf(',')!="-1"){
+                let roles =  rol.split(",");
+                console.log(roles);
+                roles.forEach(function(a){
+                    if ((auth.hasRole(rol))){
+                        result = true;
+                    }
+                });
+                console.log(result);
+            }
+            if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');
             }
         });
@@ -464,6 +518,18 @@ app.directive("isAuth", function(auth){
                   if (!auth.isAuthenticated()){
                       $(element).hide();
                   }
+        }
+    }
+
+});
+
+app.directive("hasRole", function(auth){
+    return{
+        restrict: "A",
+        link: function(scope,element,attrs){
+            if (!auth.isAuthenticated()){
+                $(element).hide();
+            }
         }
     }
 

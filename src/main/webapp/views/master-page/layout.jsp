@@ -77,7 +77,10 @@
         <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
         <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
         <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>
-        <li> <a href="profile/{{auth.principal.actor.userAccount.username}}" ng-show="auth.isAuthenticated()"><i class="fa fa-user"></i> {{loc.profile}}</a></li>
+        <li> <a href="profile/{{auth.principal.actor.userAccount.username}}" ng-show="auth.isAuthenticated()">
+            <i class="fa fa-user"></i> {{loc.profile}}</a></li>
+        <li ng-show="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
+             <a href="user/reported/list"><i class="fa fa-user-times"></i> User reported list</a> </li>
     </ul>
     <ul class="nav-horizontal-login" >
         <li> <a href="#" ng-show="!auth.isAuthenticated()" dialog="login"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>

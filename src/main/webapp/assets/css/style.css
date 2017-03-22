@@ -289,9 +289,10 @@ a {
     display: inline-table;
     margin: 0;
     width: 50%;
-    margin-left: 10%;
+    margin-left: 5%;
     padding: 0; }
     .nav-horizontal ul li {
+      position: relative;
       list-style: none;
       display: inline-table;
       color: white;
@@ -306,6 +307,18 @@ a {
       .nav-horizontal ul li:hover {
         color: #73afc9;
         border-bottom: 4px solid #73afc9; }
+      .nav-horizontal ul li:hover > ul {
+        display: block; }
+      .nav-horizontal ul li ul {
+        position: absolute;
+        display: none;
+        top: 15px;
+        left: 0;
+        background-color: rgba(35, 66, 79, 0.85);
+        color: white; }
+        .nav-horizontal ul li ul li {
+          padding: 15px;
+          display: block; }
   .nav-horizontal .nav-horizontal-login {
     width: 20%; }
 
@@ -317,7 +330,7 @@ a {
   background-color: transparent;
   width: 100%; }
   .fixed-hor-menu ul {
-    width: 40%; }
+    width: 60%; }
     .fixed-hor-menu ul li {
       border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;

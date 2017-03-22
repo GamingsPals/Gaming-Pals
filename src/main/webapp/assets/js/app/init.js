@@ -8,6 +8,10 @@ let app =
                 .when("/login", {
                     templateUrl : "assets/html/login.html",
                     controller: "LoginController"
+                }).
+                when("/user/reported/list", {
+                    templateUrl: "assets/html/viewreport.html",
+                    controller: "ReportedUserListController"
                 })
                 .when("/profile/:username", {
                     templateUrl : "assets/html/profile.html",

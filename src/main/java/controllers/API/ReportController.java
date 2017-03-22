@@ -1,8 +1,6 @@
 package controllers.API;
 
-import domain.Rating;
-import domain.Report;
-import domain.User;
+import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +50,23 @@ public class ReportController extends ApiAbstractController {
         try{
             reportService.report(user,report);
             return ok(response);
+        } catch (Exception e){
+            return internalservererror(response);
+        }
+    }
+
+    @RequestMapping(value = "/report/user/list")
+    public Object reportedUserList(HttpServletResponse response)
+            throws Exception{
+        try{
+            Assert.notNull(actorService.findActorByPrincipal());
+            Actor actor = actorService.findActorByPrincipal();
+            Assert.isTrue(actor instanceof Moderator || actor instanceof Administrator);
+        } catch (Exception e) {
+            return unauthorized(response);
+        }
+        try{
+            return reportService.findAll();
         } catch (Exception e){
             return internalservererror(response);
         }

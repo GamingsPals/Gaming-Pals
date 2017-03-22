@@ -1,10 +1,6 @@
-<form class="search-filter">
+<form class="search-filter" ng-submit="filter(search)">
     <h1>Search Pals</h1>
     <div class="col s6">
-    <label for="name">
-        Name
-    </label>
-    <input type="text" id="name" class="s8" name="name" ng-model="search.name" placeholder="Filter by name..."/>
     <label for="game">
         Game
     </label>
@@ -18,7 +14,7 @@
              <label for="tier">
             Tier
         </label>
-        <select multiple id="tier" name="tier" ng-model="search.tier">
+        <select id="tier" name="tier" ng-model="search.tier">
             <option value="BRONZE">Bronze</option>
             <option value="SILVER">Silver</option>
             <option value="GOLD">Gold</option>
@@ -32,11 +28,6 @@
     <input type="submit" name="submit" value="Filter" />
 
 </form>
-
-<h1>Result</h1>
-
-
-
 <table class="data-table" >
     <thead>
     <tr>
@@ -83,13 +74,11 @@
     $(document).ready( function () {
 
         setTimeout(function() {  $('.data-table').DataTable({
-            responsive: true
         });
         }, 1000);
         setTimeout(function() {
             $("select").selectric(
                 {
-                    responsive: true,
                     disableOnMobile: true
                 }
             );
