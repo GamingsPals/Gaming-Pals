@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.*;
@@ -13,7 +12,6 @@ import org.springframework.validation.Validator;
 
 import domain.CreditCard;
 import domain.Rating;
-import domain.ReportUser;
 import domain.Team;
 import domain.User;
 import repositories.UserRepository;
@@ -222,3 +220,4 @@ public class UserService {
 		return u;
     }
 }
+
