@@ -13,7 +13,9 @@ app.controller('MainController',function($scope,localization,$rootScope,auth,Mai
 app.controller('HomeController',function($scope){
 });
 
-app.controller('SearchController',function($scope){
+app.controller('SearchController',function($scope,ActorService){
+    $scope.As = ActorService;
+    $scope.As.findAll();
 });
 
 app.controller('LoginController',function(middleware){

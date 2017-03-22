@@ -1,5 +1,7 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -64,6 +66,7 @@ public class League extends DomainEntity {
         this.points = points;
     }
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     public Summoner getSummoner() {
         return summoner;

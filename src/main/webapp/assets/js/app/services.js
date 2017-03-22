@@ -106,6 +106,7 @@ app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
     this.notFound = false;
+    this.search = [];
 
     this.UserProfile = function(name){
         let object = this;
@@ -115,6 +116,14 @@ app.service("ActorService",function(xhr,auth){
             object.notFound = false;
         },function(data){
             object.notFound = true;
+        })
+    };
+
+
+    this.findAll = function(){
+      let object = this;
+        xhr.get("api/search",function(data){
+            object.search = data.data;
         })
     };
 
@@ -172,6 +181,8 @@ app.service("ActorService",function(xhr,auth){
     };
 
 });
+
+
 
 app.service("auth", function(xhr){
 

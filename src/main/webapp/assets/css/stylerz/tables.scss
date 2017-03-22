@@ -17,13 +17,13 @@ table{
   tbody{
     tr{
       color:$color-base-black-1;
-      background-color: $color-base-black-6;
+      background-color: $color-base-black-6!important;
       td{
         padding:10px;
-        text-align: center;
+        text-align: left;
       }
       &:nth-child(even){
-        background-color: transparent;
+        background-color: transparent!important;
       }
     }
   }

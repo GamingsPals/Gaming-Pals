@@ -35,7 +35,6 @@ a{
 .nav-menu{
   ul {
     height: 100%;
-    width:20%;
     margin:0;
     z-index:9999;
     padding:0;
@@ -66,7 +65,7 @@ a{
         }
       }
     @include om(){
-      width:50%;
+      width:70%;
     }
   }
 }

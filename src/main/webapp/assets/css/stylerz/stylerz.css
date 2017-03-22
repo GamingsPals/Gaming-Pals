@@ -33,8 +33,7 @@
   font-size: 1.5em; }
 
 .col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats {
-  display: inline-table;
-  box-sizing: border-box !important; }
+  display: inline-table; }
 
 .s1, .profile-header .profile-left-panel .profile-avatar {
   width: 8%; }
@@ -42,19 +41,19 @@
 .s2 {
   width: 16%; }
 
-.s3, .card, .card-small, .card .card-image, .card-small .card-image {
+.s3, .card, .card-small {
   width: 24%; }
 
-.s4, .profile-header .profile-left-panel .profile-stats {
+.s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats {
   width: 33%; }
 
 .s5, .profile-header .profile-left-panel .profile-info {
   width: 41%; }
 
-.s6 {
+.s6, .card .card-buttons, .card-small .card-buttons {
   width: 49%; }
 
-.s7, .card .card-buttons, .card-small .card-buttons {
+.s7 {
   width: 58%; }
 
 .s8 {
@@ -72,11 +71,10 @@
 .s12 {
   width: 99%; }
 
-.s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .card .card-image, .card-small .card-image, .s4, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .s7, .card .card-buttons, .card-small .card-buttons, .s8, .s9, .s10, .s11, .s12 {
-  box-sizing: border-box !important; }
-  @media only screen and (min-width: 0px) and (max-width: 1024px) {
-    .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .card .card-image, .card-small .card-image, .s4, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .s7, .card .card-buttons, .card-small .card-buttons, .s8, .s9, .s10, .s11, .s12 {
-      width: 100% !important; } }
+@media only screen and (min-width: 0px) and (max-width: 1024px) {
+  .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .card .card-buttons, .card-small .card-buttons, .s7, .s8,
+  .s9, .s10, .s11, .s12 {
+    width: 100% !important; } }
 
 .box, .button, .grey-button, input[type=submit], .card, .card-small, .card-rating {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -161,6 +159,10 @@
 
 .cursor-pointer {
   cursor: pointer; }
+
+@media only screen and (min-width: 0px) and (max-width: 1024px) {
+  .ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 100% !important; } }
 
 .card, .card-small {
   border-radius: 4pt;
@@ -464,7 +466,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-4.jpg);
+  background-image: url(../images/profile-7.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {

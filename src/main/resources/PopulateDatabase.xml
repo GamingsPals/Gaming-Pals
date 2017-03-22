@@ -306,4 +306,20 @@
 		<property name="username" value="ozumas" />
         <property name="game" ref="game1"/>
 	</bean>
+
+	<bean id="summoner2" class="domain.Summoner">
+		<property name="user" ref="user2"/>
+		<property name="username" value="pepe" />
+		<property name="game" ref="game1"/>
+	</bean>
+
+	<bean id="league1" class="domain.League">
+		<property name="tier" value="DIAMOND" />
+		<property name="summoner" ref="summoner1"/>
+	</bean>
+
+	<bean id="league2" class="domain.League">
+		<property name="tier" value="SILVER" />
+		<property name="summoner" ref="summoner2"/>
+	</bean>
 </beans>

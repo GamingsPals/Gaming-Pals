@@ -106,3 +106,13 @@
 .cursor-pointer{
   cursor: pointer;
 }
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  @include om(){
+    width:100%!important;
+  }
+}
+
+.hide{
+  display: none;
+}

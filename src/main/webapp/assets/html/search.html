@@ -33,4 +33,70 @@
 
 </form>
 
-{{search}}
+<h1>Result</h1>
+
+
+
+<table class="data-table" >
+    <thead>
+    <tr>
+        <td>#</td>
+        <td>Username</td>
+        <td>Games</td>
+        <td>Languages</td>
+        <td>Rating Avg.</td>
+        <td>Tier</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in As.search">
+        <td><img width="60" ng-src="{{item.picture}}"/></td>
+        <td>{{item.userAccount.username}}</td>
+        <td>
+            <span ng-repeat="g in item.gameInfo">
+                <img
+                      ng-src="assets/images/games/icons/{{g.game.tag}}icon.png" width="60"/>
+            <span class="hide">{{g.game.tag}}</span>
+                </span>
+        </td>
+        <td>
+            <div class="flags">
+                <img  ng-repeat="lan in item.languages"
+                      ng-src="assets/images/flags/{{lan.language}}.png" />
+            </div>
+        </td>
+        <td>
+            {{item.ratingAvg}}
+        </td>
+        <td>
+            {{item.gameInfo[0].leagues[0].tier}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+
+
+    $.fn.dataTable.enum( [ 'SILVER','DIAMOND' ] );
+
+    $(document).ready( function () {
+
+        setTimeout(function() {  $('.data-table').DataTable({
+            responsive: true
+        });
+        }, 1000);
+        setTimeout(function() {
+            $("select").selectric(
+                {
+                    responsive: true,
+                    disableOnMobile: true
+                }
+            );
+        }, 1200);
+    } );
+
+
+
+
+</script>

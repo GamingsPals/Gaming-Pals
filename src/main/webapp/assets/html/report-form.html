@@ -1,0 +1,17 @@
+<div not-principal="ActorService.actor.actor">
+    <h2 class="text-center">Report {{ActorService.actor.actor.userAccount.username}}</h2>
+    <form class="forms-center" ng-submit="reportUser()">
+        <label for="picture">
+            Picture / Proof
+        </label>
+        <input type="url" required id="picture" name="picture" ng-model="reportform.picture" placeholder="http://" />
+        <label for="comment">
+            Comment
+        </label>
+        <textarea name="comment" id="comment" ng-model="reportform.comment" placeholder="Comment..."  required>
+
+        </textarea>
+
+        <input type="submit" value="Report" />
+    </form>
+</div>
