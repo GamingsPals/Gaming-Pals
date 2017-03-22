@@ -3,7 +3,8 @@
   @include om() {
     background-size: auto;
   }
-  background-image: url(http://sdeerwallpaper.com/Cool-Wallpapers/league-of-legends-yasuo-wallpapers-background-Is-Cool-Wallpapers.png);
+  $random:random(7);
+  background-image: url(../images/profile-#{$random}.jpg);
   padding:15px;
   h1,h2{
     border:0;

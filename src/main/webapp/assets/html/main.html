@@ -11,7 +11,7 @@
         <tbody>
         <tr ng-repeat="i in MainPageService.main.bestclassified">
             <td><img ng-src="{{i.picture}}" /></td>
-            <td>{{i.name}}</td>
+            <td>{{i.userAccount.username}}</td>
             <td>{{i.avgrating}}</td>
 
         </tr>

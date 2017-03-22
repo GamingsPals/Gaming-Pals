@@ -1,26 +1,21 @@
 .card{
-  @extend .s12,.box;
+  border-radius:4pt;
+  @extend .s3,.box, .col;
   h1,h2{
     border:0;
     font-size:1.1em;
   }
-  padding:5px;
-  margin-top:5px;
-  margin-bottom:5px;
+  padding:10px;
+  margin:10px;
   .card-image{
-    @extend .s1, .col;
-    padding:5px;
-    border-right:1px solid $color-base-white-5;
+    @extend .s4, .col;
     img{
       vertical-align: text-top;
-      width:60px;
+      height:70px;
     }
   }
-  .card-info{
-    @extend .s8, .col;
-  }
   .card-buttons{
-    @extend .s3, .col;
+    @extend .s6, .col;
   }
 }
 

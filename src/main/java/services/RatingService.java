@@ -16,7 +16,7 @@ import repositories.RatingRepository;
 @Transactional
 public class RatingService {
 	
-	@Autowired
+		@Autowired
 	 	private RatingRepository ratingRepository;
 	 
 	 	@Autowired
@@ -37,10 +37,10 @@ public class RatingService {
 	 		return result;
 	 	}
 	 
-	 	public void save(Rating rating) {
+	 	public Rating save(Rating rating) {
 	 
 	 		Assert.notNull(rating);
-	 		ratingRepository.save(rating);
+	 		return ratingRepository.save(rating);
 	 
 	 	}
 	 

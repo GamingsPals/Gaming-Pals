@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -61,6 +62,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.username = username;
 	}
 
+	@JsonIgnore
 	@Size(min = 5, max = 32)
 	@Override
 	public String getPassword() {
@@ -99,6 +101,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	}
 
 	@Transient
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -110,12 +113,14 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		return true;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Transient
 	@Override
 	public boolean isEnabled() {

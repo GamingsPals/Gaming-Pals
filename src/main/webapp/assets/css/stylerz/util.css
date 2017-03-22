@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-base-blue-3".
-        on line 15 of util.scss
+        on line 18 of util.scss
 
-10: .button{
-11:   padding:8px;
-12:   width:20%!important;
-13:   border:0;
-14:   border-radius:2px;
-15:   background-color: $color-base-blue-3;
-16:   color:$color-base-white-2!important;
-17:   transition: 0.2s all ease-out;
-18:   &:hover{
-19:     cursor: pointer;
-20:     color:inherit!important;
+13:   padding-right:30px;
+14:   padding-left:30px;
+15:   display: inline-block;
+16:   border:0;
+17:   border-radius:2px;
+18:   background-color: $color-base-blue-3;
+19:   color:$color-base-white-2!important;
+20:   transition: 0.5s all ease-out;
+21:   &:hover{
+22:     cursor: pointer;
+23:     color:$color-base-white-2!important;
 
 Backtrace:
-util.scss:15
+util.scss:18
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -67,4 +67,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 15 of util.scss\A \A 10: .button{\A 11:   padding:8px;\A 12:   width:20%!important;\A 13:   border:0;\A 14:   border-radius:2px;\A 15:   background-color: $color-base-blue-3;\A 16:   color:$color-base-white-2!important;\A 17:   transition: 0.2s all ease-out;\A 18:   &:hover{\A 19:     cursor: pointer;\A 20:     color:inherit!important;"; }
+  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 18 of util.scss\A \A 13:   padding-right:30px;\A 14:   padding-left:30px;\A 15:   display: inline-block;\A 16:   border:0;\A 17:   border-radius:2px;\A 18:   background-color: $color-base-blue-3;\A 19:   color:$color-base-white-2!important;\A 20:   transition: 0.5s all ease-out;\A 21:   &:hover{\A 22:     cursor: pointer;\A 23:     color:$color-base-white-2!important;"; }

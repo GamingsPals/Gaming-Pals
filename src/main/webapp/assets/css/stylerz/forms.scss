@@ -24,7 +24,6 @@ textarea{
   padding:15px;
   display: block;
   min-height: 100px;
-  @extend .box;
   transition: none!important;
   max-width:100%;
   background-color: $color-base-white-1;
@@ -42,8 +41,11 @@ label{
   margin-bottom:15px;
 }
 
+
 .forms-center{
-  @extend .s5;
+  @extend form;
+}
+form{
  padding:30px;
   background-color: $color-base-white-1;
   border: 1px solid $color-base-black-6;

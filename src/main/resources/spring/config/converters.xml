@@ -23,19 +23,15 @@
 		<bean class="converters.ModeratorToStringConverter" /> 
 		<bean class="converters.RatingToStringConverter" /> 
 		<bean class="converters.ReportToStringConverter" />
-		<bean class="converters.ReportUserToStringConverter" /> 
 		<bean class="converters.TeamToStringConverter" /> 
 		<bean class="converters.TournamentToStringConverter" /> 
 		<bean class="converters.UserToStringConverter" /> 
-		<bean class="converters.UserAccountToStringConverter" /> 
-		
-		
+		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.StringToModeratorConverter" /> 
 		<bean class="converters.StringToRatingConverter" /> 
 		<bean class="converters.StringToReportConverter" />
-		<bean class="converters.StringToReportUserConverter" /> 
 		<bean class="converters.StringToTeamConverter" /> 
 		<bean class="converters.StringToTournamentConverter" /> 
 		<bean class="converters.StringToUserConverter" /> 

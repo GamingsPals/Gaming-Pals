@@ -74,7 +74,6 @@ public abstract class Actor extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@JsonIgnore
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public UserAccount getUserAccount() {
 		return userAccount;

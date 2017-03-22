@@ -58,13 +58,13 @@ app.directive("rating",function(){
         link: function(scope,element,attrs){
             let html = `<ul class="list-horizontal">
                         <li class="col">
-                            <div class="label bg-green3">A<span class="op">ttitude</span> ${scope.actor.avgattitude}</div>
+                            <div class="label bg-green3" title="Attitude">A ${scope.actor.avgattitude}</div>
                         </li>
                         <li class="col">
-                            <div class="label bg-red3">S<span class="op">kill</span> ${scope.actor.avgskill}</div>
+                            <div class="label bg-red3" title="Skill">S ${scope.actor.avgskill}</div>
                         </li>
                         <li class="col">
-                            <div class="label bg-magenta3">K<span class="op">nowledge</span> ${scope.actor.avgknowledge}</div>
+                            <div class="label bg-magenta3" title="Knowledge">K ${scope.actor.avgknowledge}</div>
                         </li>
                     </ul>`;
             $(element).html(html);
@@ -92,7 +92,6 @@ app.directive("notPrincipal", function(auth,ActorService){
         },
         restrict: "A",
         link: function(scope,element,attrs){
-            console.log(scope);
             scope.$watch("notPrincipal",function(e){
             notPrincipal(element,scope.notPrincipal,auth);
             });
@@ -108,3 +107,43 @@ function notPrincipal(element,actor,auth){
         $(element).show();
     }
 }
+
+app.directive("report", function(dialog){
+    return {
+        restrict: "A",
+        link: function(scope,element,attrs){
+            $(element).addClass("cursor-pointer").addClass("red3");
+        }
+    }
+});
+
+app.directive("dialog", function(dialog){
+    return {
+        restrict: "A",
+        link: function(scope,element,attrs){
+            $(element).on('click',function(e){
+                dialog.open(attrs.dialog,scope,attrs.dialogcontroller);
+            })
+        }
+    }
+});
+
+app.directive("profileHeader",function(){
+    return {
+        restrict: "C",
+        link: function(scope,element,attrs){
+            let random = Math.floor((Math.random() * 7) + 1);
+            let url = `url(assets/images/profile-${random}.jpg)`;
+            $(element).css("background-image",url);
+        }
+    }
+});
+
+app.directive("giant",function(){
+    return {
+        restrict: "E",
+        link: function(scope,element,attrs){
+            $(element).css("font-size","4em");
+        }
+    }
+});

@@ -11,53 +11,53 @@
   font-family: Roboto-Thin;
   src: url(stylerz/fonts/Roboto-Thin.ttf); }
 .bg-blue3 {
-  background-color: #36535d;
-  color: white; }
+  background-color: #36535d !important;
+  color: white !important; }
 
 .red3 {
-  color: rgba(217, 95, 58, 0.84); }
+  color: rgba(217, 95, 58, 0.84) !important; }
 
 .bg-red3 {
-  background-color: rgba(217, 95, 58, 0.84);
-  color: white; }
+  background-color: rgba(217, 95, 58, 0.84) !important;
+  color: white !important; }
 
 .bg-green3 {
-  background-color: rgba(103, 217, 122, 0.84);
-  color: white; }
+  background-color: rgba(103, 217, 122, 0.84) !important;
+  color: white !important; }
 
 .bg-magenta3 {
-  background-color: rgba(203, 67, 135, 0.78);
-  color: white; }
+  background-color: rgba(203, 67, 135, 0.78) !important;
+  color: white !important; }
 
 .size-1-5 {
   font-size: 1.5em; }
 
-.col, .card .card-image, .card-small .card-image, .card .card-info, .card-small .card-info, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats {
+.col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats {
   display: inline-table;
   box-sizing: border-box !important; }
 
-.s1, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-avatar {
+.s1, .profile-header .profile-left-panel .profile-avatar {
   width: 8%; }
 
 .s2 {
   width: 16%; }
 
-.s3, .card .card-buttons, .card-small .card-buttons {
+.s3, .card, .card-small {
   width: 24%; }
 
-.s4, .profile-header .profile-left-panel .profile-stats {
+.s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats {
   width: 33%; }
 
-.s5, .forms-center, .profile-header .profile-left-panel .profile-info {
+.s5, .profile-header .profile-left-panel .profile-info {
   width: 41%; }
 
-.s6 {
+.s6, .card .card-buttons, .card-small .card-buttons {
   width: 49%; }
 
 .s7 {
   width: 58%; }
 
-.s8, .card .card-info, .card-small .card-info {
+.s8 {
   width: 66%; }
 
 .s9 {
@@ -69,19 +69,13 @@
 .s11 {
   width: 91%; }
 
-.s12, .card, .card-small {
+.s12 {
   width: 99%; }
 
-.s1, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card .card-buttons, .card-small .card-buttons, .s4, .profile-header .profile-left-panel .profile-stats, .s5, .forms-center, .profile-header .profile-left-panel .profile-info, .s6, .s7, .s8, .card .card-info, .card-small .card-info, .s9, .s10, .s11, .s12, .card, .card-small {
-  box-sizing: border-box !important; }
-  @media only screen and (min-width: 0px) and (max-width: 1024px) {
-    .s1, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card .card-buttons, .card-small .card-buttons, .s4, .profile-header .profile-left-panel .profile-stats, .s5, .forms-center, .profile-header .profile-left-panel .profile-info, .s6, .s7, .s8, .card .card-info, .card-small .card-info, .s9, .s10, .s11, .s12, .card, .card-small {
-      width: 100% !important; } }
-
-.box, .button, .grey-button, input[type=submit], .card, .card-small, .card-rating, textarea {
+.box, .button, .grey-button, input[type=submit], .card, .card-small, .card-rating {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   transition: 0.4s; }
-  .box:hover, .button:hover, .grey-button:hover, input[type=submit]:hover, .card:hover, .card-small:hover, .card-rating:hover, textarea:hover {
+  .box:hover, .button:hover, .grey-button:hover, input[type=submit]:hover, .card:hover, .card-small:hover, .card-rating:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
 
 .button, .grey-button, input[type=submit] {
@@ -152,19 +146,26 @@
 .float-right {
   float: right; }
 
+.message-system {
+  position: fixed;
+  bottom: 30px;
+  left: 25px;
+  border-radius: 4pt;
+  padding: 15px; }
+
+.cursor-pointer {
+  cursor: pointer; }
+
 .card, .card-small {
-  padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px; }
+  border-radius: 4pt;
+  padding: 10px;
+  margin: 10px; }
   .card h1, .card-small h1, .card h2, .card-small h2 {
     border: 0;
     font-size: 1.1em; }
-  .card .card-image, .card-small .card-image {
-    padding: 5px;
-    border-right: 1px solid rgba(255, 255, 255, 0.38); }
-    .card .card-image img, .card-small .card-image img {
-      vertical-align: text-top;
-      width: 60px; }
+  .card .card-image img, .card-small .card-image img {
+    vertical-align: text-top;
+    height: 70px; }
 
 .card-small {
   width: 80%;
@@ -378,7 +379,7 @@ label {
   display: block;
   margin-bottom: 15px; }
 
-.forms-center {
+form, .forms-center {
   padding: 30px;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.18);
@@ -457,7 +458,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(http://sdeerwallpaper.com/Cool-Wallpapers/league-of-legends-yasuo-wallpapers-background-Is-Cool-Wallpapers.png);
+  background-image: url(../images/profile-6.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {
@@ -531,6 +532,28 @@ table {
       background-color: inherit;
       color: inherit; }
 
+.loader {
+  position: fixed;
+  margin: auto;
+  display: none;
+  bottom: 50px;
+  right: 50px;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  box-shadow: 15px 15px #4f4d49, -15px 15px #dfdfdf, -15px -15px #4f4d49, 15px -15px #dfdfdf;
+  -webkit-animation: spin ease infinite 4s; }
+
+@-webkit-keyframes spin {
+  0%,
+  100% {
+    box-shadow: 15px 15px #4f4d49, -15px 15px #dfdfdf, -15px -15px #4f4d49, 15px -15px #dfdfdf; }
+  25% {
+    box-shadow: -15px 15px #dfdfdf, -15px -15px #4f4d49, 15px -15px #dfdfdf, 15px 15px #4f4d49; }
+  50% {
+    box-shadow: -15px -15px #4f4d49, 15px -15px #dfdfdf, 15px 15px #4f4d49, -15px 15px #dfdfdf; }
+  75% {
+    box-shadow: 15px -15px #dfdfdf, 15px 15px #4f4d49, -15px 15px #dfdfdf, -15px -15px #4f4d49; } }
 .center-container {
   margin-left: 4%;
   margin-right: 4%; }
@@ -568,6 +591,7 @@ main {
   background-color: white;
   color: black !important;
   min-height: 500px;
+  text-decoration: none;
   padding: 15px; }
   main a {
     color: #73afc9 !important; }

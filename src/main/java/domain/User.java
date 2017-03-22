@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -61,9 +62,11 @@ public class User extends Actor {
 	private Collection<Rating> 			ratingsReceived;
 	private Collection<User>			followingUsers;
 	private Collection<User>			followerUsers;
-	private Collection<ReportUser>		createReports;
 	private Collection<Language>		languages;
     private Collection<GameInfo> gameInfo;
+    private Double ratingAvg;
+    private Collection<Report> reportsDone;
+    private Collection<Report> reportsReceived;
 
 
 	@Valid
@@ -119,16 +122,7 @@ public class User extends Actor {
 		this.followerUsers = followerUsers;
 	}
 
-	@Valid
-	@OneToMany(mappedBy = "userReporter")
-	@JsonIgnore
-	public Collection<ReportUser> getCreateReports() {
-		return createReports;
-	}
 
-	public void setCreateReports(Collection<ReportUser> createReports) {
-		this.createReports = createReports;
-	}
 	
 	@NotEmpty
 	@Valid
@@ -161,4 +155,48 @@ public class User extends Actor {
 	}
 
 
+	public Double getRatingAvg() {
+		return ratingAvg;
+	}
+
+	public void setRatingAvg(Double ratingAvg) {
+		this.ratingAvg = ratingAvg;
+	}
+
+
+
+    @PrePersist
+    protected void onCreateRating() {
+	    this.ratingAvg = 0.;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+	    Double d = 0.;
+	    for(Rating e : this.getRatingsReceived()){
+	        d+= (double) e.getAttitude() + (double) e.getKnowledge() + (double) e.getSkill();
+        }
+
+        this.ratingAvg = d / Math.max(this.getRatingsReceived().size()*3,1);
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "reporterUser")
+    public Collection<Report> getReportsDone() {
+        return reportsDone;
+    }
+
+    public void setReportsDone(Collection<Report> reportsDone) {
+        this.reportsDone = reportsDone;
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "reportedUser")
+    public Collection<Report> getReportsReceived() {
+        return reportsReceived;
+    }
+
+    public void setReportsReceived(Collection<Report> reportsReceived) {
+        this.reportsReceived = reportsReceived;
+    }
 }

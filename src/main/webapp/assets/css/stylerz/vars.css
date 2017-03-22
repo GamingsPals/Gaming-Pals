@@ -1,3 +1,23 @@
+.bg-blue3 {
+  background-color: #36535d;
+  color: white; }
 
+.red3 {
+  color: rgba(217, 95, 58, 0.84) !important; }
 
-/*# sourceMappingURL=colors.css.map */
+.bg-red3 {
+  background-color: rgba(217, 95, 58, 0.84) !important;
+  color: white !important; }
+
+.bg-green3 {
+  background-color: rgba(103, 217, 122, 0.84) !important;
+  color: white !important; }
+
+.bg-magenta3 {
+  background-color: rgba(203, 67, 135, 0.78) !important;
+  color: white !important; }
+
+.size-1-5 {
+  font-size: 1.5em; }
+
+/*# sourceMappingURL=vars.css.map */

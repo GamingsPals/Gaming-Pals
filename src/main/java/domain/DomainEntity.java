@@ -10,6 +10,9 @@
 
 package domain;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -86,4 +89,20 @@ public abstract class DomainEntity {
 		return result;
 	}
 
+	@CreationTimestamp
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+	@UpdateTimestamp
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 }

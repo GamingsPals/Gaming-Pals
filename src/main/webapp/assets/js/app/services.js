@@ -1,15 +1,27 @@
 
-app.service("xhr",function($http) {
+app.service("xhr",function($http,MessageSystem,$rootScope) {
 
 
-    this.get = function (url, callback) {
+    this.get = function (url, sucess,error) {
+        $(".loader").show();
         $http.get(url).then(function (data) {
-            callback(data);
-        });
+            if (typeof sucess !== "undefined") {
+            sucess(data);
+        }
+                $(".loader").hide();
+        },
+            function(data) {
+                if (typeof error !== "undefined") {
+                    error(data);
+                }
+                $(".loader").hide();
+                MessageSystem.errormessage("Something wrong has happened!");
+            });
     };
 
-    this.post = function (url, data, callback) {
-        console.log(csrf);
+    this.post = function (url, data, sucess,error) {
+        $(".loader").show();
+        data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
         $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
         $http({
             method: 'POST',
@@ -27,7 +39,21 @@ app.service("xhr",function($http) {
                 return str.join("&");
             },
             data: data
-        });
+        }).then(
+            function(data){
+                if(typeof sucess !== "undefined"){
+                    sucess(data);
+                }
+                $(".loader").hide();
+            },
+            function(data) {
+                if (typeof error !== "undefined") {
+                    error(data);
+                }
+                MessageSystem.errormessage("Something wrong has happened!");
+                $(".loader").hide();
+            }
+        );
     };
 });
 
@@ -79,22 +105,27 @@ app.service("MainPageService",function(xhr,ActorService){
 app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
+    this.notFound = false;
 
     this.UserProfile = function(name){
         let object = this;
         xhr.get("api/user/"+name,function(data){
             object.actor = data.data;
             object.processActors();
+            object.notFound = false;
+        },function(data){
+            object.notFound = true;
         })
     };
 
-    this.rate = function(user,data){
-        console.log(data);
+    this.rate = function(user,data,sucess,error){
         let object = this;
-        xhr.post("api/user/"+user+"/rate", data, function(data){
-            object.actor = data.data;
-            object.processActors();
-        })
+        xhr.post("api/user/"+user+"/rate", data,sucess,error);
+    };
+
+    this.report = function(user,data,sucess,error){
+        let object = this;
+        xhr.post("api/user/"+user+"/report", data,sucess,error);
     };
 
     this.followOrUnfollow = function(id,callback){
@@ -215,4 +246,51 @@ app.service("middleware",function(auth,$location){
         return true;
     }
 
+});
+
+
+app.service("MessageSystem", function($timeout){
+
+    this.color="";
+    this.message = "";
+    this.show = false;
+
+
+   this.okmessage = function(message){
+       this.color ="bg-green3";
+       this.message = `<i class="fa fa-check"></i> ${message}`;
+       this.show = true;
+       let object = this;
+       $timeout(function(){
+           object.show = false;
+       },2000);
+   };
+
+    this.errormessage = function(message){
+        this.color ="bg-red3";
+        this.message = `<i class="fa fa-close"></i> ${message}`;
+        this.show = true;
+        let object = this;
+        $timeout(function(){
+            object.show = false;
+        },3000);
+    }
+
+});
+
+
+app.service("dialog", function(ngDialog){
+
+    this.open = function(template,scope,controller) {
+        let path = "assets/html/"+template+".html";
+        let options = {};
+        options.template = path;
+        if(typeof scope !== "undefined") options.scope = scope;
+        if(typeof controller !== "undefined") options.controller = controller;
+        ngDialog.open(options);
+    };
+
+    this.closeAll = function(){
+        ngDialog.closeAll();
+    }
 });

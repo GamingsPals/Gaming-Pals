@@ -34,6 +34,7 @@ public class MainPageController extends ApiAbstractController {
             result.put("bestclassified", users);
             return result;
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return notFoundError(response);
         }
     }

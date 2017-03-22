@@ -1,40 +1,41 @@
 .col {
-  display: inline-block; }
+  display: inline-table;
+  box-sizing: border-box !important; }
 
 .s1 {
-  width: 8.33%; }
+  width: 8%; }
 
 .s2 {
-  width: 16.66%; }
+  width: 16%; }
 
 .s3 {
-  width: 24.99%; }
+  width: 24%; }
 
 .s4 {
-  width: 33.32%; }
+  width: 33%; }
 
 .s5 {
-  width: 41.65%; }
+  width: 41%; }
 
 .s6 {
-  width: 49.98%; }
+  width: 49%; }
 
 .s7 {
-  width: 58.31%; }
+  width: 58%; }
 
 .s8 {
-  width: 66.64%; }
+  width: 66%; }
 
 .s9 {
-  width: 74.97%; }
+  width: 74%; }
 
 .s10 {
-  width: 83.3%; }
+  width: 83%; }
 
 .s11 {
-  width: 91.63%; }
+  width: 91%; }
 
 .s12 {
-  width: 99.9%; }
+  width: 99%; }
 
 /*# sourceMappingURL=cols.css.map */
