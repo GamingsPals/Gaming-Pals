@@ -6,10 +6,8 @@ body{
   font-size:14pt;
   margin:0;
   padding:0;
-  background-size: 100% 100%;
   background: $color-base-blue-6;
   font-family: Roboto-Regular, sans-serif;
-  @include om(){font-size:12pt;};
 
 }
 
@@ -17,6 +15,7 @@ main{
   background-color: $color-base-white-1;
   color:$color-base-black-1!important;
   min-height:500px;
+  text-decoration: none;
   padding:15px;
   a{
     color:$color-base-blue-1!important;
@@ -24,4 +23,8 @@ main{
       color:$color-base-blue-2!important;
     }
   }
+}
+
+* {
+  box-sizing: border-box;
 }

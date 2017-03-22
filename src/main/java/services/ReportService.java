@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -19,6 +20,9 @@ public class ReportService {
 	// Managed repository -----------------------------------------------------
 	@Autowired
 	private ReportRepository reportRepository;
+
+	@Autowired
+    private UserService userService;
 	// Supporting services ----------------------------------------------------
 
 
@@ -46,6 +50,18 @@ public class ReportService {
 	public void delete(Report report) {
 		reportRepository.delete(report);
 	}
-	// Other business methods -------------------------------------------------
+
+    public void report(User user,Report report) {
+		User u = userService.findByPrincipal();
+		Assert.notNull(u);
+		Assert.notNull(user);
+		Assert.notNull(report);
+        report.setReportedUser(user);
+        report.setReporterUser(u);
+
+		save(report);
+
+    }
+    // Other business methods -------------------------------------------------
 
 }

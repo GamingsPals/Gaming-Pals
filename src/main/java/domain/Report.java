@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -15,6 +16,8 @@ public class Report extends DomainEntity {
 	//Attributes
 	private String	picture;
 	private String	comment;
+	private User reporterUser;
+	private User reportedUser;
 
 
 	//Constructor
@@ -43,4 +46,21 @@ public class Report extends DomainEntity {
 		this.comment = comment;
 	}
 
+	@ManyToOne
+	public User getReporterUser() {
+		return reporterUser;
+	}
+
+	public void setReporterUser(User reporterUser) {
+		this.reporterUser = reporterUser;
+	}
+
+	@ManyToOne
+	public User getReportedUser() {
+		return reportedUser;
+	}
+
+	public void setReportedUser(User reportedUser) {
+		this.reportedUser = reportedUser;
+	}
 }

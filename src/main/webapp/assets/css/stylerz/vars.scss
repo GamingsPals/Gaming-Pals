@@ -27,33 +27,34 @@ $color-base-red-3: rgba(217, 95, 58, 0.84);
 
 $color-base-green-3: rgba(103, 217, 122, 0.84);
 
+
 $color-base-magenta-3: rgba(203, 67, 135, 0.78);
 
 $min-width-responsive:0px;
 $max-width-responsive: 1024px;
 
 .bg-blue3{
-  background-color: $color-base-blue-3;
-  color:$color-base-white-1;
+  background-color: $color-base-blue-3!important;
+  color:$color-base-white-1!important;
 }
 
 .red3{
- color: $color-base-red-3;
+ color: $color-base-red-3!important;
 }
 
 .bg-red3{
-  background-color: $color-base-red-3;
-  color:$color-base-white-1;
+  background-color: $color-base-red-3!important;
+  color:$color-base-white-1!important;
 }
 
 .bg-green3{
-  background-color: $color-base-green-3;
-  color:$color-base-white-1;
+  background-color: $color-base-green-3!important;
+  color:$color-base-white-1!important;
 }
 
 .bg-magenta3{
-  background-color: $color-base-magenta-3;
-  color:$color-base-white-1;
+  background-color: $color-base-magenta-3!important;
+  color:$color-base-white-1!important;
 }
 
 .size-1-5{

@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.*;
@@ -13,7 +12,6 @@ import org.springframework.validation.Validator;
 
 import domain.CreditCard;
 import domain.Rating;
-import domain.ReportUser;
 import domain.Team;
 import domain.User;
 import repositories.UserRepository;
@@ -50,7 +48,6 @@ public class UserService {
 		res.setRatingsReceived(new ArrayList<Rating>());
 		res.setRatingsDone(new ArrayList<Rating>());
 		res.setUserAccount(userAccount);
-		res.setCreateReports(new ArrayList<ReportUser>());
 		res.setFollowerUsers(new ArrayList<User>());
 		res.setFollowingUsers(new ArrayList<User>());
 
@@ -215,4 +212,12 @@ public class UserService {
 		    unfollowUser(user);
         }
     }
+
+    public User findByUserAccountUsername(String string) {
+		User u = userRepository.findByUserAccountUsername(string);
+		Assert.notNull(u);
+
+		return u;
+    }
 }
+

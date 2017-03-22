@@ -4,8 +4,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- User accounts -->
 
@@ -73,7 +72,7 @@
 
 
 	<!-- CreditCards -->
-	<bean id="CreditCard1" class="domain.CreditCard">
+	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="user1" />
 		<property name="brandName" value="Master Card" />
 		<property name="number" value="5751322855058309" />
@@ -82,7 +81,7 @@
 		<property name="cvvCode" value="200" />
 	</bean>
 
-	<bean id="CreditCard2" class="domain.CreditCard">
+	<bean id="creditCard2" class="domain.CreditCard">
 		<property name="holderName" value="user1" />
 		<property name="brandName" value="Visa" />
 		<property name="number" value="4532908352606142" />
@@ -91,7 +90,7 @@
 		<property name="cvvCode" value="220" />
 	</bean>
 
-	<bean id="CreditCard3" class="domain.CreditCard">
+	<bean id="creditCard3" class="domain.CreditCard">
 		<property name="holderName" value="user3" />
 		<property name="brandName" value="American Express" />
 		<property name="number" value="349788920645835" />
@@ -145,7 +144,7 @@
 			</list>
 		</property>
 		<property name="verify" value="false" />
-		<property name="creditCard" ref="CreditCard1"/>
+		<property name="creditCard" ref="creditCard1"/>
 		
 	</bean>
 	
@@ -168,7 +167,7 @@
             </list>
         </property>
 		<property name="verify" value="true" />
-		<property name="creditCard" ref="CreditCard2"/>
+		<property name="creditCard" ref="creditCard2"/>
 		
 	</bean>
 	
@@ -186,14 +185,14 @@
 			</list>
 		</property>
 		<property name="verify" value="true" />
-		<property name="creditCard" ref="CreditCard3"/>
+		<property name="creditCard" ref="creditCard3"/>
 	</bean>
 
 	
 	<!-- Teams -->
 	<bean id="Team1" class="domain.Team">
 		<property name="name" value="Team1" />
-		<property name="picture" value="http://www.foto.com/a.jpg" />
+		<property name="picture" value="http://vignette4.wikia.nocookie.net/leagueoflegends/images/0/04/Demacia_Crest.png/revision/latest?cb=20161117052357" />
 		<property name="users">
 			<list>
 				<ref bean="user1"/>
@@ -239,14 +238,20 @@
 		
 	</bean>
 
-	
+
 	<!-- User Reports -->
-	<bean id="ReportUser1" class="domain.ReportUser">
-		<property name="picture" value="http://www.report.com/picture2.jpg" />
-		<property name="comment" value="Dijo cosas feas sobre mi madre." />
-		<property name="userReporter" ref="user1" />
-		<property name="userReported" ref="user2" />
-		
+	<bean id="report1" class="domain.Report">
+		<property name="comment" value="Se ha metido con mi mamá"/>
+		<property name="picture" value="http://www.esportsheaven.com/app/webroot/media/9bQLfQd.png"/>
+		<property name="reportedUser" ref="user1"/>
+		<property name="reporterUser" ref="user2"/>
+	</bean>
+
+	<bean id="report2" class="domain.Report">
+		<property name="comment" value="Me llamó hijo de puta"/>
+		<property name="picture" value="http://www.esportsheaven.com/app/webroot/media/8OdUJBQ.jpg"/>
+		<property name="reportedUser" ref="user1"/>
+		<property name="reporterUser" ref="user3"/>
 	</bean>
 	
 	<!-- Ratings -->
@@ -299,63 +304,22 @@
 		<property name="user" ref="user1"/>
 		<property name="username" value="ozumas" />
         <property name="game" ref="game1"/>
-        <property name="leagues">
-        	<list>
-        		<ref bean="league1" />
-        	</list>
-        </property>
 	</bean>
-	
+
 	<bean id="summoner2" class="domain.Summoner">
 		<property name="user" ref="user2"/>
-		<property name="username" value="pabmorle" />
-        <property name="game" ref="game1"/>
-		<property name="leagues">
-        	<list>
-        		<ref bean="league2" />
-        	</list>
-        </property>
+		<property name="username" value="pepe" />
+		<property name="game" ref="game1"/>
 	</bean>
-	
-	<bean id="summoner3" class="domain.Summoner">
-		<property name="user" ref="user3"/>
-		<property name="username" value="cargamram" />
-        <property name="game" ref="game1"/>
-		<property name="leagues">
-        	<list>
-        		<ref bean="league3" />
-        	</list>
-        </property>
-	</bean>
-	
+
 	<bean id="league1" class="domain.League">
-		<property name="rankedType" value="ranked"/>
-		<property name="tier" value="GOLD" />
-        <property name="wins" value="200"/>
-        <property name="losses" value="50"/>
-        <property name="division" value="2"/>
-        <property name="points" value="20"/>
-        <property name="summoner" ref="summoner1"/>
+		<property name="tier" value="DIAMOND" />
+		<property name="summoner" ref="summoner1"/>
 	</bean>
-	
+
 	<bean id="league2" class="domain.League">
-		<property name="rankedType" value="ranked"/>
 		<property name="tier" value="SILVER" />
-        <property name="wins" value="180"/>
-        <property name="losses" value="60"/>
-        <property name="division" value="3"/>
-        <property name="points" value="15"/>
-        <property name="summoner" ref="summoner2"/>
+		<property name="summoner" ref="summoner2"/>
 	</bean>
-	
-	<bean id="league3" class="domain.League">
-		<property name="rankedType" value="ranked"/>
-		<property name="tier" value="PLATINUM" />
-        <property name="wins" value="260"/>
-        <property name="losses" value="40"/>
-        <property name="division" value="1"/>
-        <property name="points" value="50"/>
-        <property name="summoner" ref="summoner3"/>
-	</bean>
-	
+
 </beans>

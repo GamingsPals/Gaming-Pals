@@ -94,3 +94,25 @@
 .float-right{
   float:right;
 }
+
+.message-system{
+  position: fixed;
+  bottom:30px;
+  left:25px;
+  border-radius:4pt;
+  padding:15px;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  @include om(){
+    width:100%!important;
+  }
+}
+
+.hide{
+  display: none;
+}

@@ -1,5 +1,5 @@
 let app =
-    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies'])
+    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog'])
         .config(function($routeProvider,$locationProvider){
             $routeProvider.when("/", {
                 templateUrl : "assets/html/main.html",

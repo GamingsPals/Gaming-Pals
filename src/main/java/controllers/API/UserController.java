@@ -33,10 +33,9 @@ public class UserController extends ApiAbstractController {
     @RequestMapping(value = "/user/{user2}")
     public Object usersBestRanked(@PathVariable String user2, HttpServletRequest request, HttpServletResponse response) {
         try {
-            User user = (User) userService.findByName(user2);
+            User user = userService.findByUserAccountUsername(user2);
             Assert.notNull(user2);
             Map<String, Object> result = new LinkedHashMap<>();
-            user.setUserAccount(null);
             result.put("actor",user);
             result.put("followers", user.getFollowerUsers());
             result.put("following",user.getFollowingUsers());

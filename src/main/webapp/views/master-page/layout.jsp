@@ -19,16 +19,25 @@
 	<link href="assets/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="assets/js/selectric/selectric.css" rel="stylesheet" />
     <link href="assets/js/flexslider/flexslider.css" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="assets/js/angular/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="assets/js/angular/ng-dialog/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/datatable/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/js/datatable/responsive.dataTables.min.css"/>
 	<script src="assets/js/jquery/jquery.js"></script>
 	<script src="assets/js/angular/angular.js"></script>
 	<script src="assets/js/angular/angular-route.js"></script>
 	<script src="assets/js/angular/angular-sanitize.js"></script>
     <script src="assets/js/angular/angular-cookies.min.js"></script>
+
+
+    <script  src="assets/js/datatable/datatables.min.js"></script>
+    <script  src="assets/js/datatable/dataTables.responsive.min.js"></script>
+
+    <script  src="assets/js/datatable/enum.js"></script>
     <script src="assets/js/selectric/jquery.selectric.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/flexslider/flexslider.js"></script>
-
+    <script src="assets/js/angular/ng-dialog/js/ngDialog.min.js"></script>
 
     <title>GamingPals </title>
 
@@ -44,11 +53,10 @@
         <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
         <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
         <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>
-        <li> <a href="profile/{{auth.principal.actor.name}}" ng-show="auth.isAuthenticated()"><i class="fa fa-user"></i> {{loc.profile}}</a></li>
-        <li class="separator"></li>
-        <li> <a href="login" ng-show="!auth.isAuthenticated()"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
-        <li>  <a href="signup" ng-show="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
-        <li>  <a target="_self" href="j_spring_security_logout" ng-show="auth.isAuthenticated()">
+        <li ng-show="auth.isAuthenticated()">  <a href="profile/{{auth.principal.actor.userAccount.username}}"><i class="fa fa-user"></i> {{loc.profile}}</a></li>
+        <li  ng-show="!auth.isAuthenticated()"> <a href="#" dialog="login"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
+        <li ng-show="!auth.isAuthenticated()">  <a href="signup" ><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
+        <li ng-show="auth.isAuthenticated()">  <a target="_self" href="j_spring_security_logout" >
             <i class="fa fa-sign-out" aria-hidden="true"></i> {{loc.logout}}
         </a></li>
     </ul>
@@ -69,10 +77,10 @@
         <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
         <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
         <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>
-        <li> <a href="profile/{{auth.principal.actor.name}}" ng-show="auth.isAuthenticated()"><i class="fa fa-user"></i> {{loc.profile}}</a></li>
+        <li> <a href="profile/{{auth.principal.actor.userAccount.username}}" ng-show="auth.isAuthenticated()"><i class="fa fa-user"></i> {{loc.profile}}</a></li>
     </ul>
     <ul class="nav-horizontal-login" >
-       <li> <a href="login" ng-show="!auth.isAuthenticated()"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
+        <li> <a href="#" ng-show="!auth.isAuthenticated()" dialog="login"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
         <li>  <a href="signup" ng-show="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
         <li>  <a target="_self" href="j_spring_security_logout" ng-show="auth.isAuthenticated()">
             <i class="fa fa-sign-out" aria-hidden="true"></i> {{loc.logout}}
@@ -104,6 +112,9 @@
     <footer>
     </footer>
 </div>
+<div class="message-system {{MessageSystem.color}}" ng-show="MessageSystem.show" ng-bind-html="MessageSystem.message">
+</div>
+<div class="loader"></div>
 <script>
     let csrf = {};
     csrf.parameterName = "${_csrf.parameterName}";

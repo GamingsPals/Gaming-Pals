@@ -1,4 +1,3 @@
-
 package repositories;
 
 import org.springframework.data.domain.PageRequest;
@@ -50,4 +49,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u where u.name=?1")
     public User findByName(String text);
+	
+	@Query("select u from User u where u.userAccount.username=?1")
+    User findByUserAccountUsername(String string);
 }
