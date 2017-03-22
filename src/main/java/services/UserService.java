@@ -219,5 +219,41 @@ public class UserService {
 
 		return u;
     }
+    
+    public Collection<User> usersForGameTag(String tag) {
+    	Collection<User> users = userRepository.usersForGameTag(tag);
+    	Assert.notNull(users);
+    	return users;
+    }
+    
+    public Collection<User> usersForGameTag() {
+    	Collection<User> users = userRepository.usersForGameTag();
+    	Assert.notNull(users);
+    	return users;
+    }
+    
+    public Collection<User> usersFromGameAndTier(String gameTag, String tier) {
+    	Collection<User> users = userRepository.usersFromGameAndTier(gameTag, tier);
+    	Assert.notNull(users);
+    	return users;
+    }
+    
+    public Collection<User> usersForLanguage() {
+    	Collection<User> users = userRepository.usersForLanguage();
+    	Assert.notNull(users);
+    	return users;
+    }
+    
+    public Collection<User> usersForLanguage(String language) {
+    	Collection<User> users = userRepository.usersForLanguage(language);
+    	Assert.notNull(users);
+    	return users;
+    }
+    
+    public Collection<User> userFromUsernameAndTagGame() {
+    	Collection<User> users = userRepository.userFromUsernameAndTagGame();
+    	Assert.notNull(users);
+    	return users;
+    }
 }
 

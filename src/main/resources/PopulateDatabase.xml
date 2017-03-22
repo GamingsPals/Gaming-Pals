@@ -312,6 +312,12 @@
 		<property name="game" ref="game1"/>
 	</bean>
 
+	<bean id="summoner3" class="domain.Summoner">
+		<property name="user" ref="user3"/>
+		<property name="username" value="juan" />
+		<property name="game" ref="game1"/>
+	</bean>
+
 	<bean id="league1" class="domain.League">
 		<property name="tier" value="DIAMOND" />
 		<property name="summoner" ref="summoner1"/>
@@ -322,4 +328,9 @@
 		<property name="summoner" ref="summoner2"/>
 	</bean>
 
+	<bean id="league3" class="domain.League">
+		<property name="tier" value="GOLD" />
+		<property name="summoner" ref="summoner3"/>
+	</bean>
+	
 </beans>
