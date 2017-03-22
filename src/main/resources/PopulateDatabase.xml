@@ -190,7 +190,7 @@
 
 	
 	<!-- Teams -->
-	<bean id="Team1" class="domain.Team">
+	<bean id="team1" class="domain.Team">
 		<property name="name" value="Team1" />
 		<property name="picture" value="http://vignette4.wikia.nocookie.net/leagueoflegends/images/0/04/Demacia_Crest.png/revision/latest?cb=20161117052357" />
 		<property name="users">
@@ -202,14 +202,14 @@
 		</property>
 		<property name="tournaments">
 			<list>
-				<ref bean="Tournament1"/>
+				<ref bean="tournament1"/>
 				
 			</list>
 		</property>
 		
 	</bean>
 	
-	<bean id="Team2" class="domain.Team">
+	<bean id="team2" class="domain.Team">
 		<property name="name" value="Team2" />
 		<property name="picture" value="http://www.foto.com/a.jpg" />
 		<property name="users">
@@ -219,7 +219,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
-				<ref bean="Tournament1"/>
+				<ref bean="tournament1"/>
 				
 			</list>
 		</property>
@@ -227,7 +227,7 @@
 	
 	
 	<!-- Tournaments -->
-	<bean id="Tournament1" class="domain.Tournament">
+	<bean id="tournament1" class="domain.Tournament">
 		<property name="momentCreate" value="10/01/2017 10:20" />
 		<property name="title" value="Tournament 1"/>
 		<property name="description" value="Description 1"/>
@@ -248,14 +248,14 @@
 	</bean>
 
 	<bean id="report2" class="domain.Report">
-		<property name="comment" value="Me llamó hijo de puta"/>
+		<property name="comment" value="Me llamó cosas malas"/>
 		<property name="picture" value="http://www.esportsheaven.com/app/webroot/media/8OdUJBQ.jpg"/>
 		<property name="reportedUser" ref="user1"/>
 		<property name="reporterUser" ref="user3"/>
 	</bean>
 	
 	<!-- Ratings -->
-	<bean id="Rating1" class="domain.Rating">
+	<bean id="rating1" class="domain.Rating">
 		<property name="skill" value="1" />
 		<property name="knowledge" value="1" />
 		<property name="attitude" value="1" />
@@ -264,7 +264,7 @@
 		<property name="ratedUser" ref="user2" />
 	</bean>
 	
-	<bean id="Rating2" class="domain.Rating">
+	<bean id="rating2" class="domain.Rating">
 		<property name="skill" value="1" />
 		<property name="knowledge" value="1" />
 		<property name="attitude" value="1" />

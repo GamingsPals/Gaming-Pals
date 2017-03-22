@@ -13,6 +13,8 @@ import java.util.Collection;
 @Access(AccessType.PROPERTY)
 public class Game extends DomainEntity {
 
+
+
     private String name;
     private String tag; // Este tag es un acronimo del nombre para ayudar con los assets (example: League of legends => lol => assets/images/lolicono.png)
     private Collection<GameInfo> gameInfos;
