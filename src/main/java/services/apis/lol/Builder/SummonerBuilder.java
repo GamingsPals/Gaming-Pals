@@ -23,6 +23,17 @@ public class SummonerBuilder extends EntityBuilder {
         attributes.put("apikey", LoLApi.APIKEY);
         this.buildUri();
     }
+    public SummonerBuilder(Integer id, String region){
+        this.attributes.put("version","1.4");
+        this.region = region;
+        attributes.put("resource","summoner/{id}");
+        attributes.put("parameters","");
+        attributes.put("id",id.toString());
+        attributes.put("region",region);
+        this.type = new BasicType();
+        attributes.put("apikey", LoLApi.APIKEY);
+        this.buildUri();
+    }
 
 
     public domain.Summoner getSummoner(String name){

@@ -1,0 +1,35 @@
+<article class="col s5">
+<form method="post" ng-submit="searchSummoner()">
+    <label for="name">
+        Name
+    </label>
+    <input name="name" id="name" type="text" placeholder="name" ng-model="search.summoner"/>
+    <label for="region">
+       Region
+    </label>
+
+    <select name="region" id="region" ng-model="search.region">
+        <option value="">Select</option>
+        <option value="euw">euw</option>
+    </select>
+
+    <input type="submit" value="send"/>
+</form>
+    <h1>Lol Users</h1>
+    <table class="table-rating">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Vinculate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in LolData">
+            <td>{{i.idSummoner}}</td>
+            <td>{{i.username}}</td>
+			<td><a href="lol/vinculated/{{i.idSummoner}}/{{i.region}}">Click here</a></td>
+        </tr>
+        </tbody>
+    </table>
+</article>

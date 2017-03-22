@@ -1,0 +1,10 @@
+<p>Introduce esta key en una de tus paginas de maestrias de League of Legends(puedes crear una nueva), y comprueba que han escrito la clave bien y pulsa el boton</p>
+<form method="post"  ng-submit="vinculatedSummoner()">
+    <label for="key">
+        Key
+    </label>
+    <input name="key" id="key" value="{{LolData.main.keyLol}}"type="text" placeholder="{{LolData.main.keyLol}}" ng-model="vinculated.key" disabled="disabled"/>
+    <input name="summoner" id="summoner" value="{{summoner.idSummoner}}" type="hidden"ng-model="vinculated.idSummoner" />
+
+    <input type="submit" value="Check"/>
+</form>

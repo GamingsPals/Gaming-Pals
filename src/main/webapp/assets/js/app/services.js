@@ -341,3 +341,39 @@ app.service("dialog", function(ngDialog){
         ngDialog.closeAll();
     }
 });
+app.service("LolApiService",function(xhr){
+    this.main = {};
+    
+    this.mainData = function(name,region){
+        let object = this;
+        xhr.get("api/lol/user/"+name+"/"+region,function(data){
+            object.main = data.data;
+        })
+    };
+
+});
+app.service("LolApiVinculatedService",function(xhr){
+    this.main = {};
+    this.mainMastery = {};
+    
+    this.mainData = function(idSummoner,region){
+        let object = this;
+        xhr.get("api/lol/vinculated/"+idSummoner+"/"+region,function(data){
+            object.main = data.data;
+        })
+    };
+    this.getMastery = function(idSummoner,region){
+        let object = this;
+        xhr.get("api/lol/user/mastery/"+idSummoner+"/"+region,function(data){
+            object.mainMastery = data.data;
+        })
+    };
+    this.saveSummoner = function(idSummoner,region){
+        let object = this;
+        xhr.get("api/lol/vinculatedSave/"+idSummoner+"/"+region,function(data){
+        	console.log(data.data);
+            object.main = data.data;
+        })
+    };
+
+});

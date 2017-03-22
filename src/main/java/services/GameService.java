@@ -18,5 +18,7 @@ public class GameService {
     public List<Game> findAll(){
         return new ArrayList<>(gameRepository.findAll());
     }
-
+    public Game getGameByTag(String tag){
+    	return gameRepository.getGameByTag(tag);
+    }
 }

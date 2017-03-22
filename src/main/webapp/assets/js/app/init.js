@@ -19,12 +19,19 @@ let app =
                 }).when("/search", {
                 templateUrl : "assets/html/search.html",
                 controller: "SearchController"
-            })
-                .otherwise({
+            }).when("/lol/user/:name/:region", {
+                templateUrl : "assets/html/lolApi.html",
+                controller: "LolApiController"
+            }).when("/lol/user/", {
+                templateUrl : "assets/html/lolApi.html",
+                controller: "LolApiController"
+            }).when("/lol/vinculated/:idSummoner/:region", {
+                templateUrl : "assets/html/lolApiVinculated.html",
+                controller: "LolApiVinculatedController"
+            })   .otherwise({
                     redirectTo: '/'
 
                 });
             $locationProvider.html5Mode(true);
         });
-
 

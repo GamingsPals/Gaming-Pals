@@ -60,3 +60,25 @@ app.controller('WriteReportController',function($scope,middleware,ActorService,$
 
     }
 });
+app.controller('LolApiController',function($scope,LolApiService,$routeParams,$window){
+	$scope.LolData=LolApiService;
+	$scope.LolData.mainData($routeParams.name,$routeParams.region);
+	$scope.searchSummoner=function(){
+		$window.location.href = 'lol/user/'+$scope.search.summoner+"/"+$scope.search.region;
+	};
+});
+app.controller('LolApiVinculatedController',function($scope,LolApiVinculatedService,$routeParams,$window){
+	$scope.LolData=LolApiVinculatedService;
+	console.log($scope);
+	$scope.LolData.mainData($routeParams.idSummoner,$routeParams.region);
+	$scope.vinculatedSummoner=function(){
+		$scope.LolData.getMastery($routeParams.idSummoner,$routeParams.region);
+		angular.forEach($scope.LolData.mainMastery, function(value, key){
+		     if(value.name==$scope.LolData.main.keyLol){
+		    	$scope.LolData.saveSummoner($routeParams.idSummoner,$routeParams.region);
+		    	$window.location.href = 'lol/user/';
+		     }
+		});
+		
+	};
+});
