@@ -116,3 +116,7 @@
 .hide{
   display: none;
 }
+
+.right{
+  @extend .float-right;
+}

@@ -26,20 +26,14 @@ public class CustomRatingsSerializer extends SerializerBase<User> {
     public void serialize(User u, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException, JsonGenerationException {
         List<Rating> ratingsDone = new ArrayList<>();
-        List<Rating> ratingsReceived = new ArrayList<>();
+       // List<Rating> ratingsReceived = new ArrayList<>();
 
         for(Rating e: u.getRatingsDone()){
             e.setRatedUser(null);
             e.setRatingUser(null);
             ratingsDone.add(e);
         }
-        for(Rating e: u.getRatingsReceived()){
-            e.setRatedUser(null);
-            e.setRatingUser(null);
-            ratingsReceived.add(e);
-        }
-
-        u.setRatingsReceived(ratingsReceived);
+       // u.setRatingsReceived(ratingsReceived);
         u.setRatingsDone(ratingsDone);
 
         jsonGenerator.writeObject(u);

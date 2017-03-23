@@ -147,7 +147,7 @@
 .text-center {
   text-align: center; }
 
-.float-right {
+.float-right, .right {
   float: right; }
 
 .message-system {
@@ -487,7 +487,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-7.jpg);
+  background-image: url(../images/profile-5.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {
@@ -625,5 +625,16 @@ main {
 
 * {
   box-sizing: border-box; }
+
+.tier-icon {
+  width: 80px;
+  vertical-align: middle; }
+
+.game-icon {
+  width: 70px;
+  vertical-align: middle; }
+
+.small {
+  font-size: 0.6em; }
 
 /*# sourceMappingURL=style.css.map */

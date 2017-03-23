@@ -26,7 +26,7 @@
         </select>
         </span>
     </div>
-    <input type="submit"  value="Filter" /> <a href="search">Reset Filter</a>
+    <input type="submit"  value="Filter" /> <a href="search" class="small">Reset Filter</a>
 
 </form>
 <table class="data-table" >
@@ -61,7 +61,10 @@
             {{item.ratingAvg}}
         </td>
         <td>
-            {{item.gameInfo[0].leagues[0].tier}}
+            <span ng-init="tier = (item.gameInfo[0].leagues.length>0) ? item.gameInfo[0].leagues[0].tier : 'unranked'">
+                    <span loltier="{{tier}}"></span>
+                   <span class="hide">{{tier}}</span>
+                </span>
         </td>
     </tr>
     </tbody>
@@ -79,14 +82,14 @@
 
     function loadTable(){
         setTimeout(function() {  $('.data-table').DataTable();
-        }, 1000);
+        }, 500);
         setTimeout(function() {
             $("select[name='DataTables_Table_0_length']").selectric(
                 {
                     disableOnMobile: true
                 }
             );
-        }, 1200);
+        }, 700);
     }
 
 

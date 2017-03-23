@@ -46,7 +46,13 @@ public class LoLApiService {
         return summonerRepository.findOneById(id,region);
 }
     public void saveSummoner(Summoner summoner){
-        	summonerRepository.save(summoner);
+        summoner = summonerRepository.save(summoner);
+        if(summoner.getLeagues()!=null){
+            for(League l: summoner.getLeagues()){
+                l.setSummoner(summoner);
+                leagueRepository.save(l);
+            }
+        }
     }
 
     public Summoner getSummonerByName(String name, String region) throws IOException {

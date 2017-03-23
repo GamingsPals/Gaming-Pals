@@ -180,11 +180,6 @@ app.service("ActorService",function(xhr,auth){
         this.actor.following.forEach(function(a,e){
             object.actor.following[e] =  object.processActor(a);
         });
-        if (this.actor.actor.ratingsReceived != null){
-            this.actor.actor.ratingsReceived.forEach(function(a,e){
-                object.actor.actor.ratingsReceived[e].ratingUser =  object.processActor(a.ratingUser);
-            });
-        }
     };
 
     this.processActor = function(actor){

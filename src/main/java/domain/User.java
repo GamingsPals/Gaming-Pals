@@ -11,10 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
-import serializers.CustomRatingsSerializer;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
@@ -29,6 +26,11 @@ public class User extends Actor {
 	// Constructor
 	public User() {
 		super();
+		this.ratingAvg = 0.;
+		this.skillAvg = 0.;
+		this.knowledgeAvg = 0.;
+		this.attitudeAvg = 0.;
+
 	}
 
 	//Getters and Setters 
@@ -64,8 +66,12 @@ public class User extends Actor {
 	private Collection<Language>		languages;
     private Collection<GameInfo> gameInfo;
     private Double ratingAvg;
+    private Double attitudeAvg;
+    private Double knowledgeAvg;
+    private Double skillAvg;
     private Collection<Report> reportsDone;
     private Collection<Report> reportsReceived;
+
 
 
 	@Valid
@@ -136,7 +142,7 @@ public class User extends Actor {
 
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
         public Collection<GameInfo> getGameInfo() {
         return gameInfo;
     }
@@ -171,12 +177,20 @@ public class User extends Actor {
 
     @PreUpdate
     protected void onUpdate() {
-	    Double d = 0.;
+	    Double avgRating = 0.;
+	    Double avgSkill = 0.;
+	    Double avgKnowledge = 0.;
+	    Double avgAttitude = 0.;
 	    for(Rating e : this.getRatingsReceived()){
-	        d+= (double) e.getAttitude() + (double) e.getKnowledge() + (double) e.getSkill();
+	        avgSkill += e.getSkill();
+	        avgKnowledge += e.getKnowledge();
+	        avgAttitude += e.getAttitude();
         }
 
-        this.ratingAvg = d / Math.max(this.getRatingsReceived().size()*3,1);
+        this.ratingAvg = (avgSkill + avgKnowledge + avgAttitude) / 3;
+	    this.attitudeAvg = avgAttitude;
+	    this.skillAvg = avgSkill;
+	    this.knowledgeAvg = avgKnowledge;
     }
 
     @JsonIgnore
@@ -198,4 +212,28 @@ public class User extends Actor {
     public void setReportsReceived(Collection<Report> reportsReceived) {
         this.reportsReceived = reportsReceived;
     }
+
+	public Double getAttitudeAvg() {
+		return attitudeAvg;
+	}
+
+	public void setAttitudeAvg(Double attitudeAvg) {
+		this.attitudeAvg = attitudeAvg;
+	}
+
+	public Double getKnowledgeAvg() {
+		return knowledgeAvg;
+	}
+
+	public void setKnowledgeAvg(Double knowledgeAvg) {
+		this.knowledgeAvg = knowledgeAvg;
+	}
+
+	public Double getSkillAvg() {
+		return skillAvg;
+	}
+
+	public void setSkillAvg(Double skillAvg) {
+		this.skillAvg = skillAvg;
+	}
 }

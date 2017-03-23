@@ -39,13 +39,13 @@ public class UserController extends ApiAbstractController {
             result.put("actor",user);
             result.put("followers", user.getFollowerUsers());
             result.put("following",user.getFollowingUsers());
-            result.put("ratings", user.getRatingsReceived());
             result.put("teams",user.getTeams());
             return  result;
         } catch (Exception e){
             return notFoundError(response,null);
         }
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/user/{user}/follow")

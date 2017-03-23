@@ -290,11 +290,6 @@ app.service("ActorService",function(xhr,auth){
         this.actor.following.forEach(function(a,e){
             object.actor.following[e] =  object.processActor(a);
         });
-        if (this.actor.actor.ratingsReceived != null){
-            this.actor.actor.ratingsReceived.forEach(function(a,e){
-                object.actor.actor.ratingsReceived[e].ratingUser =  object.processActor(a.ratingUser);
-            });
-        }
     };
 
     this.processActor = function(actor){
@@ -637,7 +632,21 @@ app.directive("giant",function(){
     }
 });
 
-;
+app.directive("loltier",function(){
+    return {
+        restrict: "AEC",
+        link: function(scope,element,attrs){
+            let assetsPath = `assets/images/games/lol/tiers/`;
+            let image = $(`<img class="tier-icon" src="${assetsPath}${attrs.loltier.toLowerCase()}.png" />`);
+            $(element).html(image);
+            scope.$watch(function(){
+                $(element).html(image);
+            })
+        }
+    }
+});;String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 $(document).ready(function(){
 

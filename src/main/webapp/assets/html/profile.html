@@ -37,17 +37,23 @@
 <div class="profile-main">
     <div id="profile-gameprofiles" class="profile-cards">
         <h1>Game Profiles</h1>
-        <a href="#" dialogcontroller="AddSummonerController" dialog="addSummoner" ng-show="ActorService.actor.actor.gameInfo.length==0">Add League of Legends Profile</a>
-        
+        <div style="margin:15px">
+        <a href="#" dialogcontroller="AddSummonerController" class="button"
+           dialog="addSummoner" ng-show="ActorService.actor.actor.gameInfo.length==0">Add Summoner</a>
+        </div>
         <div ng-show="ActorService.actor.actor.gameInfo.length==0">
             This user hasn't got any game registered.
         </div>
         <div class="card bg-blue3" ng-repeat="i in ActorService.actor.actor.gameInfo">
-            <div class="card-image">
-                <img ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
-            </div>
+                <img class="right game-icon" ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
             <div class="card-buttons">
-                {{i.username}}
+                <span ng-init="tier = (i.leagues.length>0) ? i.leagues[0].tier : 'UNRANKED'">
+                    <span loltier="{{tier}}"></span>
+                     <div class="col">
+                         {{i.username}}
+                             <div class="small">{{tier}}</div>
+                    </div>
+                </span>
             </div>
         </div>
     </div>
@@ -119,14 +125,20 @@
            dialog="write-rating-form" dialogcontroller="WriteRatingController">Write a Rating</a>
         </div>
         <div class="card-rating col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
-            <div class="col s2">
-                <a href="profile/{{r.ratingUser.name}}">{{r.ratingUser.name}}</a>
-                <img ng-src="{{r.ratingUser.picture}}"/>
-            </div>
-            <div class="col s9">
+            <div class="col s12">
                 <div class="card-rating-text">{{r.comment}}</div>
                 <div>
-                    <rating actor="r.ratingUser"></rating>
+                    <ul class="list-horizontal">
+                        <li class="col">
+                            <div class="label bg-green3" title="Attitude">A {{r.attitude}}</div>
+                        </li>
+                        <li class="col">
+                            <div class="label bg-red3" title="Skill">S {{r.skill}}</div>
+                        </li>
+                        <li class="col">
+                            <div class="label bg-magenta3" title="Knowledge">K {{r.knowledge}}</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
