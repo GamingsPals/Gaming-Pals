@@ -256,9 +256,9 @@
 	
 	<!-- Ratings -->
 	<bean id="rating1" class="domain.Rating">
-		<property name="skill" value="1" />
-		<property name="knowledge" value="1" />
-		<property name="attitude" value="1" />
+		<property name="skill" value="5" />
+		<property name="knowledge" value="5" />
+		<property name="attitude" value="4" />
 		<property name="comment" value="Buen jugador" />
 		<property name="ratingUser" ref="user1" />
 		<property name="ratedUser" ref="user2" />
@@ -266,12 +266,31 @@
 	
 	<bean id="rating2" class="domain.Rating">
 		<property name="skill" value="1" />
-		<property name="knowledge" value="1" />
-		<property name="attitude" value="1" />
+		<property name="knowledge" value="3" />
+		<property name="attitude" value="4" />
 		<property name="comment" value="Mal jugador" />
 		<property name="ratingUser" ref="user3" />
 		<property name="ratedUser" ref="user2" />
 	</bean>
+
+	<bean id="rating3" class="domain.Rating">
+		<property name="skill" value="2" />
+		<property name="knowledge" value="3" />
+		<property name="attitude" value="5" />
+		<property name="comment" value="Tiene mucho conocimiento pero le fallan las formas" />
+		<property name="ratingUser" ref="user2" />
+		<property name="ratedUser" ref="user1" />
+	</bean>
+
+
+    <bean id="rating4" class="domain.Rating">
+        <property name="skill" value="4" />
+        <property name="knowledge" value="4" />
+        <property name="attitude" value="3" />
+        <property name="comment" value="Es muy simpático aunque a veces se cabrea bastante" />
+        <property name="ratingUser" ref="user3" />
+        <property name="ratedUser" ref="user1" />
+    </bean>
 	
 	<bean id="language1" class="domain.Language">
 		<property name="language" value="es" />
@@ -300,11 +319,6 @@
         <property name="tag" value="lol" />
     </bean>
 
-	<bean id="summoner1" class="domain.Summoner">
-		<property name="user" ref="user1"/>
-		<property name="username" value="ozumas" />
-        <property name="game" ref="game1"/>
-	</bean>
 
 	<bean id="summoner2" class="domain.Summoner">
 		<property name="user" ref="user2"/>
@@ -318,10 +332,7 @@
 		<property name="game" ref="game1"/>
 	</bean>
 
-	<bean id="league1" class="domain.League">
-		<property name="tier" value="DIAMOND" />
-		<property name="summoner" ref="summoner1"/>
-	</bean>
+
 
 	<bean id="league2" class="domain.League">
 		<property name="tier" value="SILVER" />
