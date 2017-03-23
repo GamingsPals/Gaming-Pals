@@ -125,6 +125,7 @@
 .label {
   font-size: 0.8em;
   padding: 5px 10px 5px 10px;
+  margin-right: 4px;
   border-radius: 2pt; }
 
 .list-horizontal {
@@ -147,7 +148,7 @@
 .text-center {
   text-align: center; }
 
-.float-right {
+.float-right, .right {
   float: right; }
 
 .message-system {
@@ -166,6 +167,13 @@
 
 .hide {
   display: none; }
+
+.center-image {
+  display: block;
+  margin: 0 auto; }
+
+.no-border {
+  border: 0 !important; }
 
 .card, .card-small {
   border-radius: 4pt;
@@ -333,7 +341,8 @@ a {
   background-color: transparent;
   width: 100%; }
   .fixed-hor-menu ul {
-    width: 60%; }
+    width: 50%;
+    margin-left: 0; }
     .fixed-hor-menu ul li {
       border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;
@@ -343,6 +352,8 @@ a {
         background-color: rgba(0, 0, 0, 0.38);
         border-radius: 5px;
         border: 0; }
+  .fixed-hor-menu .nav-horizontal-login {
+    margin-left: 0; }
 
 .nav-games {
   padding-top: 15px;
@@ -427,7 +438,9 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.38); }
 
 main h1 {
-  font-size: 1.4em; }
+  font-size: 1.7em; }
+main h2 {
+  font-size: 1.2em; }
 
 table {
   min-width: 95%;
@@ -484,7 +497,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-7.jpg);
+  background-image: url(../images/profile-1.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {

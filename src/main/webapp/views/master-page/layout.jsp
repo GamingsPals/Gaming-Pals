@@ -74,7 +74,7 @@
     </div>
 </header>
 <nav class="nav-horizontal" ng-cloak>
-    <ul>
+    <ul  ng-show="auth.isAuthenticated()">
         <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
         <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
         <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>

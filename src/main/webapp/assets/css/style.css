@@ -32,7 +32,7 @@
 .size-1-5 {
   font-size: 1.5em; }
 
-.col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats {
+.col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats, .landpage .cols li, .landpage .cols2 li {
   display: inline-table; }
 
 .s1, .profile-header .profile-left-panel .profile-avatar {
@@ -41,7 +41,7 @@
 .s2 {
   width: 16%; }
 
-.s3, .card, .card-small {
+.s3, .card, .card-small, .landpage .cols li {
   width: 24%; }
 
 .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats {
@@ -50,7 +50,7 @@
 .s5, .profile-header .profile-left-panel .profile-info {
   width: 41%; }
 
-.s6, .card .card-buttons, .card-small .card-buttons {
+.s6, .card .card-buttons, .card-small .card-buttons, .landpage .cols2 li {
   width: 49%; }
 
 .s7 {
@@ -72,7 +72,7 @@
   width: 99%; }
 
 @media only screen and (min-width: 0px) and (max-width: 1024px) {
-  .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .card .card-buttons, .card-small .card-buttons, .s7, .s8,
+  .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .landpage .cols li, .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .card .card-buttons, .card-small .card-buttons, .landpage .cols2 li, .s7, .s8,
   .s9, .s10, .s11, .s12 {
     width: 100% !important; } }
 
@@ -125,6 +125,7 @@
 .label {
   font-size: 0.8em;
   padding: 5px 10px 5px 10px;
+  margin-right: 4px;
   border-radius: 2pt; }
 
 .list-horizontal {
@@ -166,6 +167,13 @@
 
 .hide {
   display: none; }
+
+.center-image, .landpage .cols li img, .landpage .cols2 li img {
+  display: block;
+  margin: 0 auto; }
+
+.no-border {
+  border: 0 !important; }
 
 .card, .card-small {
   border-radius: 4pt;
@@ -430,7 +438,9 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.38); }
 
 main h1 {
-  font-size: 1.4em; }
+  font-size: 1.7em; }
+main h2 {
+  font-size: 1.2em; }
 
 table {
   min-width: 95%;
@@ -636,5 +646,42 @@ main {
 
 .small {
   font-size: 0.6em; }
+
+.landpage {
+  font-size: 1.2em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-family: Roboto-Light,sans-serif;
+  padding: 50px; }
+  @media only screen and (min-width: 0px) and (max-width: 1024px) {
+    .landpage {
+      padding: 5px; } }
+  .landpage ul li {
+    list-style: circle;
+    margin-bottom: 10px; }
+  .landpage img {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.38); }
+    @media only screen and (min-width: 0px) and (max-width: 1024px) {
+      .landpage img {
+        max-width: 100% !important; } }
+  .landpage .cols {
+    margin-bottom: 100px; }
+    .landpage .cols li {
+      margin-right: 12%; }
+      .landpage .cols li img {
+        width: 120px;
+        margin-bottom: 40px;
+        display: block;
+        border: 0; }
+      .landpage .cols li:last-child {
+        margin-right: 0; }
+  .landpage .cols2 {
+    margin-bottom: 100px; }
+    .landpage .cols2 li img {
+      width: 200px;
+      display: block;
+      border: 0; }
 
 /*# sourceMappingURL=style.css.map */

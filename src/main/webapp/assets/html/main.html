@@ -1,20 +1,38 @@
-<article class="col s5">
-    <h1>Users more actives</h1>
-    <table class="table-rating">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>User</th>
-            <th>Rating</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="i in MainPageService.main.bestclassified">
-            <td><img ng-src="{{i.picture}}" /></td>
-            <td>{{i.userAccount.username}}</td>
-            <td>{{i.avgrating}}</td>
+<article class="s12 landpage">
+    <h1  class="text-center">Be prepared to a hole new gaming experience joining our community. <b>0% Toxicity. 100% Fun</b></h1>
+    <img class="center-image no-border" width="250" src="assets/images/landpage/logo.png"/>
+            <ul class="cols">
+                <li>
+                    <img src="assets/images/landpage/friendly.png"/>
+                    Our community is 100% friendly and we don't know allow by any means toxicity.
+                </li>
+                <li>
+                    <img src="assets/images/landpage/tournaments.png"/>
+                    Compete with pals in tournaments where you can make friends and compete in a friendly gaming enviroment
+                </li>
+                <li>
+                    <img src="assets/images/landpage/star.png"/>
+                    Follow pals or be follow, make requests to play and rate pals with 3 diferents metrics
+                <span class="label bg-green3">Attitude</span> <span class="label bg-red3" title="Skill">Skill</span>
+                    <span class="label bg-magenta3" title="Knowledge">Knowledge</span>
+                </li>
+            </ul>
 
-        </tr>
-        </tbody>
-    </table>
+    <h2 class="text-center">Join us in our League of Legends community</h2>
+    <img class="center-image no-border" src="assets/images/landpage/lol.png"/>
+    <h2 class="text-center">And...</h2>
+    <ul class="cols2">
+        <li>
+            <img class="center-image" src="assets/images/landpage/dota2.png"/>
+        </li>
+        <li>
+            <img class="center-image" src="assets/images/landpage/smite.png"/>
+        </li>
+    </ul>
+    <h2 class="text-center">Coming soon!</h2>
+
+    <h1 class="text-center">So, what are you waiting for? Join us immediately!</h1>
+    <div class="text-center">
+    <a href="signup" class="button text-center"><i class="fa fa-user-plus"></i> Sign up</a>
+    </div>
 </article>

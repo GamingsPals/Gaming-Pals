@@ -42,3 +42,65 @@ main{
 .small{
   font-size:0.6em;
 }
+
+.landpage{
+  font-size:1.2em;
+  text-align: justify;
+  text-justify: inter-word;
+  font-family: Roboto-Light,sans-serif;
+  padding:50px;
+  @include om{
+    padding:5px;
+  }
+  ul{
+    li{
+      list-style:circle;
+      margin-bottom:10px;
+    }
+  }
+  img{
+    @include om{
+      max-width:100%!important;
+    }
+    margin-top:20px;
+    margin-bottom:20px;
+    border:1px solid $color-base-black-5;
+  }
+  .cols{
+    margin-bottom:100px;
+    li{
+      @extend .col;
+      @extend .s3;
+      margin-right:12%;
+      img{
+        width:120px;
+        margin-bottom:40px;
+        display: block;
+        @extend .center-image;
+        border:0;
+      }
+      &:last-child{
+        margin-right:0;
+      }
+    }
+
+  }
+  .cols2{
+    margin-bottom:100px;
+    li{
+      @extend .col;
+      @extend .s6;
+      img{
+        width:200px;
+        display: block;
+        @extend .center-image;
+        border:0;
+      }
+    }
+
+  }
+}
+
+main{
+
+}
