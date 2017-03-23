@@ -21,4 +21,12 @@ public class SearchForm {
     public void setTier(String tier) {
         this.tier = tier;
     }
+
+    @Override
+    public String toString() {
+        return "SearchForm{" +
+                "game='" + game + '\'' +
+                ", tier='" + tier + '\'' +
+                '}';
+    }
 }

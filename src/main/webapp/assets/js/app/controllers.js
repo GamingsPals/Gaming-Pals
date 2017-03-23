@@ -13,12 +13,9 @@ app.controller('MainController',function($scope,localization,$rootScope,auth,Mai
 app.controller('HomeController',function($scope){
 });
 
-app.controller('SearchController',function($scope,SearchService){
+app.controller('SearchController',function($scope,SearchService,$location){
     $scope.As = SearchService;
-    $scope.As.findAll();
-    $scope.filter = function(filter){
-        $scope.As.filter(filter);
-    }
+    $scope.As.filter($location.search());
 });
 
 app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
@@ -60,25 +57,26 @@ app.controller('WriteReportController',function($scope,middleware,ActorService,$
 
     }
 });
-app.controller('LolApiController',function($scope,LolApiService,$routeParams,$window){
+app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
 	$scope.LolData=LolApiService;
-	$scope.LolData.mainData($routeParams.name,$routeParams.region);
-	$scope.searchSummoner=function(){
-		$window.location.href = 'lol/user/'+$scope.search.summoner+"/"+$scope.search.region;
-	};
-});
-app.controller('LolApiVinculatedController',function($scope,LolApiVinculatedService,$routeParams,$window){
-	$scope.LolData=LolApiVinculatedService;
-	console.log($scope);
-	$scope.LolData.mainData($routeParams.idSummoner,$routeParams.region);
-	$scope.vinculatedSummoner=function(){
-		$scope.LolData.getMastery($routeParams.idSummoner,$routeParams.region);
-		angular.forEach($scope.LolData.mainMastery, function(value, key){
-		     if(value.name==$scope.LolData.main.keyLol){
-		    	$scope.LolData.saveSummoner($routeParams.idSummoner,$routeParams.region);
-		    	$window.location.href = 'lol/user/';
-		     }
-		});
-		
-	};
+	$scope.test =" Asdad";
+	console.log("adsda");
+	$scope.validateSummoner = function(){
+	    console.log($scope.search);
+	    if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
+            $scope.check = true;
+            $scope.search.key = md5($scope.search.summoner);
+            $scope.search.key = $scope.search.key.substring(0, 25);
+        }
+    };
+    $scope.addSummoner = function(){
+        $scope.LolData.mainData($scope.search,function(){
+            dialog.closeAll();
+            $scope.error = false;
+            ActorService.UserProfile();
+        },function(data){
+            console.log(data);
+            $scope.error = data.data.message;
+        });
+    }
 });

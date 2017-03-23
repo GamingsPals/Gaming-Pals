@@ -35,7 +35,7 @@ public class MainPageController extends ApiAbstractController {
             return result;
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return notFoundError(response);
+            return notFoundError(response,null);
         }
     }
 

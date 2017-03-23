@@ -35,23 +35,23 @@ public class ReportController extends ApiAbstractController {
         try{
             Assert.notNull(user);
         } catch (Exception e) {
-            return notFoundError(response);
+            return notFoundError(response,null);
         }
         try{
             Assert.notNull(actorService.findActorByPrincipal());
         } catch (Exception e) {
-            return unauthorized(response);
+            return unauthorized(response,null);
         }
         try{
             Assert.isTrue(user.getId() != actorService.findActorByPrincipal().getId());
         } catch (Exception e){
-            return badrequest(response);
+            return badrequest(response,null);
         }
         try{
             reportService.report(user,report);
-            return ok(response);
+            return ok(response,null);
         } catch (Exception e){
-            return internalservererror(response);
+            return internalservererror(response,null);
         }
     }
 
@@ -63,12 +63,12 @@ public class ReportController extends ApiAbstractController {
             Actor actor = actorService.findActorByPrincipal();
             Assert.isTrue(actor instanceof Moderator || actor instanceof Administrator);
         } catch (Exception e) {
-            return unauthorized(response);
+            return unauthorized(response,null);
         }
         try{
             return reportService.findAll();
         } catch (Exception e){
-            return internalservererror(response);
+            return internalservererror(response,null);
         }
     }
 }

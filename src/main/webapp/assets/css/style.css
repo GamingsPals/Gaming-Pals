@@ -314,11 +314,14 @@ a {
         display: none;
         top: 15px;
         left: 0;
+        margin: 0;
+        padding: 0;
         background-color: rgba(35, 66, 79, 0.85);
         color: white; }
         .nav-horizontal ul li ul li {
           padding: 15px;
-          display: block; }
+          display: list-item;
+          list-style: none; }
   .nav-horizontal .nav-horizontal-login {
     width: 20%; }
 
@@ -330,7 +333,8 @@ a {
   background-color: transparent;
   width: 100%; }
   .fixed-hor-menu ul {
-    width: 60%; }
+    width: 50%;
+    margin-left: 0; }
     .fixed-hor-menu ul li {
       border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;
@@ -340,6 +344,8 @@ a {
         background-color: rgba(0, 0, 0, 0.38);
         border-radius: 5px;
         border: 0; }
+  .fixed-hor-menu .nav-horizontal-login {
+    margin-left: 0; }
 
 .nav-games {
   padding-top: 15px;
@@ -481,7 +487,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-2.jpg);
+  background-image: url(../images/profile-7.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {

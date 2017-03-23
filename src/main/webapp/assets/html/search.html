@@ -1,10 +1,10 @@
-<form class="search-filter" ng-submit="filter(search)">
+<form class="search-filter" method="get" action="search">
     <h1>Search Pals</h1>
     <div class="col s6">
     <label for="game">
         Game
     </label>
-    <select class="s8" id="game" name="game" ng-model="search.game">
+    <select class="s8" id="game" name="game" ng-model="search.game" ng-change="search.tier=null">
         <option value="">Select a Game</option>
         <option value="lol">League of Legends</option>
     </select>
@@ -15,6 +15,7 @@
             Tier
         </label>
         <select id="tier" name="tier" ng-model="search.tier">
+            <option value="">Select Tier</option>
             <option value="BRONZE">Bronze</option>
             <option value="SILVER">Silver</option>
             <option value="GOLD">Gold</option>
@@ -25,7 +26,7 @@
         </select>
         </span>
     </div>
-    <input type="submit" name="submit" value="Filter" />
+    <input type="submit"  value="Filter" /> <a href="search">Reset Filter</a>
 
 </form>
 <table class="data-table" >
@@ -69,22 +70,24 @@
 <script>
 
 
-    $.fn.dataTable.enum( [ 'SILVER','DIAMOND' ] );
+    $.fn.dataTable.enum( [ 'BRONZE','SILVER','GOLD','PLATINUM','DIAMOND','MASTER','CHALLENGER' ] );
 
     $(document).ready( function () {
 
-        setTimeout(function() {  $('.data-table').DataTable({
-        });
+        loadTable();
+    } );
+
+    function loadTable(){
+        setTimeout(function() {  $('.data-table').DataTable();
         }, 1000);
         setTimeout(function() {
-            $("select").selectric(
+            $("select[name='DataTables_Table_0_length']").selectric(
                 {
                     disableOnMobile: true
                 }
             );
         }, 1200);
-    } );
-
+    }
 
 
 

@@ -27,18 +27,22 @@ public class SearchController extends ApiAbstractController {
     @ResponseBody
     @RequestMapping(value = "/search")
     public Object search(SearchForm searchForm, HttpServletRequest request, HttpServletResponse response) {
-        Collection<User> result;
+        Collection<User> result = null;
         try{
             if (searchForm.getGame()!= null) {
-                result =  userService.usersForGameTag(searchForm.getGame());
-                if (searchForm.getTier()!= null){
-                   result =  userService.usersFromGameAndTier(searchForm.getGame(),searchForm.getTier());
+                if (!searchForm.getGame().equals("")) {
+                    result = userService.usersForGameTag(searchForm.getGame());
+                    if (searchForm.getTier() != null) {
+                        if (!searchForm.getTier().equals("")) {
+                            result = userService.usersFromGameAndTier(searchForm.getGame(), searchForm.getTier());
+                        }
+                    }
+                    return result;
                 }
-                return result;
             }
             return userService.findAll();
         }catch (Exception e){
-            return internalservererror(response);
+            return internalservererror(response,null);
         }
     }
 

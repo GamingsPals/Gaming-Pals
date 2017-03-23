@@ -21,6 +21,7 @@ import services.apis.lol.Entity.Match;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class LoLApiService {
@@ -42,18 +43,9 @@ public class LoLApiService {
             return summonerRepository.findOneByName(name,region);
     }
     public domain.Summoner findByIdSummoner(int id, String region){
-    	System.out.println(id+region);
         return summonerRepository.findOneById(id,region);
 }
     public void saveSummoner(Summoner summoner){
-            if (summoner.getLeagues()!= null){
-                for(League l: summoner.getLeagues()){
-                    l.setSummoner(summoner);
-                    leagueRepository.save(l);
-                }
-            }
-            User connected=userService.findByPrincipal();
-        	summoner.setUser(connected);
         	summonerRepository.save(summoner);
     }
 
@@ -68,8 +60,6 @@ public class LoLApiService {
         LeagueInfoBuilder leagueInfoBuilder = new LeagueInfoBuilder(String.valueOf(summoner.getIdSummoner()),region);
         leagueInfoBuilder.load();
         summoner.setLeagues(leagueInfoBuilder.getSummonerLeagueInfo());
-        System.out.println(summoner);
-        saveSummoner(summoner);
 
         return  summoner;
     }
@@ -87,7 +77,6 @@ public class LoLApiService {
         	leagues=leagueInfoBuilder.getSummonerLeagueInfo();
         }
         summoner.setLeagues(leagues);
-        System.out.println(summoner);
 
         return  summoner;
     }
@@ -105,5 +94,16 @@ public class LoLApiService {
     	MasteryBuilder masteryBuilder= new MasteryBuilder(sumonnerId,region);
     	masteryBuilder.load();
 		return masteryBuilder.getMasteries();
+    }
+
+    public boolean checkMasteryVerified(Summoner s, String key) throws IOException {
+        List<Mastery> masteries = getMasteryBySummonerId(String.valueOf(s.getIdSummoner()),s.getRegion());
+        boolean result = false;
+        for(Mastery e: masteries) {
+            if (Objects.equals(e.getName(), key)) {
+                result = true;
+            }
+        }
+        return  result;
     }
 }

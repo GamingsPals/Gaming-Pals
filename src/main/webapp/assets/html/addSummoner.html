@@ -1,0 +1,28 @@
+<form ng-submit="validateSUmmoner()">
+    <label for="name">
+        Name
+    </label>
+    <input name="name" id="name" type="text" placeholder="name" ng-model="search.summoner" class="s9"/>
+    <label for="region">
+       Region
+    </label>
+
+    <select name="region" id="region" ng-model="search.region" class="s9">
+        <option value="">Select</option>
+        <option value="euw">euw</option>
+    </select>
+
+    <input type="submit" value="Add Summoner" ng-click="validateSummoner()"/>
+
+    <div ng-show="check">
+        <p>To validate the authentication of your LoL Account we need you to do one thing for us, please log in into your LoL
+            Account and change the name of a mastery page to this:</p>
+        <b>{{search.key}}</b>
+
+        <p>Once is done, click check</p>
+
+        <input type="submit" value="Check my LoL Account" ng-click="addSummoner()" />
+
+        <h3 class="red3">{{error}}</h3>
+    </div>
+</form>

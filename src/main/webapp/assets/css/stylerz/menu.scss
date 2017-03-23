@@ -160,7 +160,8 @@ a {
   background-color: transparent;
   width: 100%;
   ul {
-    width: 60%;
+    width: 50%;
+    margin-left:0;
     li {
       border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;
@@ -172,6 +173,9 @@ a {
         border: 0;
       }
     }
+  }
+  .nav-horizontal-login{
+    margin-left:0;
   }
 }
 

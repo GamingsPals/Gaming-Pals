@@ -84,10 +84,11 @@ app.service("localization",function(xhr,$cookies){
 app.service("SearchService", function(xhr){
     this.search = [];
 
-    this.filter = function(filter){
+    this.filter = function(filter,callback){
         let object = this;
         xhr.get("api/search?"+$.param(filter),function(data){
             object.search = data.data;
+            if (typeof callback !== "undefined") callback();
         })
     };
 
@@ -129,6 +130,9 @@ app.service("ActorService",function(xhr,auth){
 
     this.UserProfile = function(name){
         let object = this;
+        if(typeof name === "undefined"){
+            name = this.actor.actor.userAccount.username;
+        }
         xhr.get("api/user/"+name,function(data){
             object.actor = data.data;
             object.processActors();
@@ -343,36 +347,16 @@ app.service("dialog", function(ngDialog){
 });
 app.service("LolApiService",function(xhr){
     this.main = {};
-    
-    this.mainData = function(name,region){
-        let object = this;
-        xhr.get("api/lol/user/"+name+"/"+region,function(data){
-            object.main = data.data;
-        })
-    };
 
-});
-app.service("LolApiVinculatedService",function(xhr){
-    this.main = {};
-    this.mainMastery = {};
-    
-    this.mainData = function(idSummoner,region){
+
+    this.mainData = function(summoner,success,error){
         let object = this;
-        xhr.get("api/lol/vinculated/"+idSummoner+"/"+region,function(data){
-            object.main = data.data;
-        })
-    };
-    this.getMastery = function(idSummoner,region){
-        let object = this;
-        xhr.get("api/lol/user/mastery/"+idSummoner+"/"+region,function(data){
-            object.mainMastery = data.data;
-        })
-    };
-    this.saveSummoner = function(idSummoner,region){
-        let object = this;
-        xhr.get("api/lol/vinculatedSave/"+idSummoner+"/"+region,function(data){
-        	console.log(data.data);
-            object.main = data.data;
+        xhr.get("api/lol/addsummoner/"+summoner.summoner+"/"+summoner.region+"?key="+summoner.key,function(data){
+            if(typeof success !=="undefined")
+            success(data);
+        },function(data){
+            if(typeof error !=="undefined")
+                error(data);
         })
     };
 

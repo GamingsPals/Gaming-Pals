@@ -19,6 +19,7 @@
 	<link href="assets/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="assets/js/selectric/selectric.css" rel="stylesheet" />
     <link href="assets/js/flexslider/flexslider.css" rel="stylesheet"/>
+    <script src="assets/js/md5.js"></script>
     <link rel="stylesheet" href="assets/js/angular/ng-dialog/css/ngDialog.min.css">
     <link rel="stylesheet" href="assets/js/angular/ng-dialog/css/ngDialog-theme-default.min.css">
     <link rel="stylesheet" type="text/css" href="assets/js/datatable/datatables.css"/>

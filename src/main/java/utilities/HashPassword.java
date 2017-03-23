@@ -43,4 +43,10 @@ public class HashPassword {
 		}
 	}
 
+	public static String md5(String key){
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+
+		return encoder.encodePassword(key,null);
+	}
+
 }

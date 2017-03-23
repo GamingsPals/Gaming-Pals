@@ -67,7 +67,7 @@ public class League extends DomainEntity {
     }
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public Summoner getSummoner() {
         return summoner;
     }

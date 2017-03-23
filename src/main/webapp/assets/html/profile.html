@@ -37,7 +37,7 @@
 <div class="profile-main">
     <div id="profile-gameprofiles" class="profile-cards">
         <h1>Game Profiles</h1>
-        <ul><li><a href="lol/user">Add League of Legends Profile</a></li></ul>
+        <a href="#" dialogcontroller="AddSummonerController" dialog="addSummoner" ng-show="ActorService.actor.actor.gameInfo.length==0">Add League of Legends Profile</a>
         
         <div ng-show="ActorService.actor.actor.gameInfo.length==0">
             This user hasn't got any game registered.

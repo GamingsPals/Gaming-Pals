@@ -34,23 +34,23 @@ public class RatingController extends ApiAbstractController {
         try{
             Assert.notNull(user);
         } catch (Exception e) {
-            return notFoundError(response);
+            return notFoundError(response,null);
         }
         try{
             Assert.notNull(actorService.findActorByPrincipal());
         } catch (Exception e) {
-            return unauthorized(response);
+            return unauthorized(response,null);
         }
         try{
             Assert.isTrue(user.getId() != actorService.findActorByPrincipal().getId());
         } catch (Exception e){
-            return badrequest(response);
+            return badrequest(response,null);
         }
         try{
             ratingService.rateUser(rating, user);
-            return ok(response);
+            return ok(response,null);
         } catch (Exception e){
-            return internalservererror(response);
+            return internalservererror(response,null);
         }
     }
 }

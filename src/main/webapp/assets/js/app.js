@@ -19,8 +19,7 @@ let app =
                 }).when("/search", {
                 templateUrl : "assets/html/search.html",
                 controller: "SearchController"
-            })
-                .otherwise({
+            }).otherwise({
                     redirectTo: '/'
 
                 });
@@ -43,12 +42,9 @@ let app =
 app.controller('HomeController',function($scope){
 });
 
-app.controller('SearchController',function($scope,SearchService){
+app.controller('SearchController',function($scope,SearchService,$location){
     $scope.As = SearchService;
-    $scope.As.findAll();
-    $scope.filter = function(filter){
-        $scope.As.filter(filter);
-    }
+    $scope.As.filter($location.search());
 });
 
 app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
@@ -88,6 +84,29 @@ app.controller('WriteReportController',function($scope,middleware,ActorService,$
         ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{MessageSystem.okmessage("Report send!");
             dialog.closeAll();});
 
+    }
+});
+app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
+	$scope.LolData=LolApiService;
+	$scope.test =" Asdad";
+	console.log("adsda");
+	$scope.validateSummoner = function(){
+	    console.log($scope.search);
+	    if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
+            $scope.check = true;
+            $scope.search.key = md5($scope.search.summoner);
+            $scope.search.key = $scope.search.key.substring(0, 25);
+        }
+    };
+    $scope.addSummoner = function(){
+        $scope.LolData.mainData($scope.search,function(){
+            dialog.closeAll();
+            $scope.error = false;
+            ActorService.UserProfile();
+        },function(data){
+            console.log(data);
+            $scope.error = data.data.message;
+        });
     }
 });;
 app.service("xhr",function($http,MessageSystem,$rootScope) {
@@ -175,10 +194,11 @@ app.service("localization",function(xhr,$cookies){
 app.service("SearchService", function(xhr){
     this.search = [];
 
-    this.filter = function(filter){
+    this.filter = function(filter,callback){
         let object = this;
         xhr.get("api/search?"+$.param(filter),function(data){
             object.search = data.data;
+            if (typeof callback !== "undefined") callback();
         })
     };
 
@@ -220,6 +240,9 @@ app.service("ActorService",function(xhr,auth){
 
     this.UserProfile = function(name){
         let object = this;
+        if(typeof name === "undefined"){
+            name = this.actor.actor.userAccount.username;
+        }
         xhr.get("api/user/"+name,function(data){
             object.actor = data.data;
             object.processActors();
@@ -431,6 +454,22 @@ app.service("dialog", function(ngDialog){
     this.closeAll = function(){
         ngDialog.closeAll();
     }
+});
+app.service("LolApiService",function(xhr){
+    this.main = {};
+
+
+    this.mainData = function(summoner,success,error){
+        let object = this;
+        xhr.get("api/lol/addsummoner/"+summoner.summoner+"/"+summoner.region+"?key="+summoner.key,function(data){
+            if(typeof success !=="undefined")
+            success(data);
+        },function(data){
+            if(typeof error !=="undefined")
+                error(data);
+        })
+    };
+
 });;;app.directive("follow",function($compile,auth,$rootScope,ActorService){
     return {
         restrict:"A",
@@ -596,7 +635,9 @@ app.directive("giant",function(){
             $(element).css("font-size","4em");
         }
     }
-});;
+});
+
+;
 
 $(document).ready(function(){
 

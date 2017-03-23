@@ -11,44 +11,49 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class ApiAbstractController {
 
 
-    protected Error notFoundError(HttpServletResponse response){
+    protected Error notFoundError(HttpServletResponse response, String message){
         Error error = new Error();
         error.setCode(404);
-        error.setMessage("Not Found: Resource not found");
+        if (message==null) message = "Not Found: Resource not found";
+        error.setMessage(message);
 
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         return error;
     }
 
 
-    protected Error unauthorized(HttpServletResponse response){
+    protected Error unauthorized(HttpServletResponse response, String message){
         Error error = new Error();
         error.setCode(401);
-        error.setMessage("Unauthorized: You don't have access to this resource");
+        if (message==null) message = "Unauthorized: You don't have access to this resource";
+        error.setMessage(message);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return error;
     }
 
-    protected Error badrequest(HttpServletResponse response){
+    protected Error badrequest(HttpServletResponse response,String message){
         Error error = new Error();
         error.setCode(400);
-        error.setMessage("Bad Request: There is something wrong with the request");
+        if (message==null) message = "Bad Request: There is something wrong with the request";
+        error.setMessage(message);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return error;
     }
 
-    protected Error internalservererror(HttpServletResponse response){
+    protected Error internalservererror(HttpServletResponse response, String message){
         Error error = new Error();
         error.setCode(500);
-        error.setMessage("Internal Server Error: There is something wrong with our servers");
+        if (message==null) message = "Internal Server Error: There is something wrong with our servers";
+        error.setMessage(message);
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         return error;
     }
 
-    protected Error ok(HttpServletResponse response){
+    protected Error ok(HttpServletResponse response,String message){
         Error error = new Error();
         error.setCode(200);
-        error.setMessage("OK: The request has done sucerfully");
+        if (message == null) message = "OK: The request has done sucerfully";
+        error.setMessage(message);
         response.setStatus(HttpServletResponse.SC_OK);
         return error;
     }
