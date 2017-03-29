@@ -32,8 +32,7 @@
 
 		<security:intercept-url pattern="/**" access="permitAll" />
 		
-
-		
+		<security:intercept-url pattern="/message/actor/**" access="authenticated()" />
 
 		<security:form-login 
 			login-page="/login"

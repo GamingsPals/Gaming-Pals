@@ -1,10 +1,14 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -70,6 +74,8 @@ public abstract class Actor extends DomainEntity {
 
 	//Relationships----------------------------------------------------------------
 	private UserAccount userAccount;
+	private Collection<Message>	sended;
+	private Collection<Message>	received;
 
 
 	@Valid
@@ -81,6 +87,32 @@ public abstract class Actor extends DomainEntity {
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+	
+	@NotNull
+	@Valid
+	@ElementCollection
+	@JsonIgnore
+	@OneToMany(mappedBy = "sender")
+	public Collection<Message> getSended() {
+		return this.sended;
+	}
+
+	public void setSended(final Collection<Message> sended) {
+		this.sended = sended;
+	}
+
+	@NotNull
+	@Valid
+	@JsonIgnore
+	@ElementCollection
+	@OneToMany(mappedBy = "receiver")
+	public Collection<Message> getReceived() {
+		return this.received;
+	}
+
+	public void setReceived(final Collection<Message> received) {
+		this.received = received;
 	}
 
 }

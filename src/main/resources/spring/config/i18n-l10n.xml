@@ -19,6 +19,8 @@
 
 	<util:list id="messages">
 		
+	<value>/views/message/messages</value>
+		
 	</util:list>
 
 </beans>

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import domain.CreditCard;
+import domain.Message;
 import domain.Rating;
 import domain.Team;
 import domain.User;
@@ -50,6 +51,8 @@ public class UserService {
 		res.setUserAccount(userAccount);
 		res.setFollowerUsers(new ArrayList<User>());
 		res.setFollowingUsers(new ArrayList<User>());
+		res.setReceived(new ArrayList<Message>());
+		res.setSended(new ArrayList<Message>());
 
 		return res;
 	}
