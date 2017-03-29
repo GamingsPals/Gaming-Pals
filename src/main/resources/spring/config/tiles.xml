@@ -19,6 +19,8 @@
 
 	<util:list id="tiles">
 		<value>/views/master-page/tiles.xml</value>
+	
+		<value>/views/message/tiles.xml</value>
 	</util:list>
 
 </beans>

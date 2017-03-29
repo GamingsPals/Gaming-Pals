@@ -108,6 +108,16 @@
 		<property name="email" value="adminitrator1@mail.com" />
 		<property name="picture" value="http://edsvideolibrary.com/images/avatars/1.png" />
 		<property name="userAccount" ref="userAccount1" />
+		<property name="sended">
+			<list>
+				
+			</list>
+		</property>
+		<property name="received">
+			<list>
+				
+			</list>
+		</property>
 		
 		
 	</bean>
@@ -119,6 +129,16 @@
 		<property name="email" value="mod1@mail.com" />
 		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
 		<property name="userAccount" ref="userAccount2" />
+		<property name="sended">
+			<list>
+				
+			</list>
+		</property>
+		<property name="received">
+			<list>
+				
+			</list>
+		</property>
 		
 	</bean>
 
@@ -145,6 +165,16 @@
 		</property>
 		<property name="verify" value="false" />
 		<property name="creditCard" ref="creditCard1"/>
+		<property name="sended">
+			<list>
+				
+			</list>
+		</property>
+		<property name="received">
+			<list>
+				
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -168,6 +198,16 @@
         </property>
 		<property name="verify" value="true" />
 		<property name="creditCard" ref="creditCard2"/>
+		<property name="sended">
+			<list>
+				
+			</list>
+		</property>
+		<property name="received">
+			<list>
+				
+			</list>
+		</property>
 		
 	</bean>
 	
@@ -186,8 +226,46 @@
 		</property>
 		<property name="verify" value="true" />
 		<property name="creditCard" ref="creditCard3"/>
+		<property name="sended">
+			<list>
+				
+			</list>
+		</property>
+		<property name="received">
+			<list>
+				
+			</list>
+		</property>
 	</bean>
 
+	<!-- Messsages -->
+	<bean id="message1" class="domain.Message">
+		<property name="title" value="title 1" />
+		<property name="text" value="text 1" />
+		<property name="moment" value="01/01/2017 10:20" />
+		<property name="toxic" value="false" />
+		<property name="sender" ref="user1"/>
+		<property name="receiver" ref="user2"/>	
+	</bean>
+	
+	<bean id="message2" class="domain.Message">
+		<property name="title" value="title 2" />
+		<property name="text" value="text 2" />
+		<property name="moment" value="02/02/2016 10:20" />
+		<property name="toxic" value="false" />
+		<property name="sender" ref="user1"/>
+		<property name="receiver" ref="user2"/>	
+	</bean>
+	
+	<bean id="message3" class="domain.Message">
+		<property name="title" value="title 3" />
+		<property name="text" value="text 3" />
+		<property name="moment" value="03/03/2017 10:20" />
+		<property name="toxic" value="false" />
+		<property name="sender" ref="user2"/>
+		<property name="receiver" ref="user1"/>	
+	</bean>
+	
 	
 	<!-- Teams -->
 	<bean id="team1" class="domain.Team">

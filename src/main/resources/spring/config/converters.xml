@@ -20,6 +20,7 @@
 	<util:list id="converters">
 		<bean class="converters.ActorToStringConverter" /> 
 		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.MessageToStringConverter" /> 
 		<bean class="converters.ModeratorToStringConverter" /> 
 		<bean class="converters.RatingToStringConverter" /> 
 		<bean class="converters.ReportToStringConverter" />
@@ -29,6 +30,7 @@
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.StringToMessageConverter" /> 
 		<bean class="converters.StringToModeratorConverter" /> 
 		<bean class="converters.StringToRatingConverter" /> 
 		<bean class="converters.StringToReportConverter" />
