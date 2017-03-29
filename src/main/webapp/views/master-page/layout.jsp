@@ -69,28 +69,26 @@
         <img src="assets/images/testlogo.png" />
         </a>
     </div>
-    <div class="header-login">
-
-    </div>
+    <nav class="nav-horizontal" ng-cloak>
+        <ul  ng-show="auth.isAuthenticated()">
+            <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
+            <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
+            <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>
+            <li> <a href="profile/{{auth.principal.actor.userAccount.username}}" ng-show="auth.isAuthenticated()">
+                <i class="fa fa-user"></i> {{loc.profile}}</a></li>
+            <li ng-show="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
+                <a href="user/reported/list"><i class="fa fa-user-times"></i> User reported list</a> </li>
+        </ul>
+        <ul class="nav-horizontal-login" >
+            <li> <a href="#" ng-show="!auth.isAuthenticated()" dialog="login"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
+            <li>  <a href="signup" ng-show="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
+            <li>  <a target="_self" href="j_spring_security_logout" ng-show="auth.isAuthenticated()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> {{loc.logout}}
+            </a></li>
+        </ul>
+    </nav>
 </header>
-<nav class="nav-horizontal" ng-cloak>
-    <ul  ng-show="auth.isAuthenticated()">
-        <li> <a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
-        <li> <a href="search"><i class="fa fa-users"></i> {{loc.pals}}</a></li>
-        <li> <a href="tournaments"><i class="fa fa-trophy"></i> {{loc.tournaments}}</a></li>
-        <li> <a href="profile/{{auth.principal.actor.userAccount.username}}" ng-show="auth.isAuthenticated()">
-            <i class="fa fa-user"></i> {{loc.profile}}</a></li>
-        <li ng-show="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-             <a href="user/reported/list"><i class="fa fa-user-times"></i> User reported list</a> </li>
-    </ul>
-    <ul class="nav-horizontal-login" >
-        <li> <a href="#" ng-show="!auth.isAuthenticated()" dialog="login"><i class="fa fa-sign-in"></i> {{loc.login}}</a> </li>
-        <li>  <a href="signup" ng-show="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
-        <li>  <a target="_self" href="j_spring_security_logout" ng-show="auth.isAuthenticated()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> {{loc.logout}}
-        </a></li>
-    </ul>
-</nav>
+
 <div class="container" ng-cloak >
     <div class="flexslider">
         <ul class="slides">
@@ -106,17 +104,21 @@
             </li>
         </ul>
     </div>
-    <div class="nav-games">
-        <h1>Games</h1>
-        <img ng-src="assets/images/games/icons/{{i.tag}}icon.png" ng-repeat="i in MainPageService.main.games"/>
-    </div>
     <main ng-view>
 
     </main>
     <footer>
+        <ul>
+            <li><a href="about"></a> About us</li></li>
+            <li><a href="contact">Contact</a></li>
+            <li><a href="legal"> Legal Note</a></li>
+            <li><a class="cursor-pointer" href="#" ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a>
+                <a  class="cursor-pointer"  href="#" ng-click="loc.changeLan('es')"><flag lang="es"></flag></a>
+        </ul>
+        <div class="text-center">© 2017-2017 GamingPals.com</div>
     </footer>
 </div>
-<div class="message-system {{MessageSystem.color}}" ng-show="MessageSystem.show" ng-bind-html="MessageSystem.message">
+<div class="message-system {{SystemMessages.color}}" ng-show="SystemMessages.show" ng-bind-html="SystemMessages.message">
 </div>
 <div class="loader"></div>
 <script>

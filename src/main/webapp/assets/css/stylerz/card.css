@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-base-white-1".
-        on line 37 of card.scss
+        on line 34 of card.scss
 
-32: 
-33: .card-rating{
-34:   padding:5px;
-35:   @extend .box;
-36:   margin-right:5px;
-37:   background-color: $color-base-white-1;
-38:   opacity:1;
-39:   border:1px solid $color-base-black-6;
-40:   border-radius:4pt;
-41:   img{
-42:     width:60px;
+29: 
+30: .card-rating{
+31:   padding:5px;
+32:   @extend .box;
+33:   margin-right:5px;
+34:   background-color: $color-base-white-1;
+35:   opacity:1;
+36:   border:1px solid $color-base-black-6;
+37:   border-radius:4pt;
+38:   img{
+39:     width:60px;
 
 Backtrace:
-card.scss:37
+card.scss:34
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -67,4 +67,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-white-1\".\A         on line 37 of card.scss\A \A 32: \A 33: .card-rating{\A 34:   padding:5px;\A 35:   @extend .box;\A 36:   margin-right:5px;\A 37:   background-color: $color-base-white-1;\A 38:   opacity:1;\A 39:   border:1px solid $color-base-black-6;\A 40:   border-radius:4pt;\A 41:   img{\A 42:     width:60px;"; }
+  content: "Error: Undefined variable: \"$color-base-white-1\".\A         on line 34 of card.scss\A \A 29: \A 30: .card-rating{\A 31:   padding:5px;\A 32:   @extend .box;\A 33:   margin-right:5px;\A 34:   background-color: $color-base-white-1;\A 35:   opacity:1;\A 36:   border:1px solid $color-base-black-6;\A 37:   border-radius:4pt;\A 38:   img{\A 39:     width:60px;"; }

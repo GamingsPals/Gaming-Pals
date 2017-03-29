@@ -32,7 +32,7 @@
 .size-1-5 {
   font-size: 1.5em; }
 
-.col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats, .landpage .cols li, .landpage .cols2 li {
+.col, .card, .card-small, .card .card-image, .card-small .card-image, .card .card-buttons, .card-small .card-buttons, .header .header-nav, .nav-horizontal, .profile-header .profile-left-panel .profile-avatar, .profile-header .profile-left-panel .profile-info, .profile-header .profile-left-panel .profile-stats, .landpage .cols li, .landpage .cols2 li, footer ul li {
   display: inline-table; }
 
 .s1, .profile-header .profile-left-panel .profile-avatar {
@@ -41,7 +41,7 @@
 .s2 {
   width: 16%; }
 
-.s3, .card, .card-small, .landpage .cols li {
+.s3, .card, .card-small, .header .header-nav, .landpage .cols li {
   width: 24%; }
 
 .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats {
@@ -50,16 +50,16 @@
 .s5, .profile-header .profile-left-panel .profile-info {
   width: 41%; }
 
-.s6, .card .card-buttons, .card-small .card-buttons, .landpage .cols2 li {
+.s6, .landpage .cols2 li {
   width: 49%; }
 
-.s7 {
+.s7, .card .card-buttons, .card-small .card-buttons {
   width: 58%; }
 
 .s8 {
   width: 66%; }
 
-.s9 {
+.s9, .nav-horizontal {
   width: 74%; }
 
 .s10 {
@@ -72,8 +72,9 @@
   width: 99%; }
 
 @media only screen and (min-width: 0px) and (max-width: 1024px) {
-  .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .landpage .cols li, .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .card .card-buttons, .card-small .card-buttons, .landpage .cols2 li, .s7, .s8,
-  .s9, .s10, .s11, .s12 {
+  .s1, .profile-header .profile-left-panel .profile-avatar, .s2, .s3, .card, .card-small, .header .header-nav, .landpage .cols li, .s4, .card .card-image, .card-small .card-image, .profile-header .profile-left-panel .profile-stats, .s5, .profile-header .profile-left-panel .profile-info, .s6, .landpage .cols2 li, .s7, .card .card-buttons, .card-small .card-buttons, .s8,
+  .s9,
+  .nav-horizontal, .s10, .s11, .s12 {
     width: 100% !important; } }
 
 .box, .button, .grey-button, input[type=submit], .card, .card-small, .card-rating {
@@ -113,7 +114,7 @@
       display: block !important; } }
 
 @media only screen and (min-width: 0px) and (max-width: 1024px) {
-  .op, .nav-horizontal, .nav-games {
+  .op, .nav-horizontal {
     display: none !important; } }
 
 .fixed {
@@ -145,7 +146,7 @@
   margin-bottom: 10px;
   display: block; }
 
-.text-center {
+.text-center, footer ul {
   text-align: center; }
 
 .float-right, .right {
@@ -174,6 +175,16 @@
 
 .no-border {
   border: 0 !important; }
+
+.flag {
+  width: 20px;
+  vertical-align: middle; }
+
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 .card, .card-small {
   border-radius: 4pt;
@@ -213,17 +224,13 @@
   padding-left: 10%;
   background-color: rgba(35, 66, 79, 0.85);
   transition: all 0.2s ease-out; }
-  .header .header-nav {
-    display: inline-table;
-    width: 80%; }
-    .header .header-nav img {
-      vertical-align: middle;
-      display: block;
-      width: 25%;
-      transition: 0.2s all ease-out; }
-      @media only screen and (min-device-width: 100px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-        .header .header-nav img {
-          width: 60%; } }
+  .header .header-nav img {
+    vertical-align: middle;
+    width: 85%;
+    transition: 0.2s all ease-out; }
+    @media only screen and (min-device-width: 100px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+      .header .header-nav img {
+        width: 50% !important; } }
 
 a {
   color: inherit;
@@ -256,11 +263,14 @@ a {
     display: list-item !important;
     padding: 10px;
     color: #36535d;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-    text-decoration: none;
-    transition: all 0.3s ease-out; }
+    border-bottom: 0 solid transparent;
+    transition: 0.2s all ease-out;
+    margin-right: 2%; }
     .nav-menu ul li a:hover {
-      background-color: rgba(0, 0, 0, 0.18); }
+      color: white;
+      background-color: rgba(0, 0, 0, 0.38);
+      border-radius: 5px;
+      border: 0; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .nav-menu ul {
       width: 70%; } }
@@ -291,7 +301,6 @@ a {
 
 .nav-horizontal {
   text-transform: uppercase;
-  background-color: black;
   font-size: 0.8em; }
   .nav-horizontal ul {
     display: inline-table;
@@ -304,7 +313,7 @@ a {
       list-style: none;
       display: inline-table;
       color: white;
-      border-bottom: 4px solid transparent;
+      border-bottom: 0 solid transparent;
       transition: 0.2s all ease-out;
       margin-right: 2%; }
       .nav-horizontal ul li a {
@@ -313,8 +322,10 @@ a {
         padding: 15px;
         text-decoration: none; }
       .nav-horizontal ul li:hover {
-        color: #73afc9;
-        border-bottom: 4px solid #73afc9; }
+        color: white;
+        background-color: rgba(0, 0, 0, 0.38);
+        border-radius: 5px;
+        border: 0; }
       .nav-horizontal ul li:hover > ul {
         display: block; }
       .nav-horizontal ul li ul {
@@ -331,49 +342,7 @@ a {
           display: list-item;
           list-style: none; }
   .nav-horizontal .nav-horizontal-login {
-    width: 20%; }
-
-.fixed-hor-menu {
-  position: fixed;
-  left: 25%;
-  top: 13px;
-  z-index: 3;
-  background-color: transparent;
-  width: 100%; }
-  .fixed-hor-menu ul {
-    width: 50%;
-    margin-left: 0; }
-    .fixed-hor-menu ul li {
-      border-bottom: 0 solid transparent;
-      transition: 0.2s all ease-out;
-      margin-right: 2%; }
-      .fixed-hor-menu ul li:hover {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.38);
-        border-radius: 5px;
-        border: 0; }
-  .fixed-hor-menu .nav-horizontal-login {
-    margin-left: 0; }
-
-.nav-games {
-  padding-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 70%;
-  display: block;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 0.9em;
-  background: transparent; }
-  .nav-games img {
-    max-width: 20%; }
-  .nav-games .disabled {
-    filter: grayscale(100%) contrast(160%) opacity(50%);
-    transition: all 0.2s ease-out; }
-  .nav-games h1 {
-    font-size: 1em;
-    border: none;
-    margin: 0;
-    padding: 0;
-    display: block; }
+    width: 30%; }
 
 .fixed-menu {
   position: fixed;
@@ -497,7 +466,7 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-5.jpg);
+  background-image: url(../images/profile-3.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {
@@ -604,11 +573,6 @@ table {
 .container {
   transition: all 0.5s ease-out; }
 
-footer {
-  min-height: 300px;
-  background-color: black;
-  color: white; }
-
 ul {
   margin: 0;
   padding: 0; }
@@ -626,8 +590,8 @@ main {
   background-color: white;
   color: black !important;
   min-height: 500px;
-  text-decoration: none;
-  padding: 15px; }
+  padding: 15px;
+  text-decoration: none; }
   main a {
     color: #73afc9 !important; }
     main a:hover {
@@ -648,11 +612,11 @@ main {
   font-size: 0.6em; }
 
 .landpage {
+  padding: 50px;
   font-size: 1.2em;
   text-align: justify;
   text-justify: inter-word;
-  font-family: Roboto-Light,sans-serif;
-  padding: 50px; }
+  font-family: Roboto-Light,sans-serif; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .landpage {
       padding: 5px; } }
@@ -670,6 +634,9 @@ main {
     margin-bottom: 100px; }
     .landpage .cols li {
       margin-right: 12%; }
+      @media only screen and (min-width: 0px) and (max-width: 1024px) {
+        .landpage .cols li {
+          margin-right: 0; } }
       .landpage .cols li img {
         width: 120px;
         margin-bottom: 40px;
@@ -683,5 +650,23 @@ main {
       width: 200px;
       display: block;
       border: 0; }
+
+footer {
+  color: white;
+  margin-top: 4%;
+  font-family: Roboto-Light, sans-serif;
+  margin-bottom: 4%;
+  margin-left: 8%;
+  margin-right: 8%; }
+  footer ul {
+    margin-bottom: 20px;
+    vertical-align: middle; }
+    footer ul li {
+      margin-right: 5%;
+      font-size: 0.9em; }
+      footer ul li a {
+        color: inherit; }
+        footer ul li a:hover {
+          text-decoration: underline; }
 
 /*# sourceMappingURL=style.css.map */

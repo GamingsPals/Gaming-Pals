@@ -1,6 +1,8 @@
 package controllers.API;
 
+import domain.Actor;
 import domain.User;
+import forms.TestForm;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.collections.map.LinkedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -39,5 +42,19 @@ public class MainPageController extends ApiAbstractController {
         }
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/test")
+    public Object test(TestForm  testForm, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Map<String, Object> mapa = new HashMap<>();
+            mapa.put("testForm",testForm);
+
+            return mapa;
+        } catch (Exception e){
+
+           return notFoundError(response,"No puedes ");
+        }
+    }
 
 }

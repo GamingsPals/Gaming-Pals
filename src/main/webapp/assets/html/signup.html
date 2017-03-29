@@ -1,0 +1,16 @@
+<form name="signup-form" ng-submit="enviarForm()">
+
+    <label>
+       {{loc.signupform.name}}
+    </label>
+
+    <input type="text" placeholder="Name" ng-model="signupform.name" />
+
+    <label>
+        Password
+    </label>
+    <input type="password" />
+
+    <input type="submit" value="Send" ng-model="signupform.password" />
+
+</form>

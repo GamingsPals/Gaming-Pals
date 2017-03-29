@@ -19,5 +19,8 @@
     "username" : "Username",
     "message" : "Join our community and start playing better and happier",
     "donthaveaccount": "Don't have an account yet?"
+  },
+  "signupform": {
+    "name": "Name"
   }
 }

@@ -25,10 +25,8 @@ $(document).ready(function(){
 function changeNavMenuToFixed(){
     if ($(window).scrollTop() > 37) {
         $('header').addClass("fixed-menu");
-        $('.nav-horizontal').addClass("fixed-hor-menu");
     } else {
         $('header').removeClass("fixed-menu");
-        $('.nav-horizontal').removeClass("fixed-hor-menu");
     }
 }
 

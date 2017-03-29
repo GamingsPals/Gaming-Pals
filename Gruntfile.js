@@ -9,10 +9,12 @@ module.exports = function(grunt) {
             dist1: {
                 src: [
                     'src/main/webapp/assets/js/app/init.js',
-                    'src/main/webapp/assets/js/app/controllers.js',
-                    'src/main/webapp/assets/js/app/services.js',
-                    'src/main/webapp/assets/js/app/filters.js',
-                    'src/main/webapp/assets/js/app/directives.js',
+                    'src/main/webapp/assets/js/app/routes.js',
+                    'src/main/webapp/assets/js/app/router.js',
+                    'src/main/webapp/assets/js/app/controllers/**',
+                    'src/main/webapp/assets/js/app/services/**',
+                    'src/main/webapp/assets/js/app/filters/**',
+                    'src/main/webapp/assets/js/app/directives/**',
                     'src/main/webapp/assets/js/app/menu.js'
 
                 ],

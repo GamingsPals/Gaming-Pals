@@ -1,98 +1,77 @@
 let app =
-    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog'])
-        .config(function($routeProvider,$locationProvider){
-            $routeProvider.when("/", {
-                templateUrl : "assets/html/main.html",
-                controller: "HomeController"
-            })
-                .when("/login", {
-                    templateUrl : "assets/html/login.html",
-                    controller: "LoginController"
-                }).
-                when("/user/reported/list", {
-                    templateUrl: "assets/html/viewreport.html",
-                    controller: "ReportedUserListController"
-                })
-                .when("/profile/:username", {
-                    templateUrl : "assets/html/profile.html",
-                    controller: "ProfileController"
-                }).when("/search", {
-                templateUrl : "assets/html/search.html",
-                controller: "SearchController"
-            }).otherwise({
-                    redirectTo: '/'
-
-                });
-            $locationProvider.html5Mode(true);
-        });
+    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog']);
 
 
-;app.controller('MainController',function($scope,localization,$rootScope,auth,MainPageService,MessageSystem,$sanitize){
-    localization.init($scope);
-    $rootScope.loc = localization;
-    $scope.auth = auth;
-    $scope.auth.load(function(){});
-    $rootScope.csrf = csrf;
-    $scope.MainPageService = MainPageService;
-    $scope.MainPageService.mainData();
-    $scope.MessageSystem = MessageSystem;
-    $scope.sanitize = $sanitize;
-});
+app.run(function($rootScope) {
+    $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        closeMenu();
+    });
+});;let routes =
+    [
+        {
+            route: "/",
+            options: {
+                templateUrl: "main",
+                controller: "Home",
+            }
+        },
+        {
+            route: "/login",
+            options: {
+                templateUrl: "login",
+                controller: "Login",
+            }
+        },
+        {
+            route: "/user/reported/list",
+            options: {
+                templateUrl: "viewreport",
+                controller: "ReportedUserList",
+            }
+        },
+        {
+            route: "/profile/:username",
+            options: {
+                templateUrl: "profile",
+                controller: "Profile",
+            }
+        },
+        {
+            route: "/search",
+            options: {
+                templateUrl: "search",
+                controller: "Search",
+            }
+        },
+        {
+            route: "/signup",
+            options:{
+                templateUrl: "signup",
+                controller: "Signup"
+            }
 
-app.controller('HomeController',function($scope){
-});
+        }
+    ];
 
-app.controller('SearchController',function($scope,SearchService,$location){
-    $scope.As = SearchService;
-    $scope.As.filter($location.search());
-});
+;app.config(function($routeProvider,$locationProvider){
+    routes.forEach(function(a){
+        a.options.templateUrl = `assets/html/${a.options.templateUrl}.html`;
+        a.options.controller = `${a.options.controller}Controller`;
+        $routeProvider.when(a.route,a.options);
+    });
 
-app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
-    middleware.needRol("ADMIN");
-    $scope.As = ActorService;
-    $scope.As.reportedUsers();
-    $scope.showImage = function(image){
-        $scope.image = image;
-        dialog.open("showImage",$scope);
-    }
-});
+    $routeProvider.otherwise({
+        redirectTo: '/'
+    });
 
-
-app.controller('LoginController',function(middleware){
-    middleware.needRol("NONE");
-});
-
-app.controller('ProfileController',function($scope,middleware,ActorService,$routeParams){
-    $scope.ActorService = ActorService;
-    $scope.ActorService.UserProfile($routeParams.username);
-});
-
-app.controller('WriteRatingController',function($scope,middleware,ActorService,$routeParams,$rootScope,MessageSystem,dialog){
-    $scope.rateUser = function(){
-        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
-        $scope.writerating = false;
-        $scope.rateform = null;
-        ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
-        MessageSystem.okmessage("Rating added");
-        dialog.closeAll();
-    }
-});
-
-
-app.controller('WriteReportController',function($scope,middleware,ActorService,$routeParams,$rootScope,MessageSystem,dialog){
-    $scope.reportUser = function(){
-        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{MessageSystem.okmessage("Report send!");
-            dialog.closeAll();});
-
-    }
-});
-app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
-	$scope.LolData=LolApiService;
-	$scope.test =" Asdad";
-	console.log("adsda");
-	$scope.validateSummoner = function(){
-	    console.log($scope.search);
-	    if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
+    $locationProvider.html5Mode(true);
+});;;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
+    $scope.LolData=LolApiService;
+    $scope.test =" Asdad";
+    console.log("adsda");
+    $scope.validateSummoner = function(){
+        console.log($scope.search);
+        if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
             $scope.check = true;
             $scope.search.key = md5($scope.search.summoner);
             $scope.search.key = $scope.search.key.substring(0, 25);
@@ -109,135 +88,64 @@ app.controller('AddSummonerController',function($scope,LolApiService,dialog,Acto
         });
     }
 });;
-app.service("xhr",function($http,MessageSystem,$rootScope) {
-
-
-    this.get = function (url, sucess,error) {
-        $(".loader").show();
-        $http.get(url).then(function (data) {
-            if (typeof sucess !== "undefined") {
-            sucess(data);
-        }
-                $(".loader").hide();
-        },
-            function(data) {
-                if (typeof error !== "undefined") {
-                    error(data);
-                }
-                $(".loader").hide();
-                MessageSystem.errormessage("Something wrong has happened!");
-            });
-    };
-
-    this.post = function (url, data, sucess,error) {
-        $(".loader").show();
-        data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
-        $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
-        $http({
-            method: 'POST',
-            url: url,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRF-TOKEN': data._csrf
-
-            },
-            transformRequest: function (obj) {
-                let str = [];
-                for (let p in obj) {
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-                return str.join("&");
-            },
-            data: data
-        }).then(
-            function(data){
-                if(typeof sucess !== "undefined"){
-                    sucess(data);
-                }
-                $(".loader").hide();
-            },
-            function(data) {
-                if (typeof error !== "undefined") {
-                    error(data);
-                }
-                MessageSystem.errormessage("Something wrong has happened!");
-                $(".loader").hide();
-            }
-        );
-    };
+app.controller('HomeController',function($scope){
+});;
+app.controller('LoginController',function(middleware){
+    middleware.needRol("NONE");
 });
-
-app.service("localization",function(xhr,$cookies){
-    this.loc = {};
-    this.base_lan = 'en';
-
-    this.init = function($scope){
-        let object = this;
-        language = this.getLanguage($cookies);
-
-        xhr.get("assets/localitation/"+this.base_lan+".json",function(data){
-            Object.assign(object, data.data);
-            if (language != object.base_lan) {
-                xhr.get("assets/localitation/" + language + ".json", function (data) {
-                    Object.assign(object, data.data);
-                });
-            }
-        });
-    };
-
-    this.getLanguage = function(cookies){
-        return (typeof cookies.get("language")!= 'undefined') ? cookies.get("language") : "en";
+;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize){
+    localization.init($scope);
+    $rootScope.loc = localization;
+    $scope.auth = auth;
+    $scope.auth.load(function(){});
+    $rootScope.csrf = csrf;
+    $scope.MessageSystem = SystemMessages;
+    $scope.sanitize = $sanitize;
+});;
+app.controller('ProfileController',function($scope,middleware,ActorService,$routeParams){
+    $scope.ActorService = ActorService;
+    $scope.ActorService.UserProfile($routeParams.username);
+});;app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
+    middleware.needRol("ADMIN");
+    $scope.As = ActorService;
+    $scope.As.reportedUsers();
+    $scope.showImage = function(image){
+        $scope.image = image;
+        dialog.open("showImage",$scope);
     }
+});;
+app.controller('SearchController',function($scope,SearchService,$location){
+    $scope.As = SearchService;
+    $scope.As.filter($location.search());
 });
+;app.controller('SignupController',function($scope,middleware, xhr){
 
 
-app.service("SearchService", function(xhr){
-    this.search = [];
-
-    this.filter = function(filter,callback){
-        let object = this;
-        xhr.get("api/search?"+$.param(filter),function(data){
-            object.search = data.data;
-            if (typeof callback !== "undefined") callback();
-        })
-    };
-
-    this.findAll = function(){
-        let object = this;
-        xhr.get("api/search",function(data){
-            object.search = data.data;
-        })
-    };
-});
-
-app.service("MainPageService",function(xhr,ActorService){
-    this.main = {};
-
-    this.mainData = function(){
-        let object = this;
-        xhr.get("api/main",function(data){
-            object.main = data.data;
-            data.data.bestclassified = object.processActors(data.data.bestclassified);
-        })
-    };
-
-    this.processActors = function (actors) {
-        actors.forEach(function(a,e){
-            actors[e] = ActorService.processActor(a);
-        });
-
-        return actors;
+    $scope.enviarForm = function(){
+        xhr.post("api/test",$scope.signupform);
     }
+});;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+    $scope.rateUser = function(){
+        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
+        $scope.writerating = false;
+        $scope.rateform = null;
+        ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
+        SystemMessages.okmessage("Rating added");
+        dialog.closeAll();
+    }
+});;
+app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+    $scope.reportUser = function(){
+        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report send!");
+            dialog.closeAll();});
 
-});
-
-app.service("ActorService",function(xhr,auth){
+    }
+});;;app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
     this.notFound = false;
     this.search = [];
     this.reportedList = {};
-
     this.UserProfile = function(name){
         let object = this;
         if(typeof name === "undefined"){
@@ -249,7 +157,7 @@ app.service("ActorService",function(xhr,auth){
             object.notFound = false;
         },function(data){
             object.notFound = true;
-        })
+        });
     };
 
 
@@ -311,10 +219,7 @@ app.service("ActorService",function(xhr,auth){
         return actor;
     };
 
-});
-
-
-
+});;
 app.service("auth", function(xhr){
 
     this.principal = {};
@@ -363,9 +268,63 @@ app.service("auth", function(xhr){
         return result;
     }
 
-});
+});;
+app.service("dialog", function(ngDialog){
 
-app.service("middleware",function(auth,$location){
+    this.open = function(template,scope,controller) {
+        let path = "assets/html/"+template+".html";
+        let options = {};
+        options.template = path;
+        if(typeof scope !== "undefined") options.scope = scope;
+        if(typeof controller !== "undefined") options.controller = controller;
+        ngDialog.open(options);
+    };
+
+    this.closeAll = function(){
+        ngDialog.closeAll();
+    }
+});;app.service("localization",function(xhr,$cookies){
+    this.loc = {};
+    this.base_lan = 'en';
+
+    this.init = function(){
+        let object = this;
+        language = this.getLanguage();
+        xhr.get("assets/localitation/"+this.base_lan+".json",function(data){
+            Object.assign(object, data.data);
+            if (language !== object.base_lan) {
+                xhr.get("assets/localitation/" + language + ".json", function (data) {
+                    Object.assign(object, data.data);
+                });
+            }
+        });
+    };
+
+    this.getLanguage = function(){
+        return (typeof $cookies.get("language")!== 'undefined') ? $cookies.get("language") : "en";
+    };
+
+    this.changeLan = function(lan){
+        console.log("ey");
+      $cookies.put("language",lan);
+      this.init();
+    }
+});
+;app.service("LolApiService",function(xhr){
+    this.main = {};
+
+    this.mainData = function(summoner,success,error){
+        let object = this;
+        xhr.get("api/lol/addsummoner/"+summoner.summoner+"/"+summoner.region+"?key="+summoner.key,function(data){
+            if(typeof success !=="undefined")
+                success(data);
+        },function(data){
+            if(typeof error !=="undefined")
+                error(data);
+        })
+    };
+
+});;app.service("middleware",function(auth,$location){
 
     this.needRol = function(rol){
         console.log("ey");
@@ -402,25 +361,42 @@ app.service("middleware",function(auth,$location){
         return true;
     }
 
-});
+});;
 
+app.service("SearchService", function(xhr){
+    this.search = [];
 
-app.service("MessageSystem", function($timeout){
+    this.filter = function(filter,callback){
+        let object = this;
+        xhr.get("api/search?"+$.param(filter),function(data){
+            object.search = data.data;
+            if (typeof callback !== "undefined") callback();
+        })
+    };
+
+    this.findAll = function(){
+        let object = this;
+        xhr.get("api/search",function(data){
+            object.search = data.data;
+        })
+    };
+});;
+app.service("SystemMessages", function($timeout){
 
     this.color="";
     this.message = "";
     this.show = false;
 
 
-   this.okmessage = function(message){
-       this.color ="bg-green3";
-       this.message = `<i class="fa fa-check"></i> ${message}`;
-       this.show = true;
-       let object = this;
-       $timeout(function(){
-           object.show = false;
-       },2000);
-   };
+    this.okmessage = function(message){
+        this.color ="bg-green3";
+        this.message = `<i class="fa fa-check"></i> ${message}`;
+        this.show = true;
+        let object = this;
+        $timeout(function(){
+            object.show = false;
+        },2000);
+    };
 
     this.errormessage = function(message){
         this.color ="bg-red3";
@@ -432,40 +408,81 @@ app.service("MessageSystem", function($timeout){
         },3000);
     }
 
-});
+});;app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
-app.service("dialog", function(ngDialog){
-
-    this.open = function(template,scope,controller) {
-        let path = "assets/html/"+template+".html";
-        let options = {};
-        options.template = path;
-        if(typeof scope !== "undefined") options.scope = scope;
-        if(typeof controller !== "undefined") options.controller = controller;
-        ngDialog.open(options);
+    this.get = function (url, sucess,error) {
+        $(".loader").show();
+        $http.get(url).then(function (data) {
+                if (typeof sucess !== "undefined") {
+                    sucess(data);
+                }
+                $(".loader").hide();
+            },
+            function(data) {
+                if (typeof error !== "undefined") {
+                    error(data);
+                }
+                $(".loader").hide();
+                MessageSystem.errormessage("Something wrong has happened!");
+            });
     };
 
-    this.closeAll = function(){
-        ngDialog.closeAll();
+    this.post = function (url, data, sucess,error) {
+        $(".loader").show();
+        console.log(data);
+        data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
+        $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
+        $http({
+            method: 'POST',
+            url: url,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRF-TOKEN': data._csrf
+
+            },
+            transformRequest: function (obj) {
+                let str = [];
+                for (let p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+            },
+            data: data
+        }).then(
+            function(data){
+                if(typeof sucess !== "undefined"){
+                    sucess(data);
+                }
+                $(".loader").hide();
+            },
+            function(data) {
+                if (typeof error !== "undefined") {
+                    error(data);
+                }
+                MessageSystem.errormessage("Something wrong has happened!");
+                $(".loader").hide();
+            }
+        );
+    };
+});;;;app.directive("dialog", function(dialog){
+    return {
+        restrict: "A",
+        link: function(scope,element,attrs){
+            $(element).on('click',function(e){
+                dialog.open(attrs.dialog,scope,attrs.dialogcontroller);
+            })
+        }
     }
-});
-app.service("LolApiService",function(xhr){
-    this.main = {};
-
-
-    this.mainData = function(summoner,success,error){
-        let object = this;
-        xhr.get("api/lol/addsummoner/"+summoner.summoner+"/"+summoner.region+"?key="+summoner.key,function(data){
-            if(typeof success !=="undefined")
-            success(data);
-        },function(data){
-            if(typeof error !=="undefined")
-                error(data);
-        })
-    };
-
-});;;app.directive("follow",function($compile,auth,$rootScope,ActorService){
+});;app.directive("flag", function($compile){
+    return {
+        restrict: "AE",
+        link: function(scope,element,attrs){
+            $(element).html(`<img class="flag" ng-src="assets/images/flags/${attrs.lang}.png" /></li>`);
+            $compile(element.contents())(scope);
+        }
+    }
+});;app.directive("follow",function($compile,auth,$rootScope,ActorService){
     return {
         restrict:"A",
         terminal: true,
@@ -505,23 +522,80 @@ app.service("LolApiService",function(xhr){
             })
         }
     }
-});
-
-app.directive("select",function(){
-    return{
+});;app.directive("giant",function(){
+    return {
         restrict: "E",
         link: function(scope,element,attrs){
-            $(element).selectric(
-                {
-                    responsive: true,
-                    disableOnMobile: true
-                }
-            );
+            $(element).css("font-size","4em");
+        }
+    }
+});;app.directive("hasRole", function(auth){
+    return{
+        restrict: "A",
+        link: function(scope,element,attrs){
+            if (!auth.isAuthenticated()){
+                $(element).hide();
+            }
+        }
+    }
+
+});;
+app.directive("isAuth", function(auth){
+    return{
+        restrict: "A",
+        link: function(scope,element,attrs){
+            if (!auth.isAuthenticated()){
+                $(element).hide();
+            }
+        }
+    }
+
+});;
+app.directive("loltier",function(){
+    return {
+        restrict: "AEC",
+        link: function(scope,element,attrs){
+            let assetsPath = `assets/images/games/lol/tiers/`;
+            let image = $(`<img class="tier-icon" src="${assetsPath}${attrs.loltier.toLowerCase()}.png" />`);
+            $(element).html(image);
+            scope.$watch(function(){
+                $(element).html(image);
+            })
+        }
+    }
+});;app.directive("notPrincipal", function(auth,ActorService){
+    return{
+        scope: {
+            "notPrincipal": "="
+        },
+        restrict: "A",
+        link: function(scope,element,attrs){
+            scope.$watch("notPrincipal",function(e){
+                notPrincipal(element,scope.notPrincipal,auth);
+            });
+        }
+    }
+
+});
+
+function notPrincipal(element,actor,auth){
+    if (auth.isPrincipal(actor)){
+        $(element).hide();
+    }else{
+        $(element).show();
+    }
+};
+app.directive("profileHeader",function(){
+    return {
+        restrict: "C",
+        link: function(scope,element,attrs){
+            let random = Math.floor((Math.random() * 7) + 1);
+            let url = `url(assets/images/profile-${random}.jpg)`;
+            $(element).css("background-image",url);
         }
     }
 });
-
-app.directive("rating",function(){
+;app.directive("rating",function(){
     return{
         restrict: "E",
         scope:{
@@ -543,105 +617,24 @@ app.directive("rating",function(){
 
         }
     }
-});
-
-app.directive("isAuth", function(auth){
-    return{
-        restrict: "A",
-        link: function(scope,element,attrs){
-                  if (!auth.isAuthenticated()){
-                      $(element).hide();
-                  }
-        }
-    }
-
-});
-
-app.directive("hasRole", function(auth){
-    return{
-        restrict: "A",
-        link: function(scope,element,attrs){
-            if (!auth.isAuthenticated()){
-                $(element).hide();
-            }
-        }
-    }
-
-});
-
-app.directive("notPrincipal", function(auth,ActorService){
-    return{
-        scope: {
-          "notPrincipal": "="
-        },
-        restrict: "A",
-        link: function(scope,element,attrs){
-            scope.$watch("notPrincipal",function(e){
-            notPrincipal(element,scope.notPrincipal,auth);
-            });
-        }
-    }
-
-});
-
-function notPrincipal(element,actor,auth){
-    if (auth.isPrincipal(actor)){
-        $(element).hide();
-    }else{
-        $(element).show();
-    }
-}
-
-app.directive("report", function(dialog){
+});;app.directive("report", function(dialog){
     return {
         restrict: "A",
         link: function(scope,element,attrs){
             $(element).addClass("cursor-pointer").addClass("red3");
         }
     }
-});
-
-app.directive("dialog", function(dialog){
-    return {
-        restrict: "A",
-        link: function(scope,element,attrs){
-            $(element).on('click',function(e){
-                dialog.open(attrs.dialog,scope,attrs.dialogcontroller);
-            })
-        }
-    }
-});
-
-app.directive("profileHeader",function(){
-    return {
-        restrict: "C",
-        link: function(scope,element,attrs){
-            let random = Math.floor((Math.random() * 7) + 1);
-            let url = `url(assets/images/profile-${random}.jpg)`;
-            $(element).css("background-image",url);
-        }
-    }
-});
-
-app.directive("giant",function(){
-    return {
+});;
+app.directive("select",function(){
+    return{
         restrict: "E",
         link: function(scope,element,attrs){
-            $(element).css("font-size","4em");
-        }
-    }
-});
-
-app.directive("loltier",function(){
-    return {
-        restrict: "AEC",
-        link: function(scope,element,attrs){
-            let assetsPath = `assets/images/games/lol/tiers/`;
-            let image = $(`<img class="tier-icon" src="${assetsPath}${attrs.loltier.toLowerCase()}.png" />`);
-            $(element).html(image);
-            scope.$watch(function(){
-                $(element).html(image);
-            })
+            $(element).selectric(
+                {
+                    responsive: true,
+                    disableOnMobile: true
+                }
+            );
         }
     }
 });;String.prototype.capitalize = function() {
@@ -671,10 +664,8 @@ $(document).ready(function(){
 function changeNavMenuToFixed(){
     if ($(window).scrollTop() > 37) {
         $('header').addClass("fixed-menu");
-        $('.nav-horizontal').addClass("fixed-hor-menu");
     } else {
         $('header').removeClass("fixed-menu");
-        $('.nav-horizontal').removeClass("fixed-hor-menu");
     }
 }
 
