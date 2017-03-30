@@ -1,6 +1,12 @@
+
 package services;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -11,8 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import domain.CreditCard;
+import domain.GameInfo;
+import domain.Language;
 import domain.Message;
 import domain.Rating;
+import domain.Report;
 import domain.Team;
 import domain.User;
 import repositories.UserRepository;
@@ -45,6 +54,8 @@ public class UserService {
 		userAccount.setAuthorities(authorities);
 
 		User res = new User();
+		res.setVerify(false);
+
 		res.setTeams(new ArrayList<Team>());
 		res.setRatingsReceived(new ArrayList<Rating>());
 		res.setRatingsDone(new ArrayList<Rating>());
@@ -53,7 +64,14 @@ public class UserService {
 		res.setFollowingUsers(new ArrayList<User>());
 		res.setReceived(new ArrayList<Message>());
 		res.setSended(new ArrayList<Message>());
-
+		res.setLanguages(new ArrayList<Language>());
+		res.setGameInfo(new ArrayList<GameInfo>());
+		res.setRatingAvg(0.0);
+		res.setAttitudeAvg(0.0);
+		res.setKnowledgeAvg(0.0);
+		res.setSkillAvg(0.0);
+		res.setReportsDone(new ArrayList<Report>());
+		res.setReportsReceived(new ArrayList<Report>());
 		return res;
 	}
 
@@ -81,7 +99,7 @@ public class UserService {
 		return save(user);
 	}
 
-	public User findByName(String string){
+	public User findByName(String string) {
 		User u = userRepository.findByName(string);
 		Assert.notNull(u);
 
@@ -200,63 +218,62 @@ public class UserService {
 		Assert.isTrue(!followers.contains(actor));
 	}
 
-    public List<User> findBestRanked() {
-	    List<User> userList = userRepository.findBestRanked();
+	public List<User> findBestRanked() {
+		List<User> userList = userRepository.findBestRanked();
 
-		return userList.subList(0,Math.min(userList.size(), 5));
-    }
+		return userList.subList(0, Math.min(userList.size(), 5));
+	}
 
-    public void followOrUnfollowUser(User user) {
+	public void followOrUnfollowUser(User user) {
 		Assert.notNull(user);
 		User actor = findByPrincipal();
-		if (!actor.getFollowingUsers().contains(user) && !user.getFollowerUsers().contains(actor)){
-		    followUser(user);
-        }else{
-		    unfollowUser(user);
-        }
-    }
+		if (!actor.getFollowingUsers().contains(user) && !user.getFollowerUsers().contains(actor)) {
+			followUser(user);
+		} else {
+			unfollowUser(user);
+		}
+	}
 
-    public User findByUserAccountUsername(String string) {
+	public User findByUserAccountUsername(String string) {
 		User u = userRepository.findByUserAccountUsername(string);
 		Assert.notNull(u);
 
 		return u;
-    }
-    
-    public Collection<User> usersForGameTag(String tag) {
-    	Collection<User> users = userRepository.usersForGameTag(tag);
-    	Assert.notNull(users);
-    	return users;
-    }
-    
-    public Collection<User> usersForGameTag() {
-    	Collection<User> users = userRepository.usersForGameTag();
-    	Assert.notNull(users);
-    	return users;
-    }
-    
-    public Collection<User> usersFromGameAndTier(String gameTag, String tier) {
-    	Collection<User> users = userRepository.usersFromGameAndTier(gameTag, tier);
-    	Assert.notNull(users);
-    	return users;
-    }
-    
-    public Collection<User> usersForLanguage() {
-    	Collection<User> users = userRepository.usersForLanguage();
-    	Assert.notNull(users);
-    	return users;
-    }
-    
-    public Collection<User> usersForLanguage(String language) {
-    	Collection<User> users = userRepository.usersForLanguage(language);
-    	Assert.notNull(users);
-    	return users;
-    }
-    
-    public Collection<User> userFromUsernameAndTagGame() {
-    	Collection<User> users = userRepository.userFromUsernameAndTagGame();
-    	Assert.notNull(users);
-    	return users;
-    }
-}
+	}
 
+	public Collection<User> usersForGameTag(String tag) {
+		Collection<User> users = userRepository.usersForGameTag(tag);
+		Assert.notNull(users);
+		return users;
+	}
+
+	public Collection<User> usersForGameTag() {
+		Collection<User> users = userRepository.usersForGameTag();
+		Assert.notNull(users);
+		return users;
+	}
+
+	public Collection<User> usersFromGameAndTier(String gameTag, String tier) {
+		Collection<User> users = userRepository.usersFromGameAndTier(gameTag, tier);
+		Assert.notNull(users);
+		return users;
+	}
+
+	public Collection<User> usersForLanguage() {
+		Collection<User> users = userRepository.usersForLanguage();
+		Assert.notNull(users);
+		return users;
+	}
+
+	public Collection<User> usersForLanguage(String language) {
+		Collection<User> users = userRepository.usersForLanguage(language);
+		Assert.notNull(users);
+		return users;
+	}
+
+	public Collection<User> userFromUsernameAndTagGame() {
+		Collection<User> users = userRepository.userFromUsernameAndTagGame();
+		Assert.notNull(users);
+		return users;
+	}
+}

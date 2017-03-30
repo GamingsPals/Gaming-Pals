@@ -1,4 +1,4 @@
-app.service("xhr",function($http, SystemMessages, $rootScope,) {
+app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
     this.get = function (url, sucess,error) {

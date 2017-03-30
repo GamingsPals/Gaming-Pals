@@ -6,20 +6,21 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import security.UserAccount;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
@@ -73,7 +74,7 @@ public abstract class Actor extends DomainEntity {
 
 
 	//Relationships----------------------------------------------------------------
-	private UserAccount userAccount;
+	private UserAccount			userAccount;
 	private Collection<Message>	sended;
 	private Collection<Message>	received;
 
@@ -88,10 +89,9 @@ public abstract class Actor extends DomainEntity {
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-	
+
 	@NotNull
 	@Valid
-	@ElementCollection
 	@JsonIgnore
 	@OneToMany(mappedBy = "sender")
 	public Collection<Message> getSended() {
@@ -105,7 +105,6 @@ public abstract class Actor extends DomainEntity {
 	@NotNull
 	@Valid
 	@JsonIgnore
-	@ElementCollection
 	@OneToMany(mappedBy = "receiver")
 	public Collection<Message> getReceived() {
 		return this.received;

@@ -1,26 +1,33 @@
+
 package domain;
 
 import java.util.Collection;
-import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
 public class User extends Actor {
 
 	// Attributes
-	private int					age;
-	private boolean				verify;
-	private CreditCard			creditCard;
+	private int			age;
+	private boolean		verify;
+	private CreditCard	creditCard;
 
 
 	// Constructor
@@ -42,12 +49,9 @@ public class User extends Actor {
 		this.age = age;
 	}
 
-
-
-	@NotNull
 	@Valid
-    @OneToOne
-    @JsonIgnore
+	@OneToOne(optional = true)
+	@JsonIgnore
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -58,20 +62,19 @@ public class User extends Actor {
 
 
 	// Relationships
-	private Collection<Team>			teams;
-	private Collection<Rating> 			ratingsDone;
-	private Collection<Rating> 			ratingsReceived;
-	private Collection<User>			followingUsers;
-	private Collection<User>			followerUsers;
-	private Collection<Language>		languages;
-    private Collection<GameInfo> gameInfo;
-    private Double ratingAvg;
-    private Double attitudeAvg;
-    private Double knowledgeAvg;
-    private Double skillAvg;
-    private Collection<Report> reportsDone;
-    private Collection<Report> reportsReceived;
-
+	private Collection<Team>		teams;
+	private Collection<Rating>		ratingsDone;
+	private Collection<Rating>		ratingsReceived;
+	private Collection<User>		followingUsers;
+	private Collection<User>		followerUsers;
+	private Collection<Language>	languages;
+	private Collection<GameInfo>	gameInfo;
+	private Double					ratingAvg;
+	private Double					attitudeAvg;
+	private Double					knowledgeAvg;
+	private Double					skillAvg;
+	private Collection<Report>		reportsDone;
+	private Collection<Report>		reportsReceived;
 
 
 	@Valid
@@ -107,7 +110,7 @@ public class User extends Actor {
 
 	@Valid
 	@ManyToMany
-    @JsonIgnore
+	@JsonIgnore
 	public Collection<User> getFollowingUsers() {
 		return followingUsers;
 	}
@@ -127,8 +130,6 @@ public class User extends Actor {
 		this.followerUsers = followerUsers;
 	}
 
-
-	
 	@NotEmpty
 	@Valid
 	@ManyToMany()
@@ -140,16 +141,14 @@ public class User extends Actor {
 		this.languages = languages;
 	}
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	public Collection<GameInfo> getGameInfo() {
+		return gameInfo;
+	}
 
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-        public Collection<GameInfo> getGameInfo() {
-        return gameInfo;
-    }
-
-    public void setGameInfo(Collection<GameInfo> gameUsers) {
-        this.gameInfo = gameUsers;
-    }
+	public void setGameInfo(Collection<GameInfo> gameUsers) {
+		this.gameInfo = gameUsers;
+	}
 
 	public boolean isVerify() {
 		return verify;
@@ -159,7 +158,6 @@ public class User extends Actor {
 		this.verify = verify;
 	}
 
-
 	public Double getRatingAvg() {
 		return ratingAvg;
 	}
@@ -168,50 +166,49 @@ public class User extends Actor {
 		this.ratingAvg = ratingAvg;
 	}
 
+	@PrePersist
+	protected void onCreateRating() {
+		this.ratingAvg = 0.;
+	}
 
+	@Override
+	@PreUpdate
+	protected void onUpdate() {
+		Double avgRating = 0.;
+		Double avgSkill = 0.;
+		Double avgKnowledge = 0.;
+		Double avgAttitude = 0.;
+		for (Rating e : this.getRatingsReceived()) {
+			avgSkill += e.getSkill();
+			avgKnowledge += e.getKnowledge();
+			avgAttitude += e.getAttitude();
+		}
 
-    @PrePersist
-    protected void onCreateRating() {
-	    this.ratingAvg = 0.;
-    }
+		this.ratingAvg = (avgSkill + avgKnowledge + avgAttitude) / 3;
+		this.attitudeAvg = avgAttitude;
+		this.skillAvg = avgSkill;
+		this.knowledgeAvg = avgKnowledge;
+	}
 
-    @PreUpdate
-    protected void onUpdate() {
-	    Double avgRating = 0.;
-	    Double avgSkill = 0.;
-	    Double avgKnowledge = 0.;
-	    Double avgAttitude = 0.;
-	    for(Rating e : this.getRatingsReceived()){
-	        avgSkill += e.getSkill();
-	        avgKnowledge += e.getKnowledge();
-	        avgAttitude += e.getAttitude();
-        }
+	@JsonIgnore
+	@OneToMany(mappedBy = "reporterUser")
+	public Collection<Report> getReportsDone() {
+		return reportsDone;
+	}
 
-        this.ratingAvg = (avgSkill + avgKnowledge + avgAttitude) / 3;
-	    this.attitudeAvg = avgAttitude;
-	    this.skillAvg = avgSkill;
-	    this.knowledgeAvg = avgKnowledge;
-    }
+	public void setReportsDone(Collection<Report> reportsDone) {
+		this.reportsDone = reportsDone;
+	}
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "reporterUser")
-    public Collection<Report> getReportsDone() {
-        return reportsDone;
-    }
+	@JsonIgnore
+	@OneToMany(mappedBy = "reportedUser")
+	public Collection<Report> getReportsReceived() {
+		return reportsReceived;
+	}
 
-    public void setReportsDone(Collection<Report> reportsDone) {
-        this.reportsDone = reportsDone;
-    }
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "reportedUser")
-    public Collection<Report> getReportsReceived() {
-        return reportsReceived;
-    }
-
-    public void setReportsReceived(Collection<Report> reportsReceived) {
-        this.reportsReceived = reportsReceived;
-    }
+	public void setReportsReceived(Collection<Report> reportsReceived) {
+		this.reportsReceived = reportsReceived;
+	}
 
 	public Double getAttitudeAvg() {
 		return attitudeAvg;

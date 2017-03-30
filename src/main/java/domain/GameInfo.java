@@ -1,41 +1,46 @@
+
 package domain;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.persistence.*;
-
 @Entity
 @Access(AccessType.PROPERTY)
-abstract class GameInfo extends DomainEntity {
+public class GameInfo extends DomainEntity {
 
-    private User user;
-    protected String username;
-    private Game game;
+	private User		user;
+	protected String	username;
+	private Game		game;
 
-    @ManyToOne
-    @JsonIgnore
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	@ManyToOne
+	@JsonIgnore
+	public User getUser() {
+		return user;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    @ManyToOne
-    public Game getGame() {
-        return game;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
+	@ManyToOne
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }
