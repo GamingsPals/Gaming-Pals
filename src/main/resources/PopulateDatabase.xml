@@ -422,4 +422,18 @@
 		<property name="summoner" ref="summoner3"/>
 	</bean>
 	
+	<!-- Toxic -->
+	<bean id="toxic" class="domain.Toxic">
+		<property name="keywords">
+			<list>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>sex</value>
+				<value>love</value>
+				<value>bitch</value>
+				<value>fuck</value>
+			</list>
+		</property>
+	</bean>
+	
 </beans>

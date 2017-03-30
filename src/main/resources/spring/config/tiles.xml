@@ -21,6 +21,7 @@
 		<value>/views/master-page/tiles.xml</value>
 	
 		<value>/views/message/tiles.xml</value>
+		<value>/views/toxic/tiles.xml</value>
 	</util:list>
 
 </beans>

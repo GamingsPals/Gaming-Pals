@@ -26,6 +26,7 @@
 		<bean class="converters.ReportToStringConverter" />
 		<bean class="converters.TeamToStringConverter" /> 
 		<bean class="converters.TournamentToStringConverter" /> 
+		<bean class="converters.ToxicToStringConverter" /> 
 		<bean class="converters.UserToStringConverter" /> 
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToActorConverter" /> 
@@ -36,6 +37,7 @@
 		<bean class="converters.StringToReportConverter" />
 		<bean class="converters.StringToTeamConverter" /> 
 		<bean class="converters.StringToTournamentConverter" /> 
+		<bean class="converters.StringToToxicConverter" />
 		<bean class="converters.StringToUserConverter" /> 
 		<bean class="converters.StringToUserAccountConverter" /> 
 		

@@ -20,6 +20,7 @@
 	<util:list id="messages">
 		
 	<value>/views/message/messages</value>
+	<value>/views/toxic/messages</value>
 		
 	</util:list>
 

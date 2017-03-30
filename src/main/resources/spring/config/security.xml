@@ -33,6 +33,7 @@
 		<security:intercept-url pattern="/**" access="permitAll" />
 		
 		<security:intercept-url pattern="/message/actor/**" access="authenticated()" />
+		<security:intercept-url pattern="/toxic/administrator/**" access="hasRole('ADMIN')" />
 
 		<security:form-login 
 			login-page="/login"
