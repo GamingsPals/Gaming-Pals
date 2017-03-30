@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,10 +27,9 @@ public class Tournament extends DomainEntity {
 	private Date	momentCreate;
 	private String	title;
 	private String	description;
-	private String	prize;
-	private Integer	limitTeams;
+	private String	rules;
+	private Integer	numberTeams;
 	private Date	limitInscription;
-	private Date	limitEnd;
 
 
 	// Constructor
@@ -65,21 +65,21 @@ public class Tournament extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getPrize() {
-		return prize;
+	public String getRules() {
+		return rules;
 	}
 
-	public void setPrize(String prize) {
-		this.prize = prize;
+	public void setRules(String rules) {
+		this.rules = rules;
 	}
 
-	@Range(min = 4, max = 50)
-	public Integer getLimitTeams() {
-		return limitTeams;
+	@Range(min = 2, max = 32)
+	public Integer getNumberTeams() {
+		return numberTeams;
 	}
 
-	public void setLimitTeams(Integer limitTeams) {
-		this.limitTeams = limitTeams;
+	public void setNumberTeams(Integer numberTeams) {
+		this.numberTeams= numberTeams;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -93,32 +93,27 @@ public class Tournament extends DomainEntity {
 		this.limitInscription = limitInscription;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	@NotNull
-	public Date getLimitEnd() {
-		return limitEnd;
-	}
-
-	public void setLimitEnd(Date limitEnd) {
-		this.limitEnd = limitEnd;
-
-	}
-
 
 	//Relationships
-	private Collection<Team> teams;
+	private Collection<Match> matchs;
+	private Collection<Award> awards;
 
 
 	@Valid
-	@ManyToMany(mappedBy = "tournaments")
-	public Collection<Team> getTeams() {
-		return teams;
+	@JsonIgnore
+	@OneToMany(mappedBy = "tournament")
+	public Collection<Match> getMatchs() {
+		return matchs;
+	}
+	public void setMatchs(Collection<Match> matchs) {
+		this.matchs= matchs;
 	}
 
-	public void setTeams(Collection<Team> teams) {
-		this.teams = teams;
-	}
+	@Valid
+	@JsonIgnore
+	@OneToMany(mappedBy = "tournament")
+	public Collection<Award> getAwards(){return awards;}
+	public void setAwards(Collection<Award> awards){this.awards=awards;}
 
 
 }
