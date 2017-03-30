@@ -37,15 +37,15 @@ public class ReportMatch extends DomainEntity{
     public void setDescription(String description){this.description=description;}
 
     //Relationship
-    private Match match;
+    private Confrontation confrontation;
     private Team team;
 
     @Valid
     @JsonIgnore
     @ManyToOne
     @NotNull
-    public Match getMatch(){return match;}
-    public void setMatch(Match match){this.match=match;}
+    public Confrontation getConfrontation(){return confrontation;}
+    public void setConfrontation(Confrontation confrontation){this.confrontation= confrontation;}
 
     @Valid
     @JsonIgnore

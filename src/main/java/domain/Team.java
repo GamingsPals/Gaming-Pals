@@ -65,15 +65,5 @@ public class Team extends DomainEntity {
 		this.users = users;
 	}
 
-	@Valid
-	@JsonIgnore
-	@ManyToMany
-	public Collection<Tournament> getTournaments() {
-		return tournaments;
-	}
-
-	public void setTournaments(Collection<Tournament> tournaments) {
-		this.tournaments = tournaments;
-	}
 
 }

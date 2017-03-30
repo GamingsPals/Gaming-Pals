@@ -13,14 +13,14 @@ import java.util.Date;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Match  extends DomainEntity {
+public class Confrontation extends DomainEntity {
     //Attributes
     private int round;
     private int numberMatch;
     private Date limitPlay;
 
     //Constructor
-    public Match(){super();}
+    public Confrontation(){super();}
 
     //// Getters and Setters
     @Min(1)
@@ -28,7 +28,7 @@ public class Match  extends DomainEntity {
     public void setRound(int round){this.round=round;}
 
     @Min(1)
-    public int getNumberMatch(){return round;}
+    public int getNumberMatch(){return numberMatch;}
     public void setNumberMatch(int numberMatch){this.numberMatch=numberMatch;}
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,8 +45,8 @@ public class Match  extends DomainEntity {
     @Valid
     @JsonIgnore
     @ManyToMany
-    public Collection<Participes> getTeams(){return participes;}
-    public void setTeams(Collection<Participes> participes){this.participes=participes;}
+    public Collection<Participes> getParticipes(){return participes;}
+    public void setParticipes(Collection<Participes> participes){this.participes=participes;}
 
     @Valid
     @JsonIgnore

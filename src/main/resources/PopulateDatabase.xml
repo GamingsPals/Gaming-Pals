@@ -278,12 +278,6 @@
 				
 			</list>
 		</property>
-		<property name="tournaments">
-			<list>
-				<ref bean="tournament1"/>
-				
-			</list>
-		</property>
 		
 	</bean>
 	
@@ -295,26 +289,104 @@
 				<ref bean="user3"/>
 			</list>
 		</property>
-		<property name="tournaments">
-			<list>
-				<ref bean="tournament1"/>
-				
-			</list>
-		</property>
 	</bean>
 	
 	
 	<!-- Tournaments -->
 	<bean id="tournament1" class="domain.Tournament">
-		<property name="momentCreate" value="10/01/2017 10:20" />
+		<property name="momentCreate" value="30/03/2017 10:20" />
 		<property name="title" value="Tournament 1"/>
 		<property name="description" value="Description 1"/>
-		<property name="prize" value="Viaje a roma"/>
-		<property name="limitTeams" value="4"/>
-		<property name="limitInscription" value="15/01/2017 10:20"/>
-		<property name="limitEnd" value="20/01/2017 10:20"/>
-		
+		<property name="numberTeams" value="4"/>
+		<property name="limitInscription" value="15/06/2017 10:20"/>
+		<property name="rules" value="No se puede insultar" />
+		<property name="awards">
+			<list>
+				<ref bean="award1"/>
+			</list>
+		</property>
+		<property name="confrontations">
+			<list>
+				<ref bean="confrontation1"/>
+				<ref bean="confrontation2"/>
+				<ref bean="confrontation3"/>
+			</list>
+		</property>
 	</bean>
+
+	<!-- Matchs -->
+	<bean id="confrontation1" class="domain.Confrontation">
+		<property name="round" value="1"/>
+		<property name="numberMatch" value="1"/>
+		<property name="limitPlay" value="16/06/2017 10:20"/>
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+				<ref bean="participes1"/>
+				<ref bean="participes2"/>
+			</list>
+		</property>
+		<property name="tournament" ref="tournament1"/>
+	</bean>
+
+	<bean id="confrontation2" class="domain.Confrontation">
+		<property name="round" value="1"/>
+		<property name="numberMatch" value="2"/>
+		<property name="limitPlay" value="16/06/2017 10:20"/>
+		<property name="reportMatches">
+			<list>
+				
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament1"/>
+	</bean>
+
+	<bean id="confrontation3" class="domain.Confrontation">
+		<property name="round" value="2"/>
+		<property name="numberMatch" value="1"/>
+		<property name="limitPlay" value="17/06/2017 10:20"/>
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament1"/>
+	</bean>
+
+
+	<!-- Participes -->
+	<bean id="participes1" class="domain.Participes">
+		<property name="isWinner" value="false"/>
+		<property name="team" ref="team1" />
+	</bean>
+
+	<bean id="participes2" class="domain.Participes">
+		<property name="isWinner" value="false"/>
+		<property name="team" ref="team2" />
+	</bean>
+
+	<!-- Awards -->
+	<bean id="award1" class="domain.Award">
+		<property name="image" value="http://ya-ho.ru/wp-content/uploads/2013/10/poppy_2.jpg"/>
+		<property name="description" value="Maravillosa skin de Poppy" />
+		<property name="tournament" ref="tournament1" />
+	</bean>
+
+	<!-- Reports Matches -->
 
 
 	<!-- User Reports -->
@@ -370,6 +442,7 @@
         <property name="ratedUser" ref="user1" />
     </bean>
 	
+	<!-- Languages -->
 	<bean id="language1" class="domain.Language">
 		<property name="language" value="es" />
 		<property name="users">
@@ -391,12 +464,14 @@
 			</list>
 		</property>
 	</bean>
+	<!-- Games -->
 
     <bean id="game1" class="domain.Game">
         <property name="name" value="League Of Legends"/>
         <property name="tag" value="lol" />
     </bean>
 
+	<!-- Summoners-->
 
 	<bean id="summoner2" class="domain.Summoner">
 		<property name="user" ref="user2"/>

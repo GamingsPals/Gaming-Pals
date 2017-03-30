@@ -7,7 +7,6 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -95,18 +94,18 @@ public class Tournament extends DomainEntity {
 
 
 	//Relationships
-	private Collection<Match> matchs;
+	private Collection<Confrontation> confrontations;
 	private Collection<Award> awards;
 
 
 	@Valid
 	@JsonIgnore
 	@OneToMany(mappedBy = "tournament")
-	public Collection<Match> getMatchs() {
-		return matchs;
+	public Collection<Confrontation> getConfrontations() {
+		return confrontations;
 	}
-	public void setMatchs(Collection<Match> matchs) {
-		this.matchs= matchs;
+	public void setConfrontations(Collection<Confrontation> confrontations) {
+		this.confrontations = confrontations;
 	}
 
 	@Valid
