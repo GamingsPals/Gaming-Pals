@@ -61,10 +61,9 @@
             {{item.ratingAvg}}
         </td>
         <td>
-            <span ng-init="tier = (item.gameInfo[0].leagues.length>0) ? item.gameInfo[0].leagues[0].tier : 'unranked'">
-                    <span loltier="{{tier}}"></span>
-                   <span class="hide">{{tier}}</span>
-                </span>
+                    <span loltier="item.gameInfo[0].leagues[0].tier"></span>
+                   <span class="hide">{{(item.gameInfo[0].leagues.length>0) ?
+                       item.gameInfo[0].leagues[0].tier : 'unranked'}}</span>
         </td>
     </tr>
     </tbody>

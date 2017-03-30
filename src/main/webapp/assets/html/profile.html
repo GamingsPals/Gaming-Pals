@@ -47,13 +47,12 @@
         <div class="card bg-blue3" ng-repeat="i in ActorService.actor.actor.gameInfo">
                 <img class="right game-icon" ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
             <div class="card-buttons">
-                <span ng-init="tier = (i.leagues.length>0) ? i.leagues[0].tier : 'UNRANKED'">
-                    <span loltier="{{tier}}"></span>
+                    <span loltier="i.leagues[0].tier"></span>
                      <div class="col">
                          {{i.username}}
                              <div class="small">{{tier}}</div>
+                         <a dialog="lolstats" href="#" dialogcontroller="LolstatsController">Recent Matches</a>
                     </div>
-                </span>
             </div>
         </div>
     </div>

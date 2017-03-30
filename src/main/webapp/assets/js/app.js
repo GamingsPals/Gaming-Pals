@@ -49,7 +49,13 @@ app.run(function($rootScope) {
                 templateUrl: "signup",
                 controller: "Signup"
             }
-
+        },
+        {
+            route: "/lol/stats/:userid",
+            options:{
+                templateUrl: "lolstats",
+                controller: "Lolstats"
+            }
         }
     ];
 
@@ -93,7 +99,16 @@ app.controller('HomeController',function($scope){
 app.controller('LoginController',function(middleware){
     middleware.needRol("NONE");
 });
-;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize){
+;
+app.controller('LolstatsController',function($scope,MatchService,$routeParams,ActorService){
+    $scope.ms = MatchService;
+    let id = $routeParams.userid;
+    if(typeof $routeParams.userid === "undefined"){
+        id = $scope.ActorService.actor.actor.id;
+    }
+    $scope.ms.getRecentMatches(id);
+});
+;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData){
     localization.init($scope);
     $rootScope.loc = localization;
     $scope.auth = auth;
@@ -101,6 +116,11 @@ app.controller('LoginController',function(middleware){
     $rootScope.csrf = csrf;
     $scope.MessageSystem = SystemMessages;
     $scope.sanitize = $sanitize;
+    $scope.lolsd = LoLStaticData;
+    $scope.lolsd.loadVersion(()=>{
+        $scope.lolsd.loadChampions();
+        $scope.lolsd.loadItems();
+    });
 });;
 app.controller('ProfileController',function($scope,middleware,ActorService,$routeParams){
     $scope.ActorService = ActorService;
@@ -323,6 +343,71 @@ app.service("dialog", function(ngDialog){
                 error(data);
         })
     };
+
+
+
+
+});;app.service("LoLStaticData",function(xhr){
+    this.version = "7.6.1";
+
+    this.loadVersion = function(callback){
+        let object = this;
+        xhr.get("https://ddragon.leagueoflegends.com/api/versions.json",function(data){
+            object.version = data.data[0];
+            if (typeof callback!=="undefined"){
+                callback();
+            }
+        })
+    };
+
+    this.loadItems = function(){
+        let object = this;
+        xhr.get(`http://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/item.json`, function(data){
+            object.items = data.data.data;
+        })
+    };
+
+    this.getItemIcon = function(item){
+        return `//ddragon.leagueoflegends.com/cdn/${this.version}/img/item/${item}.png`;
+    };
+
+    this.getProfileIcon = function(icon){
+        return `//ddragon.leagueoflegends.com/cdn/${this.version}/img/profileicon/${icon}.png`;
+    };
+
+    this.getChampionIcon = function(champion){
+        return `//ddragon.leagueoflegends.com/cdn/${this.version}/img/champion/${champion}.png`;
+    };
+
+    this.loadChampions = function(){
+        let object = this;
+        xhr.get(`http://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/champion.json`, function(data){
+            object.champions = data.data.data;
+        })
+    };
+
+    this.findChampionById = function(id){
+        let champion = null;
+        for (let property in this.champions) {
+            if (this.champions.hasOwnProperty(property)) {
+               if (this.champions[property].key == parseInt(id)){
+                   champion = this.champions[property];
+               }
+            }
+        }
+        return champion;
+    }
+});;app.service("MatchService",function(xhr,auth){
+    this.matches = {};
+    this.summoner = {};
+
+    this.getRecentMatches = function(id){
+        let object = this;
+        xhr.get(`api/lol/stats/${id}`,function(data){
+            object.matches = data.data.matches;
+            object.summoner = data.data.summoner;
+        })
+    }
 
 });;app.service("middleware",function(auth,$location){
 
@@ -551,15 +636,35 @@ app.directive("isAuth", function(auth){
     }
 
 });;
+app.directive("item",function(LoLStaticData){
+    return {
+        restrict: "AEC",
+        scope:{
+            itemid: "="
+        },
+        link: function(scope,element,attrs){
+            scope.$watch(function(d,v){
+                console.log(scope);
+                $(element).html(`<img src="${LoLStaticData.getItemIcon(scope.itemid)}" width="40" />`);
+            })
+        }
+    }
+});;
 app.directive("loltier",function(){
     return {
         restrict: "AEC",
+        scope:{
+          loltier: "="
+        },
         link: function(scope,element,attrs){
+            scope.$watch(function(d,v){
+                let tier = 'unranked';
+                if(typeof scope.loltier!=="undefined"){
+                    tier = scope.loltier.toLocaleLowerCase();
+                }
             let assetsPath = `assets/images/games/lol/tiers/`;
-            let image = $(`<img class="tier-icon" src="${assetsPath}${attrs.loltier.toLowerCase()}.png" />`);
+            let image = $(`<img class="tier-icon" src="${assetsPath}${tier}.png" />`);
             $(element).html(image);
-            scope.$watch(function(){
-                $(element).html(image);
             })
         }
     }

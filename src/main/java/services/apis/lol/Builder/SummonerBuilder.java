@@ -4,6 +4,10 @@ package services.apis.lol.Builder;
 import domain.Summoner;
 import services.apis.lol.Builder.Type.BasicType;
 import services.apis.lol.LoLApi;
+import services.apis.lol.Utility.StringsUtility;
+
+import java.io.IOException;
+import java.util.List;
 
 
 public class SummonerBuilder extends EntityBuilder {
@@ -23,6 +27,18 @@ public class SummonerBuilder extends EntityBuilder {
         attributes.put("apikey", LoLApi.APIKEY);
         this.buildUri();
     }
+    public SummonerBuilder(List<Integer> ids, String region) throws IOException {
+        this.attributes.put("version","1.4");
+        this.region = region;
+        attributes.put("resource","summoner/{id}");
+        attributes.put("parameters","");
+        attributes.put("id", StringsUtility.ListToStringComma(ids));
+        attributes.put("region",region);
+        this.type = new BasicType();
+        attributes.put("apikey", LoLApi.APIKEY);
+        this.buildUri();
+    }
+
     public SummonerBuilder(Integer id, String region){
         this.attributes.put("version","1.4");
         this.region = region;
@@ -36,7 +52,7 @@ public class SummonerBuilder extends EntityBuilder {
     }
 
 
-    public domain.Summoner getSummoner(String name){
+    public Summoner getSummoner(String name){
         if (data == null) return null;
         try {
             Summoner summoner = new Summoner();

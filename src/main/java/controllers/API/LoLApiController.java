@@ -1,8 +1,11 @@
 package controllers.API;
 
+import com.google.gson.JsonElement;
 import domain.Summoner;
 import domain.User;
 import forms.LoLApiTestForm;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -22,10 +25,7 @@ import services.apis.lol.Entity.Match;
 import utilities.HashPassword;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,10 +73,28 @@ public class LoLApiController extends ApiAbstractController{
         }
     }
     @ResponseBody
-    @RequestMapping(value = "/matchs")
-    public Object action1list(@RequestParam Integer summonerId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Match> test = loLApiService.getMatchsBySummonerId(summonerId.toString(), "euw");
-        return test;
+    @RequestMapping(value = "/stats/{user}")
+    public Object action1list(@PathVariable User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Summoner summoner;
+        try{
+           summoner = gameService.getSummonerByUser(user);
+        } catch (Exception e){
+            return notFoundError(response,"Summoner not found");
+        }
+        try{
+            Map<String,Object> result = new HashMap<>();
+            List<Match> matchsBySummonerId = loLApiService
+                    .getMatchsBySummonerId(String.valueOf(summoner.getIdSummoner()), summoner.getRegion());
+            result.put("matches",matchsBySummonerId);
+            result.put("summoner",summoner);
+
+            return result;
+        } catch (Exception e){
+            System.out.println(e);
+            return internalservererror(response,"Interal server error");
+        }
+
+
     }
 
 

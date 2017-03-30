@@ -1,10 +1,12 @@
 package services;
 
+import com.google.gson.JsonElement;
 import domain.League;
 import domain.Summoner;
 import domain.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import repositories.LeagueRepository;
@@ -86,6 +88,7 @@ public class LoLApiService {
 
         return  summoner;
     }
+
     public List<Match> getMatchsBySummonerId(String sumonnerId, String region) throws IOException{
     	MatchBuilder matchBuilder= new MatchBuilder(sumonnerId,region);
     	matchBuilder.load();
@@ -96,6 +99,7 @@ public class LoLApiService {
     	championBuilder.load();
     	return championBuilder.getChampion();
     }
+
     public List<Mastery> getMasteryBySummonerId(String sumonnerId, String region) throws IOException{
     	MasteryBuilder masteryBuilder= new MasteryBuilder(sumonnerId,region);
     	masteryBuilder.load();
