@@ -1,16 +1,52 @@
-<form name="signup-form" ng-submit="enviarForm()">
+<form name="signupform" ng-submit="enviarForm()">
 
+   <fieldset>
+   <legend>Account Data</legend>
     <label>
-       {{loc.signupform.name}}
+        Username
     </label>
-
-    <input type="text" placeholder="Name" ng-model="signupform.name" />
-
+    <input type="text" placeholder="Username" ng-model="signupform.username"/>
+   
     <label>
         Password
     </label>
-    <input type="password" />
+    <input type="password" ng-model="signupform.password"/>
+    <label>
+        Repeat Password
+    </label>
+    <input type="password" ng-model="signupform.repeatpassword"/>
+     
+   </fieldset>
+   <br>
+   <fieldset>
+   <legend>Personal data</legend>
+    <label>
+       {{loc.signupform.name}}
+    </label>
+    <input type="text" placeholder="Name" ng-model="signupform.name" />
 
-    <input type="submit" value="Send" ng-model="signupform.password" />
+ 	<label>
+        Surname
+    </label>
+    <input type="text" placeholder="Surname" ng-model="signupform.surname"/>
+    
+    <label>
+        Email
+    </label>
+    <input type="text" placeholder="Email" ng-model="signupform.email"/>
+    
+     <label>
+        Picture
+    </label>
+    <input type="text" placeholder="Picture" ng-model="signupform.picture"/>
+    
+	<label>
+        Age
+    </label>
+    <input type="text" placeholder="Age" ng-model="signupform.age"/>
+    </fieldset>
+    
+
+    <input type="submit" value="send"/>
 
 </form>

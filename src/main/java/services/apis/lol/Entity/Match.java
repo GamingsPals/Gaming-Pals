@@ -14,6 +14,7 @@ public class Match {
 	private Date createdGame;
 	private Integer kills,assists,deaths;
 	private List<Integer> itemsGame;
+	private String gameId;
 	private List<MatchSummoner> enemyTeam;
 
 
@@ -94,5 +95,13 @@ public class Match {
 
     public void setEnemyTeam(List<MatchSummoner> enemyTeam) {
         this.enemyTeam = enemyTeam;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 }

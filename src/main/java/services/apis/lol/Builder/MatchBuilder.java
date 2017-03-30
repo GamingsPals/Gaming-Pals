@@ -65,6 +65,7 @@ public class MatchBuilder extends EntityBuilder {
                             .get("item"+i).getAsInt());
 				}
 			}
+			match.setGameId( e.getAsJsonObject().get("gameId").getAsString());
 			match.setSummonerTeam(summonerTeam);
             match.setEnemyTeam(enemyTeam);
 			match.setItemsGame(items);

@@ -6,4 +6,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,Ac
         id = $scope.ActorService.actor.actor.id;
     }
     $scope.ms.getRecentMatches(id);
+    $scope.seeMatch = function(matchId){
+        console.log(matchId);
+    }
 });

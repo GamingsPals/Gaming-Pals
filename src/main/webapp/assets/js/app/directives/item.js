@@ -7,7 +7,6 @@ app.directive("item",function(LoLStaticData){
         },
         link: function(scope,element,attrs){
             scope.$watch(function(d,v){
-                console.log(scope);
                 $(element).html(`<img src="${LoLStaticData.getItemIcon(scope.itemid)}" width="40" />`);
             })
         }

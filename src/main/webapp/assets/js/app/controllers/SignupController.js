@@ -1,7 +1,6 @@
-app.controller('SignupController',function($scope,middleware, xhr){
+app.controller('SignupController', function($scope, middleware, xhr) {
 
-
-    $scope.enviarForm = function(){
-        xhr.post("api/test",$scope.signupform);
-    }
+	$scope.enviarForm = function() {
+		xhr.post("api/signup", $scope.signupform);
+	}
 });

@@ -6,7 +6,7 @@ app.run(function($rootScope) {
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         closeMenu();
     });
-});;let routes =
+});let routes =
     [
         {
             route: "/",
@@ -59,7 +59,7 @@ app.run(function($rootScope) {
         }
     ];
 
-;app.config(function($routeProvider,$locationProvider){
+app.config(function($routeProvider,$locationProvider){
     routes.forEach(function(a){
         a.options.templateUrl = `assets/html/${a.options.templateUrl}.html`;
         a.options.controller = `${a.options.controller}Controller`;
@@ -71,7 +71,7 @@ app.run(function($rootScope) {
     });
 
     $locationProvider.html5Mode(true);
-});;;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
+});app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
     $scope.LolData=LolApiService;
     $scope.test =" Asdad";
     console.log("adsda");
@@ -93,13 +93,13 @@ app.run(function($rootScope) {
             $scope.error = data.data.message;
         });
     }
-});;
+});
 app.controller('HomeController',function($scope){
-});;
+});
 app.controller('LoginController',function(middleware){
     middleware.needRol("NONE");
 });
-;
+
 app.controller('LolstatsController',function($scope,MatchService,$routeParams,ActorService){
     $scope.ms = MatchService;
     let id = $routeParams.userid;
@@ -107,8 +107,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,Ac
         id = $scope.ActorService.actor.actor.id;
     }
     $scope.ms.getRecentMatches(id);
+    $scope.seeMatch = function(matchId){
+        console.log(matchId);
+    }
 });
-;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData){
+app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData){
     localization.init($scope);
     $rootScope.loc = localization;
     $scope.auth = auth;
@@ -121,11 +124,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,Ac
         $scope.lolsd.loadChampions();
         $scope.lolsd.loadItems();
     });
-});;
+});
 app.controller('ProfileController',function($scope,middleware,ActorService,$routeParams){
     $scope.ActorService = ActorService;
     $scope.ActorService.UserProfile($routeParams.username);
-});;app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
+});app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
     middleware.needRol("ADMIN");
     $scope.As = ActorService;
     $scope.As.reportedUsers();
@@ -133,18 +136,18 @@ app.controller('ProfileController',function($scope,middleware,ActorService,$rout
         $scope.image = image;
         dialog.open("showImage",$scope);
     }
-});;
+});
 app.controller('SearchController',function($scope,SearchService,$location){
     $scope.As = SearchService;
     $scope.As.filter($location.search());
 });
-;app.controller('SignupController',function($scope,middleware, xhr){
+app.controller('SignupController', function($scope, middleware, xhr) {
 
-
-    $scope.enviarForm = function(){
-        xhr.post("api/test",$scope.signupform);
-    }
-});;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+	$scope.enviarForm = function() {
+		xhr.post("api/signup", $scope.signupform);
+	}
+});
+app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
         $scope.writerating = false;
@@ -153,14 +156,14 @@ app.controller('SearchController',function($scope,SearchService,$location){
         SystemMessages.okmessage("Rating added");
         dialog.closeAll();
     }
-});;
+});
 app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.reportUser = function(){
         ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report send!");
             dialog.closeAll();});
 
     }
-});;;app.service("ActorService",function(xhr,auth){
+});app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
     this.notFound = false;
@@ -239,7 +242,7 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
         return actor;
     };
 
-});;
+});
 app.service("auth", function(xhr){
 
     this.principal = {};
@@ -288,7 +291,7 @@ app.service("auth", function(xhr){
         return result;
     }
 
-});;
+});
 app.service("dialog", function(ngDialog){
 
     this.open = function(template,scope,controller) {
@@ -303,7 +306,7 @@ app.service("dialog", function(ngDialog){
     this.closeAll = function(){
         ngDialog.closeAll();
     }
-});;app.service("localization",function(xhr,$cookies){
+});app.service("localization",function(xhr,$cookies){
     this.loc = {};
     this.base_lan = 'en';
 
@@ -330,7 +333,7 @@ app.service("dialog", function(ngDialog){
       this.init();
     }
 });
-;app.service("LolApiService",function(xhr){
+app.service("LolApiService",function(xhr){
     this.main = {};
 
     this.mainData = function(summoner,success,error){
@@ -347,7 +350,7 @@ app.service("dialog", function(ngDialog){
 
 
 
-});;app.service("LoLStaticData",function(xhr){
+});app.service("LoLStaticData",function(xhr){
     this.version = "7.6.1";
 
     this.loadVersion = function(callback){
@@ -397,7 +400,7 @@ app.service("dialog", function(ngDialog){
         }
         return champion;
     }
-});;app.service("MatchService",function(xhr,auth){
+});app.service("MatchService",function(xhr,auth){
     this.matches = {};
     this.summoner = {};
 
@@ -409,7 +412,7 @@ app.service("dialog", function(ngDialog){
         })
     }
 
-});;app.service("middleware",function(auth,$location){
+});app.service("middleware",function(auth,$location){
 
     this.needRol = function(rol){
         console.log("ey");
@@ -446,7 +449,7 @@ app.service("dialog", function(ngDialog){
         return true;
     }
 
-});;
+});
 
 app.service("SearchService", function(xhr){
     this.search = [];
@@ -465,7 +468,7 @@ app.service("SearchService", function(xhr){
             object.search = data.data;
         })
     };
-});;
+});
 app.service("SystemMessages", function($timeout){
 
     this.color="";
@@ -493,7 +496,7 @@ app.service("SystemMessages", function($timeout){
         },3000);
     }
 
-});;app.service("xhr",function($http, SystemMessages, $rootScope) {
+});app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
     this.get = function (url, sucess,error) {
@@ -550,7 +553,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("dialog", function(dialog){
+});app.directive("dialog", function(dialog){
     return {
         restrict: "A",
         link: function(scope,element,attrs){
@@ -559,7 +562,7 @@ app.service("SystemMessages", function($timeout){
             })
         }
     }
-});;app.directive("flag", function($compile){
+});app.directive("flag", function($compile){
     return {
         restrict: "AE",
         link: function(scope,element,attrs){
@@ -567,7 +570,7 @@ app.service("SystemMessages", function($timeout){
             $compile(element.contents())(scope);
         }
     }
-});;app.directive("follow",function($compile,auth,$rootScope,ActorService){
+});app.directive("follow",function($compile,auth,$rootScope,ActorService){
     return {
         restrict:"A",
         terminal: true,
@@ -607,14 +610,14 @@ app.service("SystemMessages", function($timeout){
             })
         }
     }
-});;app.directive("giant",function(){
+});app.directive("giant",function(){
     return {
         restrict: "E",
         link: function(scope,element,attrs){
             $(element).css("font-size","4em");
         }
     }
-});;app.directive("hasRole", function(auth){
+});app.directive("hasRole", function(auth){
     return{
         restrict: "A",
         link: function(scope,element,attrs){
@@ -624,7 +627,7 @@ app.service("SystemMessages", function($timeout){
         }
     }
 
-});;
+});
 app.directive("isAuth", function(auth){
     return{
         restrict: "A",
@@ -635,7 +638,7 @@ app.directive("isAuth", function(auth){
         }
     }
 
-});;
+});
 app.directive("item",function(LoLStaticData){
     return {
         restrict: "AEC",
@@ -644,12 +647,11 @@ app.directive("item",function(LoLStaticData){
         },
         link: function(scope,element,attrs){
             scope.$watch(function(d,v){
-                console.log(scope);
                 $(element).html(`<img src="${LoLStaticData.getItemIcon(scope.itemid)}" width="40" />`);
             })
         }
     }
-});;
+});
 app.directive("loltier",function(){
     return {
         restrict: "AEC",
@@ -668,7 +670,7 @@ app.directive("loltier",function(){
             })
         }
     }
-});;app.directive("notPrincipal", function(auth,ActorService){
+});app.directive("notPrincipal", function(auth,ActorService){
     return{
         scope: {
             "notPrincipal": "="
@@ -689,7 +691,7 @@ function notPrincipal(element,actor,auth){
     }else{
         $(element).show();
     }
-};
+}
 app.directive("profileHeader",function(){
     return {
         restrict: "C",
@@ -700,7 +702,7 @@ app.directive("profileHeader",function(){
         }
     }
 });
-;app.directive("rating",function(){
+app.directive("rating",function(){
     return{
         restrict: "E",
         scope:{
@@ -722,14 +724,14 @@ app.directive("profileHeader",function(){
 
         }
     }
-});;app.directive("report", function(dialog){
+});app.directive("report", function(dialog){
     return {
         restrict: "A",
         link: function(scope,element,attrs){
             $(element).addClass("cursor-pointer").addClass("red3");
         }
     }
-});;
+});
 app.directive("select",function(){
     return{
         restrict: "E",
@@ -742,7 +744,7 @@ app.directive("select",function(){
             );
         }
     }
-});;String.prototype.capitalize = function() {
+});String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 

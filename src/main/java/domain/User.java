@@ -236,4 +236,5 @@ public class User extends Actor {
 	public void setSkillAvg(Double skillAvg) {
 		this.skillAvg = skillAvg;
 	}
+
 }

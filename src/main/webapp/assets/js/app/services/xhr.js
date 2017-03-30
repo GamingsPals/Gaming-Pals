@@ -1,4 +1,4 @@
-app.service("xhr",function($http, SystemMessages, $rootScope) {
+app.service("xhr",function($http, SystemMessages, $rootScope,) {
 
 
     this.get = function (url, sucess,error) {
@@ -50,7 +50,7 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                MessageSystem.errormessage("Something wrong has happened!");
+                SystemMessages.errormessage("Something wrong has happened!");
                 $(".loader").hide();
             }
         );
