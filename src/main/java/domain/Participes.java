@@ -13,6 +13,7 @@ import javax.validation.Valid;
 @Entity
 @Access(AccessType.PROPERTY)
 public class Participes extends DomainEntity{
+
     //Attributes
     private boolean isWinner;
 
