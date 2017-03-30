@@ -1,6 +1,8 @@
 package services;
 
 import domain.Game;
+import domain.Summoner;
+import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositories.GameRepository;
@@ -20,5 +22,10 @@ public class GameService {
     }
     public Game getGameByTag(String tag){
     	return gameRepository.getGameByTag(tag);
+    }
+
+
+    public Summoner getSummonerByUser(User user){
+        return gameRepository.getSummonerByUser(user);
     }
 }

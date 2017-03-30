@@ -3,7 +3,7 @@ package services.apis.lol.Entity;
 public class Champion {
 	private Integer id;
 	private String name;
-	private String urlImage;
+	private String key;
 	
 	public Integer getId() {
 		return id;
@@ -17,15 +17,12 @@ public class Champion {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUrlImage() {
-		return urlImage;
+
+	public String getKey() {
+		return key;
 	}
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
-	
-	@Override
-	public String toString() {
-		return "Champion [id=" + id + ", name=" + name + ", urlImage=" + urlImage + "]";
-	}
+
+	public void setKey(String key) {
+        this.key = key;
+    }
 }

@@ -6,6 +6,7 @@ import services.apis.lol.Builder.Type.StaticDataType;
 import services.apis.lol.Entity.Item;
 
 public class ItemBuilder extends EntityBuilder {
+
 	public ItemBuilder(String id, String region) {
 		this.attributes.put("version", "1.2");
 		attributes.put("resource", "item/{id}");

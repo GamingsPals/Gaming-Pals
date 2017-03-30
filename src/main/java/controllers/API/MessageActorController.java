@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.MessageService;
-import controllers.AbstractController;
 import domain.Actor;
 import domain.Message;
 import forms.MessageForm;

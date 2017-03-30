@@ -9,7 +9,7 @@ public class ChampionBuilder extends EntityBuilder {
 	public ChampionBuilder(String id, String region) {
 		this.attributes.put("version", "1.2");
 		attributes.put("resource", "champion/{id}");
-		attributes.put("parameters", "&locale=es_ES&champData=all");
+		attributes.put("parameters", "");
 		attributes.put("id", id);
 		attributes.put("region", region);
 		this.type = new StaticDataType();
@@ -21,7 +21,7 @@ public class ChampionBuilder extends EntityBuilder {
 		Champion champion = new Champion();
 		champion.setId(this.data.getAsJsonObject().get("id").getAsInt());
 		champion.setName(this.data.getAsJsonObject().get("name").getAsString());
-		champion.setUrlImage("http://ddragon.leagueoflegends.com/cdn/7.5.2/img/champion/"+this.data.getAsJsonObject().get("image").getAsJsonObject().get("full").getAsString());
+		champion.setKey(this.data.getAsJsonObject().get("key").getAsString());
 
 		return champion;
 	}

@@ -41,7 +41,13 @@ let routes =
                 templateUrl: "signup",
                 controller: "Signup"
             }
-
+        },
+        {
+            route: "/lol/stats/:userid",
+            options:{
+                templateUrl: "lolstats",
+                controller: "Lolstats"
+            }
         }
     ];
 

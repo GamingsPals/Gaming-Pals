@@ -1,25 +1,27 @@
 package services.apis.lol.Entity;
 
+import domain.Summoner;
+
 import java.util.Date;
 import java.util.List;
 
 public class Match {
 
 	private long id;
-	private Champion championId;
+	private Integer championId;
 	private boolean isWin;
-	private List<Integer> summonerIdTeam;
+	private List<MatchSummoner> summonerTeam;
 	private Date createdGame;
 	private Integer kills,assists,deaths;
-	private List<Item> itemsGame;
+	private List<Integer> itemsGame;
+	private List<MatchSummoner> enemyTeam;
+
+
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public Champion getChampionId() {
-		return championId;
 	}
 	public Date getCreatedGame() {
 		return createdGame;
@@ -27,20 +29,12 @@ public class Match {
 	public void setCreatedGame(Date createdGame) {
 		this.createdGame = createdGame;
 	}
-	public void setChampionId(Champion championId) {
-		this.championId = championId;
-	}
+
 	public boolean getIsWin() {
 		return isWin;
 	}
 	public void setIsWin(boolean isWin) {
 		this.isWin = isWin;
-	}
-	public List<Integer> getSummonerIdTeam() {
-		return summonerIdTeam;
-	}
-	public void setSummonerIdTeam(List<Integer> summonerIdTeam) {
-		this.summonerIdTeam = summonerIdTeam;
 	}
 	public Integer getKills() {
 		return kills;
@@ -60,17 +54,45 @@ public class Match {
 	public void setDeaths(Integer deaths) {
 		this.deaths = deaths;
 	}
-	public List<Item> getItemsGame() {
-		return itemsGame;
-	}
-	public void setItemsGame(List<Item> itemsGame) {
-		this.itemsGame = itemsGame;
-	}
-	@Override
-	public String toString() {
-		return "Match [id=" + id + ", championId=" + championId + ", isWin=" + isWin + ", summonerIdTeam="
-				+ summonerIdTeam + "]";
-	}
-	
-	
+
+    public List<Integer> getItemsGame() {
+        return itemsGame;
+    }
+
+    public void setItemsGame(List<Integer> itemsGame) {
+        this.itemsGame = itemsGame;
+    }
+
+    public boolean isWin() {
+        return isWin;
+    }
+
+    public void setWin(boolean win) {
+        isWin = win;
+    }
+
+
+    public Integer getChampionId() {
+        return championId;
+    }
+
+    public void setChampionId(Integer championId) {
+        this.championId = championId;
+    }
+
+    public List<MatchSummoner> getSummonerTeam() {
+        return summonerTeam;
+    }
+
+    public void setSummonerTeam(List<MatchSummoner> summonerTeam) {
+        this.summonerTeam = summonerTeam;
+    }
+
+    public List<MatchSummoner> getEnemyTeam() {
+        return enemyTeam;
+    }
+
+    public void setEnemyTeam(List<MatchSummoner> enemyTeam) {
+        this.enemyTeam = enemyTeam;
+    }
 }
