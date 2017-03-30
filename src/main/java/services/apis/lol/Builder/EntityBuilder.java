@@ -18,11 +18,13 @@ public class EntityBuilder {
     protected String uri;
     protected Map<String, String> attributes = new HashMap<>();
     protected JsonElement data;
+    protected String json;
 
     public void load() throws IOException {
         Client c = new Client(uri);
         c.execute();
-        Mapper mapper = new Mapper(c.getStringResponse());
+        this.json = c.getStringResponse();
+        Mapper mapper = new Mapper( this.json );
         this.data = mapper.getJsonElement();
     }
 

@@ -79,14 +79,14 @@ public class UserController extends ApiAbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public Object register(@PathVariable User user, HttpServletRequest request, HttpServletResponse response) {
+	public Object register(User user, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Assert.notNull(user);
 		} catch (Exception e) {
 			return notFoundError(response, null);
 		}
 		try {
-
+            System.out.println(user);
 			userService.save(user);
 			return ok(response, null);
 		} catch (Exception e) {

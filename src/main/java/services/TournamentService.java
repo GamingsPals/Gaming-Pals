@@ -28,7 +28,7 @@ public class TournamentService {
  
  		Tournament result = new Tournament();
  
- 		result.setTeams(new ArrayList<Team>());
+ 		//result.setTeams(new ArrayList<Team>());
  
  		return result;
  	}

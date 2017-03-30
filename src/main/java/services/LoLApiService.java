@@ -11,11 +11,7 @@ import org.springframework.stereotype.Service;
 
 import repositories.LeagueRepository;
 import repositories.SummonerRepository;
-import services.apis.lol.Builder.ChampionBuilder;
-import services.apis.lol.Builder.LeagueInfoBuilder;
-import services.apis.lol.Builder.MasteryBuilder;
-import services.apis.lol.Builder.MatchBuilder;
-import services.apis.lol.Builder.SummonerBuilder;
+import services.apis.lol.Builder.*;
 import services.apis.lol.Entity.Champion;
 import services.apis.lol.Entity.Mastery;
 import services.apis.lol.Entity.Match;
@@ -115,5 +111,12 @@ public class LoLApiService {
             }
         }
         return  result;
+    }
+
+    public Object getMatch(String id,String region) throws IOException {
+        MatchDetailsBuilder matchDetailsBuilder = new MatchDetailsBuilder(id,region);
+        matchDetailsBuilder.load();
+
+        return matchDetailsBuilder.getMatch();
     }
 }

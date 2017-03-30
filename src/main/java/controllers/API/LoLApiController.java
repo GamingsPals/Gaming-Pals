@@ -93,8 +93,16 @@ public class LoLApiController extends ApiAbstractController{
             System.out.println(e);
             return internalservererror(response,"Interal server error");
         }
+    }
 
-
+    @ResponseBody
+    @RequestMapping(value = "/stats/match/{id}")
+    public Object match(@PathVariable String id, @RequestParam("region") String region, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try{
+            return loLApiService.getMatch(id,region);
+        } catch (Exception e){
+            return notFoundError(response,"Match not found");
+        }
     }
 
 
