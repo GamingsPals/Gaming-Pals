@@ -15,12 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ToxicService;
 
-import controllers.AbstractController;
 import domain.Toxic;
 
 @Controller
 @RequestMapping("/toxic/administrator")
-public class ToxicAdministratorController extends AbstractController{
+public class ToxicAdministratorController{
 	
 	// Services ---------------------------------------------------------------
 	@Autowired
