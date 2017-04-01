@@ -4,12 +4,7 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -96,6 +91,7 @@ public class Tournament extends DomainEntity {
 	//Relationships
 	private Collection<Confrontation> confrontations;
 	private Collection<Award> awards;
+	private Collection<Team> teams;
 
 
 	@Valid
@@ -113,6 +109,12 @@ public class Tournament extends DomainEntity {
 	@OneToMany(mappedBy = "tournament")
 	public Collection<Award> getAwards(){return awards;}
 	public void setAwards(Collection<Award> awards){this.awards=awards;}
+
+	@Valid
+	@JsonIgnore
+	@ManyToMany(mappedBy = "tournaments")
+	public Collection<Team> getTeams(){return teams;}
+	public void setTeams(Collection<Team> teams){this.teams=teams;}
 
 
 }

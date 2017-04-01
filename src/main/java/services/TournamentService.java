@@ -2,9 +2,12 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import domain.Award;
+import domain.Confrontation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -27,15 +30,18 @@ public class TournamentService {
  	public Tournament create() {
  
  		Tournament result = new Tournament();
+ 		result.setMomentCreate(new Date());
+ 		result.setAwards(new ArrayList<Award>());
+ 		result.setConfrontations(new ArrayList<Confrontation>());
+ 		result.setTeams(new ArrayList<Team>());
 
- 
  		return result;
  	}
  
- 	public void save(Tournament tournament) {
+ 	public Tournament save(Tournament tournament) {
  
  		Assert.notNull(tournament);
- 		tournamentRepository.save(tournament);
+ 		return tournamentRepository.save(tournament);
  
  	}
  
