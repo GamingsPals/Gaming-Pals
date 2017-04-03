@@ -29,6 +29,10 @@
 		<bean class="converters.ToxicToStringConverter" /> 
 		<bean class="converters.UserToStringConverter" /> 
 		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.AwardToStringConverter" />
+		<bean class="converters.ParticipesToStringConverter" />
+		<bean class="converters.ConfrontationToStringConverter" />
+		<bean class="converters.ReportMatchToStringConverter" />
 		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.StringToMessageConverter" /> 
@@ -38,9 +42,13 @@
 		<bean class="converters.StringToTeamConverter" /> 
 		<bean class="converters.StringToTournamentConverter" /> 
 		<bean class="converters.StringToToxicConverter" />
-		<bean class="converters.StringToUserConverter" /> 
-		<bean class="converters.StringToUserAccountConverter" /> 
-		
+		<bean class="converters.StringToUserConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+		<bean class="converters.StringToAwardConverter" />
+		<bean class="converters.StringToConfrontationConverter" />
+		<bean class="converters.StringToParticipesConverter" />
+		<bean class="converters.StringToReportMatchConverter" />
+
 	</util:list>
 	
 </beans>

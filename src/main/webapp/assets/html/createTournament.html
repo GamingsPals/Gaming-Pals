@@ -1,0 +1,24 @@
+<form name="tournamentform" ng-submit="enviarTournamentForm()">
+
+	<fieldset>
+		<legend>Tournament</legend>
+		<label>Title</label>
+		<input type="text" placeholder="Title" ng-model="tournamentform.title" />
+		
+		<label> Description </label>
+		<input type="text" placeholder="Description" ng-model="tournamentform.description" />
+		
+		<label> Rules </label>
+		<input type="text" placeholder="Rules" ng-model="tournamentform.rules" />
+		<label>Number of teams </label>
+		<input type="text" placeholder="Number of teams" ng-model="tournamentform.numberTeams" />
+		
+		
+		<label> Inscription limit </label>
+		<input type="text" placeholder="Inscription Limit" ng-model="tournamentform.limitInscription" />
+
+	</fieldset>
+
+	<input type="submit" value="send" />
+
+</form>

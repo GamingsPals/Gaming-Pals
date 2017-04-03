@@ -278,7 +278,11 @@
 				
 			</list>
 		</property>
-		
+		<property name="tournaments">
+			<list>
+				<ref bean="tournament1"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="team2" class="domain.Team">
@@ -287,6 +291,11 @@
 		<property name="users">
 			<list>
 				<ref bean="user3"/>
+			</list>
+		</property>
+		<property name="tournaments">
+			<list>
+				<ref bean="tournament1"/>
 			</list>
 		</property>
 	</bean>
@@ -310,6 +319,12 @@
 				<ref bean="confrontation1"/>
 				<ref bean="confrontation2"/>
 				<ref bean="confrontation3"/>
+			</list>
+		</property>
+		<property name="teams">
+			<list>
+				<ref bean="team1"/>
+				<ref bean="team2"/>
 			</list>
 		</property>
 	</bean>

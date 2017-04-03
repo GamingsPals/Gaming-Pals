@@ -1,0 +1,23 @@
+<h1>Tournament list</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Title</td>
+        <td>Description</td>
+        <td>Number Teams</td>
+        <td>Limit Inscription</td>
+        <td>Rules</td>
+        <td>Awards</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in Ts.tournaments ">
+        <td>{{i.title}}</td>
+        <td>{{i.description}}</td>
+        <td>{{i.teams.length}}/{{i.numberTeams}}</td>
+        <td>{{i.limitInscription | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+        <td><a href="#" class="button" ng-click="showLongString(i.rules)">View</a></td>
+        <td><a ng-href="award/{{i.id}}" class="button">View</a></td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,17 @@
+<h1>Confrontation list</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Round</td>
+        <td>Number match</td>
+        <td>Limit play</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in As.awards ">
+        <td>{{i.round}}</td>
+        <td>{{i.numberMatch}}</td>
+        <td>{{i.limitPlay}} </td>
+    </tr>
+    </tbody>
+</table>
