@@ -39,18 +39,28 @@ routes = [
 				controller : "CreateTournament"
 			}
 		}, {
-        route : "/tournament/list",
-        options : {
-            templateUrl : "listTournaments",
-            controller : "TournamentList"
-        }
-    }, {
-        route : "/confrontations/:tournamentId",
-        options : {
-            templateUrl : "viewConfrontation",
-            controller : "ConfrontationTournamentList"
-        }
-    }, {
+			route : "/tournament/list",
+			options : {
+				templateUrl : "listTournaments",
+				controller : "TournamentList"
+			}
+		}, {
+			route : "/confrontation/:tournamentId",
+			options : {
+				templateUrl : "viewConfrontation",
+				controller : "ConfrontationTournamentList"
+			}
+		}
+
+		, {
+			route : "/award/:tournamentId",
+			options : {
+				templateUrl : "viewAwards",
+				controller : "AwardsTournamentList"
+			}
+		},
+
+		{
 			route : "/search",
 			options : {
 				templateUrl : "search",
@@ -104,9 +114,9 @@ app.config(function($routeProvider,$locationProvider){
             $scope.error = data.data.message;
         });
     }
-});app.controller('AwardsTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
+});app.controller('AwardsTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.awards($routeParams.tournamentId);
+	$scope.As.awards($scope.tournamentId);
 });
 app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
 	$scope.As = TournamentService;
@@ -188,6 +198,10 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
     $scope.showLongString = function(longString){
         $scope.longString = longString;
         dialog.open("showLongString",$scope);
+    }
+    $scope.viewAwards = function(tournmanentId){
+        $scope.tournmanentId = tournmanentId;
+        dialog.open("viewAwards",$scope);
     }
 });app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
@@ -546,7 +560,7 @@ app.service("SystemMessages", function($timeout){
 
 });app.service("TournamentService", function(xhr){
     this.tournaments = {};
-
+    this.confrontations = {};
     this.getTournaments = function () {
         let object = this;
 
@@ -555,6 +569,20 @@ app.service("SystemMessages", function($timeout){
         })
 
     }
+    
+    this.confrontations = function(tournamentId){
+        let object = this;
+        xhr.get("api/confrontations/tournament/list?tournamentId="+tournamentId ,function(response){
+            object.confrontations = response.data;
+        });
+    };
+    
+    this.awards = function(tournamentId){
+        let object = this;
+        xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
+            object.awards = response.data;
+        });
+    };
 });app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
@@ -571,7 +599,7 @@ app.service("SystemMessages", function($timeout){
                     error(data);
                 }
                 $(".loader").hide();
-                MessageSystem.errormessage("Something wrong has happened!");
+                SystemMessages.errormessage("Something wrong has happened!");
             });
     };
 

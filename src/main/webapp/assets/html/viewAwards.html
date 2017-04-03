@@ -1,17 +1,18 @@
 
-
-<h1>Awards list</h1>
-<table>
-    <thead>
-    <tr>
-        <td>Image</td>
-        <td>Description</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="i in As.awards ">
-        <td><img height="100" width="100" src="{{i.image}}"> </td>
-        <td>{{i.description}}</td>
-    </tr>
-    </tbody>
-</table>
+<div ng-controller="AwardsTournamentListController">
+    <h1>Awards list</h1>
+    <table>
+     <thead>
+        <tr>
+            <td>Image</td>
+            <td>Description</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in As.awards ">
+            <td><img height="100" width="100" src="{{i.image}}"> </td>
+            <td>{{i.description}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

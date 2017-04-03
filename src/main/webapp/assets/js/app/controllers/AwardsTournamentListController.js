@@ -1,4 +1,4 @@
-app.controller('AwardsTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
+app.controller('AwardsTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.awards($routeParams.tournamentId);
+	$scope.As.awards($scope.tournamentId);
 });

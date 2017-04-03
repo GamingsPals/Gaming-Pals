@@ -5,4 +5,8 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
         $scope.longString = longString;
         dialog.open("showLongString",$scope);
     }
+    $scope.viewAwards = function(tournmanentId){
+        $scope.tournmanentId = tournmanentId;
+        dialog.open("viewAwards",$scope);
+    }
 });

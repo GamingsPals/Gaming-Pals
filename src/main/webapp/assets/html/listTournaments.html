@@ -8,6 +8,7 @@
         <td>Limit Inscription</td>
         <td>Rules</td>
         <td>Awards</td>
+        <td>Bracket</td>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +18,8 @@
         <td>{{i.teams.length}}/{{i.numberTeams}}</td>
         <td>{{i.limitInscription | date:"MM/dd/yyyy 'at' h:mma"}}</td>
         <td><a href="#" class="button" ng-click="showLongString(i.rules)">View</a></td>
-        <td><a ng-href="award/{{i.id}}" class="button">View</a></td>
+        <td><a href="#" ng-click="viewAwards(i.id)" class="button">View</a></td>
+        <td><a ng-href="confrontation/{{i.id}}" class="button">View</a></td>
     </tr>
     </tbody>
 </table>
