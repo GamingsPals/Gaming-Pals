@@ -17,7 +17,7 @@ app.service("TournamentService", function(xhr){
         });
     };
     
-    this.awards = function(tournamentId){
+    this.getAwards = function(tournamentId){
         let object = this;
         xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
             object.awards = response.data;
