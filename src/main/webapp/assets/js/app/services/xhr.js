@@ -14,7 +14,7 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                     error(data);
                 }
                 $(".loader").hide();
-                MessageSystem.errormessage("Something wrong has happened!");
+                SystemMessages.errormessage("Something wrong has happened!");
             });
     };
 
