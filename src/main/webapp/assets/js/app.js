@@ -6,67 +6,58 @@ app.run(function($rootScope) {
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         closeMenu();
     });
-});let routes =
-    [
-        {
-            route: "/",
-            options: {
-                templateUrl: "main",
-                controller: "Home",
-            }
-        },
-        {
-            route: "/login",
-            options: {
-                templateUrl: "login",
-                controller: "Login",
-            }
-        },
-        {
-            route: "/user/reported/list",
-            options: {
-                templateUrl: "viewreport",
-                controller: "ReportedUserList",
-            }
-        },
-        {
-            route: "/profile/:username",
-            options: {
-                templateUrl: "profile",
-                controller: "Profile",
-            }
-        },
-        {
-            route: "/search",
-            options: {
-                templateUrl: "search",
-                controller: "Search",
-            }
-        },
-        {
-            route: "/signup",
-            options:{
-                templateUrl: "signup",
-                controller: "Signup"
-            }
-        },
-
-        {
-            route: "/team/user/create",
-            options:{
-                templateUrl: "team-form",
-                controller: "CreateTeamController"
-            }
-        },
-        {
-            route: "/lol/stats/:userid",
-            options:{
-                templateUrl: "lolstats",
-                controller: "Lolstats"
-            }
-        }
-    ];
-
+});let
+routes = [
+		{
+			route : "/",
+			options : {
+				templateUrl : "main",
+				controller : "Home",
+			}
+		}, {
+			route : "/login",
+			options : {
+				templateUrl : "login",
+				controller : "Login",
+			}
+		}, {
+			route : "/user/reported/list",
+			options : {
+				templateUrl : "viewreport",
+				controller : "ReportedUserList",
+			}
+		}, {
+			route : "/profile/:username",
+			options : {
+				templateUrl : "profile",
+				controller : "Profile",
+			}
+		}, {
+			route : "/createTournament",
+			options : {
+				templateUrl : "createTournament",
+				controller : "CreateTournament"
+			}
+		}, {
+			route : "/search",
+			options : {
+				templateUrl : "search",
+				controller : "Search",
+			}
+		}, {
+			route : "/signup",
+			options : {
+				templateUrl : "signup",
+				controller : "Signup"
+			}
+		}, {
+			route : "/lol/stats/:userid",
+			options : {
+				templateUrl : "lolstats",
+				controller : "Lolstats"
+			}
+		}
+];
 app.config(function($routeProvider,$locationProvider){
     routes.forEach(function(a){
         a.options.templateUrl = `assets/html/${a.options.templateUrl}.html`;
@@ -101,7 +92,22 @@ app.config(function($routeProvider,$locationProvider){
             $scope.error = data.data.message;
         });
     }
+});app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+    $scope.createTeam = function(){
+    ActorService.team($scope.teamForm,()=>{});
+    $scope.writerating = false;
+    $scope.teamForm = null;
+    SystemMessages.okmessage("Create team");
+    dialog.closeAll();
+
+    }
+});app.controller('CreateTournamentController', function($scope, xhr, $location) {
+	$scope.enviarTournamentForm = function() {
+		xhr.post("api/createTournament", $scope.tournamentform);
+		$location.path("/tournament/list");
+	}
 });
+
 app.controller('HomeController',function($scope){
 });
 app.controller('LoginController',function(middleware){
@@ -149,13 +155,17 @@ app.controller('SearchController',function($scope,SearchService,$location){
     $scope.As = SearchService;
     $scope.As.filter($location.search());
 });
-app.controller('SignupController', function($scope, middleware, xhr) {
+app.controller('SignupController', function($scope, middleware, xhr, $location) {
 
 	$scope.enviarForm = function() {
 		xhr.post("api/signup", $scope.signupform);
+		$location.path("/");
 	}
 });
-app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+app.controller('TournamentListController',function($scope,TournamentService){
+    $scope.Ts = TournamentService;
+    $scope.Ts.getTournaments();
+});app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
         $scope.writerating = false;
@@ -171,18 +181,6 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
             dialog.closeAll();});
 
     }
-    
-    app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
-        $scope.createTeam = function(){
-        ActorService.team($scope.teamForm,()=>{});
-        $scope.writerating = false;
-        $scope.teamForm = null;
-        SystemMessages.okmessage("Create team");
-        dialog.closeAll();
-
-        }
-    });
-
 });app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
@@ -231,12 +229,13 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
             auth.load(()=>{},true);
         })
     };
-
+    
     this.team = function(data,sucess,error){
         let object = this;
         xhr.post("team/user/create",data,sucess,error);
     };
-    
+
+
     this.processActors = function(){
         let object = this;
         this.actor.actor = this.processActor(this.actor.actor);
@@ -521,6 +520,17 @@ app.service("SystemMessages", function($timeout){
         },3000);
     }
 
+});app.service("TournamentService", function(xhr){
+    this.tournaments = [];
+
+    this.getTournaments = function () {
+        let object = this;
+
+        xhr.get("api/tournaments/all", function (data) {
+            object.tournaments = data.data;
+        })
+
+    }
 });app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
@@ -573,7 +583,7 @@ app.service("SystemMessages", function($timeout){
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                MessageSystem.errormessage("Something wrong has happened!");
+                SystemMessages.errormessage("Something wrong has happened!");
                 $(".loader").hide();
             }
         );
