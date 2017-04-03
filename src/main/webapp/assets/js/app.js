@@ -118,9 +118,9 @@ app.config(function($routeProvider,$locationProvider){
 	$scope.As = TournamentService;
 	$scope.As.awards($scope.tournamentId);
 });
-app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
+app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.controntations($routeParams.tournamentId);
+	$scope.As.confrontations($routeParams.tournamentId);
 });
 app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.createTeam = function(){
