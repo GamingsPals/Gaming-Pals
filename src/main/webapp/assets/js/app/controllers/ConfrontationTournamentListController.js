@@ -1,4 +1,4 @@
-app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService) {
+app.controller('ConfrontationTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.confrontations($routeParams.tournamentId);
+	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
 });

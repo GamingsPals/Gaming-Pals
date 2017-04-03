@@ -8,5 +8,9 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
     $scope.viewAwards = function(tournmanentId){
         $scope.tournmanentId = tournmanentId;
         dialog.open("viewAwards",$scope);
+    };
+    $scope.viewConfrontation = function(tournmanentId){
+        $scope.tournmanentId = tournmanentId;
+        dialog.open("viewConfrontation",$scope);
     }
 });

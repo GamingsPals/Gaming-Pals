@@ -116,11 +116,11 @@ app.config(function($routeProvider,$locationProvider){
     }
 });app.controller('AwardsTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.awards($scope.tournamentId);
+	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
-app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService) {
+app.controller('ConfrontationTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
-	$scope.As.confrontations($routeParams.tournamentId);
+	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
 });
 app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.createTeam = function(){
@@ -198,10 +198,14 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
     $scope.showLongString = function(longString){
         $scope.longString = longString;
         dialog.open("showLongString",$scope);
-    }
+    };
     $scope.viewAwards = function(tournmanentId){
         $scope.tournmanentId = tournmanentId;
         dialog.open("viewAwards",$scope);
+    };
+    $scope.viewConfrontation = function(tournmanentId){
+        $scope.tournmanentId = tournmanentId;
+        dialog.open("viewConfrontation",$scope);
     }
 });app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
@@ -563,21 +567,20 @@ app.service("SystemMessages", function($timeout){
     this.confrontations = {};
     this.getTournaments = function () {
         let object = this;
-
         xhr.get("api/tournament/list", function (response) {
             object.tournaments = response.data;
         })
 
     }
     
-    this.confrontations = function(tournamentId){
+    this.getConfrontations = function(tournamentId){
         let object = this;
         xhr.get("api/confrontations/tournament/list?tournamentId="+tournamentId ,function(response){
             object.confrontations = response.data;
         });
     };
     
-    this.awards = function(tournamentId){
+    this.getAwards = function(tournamentId){
         let object = this;
         xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
             object.awards = response.data;

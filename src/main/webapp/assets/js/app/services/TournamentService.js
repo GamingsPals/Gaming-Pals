@@ -3,14 +3,13 @@ app.service("TournamentService", function(xhr){
     this.confrontations = {};
     this.getTournaments = function () {
         let object = this;
-
         xhr.get("api/tournament/list", function (response) {
             object.tournaments = response.data;
         })
 
     }
     
-    this.confrontations = function(tournamentId){
+    this.getConfrontations = function(tournamentId){
         let object = this;
         xhr.get("api/confrontations/tournament/list?tournamentId="+tournamentId ,function(response){
             object.confrontations = response.data;
