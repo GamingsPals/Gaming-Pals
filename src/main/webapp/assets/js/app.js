@@ -39,6 +39,12 @@ routes = [
 				controller : "CreateTournament"
 			}
 		}, {
+        route : "/tournament/list",
+        options : {
+            templateUrl : "listTournaments",
+            controller : "TournamentList"
+        }
+    }, {
 			route : "/search",
 			options : {
 				templateUrl : "search",
@@ -92,7 +98,15 @@ app.config(function($routeProvider,$locationProvider){
             $scope.error = data.data.message;
         });
     }
-});app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+});app.controller('AwardsTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
+	$scope.As = TournamentService;
+	$scope.As.awards($routeParams.tournamentId);
+});
+app.controller('ConfrontationTournamentListController', function($scope, $routeParams, TournamentService, middleware, dialog) {
+	$scope.As = TournamentService;
+	$scope.As.controntations($routeParams.tournamentId);
+});
+app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.createTeam = function(){
     ActorService.team($scope.teamForm,()=>{});
     $scope.writerating = false;

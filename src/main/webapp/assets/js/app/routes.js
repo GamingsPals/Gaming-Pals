@@ -31,6 +31,12 @@ routes = [
 				controller : "CreateTournament"
 			}
 		}, {
+        route : "/tournament/list",
+        options : {
+            templateUrl : "listTournaments",
+            controller : "TournamentList"
+        }
+    }, {
 			route : "/search",
 			options : {
 				templateUrl : "search",
