@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import domain.Tournament;
 import forms.TournamentForm;
 import org.springframework.web.bind.annotation.RestController;
+import services.ActorService;
 import services.ConfrontationService;
 import services.TournamentService;
 
@@ -25,6 +26,8 @@ public class TournamentController extends ApiAbstractController {
 	private TournamentService		tournamentService;
 	@Autowired
 	private ConfrontationService	confrontationService;
+	@Autowired
+	private ActorService 			actorService;
 
 
 	@ResponseBody
@@ -51,6 +54,11 @@ public class TournamentController extends ApiAbstractController {
     @RequestMapping(value = "/tournament/list")
     public Object tournamentList(HttpServletResponse response)
             throws Exception{
+		try{
+			Assert.notNull(actorService.findActorByPrincipal());
+		} catch (Exception e) {
+			return unauthorized(response,null);
+		}
         try{
             return tournamentService.findAll();
         } catch (Exception e){

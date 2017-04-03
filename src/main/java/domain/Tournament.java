@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,6 +25,7 @@ public class Tournament extends DomainEntity {
 	private String	rules;
 	private Integer	numberTeams;
 	private Date	limitInscription;
+	private String picture;
 
 
 	// Constructor
@@ -86,6 +88,11 @@ public class Tournament extends DomainEntity {
 	public void setLimitInscription(Date limitInscription) {
 		this.limitInscription = limitInscription;
 	}
+
+	@URL
+	@NotBlank
+	public String getPicture(){return picture;}
+	public void setPicture(String picture){this.picture=picture;}
 
 
 	//Relationships

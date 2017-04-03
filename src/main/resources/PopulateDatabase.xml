@@ -309,6 +309,7 @@
 		<property name="numberTeams" value="4"/>
 		<property name="limitInscription" value="15/06/2017 10:20"/>
 		<property name="rules" value="No se puede insultar" />
+		<property name="picture" value="https://previews.123rf.com/images/lhfgraphics/lhfgraphics1208/lhfgraphics120800159/14707386-Fire-flammable-or-camping-icon-on-round-red-and-brown-imperial-vector-button-with-star-accents-suita-Stock-Vector.jpg" />
 		<property name="awards">
 			<list>
 				<ref bean="award1"/>
