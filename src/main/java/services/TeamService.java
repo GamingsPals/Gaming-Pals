@@ -3,9 +3,14 @@ package services;
 import domain.Team;
 import domain.Tournament;
 import domain.User;
+import forms.TeamForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+
 import repositories.TeamRepository;
 
 import javax.transaction.Transactional;
@@ -20,6 +25,8 @@ public class TeamService {
     private TeamRepository teamRepository;
 
     //Services
+    @Autowired
+	private Validator validator;
 
     //Constructor
     public TeamService(){super();}
@@ -67,4 +74,12 @@ public class TeamService {
         return result;
 
     }
+    
+    public Team reconstruct(final TeamForm teamForm, final BindingResult binding) {
+		final Team team = this.create();
+		team.setName(teamForm.getName());
+		team.setPicture(teamForm.getPicture());
+		this.validator.validate(team, binding);
+		return team;
+	}
 }
