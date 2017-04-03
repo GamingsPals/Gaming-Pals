@@ -31,18 +31,28 @@ routes = [
 				controller : "CreateTournament"
 			}
 		}, {
-        route : "/tournament/list",
-        options : {
-            templateUrl : "listTournaments",
-            controller : "TournamentList"
-        }
-    }, {
-        route : "/confrontations/:tournamentId",
-        options : {
-            templateUrl : "viewConfrontation",
-            controller : "ConfrontationTournamentList"
-        }
-    }, {
+			route : "/tournament/list",
+			options : {
+				templateUrl : "listTournaments",
+				controller : "TournamentList"
+			}
+		}, {
+			route : "/confrontation/:tournamentId",
+			options : {
+				templateUrl : "viewConfrontation",
+				controller : "ConfrontationTournamentList"
+			}
+		}
+
+		, {
+			route : "/award/:tournamentId",
+			options : {
+				templateUrl : "viewAwards",
+				controller : "AwardsTournamentList"
+			}
+		},
+
+		{
 			route : "/search",
 			options : {
 				templateUrl : "search",
