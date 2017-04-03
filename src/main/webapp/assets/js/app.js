@@ -45,6 +45,12 @@ routes = [
             controller : "TournamentList"
         }
     }, {
+        route : "/confrontations/:tournamentId",
+        options : {
+            templateUrl : "viewConfrontation",
+            controller : "ConfrontationTournamentList"
+        }
+    }, {
 			route : "/search",
 			options : {
 				templateUrl : "search",
@@ -176,9 +182,13 @@ app.controller('SignupController', function($scope, middleware, xhr, $location) 
 		$location.path("/");
 	}
 });
-app.controller('TournamentListController',function($scope,TournamentService){
+app.controller('TournamentListController',function($scope,TournamentService, dialog){
     $scope.Ts = TournamentService;
     $scope.Ts.getTournaments();
+    $scope.showLongString = function(longString){
+        $scope.longString = longString;
+        dialog.open("showLongString",$scope);
+    }
 });app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});

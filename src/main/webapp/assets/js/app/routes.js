@@ -37,6 +37,12 @@ routes = [
             controller : "TournamentList"
         }
     }, {
+        route : "/confrontations/:tournamentId",
+        options : {
+            templateUrl : "viewConfrontation",
+            controller : "ConfrontationTournamentList"
+        }
+    }, {
 			route : "/search",
 			options : {
 				templateUrl : "search",
