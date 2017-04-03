@@ -2,18 +2,20 @@
 <table>
     <thead>
     <tr>
-        <td></td>
-        <td>Comment</td>
-        <td>Image</td>
-        <td>Action</td>
+        <td>Title</td>
+        <td>Description</td>
+        <td>Number Teams</td>
+        <td>Limit Inscription</td>
+        <td>Rules</td>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="i in As.reportedList ">
-        <td><a href="profile/{{i.reportedUser.userAccount.username}}" >{{i.reportedUser.userAccount.username}}</a></td>
-        <td>{{i.comment}}</td>
-        <td><a href="#" class="button" ng-click="showImage(i.picture)">View</a></td>
-        <td><a href="#"><i class="fa fa-gear"></i> </a> </td>
+    <tr ng-repeat="i in Ts.tournaments ">
+        <td>{{i.title}}</td>
+        <td>{{i.description}}</td>
+        <td>{{i.teams.length}}/{{i.numberTeams}}</td>
+        <td>{{i.limitInscription}}</td>
+        <td>{{i.rules}}</td>
     </tr>
     </tbody>
 </table>

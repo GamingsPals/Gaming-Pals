@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Tournament;
 import forms.TournamentForm;
+import org.springframework.web.bind.annotation.RestController;
 import services.ConfrontationService;
 import services.TournamentService;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class TournamentController extends ApiAbstractController {
 
