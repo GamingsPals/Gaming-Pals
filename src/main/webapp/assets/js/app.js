@@ -50,6 +50,14 @@ app.run(function($rootScope) {
                 controller: "Signup"
             }
         },
+
+        {
+            route: "/team/user/create",
+            options:{
+                templateUrl: "team-form",
+                controller: "CreateTeamController"
+            }
+        },
         {
             route: "/lol/stats/:userid",
             options:{
@@ -163,6 +171,18 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
             dialog.closeAll();});
 
     }
+    
+    app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+        $scope.createTeam = function(){
+        ActorService.team($scope.teamForm,()=>{});
+        $scope.writerating = false;
+        $scope.teamForm = null;
+        SystemMessages.okmessage("Create team");
+        dialog.closeAll();
+
+        }
+    });
+
 });app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
@@ -212,6 +232,11 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
         })
     };
 
+    this.team = function(data,sucess,error){
+        let object = this;
+        xhr.post("team/user/create",data,sucess,error);
+    };
+    
     this.processActors = function(){
         let object = this;
         this.actor.actor = this.processActor(this.actor.actor);

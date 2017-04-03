@@ -46,6 +46,12 @@ app.service("ActorService",function(xhr,auth){
             auth.load(()=>{},true);
         })
     };
+    
+    this.team = function(data,sucess,error){
+        let object = this;
+        xhr.post("team/user/create",data,sucess,error);
+    };
+
 
     this.processActors = function(){
         let object = this;

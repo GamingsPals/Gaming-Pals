@@ -1,0 +1,16 @@
+<div>
+    <h2 class="text-center">Team</h2>
+    <form class="forms-center" ng-submit="createTeam()">
+        <label for="name">
+        Name
+    </label>
+    <input name="name" id="name" type="text" placeholder="name" ng-model="teamForm.name" class="s9"/>
+    
+        <label for="picture">
+            Picture / Proof
+        </label>
+        <input type="url" required id="picture" name="picture" ng-model="teamForm.picture" placeholder="http://" />
+
+        <input type="submit" value="Team" />
+    </form>
+</div>
