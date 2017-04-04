@@ -1,8 +1,5 @@
+
 package domain;
-
-
-
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -12,24 +9,36 @@ import javax.validation.Valid;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Participes extends DomainEntity{
+public class Participes extends DomainEntity {
 
-    //Attributes
-    private boolean isWinner;
+	//Attributes
+	private boolean isWinner;
 
-    //Constructor
-    public Participes(){super();}
 
-    //Getters and Setters
-    public boolean getIsWinner(){return isWinner;}
-    public void setIsWinner(boolean isWinner){this.isWinner=isWinner;}
+	//Constructor
+	public Participes() {
+		super();
+	}
 
-    //Relationships
-    private Team team;
+	//Getters and Setters
+	public boolean getIsWinner() {
+		return isWinner;
+	}
+	public void setIsWinner(boolean isWinner) {
+		this.isWinner = isWinner;
+	}
 
-    @Valid
-    @JsonIgnore
-    @ManyToOne
-    public Team getTeam(){return team;}
-    public void setTeam(Team team){this.team=team;}
+
+	//Relationships
+	private Team team;
+
+
+	@Valid
+	@ManyToOne
+	public Team getTeam() {
+		return team;
+	}
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 }

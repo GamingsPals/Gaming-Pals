@@ -6,13 +6,21 @@
         <td>Round</td>
         <td>Number match</td>
         <td>Limit play</td>
+        <td>Teams</td>
+        <td>Report</td>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="i in As.confrontations ">
         <td>{{i.round}}</td>
         <td>{{i.numberMatch}}</td>
-        <td>{{i.limitPlay}} </td>
+        <td>{{i.limitPlay | date:"MM/dd/yyyy 'at' h:mma"}} </td>
+        <td >
+       		<div ng-repeat="x in i.participes">
+         		{{x.team.name}}
+         	</div>
+        </td>
+         <td><a href="#" class="button">Report</a></td>
     </tr>
     </tbody>
 </table>
