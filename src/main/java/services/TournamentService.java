@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import domain.Award;
 import domain.Confrontation;
+import domain.Participes;
 import domain.Team;
 import domain.Tournament;
 import forms.TournamentForm;
@@ -23,7 +24,13 @@ import repositories.TournamentRepository;
 public class TournamentService {
 
 	@Autowired
-	private TournamentRepository tournamentRepository;
+	private TournamentRepository	tournamentRepository;
+
+	@Autowired
+	private ParticipesService		participesService;
+
+	@Autowired
+	private TeamService				teamService;
 
 
 	public TournamentService() {
@@ -84,6 +91,21 @@ public class TournamentService {
 		t.setNumberTeams(tournamentForm.getNumberTeams());
 		t.setLimitInscription(tournamentForm.getLimitInscription());
 		return t;
+	}
+
+	public void assign(Team team, Tournament t) {
+		t.getTeams().add(team);
+		Participes p = participesService.create();
+		p.setTeam(team);
+		for (Confrontation c : t.getConfrontations()) {
+			if (c.getRound() == 1 && !c.getParticipes().contains(p) && c.getParticipes().size() < 2) {
+				c.getParticipes().add(p);
+			}
+		}
+
+		participesService.save(p);
+		teamService.save(team);
+		save(t);
 	}
 
 }

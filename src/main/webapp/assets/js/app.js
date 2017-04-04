@@ -53,6 +53,14 @@ routes = [
 		}
 
 		, {
+			route : "/tournament/assign",
+			options : {
+				templateUrl : "listTournaments",
+				controller : "AssignTeamTournament"
+			}
+		}
+
+		, {
 			route : "/award/:tournamentId",
 			options : {
 				templateUrl : "viewAwards",
@@ -114,7 +122,11 @@ app.config(function($routeProvider,$locationProvider){
             $scope.error = data.data.message;
         });
     }
-});app.controller('AwardsTournamentListController', function($scope, TournamentService) {
+});app.controller('AssignTeamTournamentController', function($scope, TournamentService) {
+	$scope.As = TournamentService;
+	$scope.As.assignTeam($scope.$parent.$parent.tournmanentId, $scope.$parent.$parent.teamId);
+});
+app.controller('AwardsTournamentListController', function($scope, TournamentService) {
 	$scope.As = TournamentService;
 	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
@@ -579,6 +591,11 @@ app.service("SystemMessages", function($timeout){
             object.confrontations = response.data;
         });
     };
+    
+    this.assignTeam = function(tournamentId,teamId){
+    	  let object = this;
+          xhr.post("api/tournament/assign?tournamentId="+tournamentId+"&teamId="+teamId)
+     };
     
     this.getAwards = function(tournamentId){
         let object = this;

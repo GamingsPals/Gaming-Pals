@@ -45,6 +45,14 @@ routes = [
 		}
 
 		, {
+			route : "/tournament/assign",
+			options : {
+				templateUrl : "listTournaments",
+				controller : "AssignTeamTournament"
+			}
+		}
+
+		, {
 			route : "/award/:tournamentId",
 			options : {
 				templateUrl : "viewAwards",
