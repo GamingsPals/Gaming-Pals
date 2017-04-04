@@ -82,5 +82,18 @@ app.service("ActorService",function(xhr,auth){
         actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
         return actor;
     };
+    
+    
+    
+    
+    
+    
+    
+    this.getUsers = function(teamId){
+        let object = this;
+        xhr.get("api/users/list?teamId="+teamId ,function(response){
+            object.users = response.data;
+        });
+    };
 
 });

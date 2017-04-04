@@ -78,5 +78,11 @@ routes = [
 				templateUrl : "lolstats",
 				controller : "Lolstats"
 			}
+		}, {
+			route : "/team/users/:teamId",
+			options : {
+				templateUrl : "viewUsersByTeam",
+				controller : "UsersByTeam"
+			}
 		}
 ];

@@ -1,0 +1,20 @@
+
+<div ng-controller="UsersByTeamController">
+    <h1>Users list</h1>
+    <table>
+     <thead>
+        <tr>
+        	<td>Picture</td>
+            <td>User name</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in As.users ">
+        	<td>
+        		<img height="50" width="50" src="{{i.picture}}">
+        	 </td>
+            <td> {{i.userAccount.username}} </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
