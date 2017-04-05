@@ -108,7 +108,8 @@
                 <img ng-src="{{i.picture}}" />
             </div>
             <div class="card-buttons">
-                <a href="profile/{{i.name}}"> <h1>{{i.name}}</h1></a>
+                <!-- <a href="team/users/{{i.id}}"> <h1>{{i.name}}</h1></a> -->
+                <a href="#" ng-click="viewUsersByTeam(i.id)" class="button">{{i.name}}</a>
             </div>
     </div>
 

@@ -86,6 +86,12 @@ routes = [
 				templateUrl : "lolstats",
 				controller : "Lolstats"
 			}
+		}, {
+			route : "/team/users/:teamId",
+			options : {
+				templateUrl : "viewUsersByTeam",
+				controller : "UsersByTeam"
+			}
 		}
 ];
 app.config(function($routeProvider,$locationProvider){
@@ -185,11 +191,17 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         $scope.lolsd.loadChampions();
         $scope.lolsd.loadItems();
     });
+});app.controller('ProfileController', function($scope, middleware, ActorService, $routeParams, dialog) {
+	$scope.ActorService = ActorService;
+	$scope.ActorService.UserProfile($routeParams.username);
+
+	$scope.viewUsersByTeam = function(teamId) {
+		$scope.teamId = teamId;
+		dialog.open("viewUsersByTeam", $scope);
+	};
+
 });
-app.controller('ProfileController',function($scope,middleware,ActorService,$routeParams){
-    $scope.ActorService = ActorService;
-    $scope.ActorService.UserProfile($routeParams.username);
-});app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
+app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
     middleware.needRol("ADMIN");
     $scope.As = ActorService;
     $scope.As.reportedUsers();
@@ -224,7 +236,12 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
         $scope.tournmanentId = tournmanentId;
         dialog.open("viewConfrontation",$scope);
     }
-});app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+});app.controller('UsersByTeamController', function($scope/* , $routeParams */, ActorService, dialog) {
+	$scope.As = ActorService;
+	/* $scope.As.getUsers($routeParams.teamId); */
+	$scope.As.getUsers($scope.$parent.$parent.teamId);
+});
+app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
         $scope.writerating = false;
@@ -331,6 +348,19 @@ app.service("ActorService",function(xhr,auth){
         actor.nRatings = actor.ratingsReceived.length;
         actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
         return actor;
+    };
+
+
+
+
+
+
+
+    this.getUsers = function(teamId){
+        let object = this;
+        xhr.get("api/users/list?teamId="+teamId ,function(response){
+            object.users = response.data;
+        });
     };
 
 });
