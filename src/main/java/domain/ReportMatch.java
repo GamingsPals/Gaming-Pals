@@ -48,7 +48,6 @@ public class ReportMatch extends DomainEntity{
     public void setConfrontation(Confrontation confrontation){this.confrontation= confrontation;}
 
     @Valid
-    @JsonIgnore
     @ManyToOne
     @NotNull
     public Team getTeam(){return team;}

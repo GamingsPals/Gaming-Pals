@@ -5,7 +5,7 @@ app.controller('ConfrontationTournamentListController', function($scope, Tournam
     $scope.reportMatch = function(confrontationId){
         $scope.confrontationId = confrontationId;
         dialog.open("reportMatch",$scope);
-    }
+    };
 
     $scope.canShowReport = function (confrontation) {
         $scope.confrontation = confrontation;
@@ -21,9 +21,23 @@ app.controller('ConfrontationTournamentListController', function($scope, Tournam
                 return false;
             }
         });
-        console.log(user);
-        console.log(actor);
-        console.log(result);
+        return result;
+    };
+
+    $scope.alreadyReport = function (confrontation) {
+        $scope.confrontation = confrontation;
+        let actor = auth.principal.actor;
+        let result = true;
+        let user;
+        confrontation.reportMatches.forEach((rp)=>{
+            user = rp.team.users.find((u)=>{
+                return u.id ==actor.id;
+            });
+            if(typeof user !=="undefined"){
+                result = false;
+                return false;
+            }
+        });
         return result;
     }
 });

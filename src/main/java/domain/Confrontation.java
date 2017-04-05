@@ -78,7 +78,6 @@ public class Confrontation extends DomainEntity {
 	}
 
 	@Valid
-	@JsonIgnore
 	@OneToMany(mappedBy = "confrontation")
 	public Collection<ReportMatch> getReportMatches() {
 		return reportMatches;
