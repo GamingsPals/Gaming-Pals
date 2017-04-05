@@ -1,4 +1,6 @@
-app.controller('AssignTeamTournamentController', function($scope, TournamentService) {
+app.controller('AssignTeamTournamentController', function($scope, TournamentService, $routeParams) {
 	$scope.As = TournamentService;
-	$scope.As.assignTeam($scope.$parent.$parent.tournmanentId, $scope.$parent.$parent.teamId);
+	console.log($routeParams.tournamentId);
+	console.log($routeParams.teamId);
+	$scope.As.assignTeam($routeParams.tournamentId, $routeParams.teamId);
 });

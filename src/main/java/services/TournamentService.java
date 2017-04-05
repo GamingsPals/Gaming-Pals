@@ -95,14 +95,16 @@ public class TournamentService {
 
 	public void assign(Team team, Tournament t) {
 		t.getTeams().add(team);
+		team.getTournaments().add(t);
 		Participes p = participesService.create();
 		p.setTeam(team);
+		p = participesService.save(p);
 		for (Confrontation c : t.getConfrontations()) {
 			if (c.getRound() == 1 && !c.getParticipes().contains(p) && c.getParticipes().size() < 2) {
 				c.getParticipes().add(p);
+				break;
 			}
 		}
-
 		participesService.save(p);
 		teamService.save(team);
 		save(t);

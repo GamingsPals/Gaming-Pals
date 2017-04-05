@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,21 +35,21 @@ public class TournamentController extends ApiAbstractController {
 	private TeamService				teamService;
 
 
-	@RequestMapping(value = "/tournament/assign")
-	public Object confrontationList(HttpServletResponse response, @RequestParam int tournamentId, @RequestParam int teamId) throws Exception {
+	@RequestMapping(value = "/tournament/assign/{tournamentId}/{teamId}")
+	public Object confrontationList(HttpServletRequest request, HttpServletResponse response, @PathVariable int tournamentId, @PathVariable int teamId) {
 		try {
 			Assert.notNull(tournamentService.findOne(tournamentId));
 		} catch (Exception e) {
 			return unauthorized(response, null);
 		}
 		try {
-			System.out.print(tournamentId + "-" + teamId);
 			Tournament t = tournamentService.findOne(tournamentId);
 			Team team = teamService.findOne(teamId);
 
 			tournamentService.assign(team, t);
 			return ok(response, null);
-		} catch (Exception e) {
+		} catch (Throwable e) {
+			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}

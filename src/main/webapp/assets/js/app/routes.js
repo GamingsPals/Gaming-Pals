@@ -45,7 +45,7 @@ routes = [
 		}
 
 		, {
-			route : "/tournament/assign",
+			route : "/tournament/assign/:tournamentId/:teamId",
 			options : {
 				templateUrl : "listTournaments",
 				controller : "AssignTeamTournament"
