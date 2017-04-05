@@ -90,6 +90,7 @@ public class TournamentService {
 		t.setRules(tournamentForm.getRules());
 		t.setNumberTeams(tournamentForm.getNumberTeams());
 		t.setLimitInscription(tournamentForm.getLimitInscription());
+		t.setPicture(tournamentForm.getPicture());
 		return t;
 	}
 

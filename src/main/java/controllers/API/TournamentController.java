@@ -69,8 +69,8 @@ public class TournamentController extends ApiAbstractController {
 			t = confrontationService.calculateConfrontations(t);
 
 			return ok(response, null);
-		} catch (Exception e) {
-
+		} catch (Throwable e) {
+			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}

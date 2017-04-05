@@ -10,6 +10,7 @@ public class TournamentForm {
 	private String	rules;
 	private Integer	numberTeams;
 	private Date	limitInscription;
+	private String	picture;
 
 
 	public String getTitle() {
@@ -50,6 +51,14 @@ public class TournamentForm {
 
 	public void setLimitInscription(Date limitInscription) {
 		this.limitInscription = limitInscription;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 }
