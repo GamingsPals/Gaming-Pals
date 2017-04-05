@@ -330,14 +330,14 @@
 		</property>
 	</bean>
 
-	<!-- Matchs -->
+	<!-- Confrontations -->
 	<bean id="confrontation1" class="domain.Confrontation">
 		<property name="round" value="1"/>
 		<property name="numberMatch" value="1"/>
 		<property name="limitPlay" value="16/06/2017 10:20"/>
 		<property name="reportMatches">
 			<list>
-
+                <ref bean="reportMatch1"/>
 			</list>
 		</property>
 		<property name="participes">
@@ -403,7 +403,13 @@
 	</bean>
 
 	<!-- Reports Matches -->
-
+	<bean id="reportMatch1" class="domain.ReportMatch">
+		<property name="image" value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
+        <property name="result" value="Losser"/>
+        <property name="description" value="He perdido pero bien"></property>
+        <property name="confrontation" ref="confrontation1"/>
+        <property name="team" ref="team2"/>
+	</bean>
 
 	<!-- User Reports -->
 	<bean id="report1" class="domain.Report">

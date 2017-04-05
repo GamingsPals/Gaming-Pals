@@ -1,0 +1,18 @@
+<div ng-controller="WriteReportMatchController">
+<h2 class="text-center">Report Match</h2>
+<form name="reportMatchForm" ng-submit="sendReportMatchForm()">
+    <label>Image</label>
+    <input type="url" ng-model="reportMatchForm.image" placeholder="http://" />
+    <label>Result</label>
+    <select ng-model="reportMatchForm.result">
+        <option value="Losser">Losser</option>
+        <option value="Winner">Winner</option>
+        <option value="Incidence">Incidence</option>
+    </select>
+    <label>Description</label>
+    <input type="text" placeholder="Description" ng-model="reportMatchForm.description" />
+
+
+    <input type="submit" value="Report" />
+</form>
+</div>

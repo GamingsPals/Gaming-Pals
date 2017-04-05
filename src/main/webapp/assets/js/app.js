@@ -130,9 +130,14 @@ app.controller('AwardsTournamentListController', function($scope, TournamentServ
 	$scope.As = TournamentService;
 	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
-app.controller('ConfrontationTournamentListController', function($scope, TournamentService) {
+app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog) {
 	$scope.As = TournamentService;
 	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
+
+    $scope.reportMatch = function(confrontationId){
+        $scope.confrontationId = confrontationId;
+        dialog.open("reportMatch",$scope);
+    }
 });
 app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.createTeam = function(){
@@ -235,7 +240,15 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
             dialog.closeAll();});
 
     }
-});app.service("ActorService",function(xhr,auth){
+});app.controller('WriteReportMatchController', function($scope, SystemMessages, dialog, TournamentService) {
+    $scope.sendReportMatchForm = function() {
+        console.log($scope.reportMatchForm);
+        console.log($scope.$parent.$parent.confrontationId);
+        TournamentService.reportMatch($scope.$parent.$parent.confrontationId,$scope.reportMatchForm,()=>{SystemMessages.okmessage("Report send!");
+            dialog.closeAll();});
+    }
+});
+app.service("ActorService",function(xhr,auth){
 
     this.actor = {};
     this.notFound = false;
@@ -577,6 +590,7 @@ app.service("SystemMessages", function($timeout){
 });app.service("TournamentService", function(xhr){
     this.tournaments = {};
     this.confrontations = {};
+    this.confrontation = {};
     this.getTournaments = function () {
         let object = this;
         xhr.get("api/tournament/list", function (response) {
@@ -602,6 +616,11 @@ app.service("SystemMessages", function($timeout){
         xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
             object.awards = response.data;
         });
+    };
+
+    this.reportMatch = function(confrontation,data,sucess,error){
+        let object = this;
+        xhr.post("api/user/"+confrontation+"/reportMatch", data,sucess,error);
     };
 });app.service("xhr",function($http, SystemMessages, $rootScope) {
 
