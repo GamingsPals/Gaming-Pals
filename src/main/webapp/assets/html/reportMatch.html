@@ -4,7 +4,8 @@
     <label>Image</label>
     <input type="url" ng-model="reportMatchForm.image" placeholder="http://" />
     <label>Result</label>
-    <select ng-model="reportMatchForm.result">
+    <select id="result" name="result" ng-model="reportMatchForm.result">
+        <option value="">Select a option</option>
         <option value="Losser">Losser</option>
         <option value="Winner">Winner</option>
         <option value="Incidence">Incidence</option>

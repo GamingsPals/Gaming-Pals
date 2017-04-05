@@ -20,7 +20,7 @@
          		{{x.team.name}}
          	</div>
         </td>
-         <td><a href="#" ng-click="reportMatch(i.id)" class="button">Report</a></td>
+         <td><a href="#" ng-click="reportMatch(i.id)" ng-if="canShowReport(i)" class="button">Report</a></td>
     </tr>
     </tbody>
 </table>

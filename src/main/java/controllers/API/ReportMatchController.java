@@ -53,6 +53,12 @@ public class ReportMatchController extends ApiAbstractController{
                     || t2.getUsers().contains(user));
         } catch (Exception e) {
             return unauthorized(response,null);
+        }try{
+            for(ReportMatch rp:confrontation.getReportMatches()){
+                Assert.isTrue(!user.getTeams().contains(rp.getTeam()));
+            }
+        }catch (Exception e){
+            return unauthorized(response,null);
         }
         try{
             ReportMatch reportMatch = reportMatchService.reconstruct(reportMatchForm);

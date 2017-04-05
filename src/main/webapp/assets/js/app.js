@@ -136,13 +136,33 @@ app.controller('AwardsTournamentListController', function($scope, TournamentServ
 	$scope.As = TournamentService;
 	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
-app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog) {
+app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog, auth) {
 	$scope.As = TournamentService;
 	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
 
     $scope.reportMatch = function(confrontationId){
         $scope.confrontationId = confrontationId;
         dialog.open("reportMatch",$scope);
+    }
+
+    $scope.canShowReport = function (confrontation) {
+        $scope.confrontation = confrontation;
+        let actor = auth.principal.actor;
+        let user;
+        let result = false;
+        confrontation.participes.forEach((p)=> {
+            user = p.team.users.find((u) => {
+                return u.id == actor.id
+            });
+            if(typeof user !=="undefined"){
+                result = true;
+                return false;
+            }
+        });
+        console.log(user);
+        console.log(actor);
+        console.log(result);
+        return result;
     }
 });
 app.controller('CreateTeamController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
@@ -236,12 +256,7 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
         $scope.tournmanentId = tournmanentId;
         dialog.open("viewConfrontation",$scope);
     }
-});app.controller('UsersByTeamController', function($scope/* , $routeParams */, ActorService, dialog) {
-	$scope.As = ActorService;
-	/* $scope.As.getUsers($routeParams.teamId); */
-	$scope.As.getUsers($scope.$parent.$parent.teamId);
-});
-app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+});app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
         $scope.writerating = false;
@@ -349,13 +364,13 @@ app.service("ActorService",function(xhr,auth){
         actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
         return actor;
     };
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
     this.getUsers = function(teamId){
         let object = this;
         xhr.get("api/users/list?teamId="+teamId ,function(response){

@@ -55,7 +55,6 @@ public class Team extends DomainEntity {
 
 	@NotEmpty
 	@Valid
-	@JsonIgnore
 	@ManyToMany
 	public Collection<User> getUsers() {
 		return users;
