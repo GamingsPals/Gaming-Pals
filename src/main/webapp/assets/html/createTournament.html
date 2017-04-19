@@ -1,32 +1,32 @@
 <form name="Tournamentform" ng-controller="CreateTournamentController" ng-submit="enviarTournamentForm()">
 
-	<h2>Create a Tournament</h2>
+	<h2>{{loc.tournament.create}}</h2>
     <div class="col s6">
-        <label>Title</label>
-        <input type="text" placeholder="Title" name="title" ng-model="tournamentform.title" required />
+        <label>{{loc.tournament.title}}</label>
+        <input type="text" placeholder="{{loc.tournament.title}}" name="title" ng-model="tournamentform.title" required />
 
-        <label> Description </label>
-        <input type="text" placeholder="Description" name="description" ng-model="tournamentform.description" />
+        <label>{{loc.tournament.description}}</label>
+        <input type="text" placeholder="{{loc.tournament.description}}" name="description" ng-model="tournamentform.description" />
 
-        <label> Rules </label>
-        <input type="text" placeholder="Rules" name="rules" ng-model="tournamentform.rules" />
+        <label> {{loc.tournament.rules}} </label>
+        <input type="text" placeholder="{{loc.tournament.rules}}" name="rules" ng-model="tournamentform.rules" />
     </div>
     <div class="col s6">
-		<label>Number of teams </label>
+		<label>{{loc.tournament.numberTeams}}</label>
 		<select ng-model="tournamentform.numberTeams" name="numberTeams" tabindex="0" required>
-            <option value="">Select value</option>
-            <option value="4" selected>4 teams</option>
-            <option value="8">8 teams</option>
-            <option value="16">16 teams</option>
-            <option value="32">32 teams</option>
+            <option value="">{{loc.tournament.selectValue}}</option>
+            <option value="4" selected>4 {{loc.tournament.teams}}</option>
+            <option value="8">8 {{loc.tournament.teams}}</option>
+            <option value="16">16 {{loc.tournament.teams}}</option>
+            <option value="32">32 {{loc.tournament.teams}}</option>
         </select>
-		<label>Picture</label>
+		<label>{{loc.signupform.picture}}</label>
 		<input type="url" placeholder="http://" ng-model="tournamentform.picture" />
 
-		<label> Inscription limit </label>
-		<input type="date" placeholder="Inscription Limit" ng-model="tournamentform.limitInscription" />
+		<label> {{loc.tournament.inscriptionLimit}} </label>
+		<input type="date" placeholder="{{loc.tournament.inscriptionLimit}}" ng-model="tournamentform.limitInscription" />
     </div>
 
-	<input type="submit" value="send" />
+	<input type="submit" value="{{loc.send}}" />
 
 </form>

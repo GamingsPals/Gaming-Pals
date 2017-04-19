@@ -2,10 +2,10 @@
 
 <div class="chat-body">
     <div class="chat-body-notuser">
-        <h2>Conversations</h2>
+        <h2>{{loc.messages.conversations}}</h2>
         <a class="button float-right small" href="https://discord.gg/rmNRp9G" target="_blank"><i class="fa fa-headphones"></i>
-            Join Our Discord Server </a>
-        <h4>Search a member:</h4>
+            {{loc.messages.joinDiscord}} </a>
+        <h4>{{loc.team.searchMember}}</h4>
         <div class="autocomplete">
             <input  title="New Conversation With Actor" type="search" ng-autocomplete ng-model="searchmember.userAccount.username"/>
             <ul class="autocomplete-results" style="display: none">

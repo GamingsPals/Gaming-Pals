@@ -1,27 +1,26 @@
 <form ng-submit="validateSUmmoner()">
     <label for="name">
-        Name
+        {{loc.signupform.name}}
     </label>
-    <input name="name" id="name" type="text" placeholder="name" ng-model="search.summoner" class="s9"/>
+    <input name="name" id="name" type="text" placeholder={{loc.signupform.name}} ng-model="search.summoner" class="s9"/>
     <label for="region">
-       Region
+        {{loc.addSummoner.region}}
     </label>
 
     <select name="region" id="region" ng-model="search.region" class="s9">
-        <option value="">Select</option>
-        <option value="euw">euw</option>
+        <option value="">{{loc.addSummoner.select}}</option>
+        <option value="euw">EUW</option>
     </select>
 
-    <input type="submit" value="Add Summoner" ng-click="validateSummoner()"/>
+    <input type="submit" value="{{loc.addSummoner.addSummoner}}" ng-click="validateSummoner()"/>
 
     <div ng-show="check">
-        <p>To validate the authentication of your LoL Account we need you to do one thing for us, please log in into your LoL
-            Account and change the name of a mastery page to this:</p>
+        <p>{{loc.addSummoner.validateLOL}}</p>
         <b>{{search.key}}</b>
 
-        <p>Once is done, click check</p>
+        <p>{{loc.addSummoner.checkLOL}}</p>
 
-        <input type="submit" value="Check my LoL Account" ng-click="addSummoner()" />
+        <input type="submit" value="{{loc.addSummoner.clickCheck}}" ng-click="addSummoner()" />
 
         <h3 class="red3">{{error}}</h3>
     </div>

@@ -1,14 +1,14 @@
 <div ng-controller="CreateTeamController">
     <form name="createTeamForm" ng-submit="createTeam() && createTeamForm.$valid">
-        <label>Name</label>
-        <input type="text" name="name" ng-model="teamform.name" placeholder="Team name" required />
+        <label>{{loc.signupform.name}}</label>
+        <input type="text" name="name" ng-model="teamform.name" placeholder="{{loc.team.teamName}}" required />
         <div class="form-error" ng-messages="createTeamForm.name.$error" role="alert"
              ng-show="createTeamForm.name.$invalid && createTeamForm.name.$dirty">
-            <div ng-message="required">Please enter a value for this field.</div>
+            <div ng-message="required">{{loc.signupform.error1}}</div>
         </div>
-        <label>Picture</label>
+        <label>{{loc.signupform.picture}}</label>
         <input type="url" name="picture" ng-model="teamform.picture" placeholder="http://" />
-        <h3>Search a member:</h3>
+        <h3>{{loc.team.searchMember}}</h3>
         <div class="autocomplete">
         <input type="search" ng-autocomplete="" ng-model="searchmember" ng-focus="showAutoComplete=true"/>
             <ul class="autocomplete-results" ng-show="showAutoComplete==true">
@@ -17,12 +17,12 @@
                 </li>
             </ul>
         </div>
-        <h2>Membes selected</h2>
+        <h2>{{loc.team.members}}</h2>
         <div class="card s5" user-card="i" ng-repeat="i in selectedmembers">
         </div>
         <div>
 
-            <input type="submit" value="Create Team" />
+            <input type="submit" value="{{loc.team.create}}" />
         </div>
     </form>
 </div>

@@ -1,5 +1,5 @@
 <div>
-<h2 class="text-center">Login</h2>
+<h2 class="text-center">{{loc.login}}</h2>
 <form action="j_spring_security_check" method="POST" id="credentials">
 
 	<label for="username">
@@ -16,7 +16,7 @@
 	<input type="password" id="password" class="s10" name="password" placeholder="{{loc.password}}"/>
 
 	<div class="form-error" ng-show="error">
-		User or password are wrong, please try again.
+		{{loc.loginview.wrong}}
 	</div>
 
 	<input type="submit" value="{{loc.send}}" />

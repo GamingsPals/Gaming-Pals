@@ -1,6 +1,6 @@
 
 <div class="summoner-profile center-container" ng-cloak>
-    <h1>Recent Matches</h1>
+    <h1>{{loc.lol.recentMatches}}</h1>
     <div class="summoner-profile-recent">
         <div class="summoner-profile-recent-match" ng-repeat="m in ms.matches">
             <span class="float-right label" ng-class="{'bg-green3': m.win, 'bg-red3': !m.win}">
@@ -21,7 +21,7 @@
                 </span>
             </div>
             <div>
-                <a href="#" class="float-right" ng-click="seeMatch(m.gameId,ms.summoner.region,m)">See more</a>
+                <a href="#" class="float-right" ng-click="seeMatch(m.gameId,ms.summoner.region,m)">{{loc.seeMore}}</a>
             </div>
             <div class="clear-both"></div>
             <div class="s12" ng-show="m.showMatch==true" ng-include="'assets/html/includes/match.html'">

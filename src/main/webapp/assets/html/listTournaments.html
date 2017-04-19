@@ -1,6 +1,6 @@
-<h1>Tournaments</h1>
+<h1>{{loc.tournament.tournaments}}</h1>
 <div style="margin:30px;">
-<a href="#" dialog="createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">Create Tournament</a>
+<a href="#" dialog="createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">{{loc.tournament.create}}</a>
 </div>
 
 
@@ -15,13 +15,13 @@
     </a>
     <div class="card-body"> <a href="tournament/{{i.id}}">
         <h1>{{i.title}}</h1>
-        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} Teams</p>
+        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} {{loc.tournament.teams}}</p>
     </a>
     </div>
     <div class="card-footer">
         <div class="col s6 x2">
             <span ng-if="startedTournament(i)">
-                STARTED!
+                {{loc.tournament.started}}
             </span>
             <span ng-if="!startedTournament(i)">
                  {{i.limitInscription | date:"dd MMM h:mm'h'"}}
@@ -29,10 +29,10 @@
         </div>
         <div class="col s6 x2">
             <span ng-if="closedTournament(i)">
-                Inscription Closed! <i class="fa fa-lock small"></i>
+                {{loc.tournament.inscriptionClosed}} <i class="fa fa-lock small"></i>
             </span>
             <span ng-if="!closedTournament(i)">
-                <a href="#" class="button" ng-click="assignTeamToTournament(i)">INSCRIBE IN</a>
+                <a href="#" class="button" ng-click="assignTeamToTournament(i)"> {{loc.tournament.inscribe}}</a>
             </span>
         </div>
     </div>
