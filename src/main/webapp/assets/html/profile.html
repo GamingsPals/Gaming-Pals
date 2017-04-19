@@ -28,11 +28,13 @@
         </div>
     </div>
 </div>
-<div class="profile-nav">
+<div class="profile-nav" menu="">
+    <div class="profile-nav-mbutton om">
+        <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
     <ul>
         <li ng-class="(tabs.gameprofiles) ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/gameprofiles">
-                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Game Profiles</a></li>
+                <i class="fa fa-gamepad"></i> Game Profiles</a></li>
         <li  ng-class="(tabs.following) ? 'active' : ''">
             <a  href="{{url}}/following" class="profile-tabs">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Following</a></li>

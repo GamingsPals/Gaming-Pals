@@ -8946,7 +8946,22 @@ routes = [
 				templateUrl : "listTournaments",
 				controller : "TournamentList"
 			}
-		}, {
+		},
+		{
+			route : "/tournament/:id",
+			options : {
+				templateUrl : "tournament",
+				controller : "Tournament"
+			}
+		},
+		{
+			route : "/tournament/:id/:menu",
+			options : {
+				templateUrl : "tournament",
+				controller : "Tournament"
+			}
+		},
+		{
 			route : "/confrontation/:tournamentId",
 			options : {
 				templateUrl : "viewConfrontation",
@@ -9416,7 +9431,20 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
 	}
 });
-;app.controller('TournamentListController',function($scope,TournamentService, dialog,middleware){
+;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr){
+    middleware.needRol("USER,ADMIN");
+   let id = $routeParams.id;
+    $scope.url = "tournament/"+id;
+   $scope.notFound = false;
+   xhr.get("/api/tournament/"+id,function(data){
+       $scope.tournament = data.data;
+       $scope.notFound = true;
+       console.log("ey");
+   },(a)=>{
+       $scope.notfound = true;
+   })
+
+});;app.controller('TournamentListController',function($scope,TournamentService, dialog,middleware){
     middleware.needRol("ANY");
     $scope.Ts = TournamentService;
     $scope.Ts.getTournaments();
@@ -9638,7 +9666,6 @@ app.service("auth", function(xhr){
     this.isPrincipal = function(actor){
         if (typeof actor === "undefined" || !this.isLoaded() || !this.isAuthenticated()) return false;
         let result = this.principal.actor.id == actor.id;
-        console.log(actor,this.principal.actor);
 
         return result;
     };
@@ -10314,7 +10341,14 @@ app.service("SystemMessages", function($timeout){
 
     this.get = function (url, sucess,error) {
         $(".loader").show();
-        $http.get(url).then(function (data) {
+        let req = {
+            method: 'GET',
+            url: url,
+            headers: {
+                "Accept": " application/json;charset=utf-8"
+            }
+        };
+        $http(req).then(function (data) {
                 if (typeof sucess !== "undefined") {
                     sucess(data);
                 }
@@ -10574,6 +10608,28 @@ app.directive("loltier",function(){
             let image = $(`<img class="tier-icon" src="${assetsPath}${tier}.png" />`);
             $(element).html(image);
             })
+        }
+    }
+});;app.directive("menu",function(){
+    return {
+        restrict: "AEC",
+        link: function(scope,element,attrs){
+            let elipsis = $($(".profile-nav-mbutton").children("a")[0]);
+            let list = $($(element).children("ul")[0]);
+            let overlay = $(`<div class="toverlay"></div>`);
+            console.log("hola");
+            elipsis.on("click",function(e){
+                e.preventDefault();
+                $(".toverlay").hide();
+                $("body").append(overlay);
+                list.show();
+                overlay.on("click",function(e){
+                    e.preventDefault();
+                    list.hide();
+                    $(this).remove();
+                })
+            });
+
         }
     }
 });;app.directive("ngAutocomplete", function(ActorService){

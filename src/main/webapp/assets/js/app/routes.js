@@ -44,7 +44,22 @@ routes = [
 				templateUrl : "listTournaments",
 				controller : "TournamentList"
 			}
-		}, {
+		},
+		{
+			route : "/tournament/:id",
+			options : {
+				templateUrl : "tournament",
+				controller : "Tournament"
+			}
+		},
+		{
+			route : "/tournament/:id/:menu",
+			options : {
+				templateUrl : "tournament",
+				controller : "Tournament"
+			}
+		},
+		{
 			route : "/confrontation/:tournamentId",
 			options : {
 				templateUrl : "viewConfrontation",

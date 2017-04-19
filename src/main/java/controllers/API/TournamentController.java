@@ -4,6 +4,7 @@ package controllers.API;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.Actor;
 import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -35,6 +36,27 @@ public class TournamentController extends ApiAbstractController {
 	@Autowired
 	private TeamService				teamService;
 
+
+	@RequestMapping(value = "/tournament/{tournament}")
+	public Object get(Tournament tournament, HttpServletResponse response){
+		Actor actor;
+		try{
+			actor = actorService.findActorByPrincipal();
+			Assert.notNull(actor);
+		} catch (Exception e){
+			return unauthorized(response,null);
+		}
+		try{
+			Assert.notNull(tournament);
+		} catch (Exception e){
+			return notFoundError(response,null);
+		}
+		try{
+			return tournament;
+		} catch (Exception e){
+			return internalservererror(response,null);
+		}
+	}
 
 	@RequestMapping(value = "/tournament/assign/{tournamentId}/{teamId}")
 	public Object confrontationList( HttpServletResponse response,

@@ -35,7 +35,6 @@ app.service("auth", function(xhr){
     this.isPrincipal = function(actor){
         if (typeof actor === "undefined" || !this.isLoaded() || !this.isAuthenticated()) return false;
         let result = this.principal.actor.id == actor.id;
-        console.log(actor,this.principal.actor);
 
         return result;
     };

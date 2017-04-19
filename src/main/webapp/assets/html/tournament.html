@@ -1,0 +1,45 @@
+<article ng-show="notFound==true" ng-cloak>
+
+
+<div class="profile-nav" menu="">
+    <div class="profile-nav-mbutton om">
+        <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
+    <ul>
+        <li ng-class="(tabs.resume) ? 'active' : ''">
+            <a class="profile-tabs" href="{{url}}/resume">
+               Resume</a></li>
+        <li  ng-class="(tabs.rules) ? 'active' : ''">
+            <a  href="{{url}}/rules" class="profile-tabs">
+                Rules</a></li>
+        <li  ng-class="(tabs.teams) ? 'active' : ''">
+            <a  href="{{url}}/teams" class="profile-tabs">
+               Inscripted Teams</a></li>
+        <li  ng-class="(tabs.bracket) ? 'active' : ''">
+            <a  href="{{url}}/braket" class="profile-tabs" >
+              Bracket</a></li>
+        <li  ng-class="(tabs.awards) ? 'active' : ''">
+            <a  href="{{url}}/awards" class="profile-tabs">
+                Awards</a></li>
+    </ul>
+</div>
+<div class="col s8" style="min-height: 500px">
+    <h1>{{tournament.title}}</h1>
+    <p>{{tournament.description}}</p>
+</div>
+<div class="col s4 float-right lateral-menu">
+    <ul>
+        <h1>Inscribe</h1>
+        <li>Limit of Inscription: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
+        <li>    Number of Teams: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
+    </ul>
+        <ul>
+            <h1>Information</h1>
+            <li>Limit of Inscription: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
+            <li> Number of Teams: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
+        </ul>
+
+    </div>
+</article>
+<article ng-show="notFound==false" ng-cloak>
+    <giant>Tournament Not Found</giant>
+</article>

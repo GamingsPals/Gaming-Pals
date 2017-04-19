@@ -5,15 +5,18 @@
 
 
 <div class="blockcard" ng-repeat="i in Ts.tournaments ">
+    <a href="tournament/{{i.id}}">
     <div class="card-header">
         <div class="card-header-right">
             <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
         </div>
         <img class="card-header-header" ng-src="{{i.picture}}" />
     </div>
-    <div class="card-body">
+    </a>
+    <div class="card-body"> <a href="tournament/{{i.id}}">
         <h1>{{i.title}}</h1>
         <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} Teams</p>
+    </a>
     </div>
     <div class="card-footer">
         <div class="col s6 x2">

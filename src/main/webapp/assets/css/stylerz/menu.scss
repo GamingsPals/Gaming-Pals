@@ -199,3 +199,16 @@ a {
   left: 0;
   width: 100%;
 }
+
+.lateral-menu{
+  ul{
+    margin-top:40px;
+    background-color: $color-base-black-8;
+    border:1px solid $color-base-black-7;
+    font-size:0.8em;
+    li{
+      padding:15px;
+      border-bottom: 1px solid $color-base-black-7;
+    }
+  }
+}

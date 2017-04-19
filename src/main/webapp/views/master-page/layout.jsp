@@ -1,5 +1,5 @@
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -12,7 +12,7 @@
     <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" href="assets/images/favicon.png" type="image/x-icon" />
     <link rel="shortcut icon" href="assets/images/favicon.png"/>
 	<link href="assets/css/style.min.css" rel="stylesheet"/>
@@ -119,6 +119,7 @@
             </li>
         </ul>
     </div>
+    hóla
     <main ng-view>
 
     </main>
@@ -130,7 +131,7 @@
             <li><a class="cursor-pointer" href="#" ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a>
                 <a  class="cursor-pointer"  href="#" ng-click="loc.changeLan('es')"><flag lang="es"></flag></a>
         </ul>
-        <div class="text-center">� 2017-2017 Gaming-Pals.com</div>
+        <div class="text-center">© 2017-2017 Gaming-Pals.com</div>
     </footer>
 </div>
 <div class="message-system {{SystemMessages.color}}" ng-show="SystemMessages.show" ng-bind-html="SystemMessages.message">

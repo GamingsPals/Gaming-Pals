@@ -72,7 +72,7 @@
   width: 24%; }
 
 .s4, .card .card-image, .card-small .card-image, .blockcard, .nav-horizontal .nav-horizontal-login, .profile-header .profile-left-panel .profile-stats {
-  width: 33%; }
+  width: 32%; }
 
 .s5, .profile-header .profile-left-panel .profile-info {
   width: 41%; }
@@ -163,6 +163,15 @@
 @media only screen and (min-width: 0px) and (max-width: 1024px) {
   .op, .nav-horizontal {
     display: none !important; } }
+
+.toverlay {
+  background-color: transparent;
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0; }
 
 .fixed {
   position: fixed; }
@@ -336,16 +345,26 @@ div[contenteditable=true] {
     padding-bottom: 42%; }
     .blockcard .card-header .card-header-right {
       z-index: 2;
-      background-color: rgba(0, 0, 0, 0.58);
       padding: 5px;
       position: absolute;
       top: 5px;
       right: 8px; }
-    .blockcard .card-header img {
+    .blockcard .card-header .card-header-header {
       width: 100%;
       top: 0;
       right: 0;
       position: absolute; }
+    .blockcard .card-header .card-header-avatar {
+      width: 80px;
+      height: 80px;
+      z-index: 1;
+      position: absolute;
+      transform: translateX(25%);
+      background-color: white;
+      bottom: 0;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-bottom: 0;
+      opacity: 1; }
     .blockcard .card-header .card-header-left {
       z-index: 2;
       background-color: rgba(0, 0, 0, 0.58);
@@ -525,6 +544,15 @@ a {
   left: 0;
   width: 100%; }
 
+.lateral-menu ul {
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.8em; }
+  .lateral-menu ul li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+
 input {
   margin: 10px;
   padding: 10px;
@@ -625,10 +653,9 @@ button {
   outline: 0; }
 
 h1 {
-  font-size: 2.5em; }
+  font-size: 2em; }
 
 h1, h2, h3, h4, h5, h6 {
-  text-transform: uppercase;
   border-bottom: 1px solid rgba(255, 255, 255, 0.38); }
 
 main h1 {
@@ -689,7 +716,6 @@ table {
 
 .profile-header {
   background-size: 100%;
-  background-image: url(../images/profile-5.jpg);
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {
@@ -739,29 +765,58 @@ table {
   width: 25px;
   margin-right: 10px; }
 
-.profile-nav ul {
-  margin: 0;
-  padding: 0;
-  background-color: #36535d; }
-  .profile-nav ul li {
-    display: inline-block;
-    list-style: none;
-    color: white;
-    padding: 13px;
-    margin-left: -3px;
-    border-right: 1px solid rgba(0, 0, 0, 0.38); }
-    .profile-nav ul li a {
-      color: white !important; }
-      .profile-nav ul li a:hover {
-        color: white !important; }
-    .profile-nav ul li:hover {
-      background-color: rgba(255, 255, 255, 0.38); }
-  .profile-nav ul .active {
-    background-color: rgba(255, 255, 255, 0.58);
-    color: rgba(0, 0, 0, 0.78); }
-    .profile-nav ul .active:hover {
-      background-color: inherit;
-      color: inherit; }
+.profile-nav {
+  position: relative; }
+  .profile-nav .profile-nav-mbutton {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    padding: 30px 20px;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 0.75em; }
+    .profile-nav .profile-nav-mbutton a {
+      position: absolute;
+      top: 8px;
+      padding: 15px;
+      right: 25px; }
+  .profile-nav ul {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18); }
+    .profile-nav ul li {
+      display: inline-block;
+      list-style: none;
+      color: rgba(0, 0, 0, 0.88);
+      padding: 30px 20px;
+      font-size: 0.75em;
+      margin-left: -3px; }
+      .profile-nav ul li a {
+        color: inherit; }
+        .profile-nav ul li a:hover {
+          color: inherit; }
+      .profile-nav ul li:hover {
+        background-color: rgba(0, 0, 0, 0.08); }
+    .profile-nav ul .active {
+      background-color: rgba(0, 0, 0, 0.08); }
+      .profile-nav ul .active:hover {
+        background-color: inherit;
+        color: inherit; }
+    @media only screen and (min-width: 0px) and (max-width: 1024px) {
+      .profile-nav ul {
+        display: none;
+        position: absolute;
+        background-color: white;
+        z-index: 15;
+        right: 25px;
+        border: 1px solid rgba(0, 0, 0, 0.38);
+        top: 25px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+        width: 200px;
+        transition: 0.4s; }
+        .profile-nav ul:hover {
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.3); }
+        .profile-nav ul li {
+          display: list-item; } }
 
 .loader {
   position: fixed;
