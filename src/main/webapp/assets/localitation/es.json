@@ -9,6 +9,7 @@
     "following": "Siguiendo"
   },
   "send" :"Enviar",
+  "seeMore":"Ver mas",
   "signup": "Regístrate",
   "login": "Entrar",
   "logout": "Salir",
@@ -89,6 +90,10 @@
  	 "inscribe":"INSCRIBIRSE"
   },
   "lol":{
-  "recentMatches":"Recent Matches"
+  "recentMatches":"Partidas recientes"
+  },
+  "messages":{
+  "conversations":"Conversaciones",
+  "joinDiscord":"Únete a nuestro servidor de Discord"
   }
 }

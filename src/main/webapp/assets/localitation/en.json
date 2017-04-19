@@ -9,6 +9,7 @@
     "following": "Following"
   },
   "send" :"Send",
+  "seeMore":"See more",
   "signup": "Sign up",
   "login": "Login",
   "logout": "Logout",
@@ -90,5 +91,9 @@
   },
   "lol":{
   "recentMatches":"Recent Matches"
+  },
+  "messages":{
+  "conversations":"Conversations",
+  "joinDiscord":"Join Our Discord Server"
   }
 }
