@@ -89,12 +89,12 @@ public class TeamService {
     }
 
 
-    public void createTeamForm(TeamForm team) {
+    public Team createTeamForm(TeamForm team) {
         User principal = (User) actorService.findByPrincipal();
         Team saved = new Team();
         saved.setName(team.getName());
         saved.setPicture(team.getPicture());
-        if(saved.getPicture()==null){
+        if(team.getPicture()==null){
             saved.setPicture(configurationService.getConfiguration().getDefaultHeader());
         }
         List<User> members = new ArrayList<>();
@@ -110,6 +110,7 @@ public class TeamService {
                 teamInvitationNotificationService.save(teamInvitationNotification);
             }
         }
+        return saved;
     }
 
     public Boolean isUserInTeam(Team teamId, User principal) {

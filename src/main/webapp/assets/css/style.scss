@@ -13,10 +13,13 @@ body{
   margin:0;
   line-height: 1.45;
   padding:0;
-  background: $color-base-blue-6;
+  background: $color-base-blue-5;
+  background-image: url("../images/background.jpg");
+  background-size: 100%;
+  background-attachment: fixed;
   font-family: Roboto-Regular, sans-serif;
-
 }
+
 *{
   &:active{
     outline: 0;
@@ -45,6 +48,8 @@ main{
     }
   }
 }
+
+
 
 * {
   box-sizing: border-box;

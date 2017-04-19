@@ -56,8 +56,7 @@ public class TeamController extends ApiAbstractController{
             return unauthorized(response, null);
         }
 		try {
-		    teamService.createTeamForm(team);
-			return ok(response,null);
+			return teamService.createTeamForm(team);
 		} catch (Throwable e) {
 			System.out.println(e.getMessage());
 			return internalservererror(response, null);

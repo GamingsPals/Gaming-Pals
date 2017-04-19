@@ -106,6 +106,7 @@
 </nav>
 
 <div class="container" ng-cloak >
+    <div class="main-slider">
     <div class="flexslider op">
         <ul class="slides">
             <li class="lolslider">
@@ -120,7 +121,7 @@
             </li>
         </ul>
     </div>
-    hóla
+    </div>
     <main ng-view>
 
     </main>

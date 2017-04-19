@@ -9256,7 +9256,8 @@ app.controller("BracketsController",function($scope,TournamentService){
         let data = $scope.teamform;
         xhr.post("api/team/create",data,(data)=>{
             dialog.closeAll();
-            $location.path(`team/${data.id}`);
+            console.log(data.data);
+            $location.path(`team/${data.data.name}`);
         })
     }
 });;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
@@ -9539,10 +9540,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
                                                 SystemMessages, dialog,middleware){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
-        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
+        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
+            ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
+        });
         $scope.writerating = false;
         $scope.rateform = null;
-        ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
         SystemMessages.okmessage("Rating added");
         dialog.closeAll();
     }

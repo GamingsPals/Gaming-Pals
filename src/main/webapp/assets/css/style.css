@@ -815,10 +815,11 @@ table {
       display: inline-block;
       list-style: none;
       color: rgba(0, 0, 0, 0.88);
-      padding: 30px 20px;
       font-size: 0.75em;
       margin-left: -3px; }
       .profile-nav ul li a {
+        padding: 30px 20px;
+        display: block;
         color: inherit; }
         .profile-nav ul li a:hover {
           color: inherit; }
@@ -1051,7 +1052,10 @@ body {
   margin: 0;
   line-height: 1.45;
   padding: 0;
-  background: #02080c;
+  background: #021419;
+  background-image: url("../images/background.jpg");
+  background-size: 100%;
+  background-attachment: fixed;
   font-family: Roboto-Regular, sans-serif; }
 
 *:active {

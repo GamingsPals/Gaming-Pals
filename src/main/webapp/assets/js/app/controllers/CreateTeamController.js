@@ -15,7 +15,8 @@ app.controller('CreateTeamController',function($scope,UserService,xhr,$location,
         let data = $scope.teamform;
         xhr.post("api/team/create",data,(data)=>{
             dialog.closeAll();
-            $location.path(`team/${data.id}`);
+            console.log(data.data);
+            $location.path(`team/${data.data.name}`);
         })
     }
 });

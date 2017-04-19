@@ -35,7 +35,6 @@ public class Team extends DomainEntity {
 		this.name = name;
 	}
 
-	@URL
 	public String getPicture() {
 		return picture;
 	}

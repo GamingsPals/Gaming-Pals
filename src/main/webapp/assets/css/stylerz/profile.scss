@@ -95,10 +95,11 @@
       display: inline-block;
       list-style: none;
       color:$color-base-black-2;
-      padding: 30px 20px;
       font-size:0.75em;
       margin-left:-3px;
       a{
+        padding: 30px 20px;
+        display: block;
         color:inherit;
         &:hover{
           color:inherit;
