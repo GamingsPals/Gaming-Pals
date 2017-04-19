@@ -21,7 +21,27 @@
     "donthaveaccount": "¿Aún no tienes cuenta?"
   },
   "signupform": {
-    "name": "Nombre"
+    "name": "Nombre",
+    "userAccount": "Datos de usuario",
+    "username": "Nombre de usuario",
+    "error1": "Introduzca un valor para este campo.",
+    "error2": "El campo debe tener más de 5 carácteres",
+    "error3": "El campo debe tener menos de 32 carácteres",
+    "password": "Contraseña",
+    "rPassword": "Repita la contraseña",
+    "error4": "Las contraseñas no coinciden",
+    "pData": "Datos personales",
+    "email": "Email",
+    "picture": "Imagen",
+    "headerImage": "Imagen de cabecera",
+    "age": "Edad",
+    "languages": "Idiomas",
+    "error5": "Introduzca un email válido.",
+    "error6": "Introduzca una URL válido.",
+    "error7": "Introduzca un número.",
+    "error8": "Seleccione un valor para este campo.",
+    "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals"
+  
   },
   "main": {
  	 "friendly": " Nuestra comunidad es acogedora y no toleramos ningún tipo de toxicidad.",
@@ -34,8 +54,41 @@
  	 "join":"Entra en nuestra comunidad de League of Legends",
  	 "join2":"¿Entonces, a qué estás esperando? ¡Únete!",
  	 "singup":"Regístrate"
-
-
-
+  },
+  "addSummoner":{
+  	"region": "Región",
+  	"select":"Seleccionar",
+  	"validateLOL":"Para validar que estás autenticado con tu cuenta de LoL necesitamos que hagas una cosa por nosotros, por favor logueate en tu cuenta de LoL y cambia el nombre de una de tus páginas de maestrías por esto:",
+  	"checkLOL":"Una vez hecho, cliquea en 'Comprobar cuenta de Lol'",
+  	"clickCheck": "Comprobar cuenta de Lol",
+  	"addSummoner":"Añadir invocador"
+  },
+  "assignTeam":{
+  	"select":"Selecciona un equipo",
+  	"selectedTeam":"El equipo seleccionado se inscribirá a ",
+  	"inscribe":"Inscribir"
+  },
+  "team":{
+  "searchMember":"Buscar un miembro:",
+  "members":"Miembros seleccionados",
+  "create":"Crear equipo",
+  "teamName": "Nombre del equipo"
+  },
+  "tournament":{
+ 	 "create":"Crear un torneo",
+ 	 "title": "Título",
+ 	 "description":"Descripción",
+ 	 "rules":"Reglas",
+ 	 "numberTeams":"Número de equipos ",
+ 	 "selectValue":"Seleccionar un valor",
+ 	 "teams":"Equipos",
+ 	 "inscriptionLimit":"Límite de inscripción",
+ 	 "tournaments":"Torneos",
+ 	 "started":"¡EN MARCHA!",
+ 	 "inscriptionClosed":"¡Inscripción cerrada!",
+ 	 "inscribe":"INSCRIBIRSE"
+  },
+  "lol":{
+  "recentMatches":"Recent Matches"
   }
 }

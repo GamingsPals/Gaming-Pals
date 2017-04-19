@@ -1,7 +1,7 @@
 {
   "home" : "Home",
   "pals" : "Pals",
-  "tournaments" :"Tóurnaments",
+  "tournaments" :"Tournaments",
   "profile": "Profile",
   "profileview": {
     "follow" : "Follow",
@@ -18,10 +18,30 @@
     "password": "Password",
     "username" : "Username",
     "message" : "Join our community and start playing better and happier",
-    "donthaveaccount": "Don't have an account yet?"
+    "donthaveaccount": "Don't have an account yet?",
+    "wrong": "User or password are wrong, please try again."
   },
   "signupform": {
-    "name": "Name"
+    "name": "Name",
+    "userAccount": "User Account Data",
+    "username": "Username",
+    "error1": "Please enter a value for this field.",
+    "error2": "The username have to be longer than 5 characters",
+    "error3": "The username have to be shorter than 32 characters",
+    "password": "Password",
+    "rPassword": "Repeat password",
+    "error4": "Password don't match",
+    "pData": "Personal Data",
+    "email": "Email",
+    "picture": "Picture",
+    "headerImage": "Header Image",
+    "age": "Age",
+    "languages": "Languages",
+    "error5": "Please enter a valid email.",
+    "error6": "Please enter a valid url.",
+    "error7": "Please enter a number.",
+    "error8": "Please select a value for this field.",
+    "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals"
   },
   "main": {
  	 "friendly": " Our community is 100% friendly and we don't know allow by any means toxicity.",
@@ -34,8 +54,41 @@
  	 "join":"Join us in our League of Legends community",
  	 "join2":"So, what are you waiting for? Join us immediately!",
  	 "singup":"Sing up"
- 	 
- 	 
- 	 
+  },
+  "addSummoner":{
+  	"region": "Region",
+  	"select":"Select",
+  	"validateLOL":"To validate the authentication of your LoL Account we need you to do one thing for us, please log in into your LoL Account and change the name of a mastery page to this:",
+  	"checkLOL":"Once is done, click check",
+  	"clickCheck":"Check my LoL Account",
+  	"addSummoner":"Add summoner"
+  },
+  "assignTeam":{
+  	"select":"Select a Team",
+  	"selectedTeam":"You are going to inscribe your selected team to ",
+  	"inscribe":"Inscribe"
+  },
+  "team":{
+  "searchMember":"Search a member:",
+  "members":"Members selected",
+  "create":"Create Team",
+  "teamName": "Team name"
+  },
+  "tournament":{
+ 	 "create":"Create a Tournament",
+ 	 "title": "Title",
+ 	 "description":"Description",
+ 	 "rules":"Rules",
+ 	 "numberTeams":"Number of teams ",
+ 	 "selectValue":"Select value",
+ 	 "teams":"Teams",
+ 	 "inscriptionLimit":"Inscription limit",
+ 	 "tournaments":"tournaments",
+ 	 "started":"STARTED!",
+ 	 "inscriptionClosed":"Inscription Closed!",
+ 	 "inscribe":"INSCRIBE IN"
+  },
+  "lol":{
+  "recentMatches":"Recent Matches"
   }
 }
