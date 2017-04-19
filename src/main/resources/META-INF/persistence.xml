@@ -22,6 +22,9 @@
 			<property name="javax.persistence.jdbc.user" value="manager" />
 			<property name="javax.persistence.jdbc.password" value="manager" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.characterEncoding" value="utf8"/>
+			<property name="hibernate.connection.useUnicode" value="true"/>
+			<property name="hibernate.connection.charSet" value="UTF-8"/>
 			<!-- <property name="hibernate.hbm2ddl.auto" value="none" /> -->
 			
 		</properties>

@@ -13,6 +13,7 @@ app.service("TournamentService", function(xhr){
 	this.getTournament = function(id,sucess,error){
 	    let o = this;
         xhr.get("api/tournament/"+id,function(data){
+        	o.tournament = data;
             if(typeof sucess!=="undefined"){
                 sucess(data);
             }
@@ -23,19 +24,17 @@ app.service("TournamentService", function(xhr){
         });
 	};
 
-	this.setTeamSelected = function(){
-            return $scope.teams.find((a)=>{
-            return a.id === +$scope.assignForm.team;
-        })
-    };
 
 	this.isInscriptionOver = function(tournament){
 	    if(typeof tournament!=="undefined"){
         let date = new Date();
         let tdate = new Date(tournament.limitInscription);
-
         return tdate<date;
         }
+    };
+
+	this.fullInscription = function(tournament){
+        return tournament.teams.length==tournament.numberTeams
     };
 
 
@@ -62,4 +61,49 @@ app.service("TournamentService", function(xhr){
 		let object = this;
 		xhr.post("api/user/"+confrontation+"/reportMatch", data,sucess,error);
 	};
+
+    this.numberOfRounds = function(tournament){
+        if(typeof tournament==="undefined"){
+            return [];
+        }
+        let result = [];
+        let numberRounds = parseInt(this.getBaseLog(2,tournament.numberTeams));
+        for(let i=1;i<=numberRounds;i++){
+            result.push(i);
+        }
+        return result;
+    };
+
+    this.nrounds = function(tournament){
+        if(typeof tournament==="undefined"){
+            return 0;
+        }
+        return  parseInt(this.getBaseLog(2,tournament.numberTeams));
+    };
+
+   this.numberOfConfrontation = function(i,tournament){
+       if(typeof tournament==="undefined"){
+           return [];
+       }
+        let result = [];
+        let numberTeams = tournament.numberTeams;
+        let total = parseInt(numberTeams / Math.pow(2,i));
+        for(let i=1;i<=total;i++){
+            result.push(i);
+        }
+
+        return result;
+    };
+
+    this.getMatch = function(r,n,tournament){
+        if(typeof tournament==="undefined") return [];
+        return tournament.confrontations.find((a)=>{
+            return a.numberMatch == n && a.round == r;
+        })
+    };
+
+
+    this.getBaseLog = function (x, y) {
+        return Math.log(y) / Math.log(x);
+    }
 });

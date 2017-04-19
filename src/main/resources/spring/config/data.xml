@@ -32,6 +32,7 @@
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gamingpals" />
 		<property name="user" value="user" />
+		
 		<property name="password" value="user" />
 	</bean>
 
@@ -48,6 +49,9 @@
 	<util:properties id="jpaProperties">
 		<prop key="hibernate.format_sql">true</prop>
 		<prop key="hibernate.show_sql">false</prop>
+		<prop key="hibernate.connection.CharSet">utf8</prop>
+		<prop key="hibernate.connection.characterEncoding">utf8</prop>
+		<prop key="hibernate.connection.useUnicode">true</prop>
 		<!-- <prop key="hibernate.hbm2ddl.auto">verify</prop> -->
 		<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
 

@@ -21,12 +21,15 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
     };
 
     $scope.closedTournament = function (tournament) {
+
         return tournament.teams.length===+tournament.numberTeams || $scope.startedTournament(tournament);
     };
 
     $scope.startedTournament = function (tournament) {
         let now = new Date();
         let limit = new Date(tournament.limitInscription);
+
+        console.log(limit<now);
 
         return limit < now;
     }

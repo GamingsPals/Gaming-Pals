@@ -35,6 +35,9 @@ public class TeamService {
     private UserService actorService;
 
     @Autowired
+    private ConfigurationService configurationService;
+
+    @Autowired
     private TeamInvitationNotificationService teamInvitationNotificationService;
 
 
@@ -91,6 +94,9 @@ public class TeamService {
         Team saved = new Team();
         saved.setName(team.getName());
         saved.setPicture(team.getPicture());
+        if(saved.getPicture()==null){
+            saved.setPicture(configurationService.getConfiguration().getDefaultHeader());
+        }
         List<User> members = new ArrayList<>();
         members.add(principal);
         saved.setUsers(members);
@@ -116,5 +122,11 @@ public class TeamService {
         }
 
         return result;
+    }
+
+    public Team findByName(String name) {
+        Assert.notNull(name);
+
+        return teamRepository.findByName(name);
     }
 }

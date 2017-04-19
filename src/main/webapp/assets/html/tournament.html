@@ -18,7 +18,7 @@
             <a  href="{{url}}/teams" class="profile-tabs">
                Inscripted Teams</a></li>
         <li  ng-class="(tabs.bracket) ? 'active' : ''">
-            <a  href="{{url}}/braket" class="profile-tabs" >
+            <a  href="{{url}}/bracket" class="profile-tabs" >
               Bracket</a></li>
         <li  ng-class="(tabs.awards) ? 'active' : ''">
             <a  href="{{url}}/awards" class="profile-tabs">
@@ -38,9 +38,17 @@
         <h1>Teams</h1>
         <div class="col s3" team-card="i" ng-repeat="i in tournament.teams"></div>
     </div>
-    <div ng-if="mode=='teams'">
+    <div ng-if="mode=='bracket'">
+        <h1>Bracket</h1>
+        <div ng-include="'assets/html/includes/brackets.html'"></div>
+    </div>
+    <div ng-if="mode=='awards'">
         <h1>Awards</h1>
-        <div class="col s3" team-card="i" ng-repeat="i in tournament.teams"></div>
+        <div  class="blockcard col s3" ng-repeat="i in tournament.awards">
+            <div class="card-body">
+                <img style="width:80px;vertical-align: text-top" ng-src="{{i.image}}" /> {{i.description}}
+            </div>
+        </div>
     </div>
 </div>
 <div class="col s4 float-right lateral-menu">

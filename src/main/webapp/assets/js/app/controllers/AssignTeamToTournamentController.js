@@ -2,10 +2,8 @@ app.controller("AssignTeamToTournamentController", function($scope,xhr,$location
     $scope.assignForm = {};
     $scope.added = false;
 
-
-
     $scope.setTeamSelected = function(){
-        $scope.teamselected = $scope.teams.find((a)=>{
+        $scope.teamselected = $scope.userteams.find((a)=>{
             return a.id === +$scope.assignForm.team;
         })
     };
@@ -13,6 +11,7 @@ app.controller("AssignTeamToTournamentController", function($scope,xhr,$location
         if($scope.assignForm.team !==""){
             xhr.get(`api/tournament/assign/${$scope.tournament.id}/${$scope.assignForm.team}`,function(data){
                 $scope.added = true;
+                $scope.loadTournament();
             })
         }
     }

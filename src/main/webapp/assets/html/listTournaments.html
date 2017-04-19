@@ -32,7 +32,7 @@
                 {{loc.tournament.inscriptionClosed}} <i class="fa fa-lock small"></i>
             </span>
             <span ng-if="!closedTournament(i)">
-                <a href="#" class="button" ng-click="assignTeamToTournament(i)"> {{loc.tournament.inscribe}}</a>
+                <a href="tournament/{{i.id}}" class="button"> {{loc.tournament.inscribe}}</a>
             </span>
         </div>
     </div>

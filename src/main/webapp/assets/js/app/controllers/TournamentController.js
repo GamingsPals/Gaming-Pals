@@ -3,27 +3,30 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
     let id = $routeParams.id;
-    TournamentService.getTournament(id, function(data){
-        $scope.tournament = data.data;
-        $scope.notFound = true;
-        xhr.get("api/user/teams",function(response){
-            $scope.userteams = response.data;
-            $scope.userteams = $scope.userteams.filter((a)=>{
-                let result = true;
-                $scope.tournament.teams.forEach((b)=>{
-                    if(b.id === a.id){
-                        result = false;
-                    }
+    $scope.loadTournament = function(){
+        TournamentService.getTournament(id, function(data){
+            $scope.tournament = data.data;
+            $scope.notFound = true;
+            xhr.get("api/user/teams",function(response){
+                $scope.userteams = response.data;
+                $scope.userteams = $scope.userteams.filter((a)=>{
+                    let result = true;
+                    $scope.tournament.teams.forEach((b)=>{
+                        if(b.id === a.id){
+                            result = false;
+                        }
+                    });
+                    return result;
                 });
-                return result;
+                if($scope.userteams.length===0){
+                    $scope.added = true;
+                }
             });
-            if($scope.userteams.length===0){
-                $scope.added = true;
-            }
+        },(a)=>{
+            $scope.notfound = true;
         });
-    },(a)=>{
-        $scope.notfound = true;
-    });
+    };
+    $scope.loadTournament();
     $scope.url = "tournament/"+id;
    $scope.notFound = false;
     $scope.mode = $routeParams.menu;

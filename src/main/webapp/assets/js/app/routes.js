@@ -52,6 +52,13 @@ routes = [
 				controller : "Tournament"
 			}
 		},
+    {
+        route : "/team/:name",
+        options : {
+            templateUrl : "team",
+            controller : "Team"
+        }
+    },
 		{
 			route : "/tournament/:id/:menu",
 			options : {

@@ -101,7 +101,6 @@ public class Tournament extends DomainEntity {
 
 
 	@Valid
-	@JsonIgnore
 	@OneToMany(mappedBy = "tournament")
 	public Collection<Confrontation> getConfrontations() {
 		return confrontations;

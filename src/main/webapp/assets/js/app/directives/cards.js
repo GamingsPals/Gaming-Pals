@@ -67,7 +67,7 @@ app.directive("teamCard",function($compile){
                     <img class="card-header-header" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                  <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
+                  <a href="team/{{i.name}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Members</h2>
                     <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">

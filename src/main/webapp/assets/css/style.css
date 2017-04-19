@@ -128,10 +128,10 @@
   .x4 {
     width: 98% !important; } }
 
-.box, .button, .grey-button, input[type=submit], .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key, .card, .card-small, .blockcard {
+.box, .button, .grey-button, input[type=submit], .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key, .card, .card-small, .blockcard, .bracket .bracket-round .bracket-rounds .bracket-match {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   transition: 0.4s; }
-  .box:hover, .button:hover, .grey-button:hover, input[type=submit]:hover, .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key:hover, .card:hover, .card-small:hover, .blockcard:hover {
+  .box:hover, .button:hover, .grey-button:hover, input[type=submit]:hover, .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key:hover, .card:hover, .card-small:hover, .blockcard:hover, .bracket .bracket-round .bracket-rounds .bracket-match:hover {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.3); }
 
 .button, .grey-button, input[type=submit], .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key {
@@ -1007,6 +1007,27 @@ table {
       color: black !important; }
       .notifications-follower li a:hover {
         color: rgba(0, 0, 0, 0.78) !important; }
+
+.bracket h3 {
+  border: 0; }
+.bracket .bracket-round {
+  margin: 0 auto; }
+  .bracket .bracket-round .bracket-rounds .bracket-match {
+    margin: 15px;
+    background-color: rgba(0, 0, 0, 0.04); }
+    .bracket .bracket-round .bracket-rounds .bracket-match .bracket-team {
+      max-height: 50px;
+      height: 50px;
+      overflow: hidden;
+      position: relative; }
+      .bracket .bracket-round .bracket-rounds .bracket-match .bracket-team img {
+        opacity: 0.9; }
+      .bracket .bracket-round .bracket-rounds .bracket-match .bracket-team span {
+        position: absolute;
+        color: white;
+        z-index: 5;
+        bottom: 0;
+        left: 5px; }
 
 .center-container {
   margin-left: 4%;

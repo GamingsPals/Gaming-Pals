@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Actor;
+import domain.Team;
 import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +58,33 @@ public class TeamController extends ApiAbstractController{
 		try {
 		    teamService.createTeamForm(team);
 			return ok(response,null);
+		} catch (Throwable e) {
+			System.out.println(e.getMessage());
+			return internalservererror(response, null);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/team/{name}")
+	public Object get(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+		User principal;
+		try {
+			Assert.notNull(name);
+		} catch (Exception e) {
+			return badrequest(response, null);
+		}
+		try {
+			Actor actor= actorService.findActorByPrincipal();
+			principal = (User) actor;
+			Assert.notNull(principal);
+		} catch (Exception e) {
+			return unauthorized(response, null);
+		}
+		try {
+			Team t = teamService.findByName(name);
+			Assert.notNull(t);
+
+			return t;
 		} catch (Throwable e) {
 			System.out.println(e.getMessage());
 			return internalservererror(response, null);

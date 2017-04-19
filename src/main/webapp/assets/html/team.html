@@ -1,0 +1,16 @@
+<article ng-show="notFound==true" ng-cloak>
+
+    <div  class="tournament-header" >
+        <h1>{{team.name}}</h1>
+        <img ng-src="{{team.picture}}"/>
+    </div>
+
+<div class="col s12">
+    <h1>Members</h1>
+    <div ng-repeat="a in team.users" user-card="a"></div>
+</div>
+
+</article>
+<article ng-show="notFound==false" ng-cloak>
+    <giant>Team Not Found</giant>
+</article>

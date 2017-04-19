@@ -8953,6 +8953,13 @@ routes = [
 				controller : "Tournament"
 			}
 		},
+    {
+        route : "/team/:name",
+        options : {
+            templateUrl : "team",
+            controller : "Team"
+        }
+    },
 		{
 			route : "/tournament/:id/:menu",
 			options : {
@@ -9073,10 +9080,8 @@ routes = [
     $scope.assignForm = {};
     $scope.added = false;
 
-
-
     $scope.setTeamSelected = function(){
-        $scope.teamselected = $scope.teams.find((a)=>{
+        $scope.teamselected = $scope.userteams.find((a)=>{
             return a.id === +$scope.assignForm.team;
         })
     };
@@ -9084,6 +9089,7 @@ routes = [
         if($scope.assignForm.team !==""){
             xhr.get(`api/tournament/assign/${$scope.tournament.id}/${$scope.assignForm.team}`,function(data){
                 $scope.added = true;
+                $scope.loadTournament();
             })
         }
     }
@@ -9099,7 +9105,29 @@ routes = [
 	$scope.As = TournamentService;
 	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
-;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,$location,NotificationService){
+;
+app.controller("BracketsController",function($scope,TournamentService){
+    $scope.ts = TournamentService;
+
+    $scope.getRound = function(i){
+        let nrounds = $scope.ts.nrounds($scope.tournament);
+        let vround = nrounds - i;
+        switch (vround){
+            case 0:
+                return "Final";
+                break;
+            case 1:
+                return "Semi Finals";
+                break;
+            case 2:
+                return "Quarter Finals";
+                break;
+            default:
+                return "Round i";
+
+        }
+    }
+});;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,$location,NotificationService){
     middleware.needRol("USER,MODERATOR,ADMIN");
     $scope.As = ActorService;
     $scope.soc = socket;
@@ -9429,32 +9457,42 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
 	}
 });
-;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
+;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr){
+    middleware.needRol("ANY");
+    $scope.notFound = true;
+    xhr.get("api/team/"+$routeParams.name,(a)=>{
+        $scope.team = a.data;
+        $scope.notFound = true;
+    });
+});;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
     middleware.needRol("USER,ADMIN");
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
     let id = $routeParams.id;
-    TournamentService.getTournament(id, function(data){
-        $scope.tournament = data.data;
-        $scope.notFound = true;
-        xhr.get("api/user/teams",function(response){
-            $scope.userteams = response.data;
-            $scope.userteams = $scope.userteams.filter((a)=>{
-                let result = true;
-                $scope.tournament.teams.forEach((b)=>{
-                    if(b.id === a.id){
-                        result = false;
-                    }
+    $scope.loadTournament = function(){
+        TournamentService.getTournament(id, function(data){
+            $scope.tournament = data.data;
+            $scope.notFound = true;
+            xhr.get("api/user/teams",function(response){
+                $scope.userteams = response.data;
+                $scope.userteams = $scope.userteams.filter((a)=>{
+                    let result = true;
+                    $scope.tournament.teams.forEach((b)=>{
+                        if(b.id === a.id){
+                            result = false;
+                        }
+                    });
+                    return result;
                 });
-                return result;
+                if($scope.userteams.length===0){
+                    $scope.added = true;
+                }
             });
-            if($scope.userteams.length===0){
-                $scope.added = true;
-            }
+        },(a)=>{
+            $scope.notfound = true;
         });
-    },(a)=>{
-        $scope.notfound = true;
-    });
+    };
+    $scope.loadTournament();
     $scope.url = "tournament/"+id;
    $scope.notFound = false;
     $scope.mode = $routeParams.menu;
@@ -9485,12 +9523,15 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
     $scope.closedTournament = function (tournament) {
+
         return tournament.teams.length===+tournament.numberTeams || $scope.startedTournament(tournament);
     };
 
     $scope.startedTournament = function (tournament) {
         let now = new Date();
         let limit = new Date(tournament.limitInscription);
+
+        console.log(limit<now);
 
         return limit < now;
     }
@@ -10314,6 +10355,7 @@ app.service("SystemMessages", function($timeout){
 	this.getTournament = function(id,sucess,error){
 	    let o = this;
         xhr.get("api/tournament/"+id,function(data){
+        	o.tournament = data;
             if(typeof sucess!=="undefined"){
                 sucess(data);
             }
@@ -10324,19 +10366,17 @@ app.service("SystemMessages", function($timeout){
         });
 	};
 
-	this.setTeamSelected = function(){
-            return $scope.teams.find((a)=>{
-            return a.id === +$scope.assignForm.team;
-        })
-    };
 
 	this.isInscriptionOver = function(tournament){
 	    if(typeof tournament!=="undefined"){
         let date = new Date();
         let tdate = new Date(tournament.limitInscription);
-
         return tdate<date;
         }
+    };
+
+	this.fullInscription = function(tournament){
+        return tournament.teams.length==tournament.numberTeams
     };
 
 
@@ -10363,6 +10403,51 @@ app.service("SystemMessages", function($timeout){
 		let object = this;
 		xhr.post("api/user/"+confrontation+"/reportMatch", data,sucess,error);
 	};
+
+    this.numberOfRounds = function(tournament){
+        if(typeof tournament==="undefined"){
+            return [];
+        }
+        let result = [];
+        let numberRounds = parseInt(this.getBaseLog(2,tournament.numberTeams));
+        for(let i=1;i<=numberRounds;i++){
+            result.push(i);
+        }
+        return result;
+    };
+
+    this.nrounds = function(tournament){
+        if(typeof tournament==="undefined"){
+            return 0;
+        }
+        return  parseInt(this.getBaseLog(2,tournament.numberTeams));
+    };
+
+   this.numberOfConfrontation = function(i,tournament){
+       if(typeof tournament==="undefined"){
+           return [];
+       }
+        let result = [];
+        let numberTeams = tournament.numberTeams;
+        let total = parseInt(numberTeams / Math.pow(2,i));
+        for(let i=1;i<=total;i++){
+            result.push(i);
+        }
+
+        return result;
+    };
+
+    this.getMatch = function(r,n,tournament){
+        if(typeof tournament==="undefined") return [];
+        return tournament.confrontations.find((a)=>{
+            return a.numberMatch == n && a.round == r;
+        })
+    };
+
+
+    this.getBaseLog = function (x, y) {
+        return Math.log(y) / Math.log(x);
+    }
 });;app.service("UserService",function(xhr,auth){
 
     this.findAll = function(callback){
@@ -10508,7 +10593,7 @@ app.directive("teamCard",function($compile){
                     <img class="card-header-header" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                  <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
+                  <a href="team/{{i.name}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Members</h2>
                     <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">
@@ -10521,7 +10606,7 @@ app.directive("teamCard",function($compile){
                   <div class="col s8 x3">
                     </div>
                   <div class="col s3 x1">
-                           <a class="button" href="team/{{a.id}}">Visit</a>
+                           <a class="button" href="team/{{i.name}}">Visit</a>
                     </div>
         
                         </div>
