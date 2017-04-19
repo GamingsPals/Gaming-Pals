@@ -24,7 +24,7 @@
 </head>
 
 <body ng-app="App" ng-controller="MainController">
-<a href="#" class="nav-button om"><i class="fa fa-bars"></i> </a>
+<a href="#" class="nav-button om"><i class="fa fa-bars"></i></a>
 
 <nav class="header" ng-cloak>
     <div class="header-nav">
