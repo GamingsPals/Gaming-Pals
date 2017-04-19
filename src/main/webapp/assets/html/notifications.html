@@ -3,15 +3,15 @@
 
 
 <ul class="notifications-nav">
-    <li class="notifications-nav-header">Notifications</li>
-    <li><a href="notifications/teaminvitations">Team invitations</a> </li>
-    <li><a href="notifications/followers">New Followers</a> </li>
+    <li class="notifications-nav-header">{{loc.notification.notifications}}</li>
+    <li><a href="notifications/teaminvitations">{{loc.notification.teamInvitations}}</a> </li>
+    <li><a href="notifications/followers">{{loc.notification.newFollowers}}</a> </li>
 </ul>
 
 <div class="notifications-main">
     <div ng-if="mode=='teaminvitations'">
-        <h2>Team invitations</h2>
-        <span ng-show="notifications.notifications.TeamInvitations.length==0">You haven't reveived invitations lately</span>
+        <h2>{{loc.notification.teamInvitations}}</h2>
+        <span ng-show="notifications.notifications.TeamInvitations.length==0">{{loc.notification.noTeamInvitations}}</span>
         <div class="card bg-black7 s12" ng-repeat="i in notifications.notifications.TeamInvitations track by $index">
             <div class="card-image">
                 <a href="team/{{i.team.id}}"> <h1>{{i.team.name}}</h1></a>
@@ -23,18 +23,18 @@
                 </div>
             </div>
             <div class="card-buttons">
-                <a class="button white1 bg-red3 float-right" href="#" ng-click="reject(i)">Reject</a>
-                <a class="button white1 bg-green3 float-right" href="#" ng-click="accept(i)">Accept</a>
+                <a class="button white1 bg-red3 float-right" href="#" ng-click="reject(i)">{{loc.notification.reject}}</a>
+                <a class="button white1 bg-green3 float-right" href="#" ng-click="accept(i)">{{loc.notification.accept}}</a>
             </div>
         </div>
     </div>
     <div ng-if="mode=='followers'">
-        <h2>Team invitations</h2>
-        <span ng-show="notifications.notifications.Follower.length==0">You haven't been followed lately</span>
+        <h2>{{loc.notification.newFollowers}}</h2>
+        <span ng-show="notifications.notifications.Follower.length==0">{{loc.notification.noNewFollowers}}</span>
         <ul class="notifications-follower" >
            <li class="hvr-radial-in" ng-repeat="i in notifications.notifications.Follower track by $index">
                <a href="profile/{{i.follower.userAccount.username}}"> <img class="profile-image" ng-src="{{i.follower.picture}}" />
-                   {{i.follower.userAccount.username}} Has followed you
+                   {{i.follower.userAccount.username}} {{loc.notification.followYou}}
            </a> <i ng-click="notifications.readNotification(i,'Follower')" class="fa fa-close float-right cursor-pointer"></i></li>
         </ul>
     </div>

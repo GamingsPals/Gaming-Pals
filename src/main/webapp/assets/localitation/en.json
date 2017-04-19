@@ -6,9 +6,21 @@
   "profileview": {
     "follow" : "Follow",
     "unfollow" : "UnFollow",
-    "following": "Following"
+    "following": "Following",
+    "followers": "Followers",
+    "outOf":"out of ",
+    "ratings":"ratings",
+    "stats":"Stats",
+    "gameProfiles":"Game Profiles",
+    "noGames":" This user hasn't got any game registered.",
+    "noFollowers":"This user hasn't got any follower! Be the first.",
+    "noFollowing":"This user doesn't follow anybody.",
+    "noTeam":"This user hasn't got any team.",
+    "noRating":"This user hasn't got any rating yet! Be the first.",
+    "writeRating":"Write a Rating"
   },
   "send" :"Send",
+  "404user":"USER NOT FOUND",
   "seeMore":"See more",
   "signup": "Sign up",
   "login": "Login",
@@ -54,8 +66,10 @@
  	 "skill":"Skill",
  	 "join":"Join us in our League of Legends community",
  	 "join2":"So, what are you waiting for? Join us immediately!",
- 	 "singup":"Sing up"
-  },
+ 	 "singup":"Sing up",
+ 	 "comingSoon":"Coming soon",
+ 	 "and":"And"
+ },
   "addSummoner":{
   	"region": "Region",
   	"select":"Select",
@@ -90,10 +104,29 @@
  	 "inscribe":"INSCRIBE IN"
   },
   "lol":{
-  "recentMatches":"Recent Matches"
+ 	 "recentMatches":"Recent Matches"
   },
   "messages":{
-  "conversations":"Conversations",
-  "joinDiscord":"Join Our Discord Server"
+ 	 "conversations":"Conversations",
+  	 "joinDiscord":"Join Our Discord Server"
+  },
+  "chat":{
+ 	 "messages":"Messages",
+ 	 "typing":"Typing",
+ 	 "connected":"Connected",
+ 	 "userNotFound":"User not found"
+  },
+  "notification":{
+  	"notifications":"Notifications",
+  	"teamInvitations":"Team invitations",
+  	"newFollowers":"New Followers",
+  	"noTeamInvitations":"You haven't reveived invitations lately",
+  	"reject":"Reject",
+  	"accept":"accept",
+  	"noNewFollowers":"You haven't been followed lately",
+  	"followYou":"Has followed you"
   }
+  
+  
+  
 }

@@ -18,13 +18,13 @@
             </div>
         </div>
         <div class="profile-stats">
-            Stats <small>(0-5)</small>
+            {{loc.profileview.stats}} <small>(0-5)</small>
             <ul>
-                <li><h2>Skill</h2> <span class="green">{{ActorService.actor.actor.avgskill}}</span></li>
-                <li><h2>Knowledge</h2> <span class="green">{{ActorService.actor.actor.avgknowledge}}</span></li>
-                <li><h2>Attitude</h2> <span class="red">{{ActorService.actor.actor.avgattitude}}</span></li>
+                <li><h2>{{loc.main.skill}}</h2> <span class="green">{{ActorService.actor.actor.avgskill}}</span></li>
+                <li><h2>{{loc.main.knowledge}}</h2> <span class="green">{{ActorService.actor.actor.avgknowledge}}</span></li>
+                <li><h2>{{loc.main.attitude}}</h2> <span class="red">{{ActorService.actor.actor.avgattitude}}</span></li>
             </ul>
-            <small>out of {{ActorService.actor.actor.nRatings}} ratings</small>
+            <small>{{loc.profileview.outOf}} {{ActorService.actor.actor.nRatings}} {{loc.profileview.ratings}}</small>
         </div>
     </div>
 </div>
@@ -34,31 +34,31 @@
     <ul>
         <li ng-class="(tabs.gameprofiles) ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/gameprofiles">
-                <i class="fa fa-gamepad"></i> Game Profiles</a></li>
+                <i class="fa fa-gamepad"></i>{{loc.profileview.gameProfiles}}</a></li>
         <li  ng-class="(tabs.following) ? 'active' : ''">
             <a  href="{{url}}/following" class="profile-tabs">
-                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Following</a></li>
+                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.profileview.following}}</a></li>
         <li  ng-class="(tabs.followers) ? 'active' : ''">
             <a  href="{{url}}/followers" class="profile-tabs">
-                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Followers</a></li>
+                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> {{loc.profileview.followers}}</a></li>
         <li  ng-class="(tabs.teams) ? 'active' : ''">
             <a  href="{{url}}/teams" class="profile-tabs" >
-                <i class="fa fa-shield" aria-hidden="true"></i> Teams</a></li>
+                <i class="fa fa-shield" aria-hidden="true"></i> {{loc.tournament.teams}}</a></li>
         <li  ng-class="(tabs.ratings) ? 'active' : ''">
             <a  href="{{url}}/ratings" class="profile-tabs">
-                <i class="fa fa-star" aria-hidden="true"></i> Ratings</a></li>
+                <i class="fa fa-star" aria-hidden="true"></i> {{loc.profileview.ratings}}</a></li>
     </ul>
 </div>
 <div class="profile-main">
     <div class="profile-cards" ng-show="tabs.gameprofiles">
-        <h1><i class="fa fa-gamepad"></i> Game Profiles</h1>
+        <h1><i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</h1>
         <div style="margin:15px">
         <a href="#" dialogcontroller="AddSummonerController" class="button"
            dialog="addSummoner" ng-if="ActorService.actor.actor.gameInfo.length==0 && auth.isPrincipal(ActorService.actor.actor)">
-            Add Summoner</a>
+            {{loc.addSummoner.addSummoner}}</a>
         </div>
         <div ng-if="ActorService.actor.actor.gameInfo.length==0">
-            This user hasn't got any game registered.
+            {{loc.profileview.gameProfiles}}
         </div>
         <div class="card bg-black7" ng-repeat="i in ActorService.actor.actor.gameInfo">
                 <img class="right game-icon" ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
@@ -67,23 +67,23 @@
                      <div class="col">
                          {{i.username}}
                              <div class="small">{{tier}}</div>
-                         <a dialog="lolstats" href="#" dialogcontroller="LolstatsController">Recent Matches</a>
+                         <a dialog="lolstats" href="#" dialogcontroller="LolstatsController">{{loc.lol.recentMatches}}</a>
                     </div>
             </div>
         </div>
     </div>
     <div class="profile-cards" ng-show="tabs.followers">
-        <h1><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Followers</h1>
+        <h1><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> {{loc.profileview.followers}}</h1>
         <div ng-if="ActorService.actor.followers.length==0">
-            This user hasn't got any follower! Be the first.
+            {{loc.profileview.noFollowers}}
         </div>
         <div class="card "  user-card="i" ng-repeat="i in ActorService.actor.followers">
     </div>
     </div>
     <div id="profile-following" class="profile-cards" ng-show="tabs.following">
-        <h1><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Following</h1>
+        <h1><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.profileview.following}}</h1>
         <div ng-if="ActorService.actor.following.length==0">
-            This user doesn't follow anybody
+            {{loc.profileview.noFollowing}}
         </div>
         <div class="card " user-card="i" ng-repeat="i in ActorService.actor.following">
 
@@ -91,25 +91,25 @@
     </div>
 
     <div id="profile-teams" class="profile-cards" ng-show="tabs.teams">
-        <h1><i class="fa fa-shield" aria-hidden="true"></i> Teams</h1>
+        <h1><i class="fa fa-shield" aria-hidden="true"></i> {{loc.tournament.teams}}</h1>
         <div style="margin: 30px;">
-            <a href="#" class="button" dialog="createTeam" ng-if="auth.isPrincipal(ActorService.actor.actor)">Create Team</a>
+            <a href="#" class="button" dialog="createTeam" ng-if="auth.isPrincipal(ActorService.actor.actor)">{{loc.team.create}}</a>
         </div>
         <div ng-if="ActorService.actor.teams.length==0">
-            This user hasn't got any team.
+            {{loc.profileview.noTeam}}
         </div>
         <div class="card " team-card="i" ng-repeat="i in ActorService.actor.teams">
         </div>
 
 </div>
     <div id="profile-ratings" class="profile-cards" ng-show="tabs.ratings">
-        <h1><i class="fa fa-star" aria-hidden="true"></i> Ratings</h1>
+        <h1><i class="fa fa-star" aria-hidden="true"></i> {{loc.profileview.ratings}}</h1>
         <div ng-if="ActorService.actor.actor.ratingsReceived.length==0">
-            This user hasn't got any rating yet! Be the first.
+            {{loc.profileview.noRating}}
         </div>
         <div style="margin:30px;">
         <a href="#" class="button" not-principal="ActorService.actor.actor"
-           dialog="write-rating-form" dialogcontroller="WriteRatingController">Write a Rating</a>
+           dialog="write-rating-form" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
         <div class="card-rating col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
             <div class="col s12">
@@ -135,6 +135,6 @@
 </div>
 
 <div ng-if="ActorService.notFound">
-    <giant>404 USER NOT FOUND</giant>
+    <giant>404 {{loc.404user}}</giant>
 </div>
 
