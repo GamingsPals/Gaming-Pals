@@ -1,6 +1,41 @@
 {
   "home" : "Inicio",
-  "pals" : "Pals",
+  "pals" : "Amigos",
   "tournaments" :"Torneos",
-  "profile": "Perfil"
+  "profile": "Perfil",
+  "profileview": {
+    "follow" : "Seguir",
+    "unfollow" : "Dejar de seguir",
+    "following": "Siguiendo"
+  },
+  "send" :"Enviar",
+  "signup": "Regístrate",
+  "login": "Entrar",
+  "logout": "Salir",
+  "lolslider": "Únete a nuestra comunidad de League of Legends. 0% Toxicidad 100% Diversión",
+  "dotaslider": "Dota 2 Community coming soon!",
+  "loginview":{
+    "password": "Contraseña",
+    "username" : "Nombre de usuario",
+    "message" : "Únete a nuestra comunidad y comienza a jugar mejor y más feliz",
+    "donthaveaccount": "¿Aún no tienes cuenta?"
+  },
+  "signupform": {
+    "name": "Nombre"
+  },
+  "main": {
+ 	 "friendly": " Nuestra comunidad es acogedora y no toleramos ningún tipo de toxicidad.",
+ 	 "slogan": "Preparate para una nueva experiencia de juego al entrar en nuestra comunidad. 0% Toxicidad 100% Diversión",
+ 	 "competition":" Compite en torneos en un entorno amigable donde podrás encontrar nuevos amigos.",
+ 	 "community":" Sigue a nuevos amigos, enviales peticiones para jugar y valoralos con 3 métricas diferentes:",
+ 	 "attitude":"Actitud",
+ 	 "knowledge":"Conocimiento",
+ 	 "skill":"Habilidad",
+ 	 "join":"Entra en nuestra comunidad de League of Legends",
+ 	 "join2":"¿Entonces, a qué estás esperando? ¡Únete!",
+ 	 "singup":"Regístrate"
+ 	 
+ 	 
+ 	 
+  }
 }
