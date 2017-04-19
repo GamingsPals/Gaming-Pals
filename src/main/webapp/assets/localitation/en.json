@@ -22,5 +22,20 @@
   },
   "signupform": {
     "name": "Name"
+  },
+  "main": {
+ 	 "friendly": " Our community is 100% friendly and we don't know allow by any means toxicity.",
+ 	 "slogan": "Be prepared to a hole new gaming experience joining our community. 0% Toxicity. 100% Fun",
+ 	 "competition":" Compete with pals in tournaments where you can make friends and compete in a friendly gaming enviroment",
+ 	 "community":" Follow pals or be follow, make requests to play and rate pals with 3 diferents metrics",
+ 	 "attitude":"Attitude",
+ 	 "knowledge":"Knowledge",
+ 	 "skill":"Skill",
+ 	 "join":"Join us in our League of Legends community",
+ 	 "join2":"So, what are you waiting for? Join us immediately!",
+ 	 "singup":"Sing up"
+ 	 
+ 	 
+ 	 
   }
 }
