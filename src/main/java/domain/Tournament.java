@@ -111,7 +111,6 @@ public class Tournament extends DomainEntity {
 	}
 
 	@Valid
-	@JsonIgnore
 	@OneToMany(mappedBy = "tournament")
 	public Collection<Award> getAwards(){return awards;}
 	public void setAwards(Collection<Award> awards){this.awards=awards;}

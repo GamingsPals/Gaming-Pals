@@ -193,6 +193,9 @@
   margin-right: 4px;
   border-radius: 2pt; }
 
+.absolute {
+  position: absolute; }
+
 .list-horizontal {
   margin: 0;
   padding: 0; }
@@ -557,9 +560,26 @@ a {
   background-color: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
   font-size: 0.8em; }
+  .lateral-menu ul h1 {
+    margin: 0;
+    background-color: rgba(35, 66, 79, 0.85);
+    color: white;
+    padding: 10px 15px; }
   .lateral-menu ul li {
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+
+.tournament-header {
+  position: relative;
+  max-height: 200px;
+  overflow: hidden; }
+  .tournament-header h1 {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: white; }
+  .tournament-header img {
+    width: 100%; }
 
 input {
   margin: 10px;

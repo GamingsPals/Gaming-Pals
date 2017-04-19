@@ -57,20 +57,35 @@ app.directive("teamCard",function($compile){
             "teamCard": "="
         },
         link: function(scope,element,attrs){
-            $(element).addClass("card").addClass("bg-black7");
+            $(element).addClass("blockcard");
             let updated = true;
             scope.$watch('teamCard',()=>{
                 if(typeof scope.teamCard!=="undefined"){
                     scope.i = scope.teamCard;
-                    let template = `<div class="card-image">
-                <img ng-src="{{i.picture}}" />
-            </div>
-            <div class="card-buttons">
-                <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
-                <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">
+                    let template = `
+                <div class="card-header">
+                    <img class="card-header-header" ng-src="{{i.picture}}">
+                 </div>
+                 <div class="card-body">
+                  <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
+                   <div class="col s8 x3" >
+                   <h2>Members</h2>
+                    <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">
                     <img class="profile-image" ng-src="{{a.picture}}">
                 </a>
-            </div>`;
+                            </div>
+              
+                  </div>
+                  <div class="card-footer">
+                  <div class="col s8 x3">
+                    </div>
+                  <div class="col s3 x1">
+                           <a class="button" href="team/{{i.name}}">Visit</a>
+                    </div>
+        
+                        </div>
+                
+            `;
                     $(element).html(template);
                     $compile(element.contents())(scope);
                 }

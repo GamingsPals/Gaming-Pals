@@ -1,6 +1,7 @@
 package services;
 
 import domain.Confrontation;
+import domain.Participes;
 import domain.ReportMatch;
 import domain.Team;
 import forms.ReportMatchForm;
@@ -11,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.ReportMatchRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -91,6 +93,18 @@ public class ReportMatchService {    //Repositories
         Confrontation c = confrontationService.save(confrontation);
         reportMatch.setConfrontation(c);
         reportMatch.setTeam(team);
+        Participes p = reportMatchRepository.findParticipeByTeamId(team.getId(),reportMatch.getConfrontation());
+        Assert.notNull(p);
+        Boolean report = false;
+        switch (reportMatch.getResult()){
+            case "Winnner":
+                report = true;
+                break;
+            case "Looser":
+                report = false;
+                break;
+        }
+        p.setIsWinner(report);
 
         ReportMatch r = save(reportMatch);
     }

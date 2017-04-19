@@ -8,7 +8,36 @@ app.service("TournamentService", function(xhr){
 			object.tournaments = response.data;
 		})
 
-	}
+	};
+
+	this.getTournament = function(id,sucess,error){
+	    let o = this;
+        xhr.get("api/tournament/"+id,function(data){
+            if(typeof sucess!=="undefined"){
+                sucess(data);
+            }
+        },(a)=>{
+            if(typeof error!=="undefined"){
+                error(a);
+            }
+        });
+	};
+
+	this.setTeamSelected = function(){
+            return $scope.teams.find((a)=>{
+            return a.id === +$scope.assignForm.team;
+        })
+    };
+
+	this.isInscriptionOver = function(tournament){
+	    if(typeof tournament!=="undefined"){
+        let date = new Date();
+        let tdate = new Date(tournament.limitInscription);
+
+        return tdate<date;
+        }
+    };
+
 
 	this.getConfrontations = function(tournamentId){
 		let object = this;

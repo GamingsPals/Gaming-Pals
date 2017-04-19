@@ -206,9 +206,30 @@ a {
     background-color: $color-base-black-8;
     border:1px solid $color-base-black-7;
     font-size:0.8em;
+    h1{
+      margin:0;
+      background-color: $color-base-blue-42;
+      color:$color-base-white-1;
+      padding:10px 15px;
+    }
     li{
       padding:15px;
       border-bottom: 1px solid $color-base-black-7;
     }
+  }
+}
+
+.tournament-header{
+  position: relative;
+  max-height: 200px;
+  overflow: hidden;
+  h1{
+    position: absolute;
+    bottom: 5px;
+    left:5px;
+    color:$color-base-white-1;
+  }
+  img{
+    width: 100%;
   }
 }

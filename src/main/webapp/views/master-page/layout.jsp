@@ -16,6 +16,7 @@
     <link rel="icon" href="assets/images/favicon.png" type="image/x-icon" />
     <link rel="shortcut icon" href="assets/images/favicon.png"/>
 	<link href="assets/css/style.min.css" rel="stylesheet"/>
+    <script src="assets/js/md5.js"></script>
     <script src="assets/js/app.js"></script>
 
     <title>GamingPals </title>

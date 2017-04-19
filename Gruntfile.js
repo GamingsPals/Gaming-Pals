@@ -9,7 +9,6 @@ module.exports = function(grunt) {
             dist1: {
                 src: [
                     'src/main/webapp/assets/js/socket.io.js',
-                    'src/main/webapp/assets/js/md5.js',
                     'src/main/webapp/assets/js/jquery/jquery.js',
                     'src/main/webapp/assets/js/flexslider/flexslider.js',
                     'src/main/webapp/assets/js/angular/angular.js',

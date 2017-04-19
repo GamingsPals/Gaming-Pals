@@ -1,16 +1,19 @@
+
 <div ng-controller="AssignTeamToTournamentController">
-<form name="AssignForm" ng-submit="assignTeamToTournament()">
+    <div ng-if="!TournamentService.isInscriptionOver(tournament)">
+<form name="AssignForm" ng-submit="assignTeamToTournament()" ng-if="teams.length>0 && !added">
     <label>
         Select a Team
     </label>
-    <select ng-model="assignForm.team" tabindex="0" ng-change="setTeamSelected()">
+    <select  style="width:100%!important" ng-model="assignForm.team" tabindex="0" ng-change="setTeamSelected()"
+             title="Select a Team">
         <option value="">Select a team</option>
-        <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
+        <option ng-repeat="t in userteams" value="{{t.id}}">{{t.name}}</option>
     </select>
 
     <div>Your a going to asing your selected team to <b>{{tournament.title}}</b></div>
 
-    <div class="card " team-card="teamselected" ng-show="teamselected">
+    <div class="card s12" team-card="teamselected" ng-show="teamselected">
     </div>
     <div style="margin:15px;">
 
@@ -18,4 +21,11 @@
 
     </div>
 </form>
+    <div ng-if="teams.length==0 || added">
+        You don't have any Team that is available to inscribe into the tournament
+    </div>
+</div>
+    <div ng-if="TournamentService.isInscriptionOver(tournament)==false">
+        Tournament has already started.
+    </div>
 </div>

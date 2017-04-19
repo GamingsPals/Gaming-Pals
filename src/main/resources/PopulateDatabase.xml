@@ -232,7 +232,7 @@
 	<!-- Teams -->
 	<bean id="team1" class="domain.Team">
 		<property name="name" value="Skt Gaming " />
-		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/0/04/SK_Telecom_T1_logo.png" />
+		<property name="picture" value="http://orig13.deviantart.net/79ab/f/2014/126/3/c/skt_t1_k_wallpaper_by_nervyzombie-d7hd095.png" />
 		<property name="users">
 			<list>
 				<ref bean="user2"/>
@@ -248,7 +248,7 @@
 	
 	<bean id="team2" class="domain.Team">
 		<property name="name" value="Fnatic" />
-		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/f/f0/Fnatic_logo.png" />
+		<property name="picture" value="http://fnatic.com/filestorage/imagedb/full/8882.jpg" />
 		<property name="users">
 			<list>
 				<ref bean="user3"/>
@@ -271,7 +271,7 @@
 		<property name="numberTeams" value="4"/>
 		<property name="limitInscription" value="15/06/2017 10:20"/>
 		<property name="rules" value="You can't flame others" />
-		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/6/62/League_of_Legends_Champion_Series_Logo.jpg.png" />
+		<property name="picture" value="https://images4.alphacoders.com/600/thumb-1920-600528.png" />
 		<property name="awards">
 			<list>
 				<ref bean="award1"/>
