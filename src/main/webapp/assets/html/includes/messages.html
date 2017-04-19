@@ -1,0 +1,32 @@
+<div class="chat">
+
+<div class="chat-body">
+    <div class="chat-body-notuser">
+        <h2>Conversations</h2>
+        <a class="button float-right small" href="https://discord.gg/rmNRp9G" target="_blank"><i class="fa fa-headphones"></i>
+            Join Our Discord Server </a>
+        <h4>Search a member:</h4>
+        <div class="autocomplete">
+            <input  title="New Conversation With Actor" type="search" ng-autocomplete ng-model="searchmember.userAccount.username"/>
+            <ul class="autocomplete-results" style="display: none">
+                <li ng-repeat="a in all | filter:searchmember:strict">
+                    <a href="messages/{{a.userAccount.username}}">
+                        <img class="profile-image" ng-src="{{a.picture}}"/> {{a.userAccount.username}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="notifications-newmessages">
+                <li>
+                    <a href="messages/{{m.userAccount.username}}" ng-repeat="m in chat.recents"
+                    ng-class="(notifications.findMessageNotification(m.id,auth.principal.actor).numMessages>0) ? 'bg-green2' : ''">
+                        <img class="profile-image" ng-src="{{m.picture}}" /> {{m.userAccount.username}}
+                    <span class="float-right" ng-show="notifications.findMessageNotification(m.id,auth.principal.actor).numMessages>0">
+                        {{notifications.findMessageNotification(m.id,auth.principal.actor).numMessages}}</span> </a></li>
+
+        </ul>
+    </div>
+
+</div>
+</div>

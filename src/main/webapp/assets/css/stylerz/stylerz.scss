@@ -12,6 +12,9 @@
 @import "profile.scss";
 @import "animations.scss";
 @import "summonerProfile.scss";
+@import "chat.scss";
+@import "notifications.scss";
+
 .center-container{
   margin-left:4%;
   margin-right:4%;
@@ -21,20 +24,15 @@
   }
 }
 
-
-
-
 .container{
   transition: all 0.5s ease-out;
 }
 
 
-
-
 ul{
   margin:0;
   padding:0;
-  list{
+  li{
     list-style: none;
   }
 }

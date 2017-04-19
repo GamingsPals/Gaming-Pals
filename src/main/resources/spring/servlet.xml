@@ -71,6 +71,8 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
+    <bean class="org.springframework.security.authentication.AuthenticationProvider" abstract="true"/>
+
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 
 	<!-- I18n and L10n -->

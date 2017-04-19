@@ -1,16 +1,37 @@
 .bg-blue3 {
-  background-color: #36535d;
-  color: white; }
+  background-color: #36535d !important;
+  color: white !important; }
+
+.yellow3 {
+  color: #f2fb33; }
+
+.bg-black7 {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: black; }
 
 .red3 {
   color: rgba(217, 95, 58, 0.84) !important; }
+
+.white1 {
+  color: white !important; }
+  .white1:hover {
+    color: white !important; }
+
+.white3 {
+  color: rgba(255, 255, 255, 0.78) !important; }
+  .white3:hover {
+    color: rgba(255, 255, 255, 0.78) !important; }
 
 .bg-red3 {
   background-color: rgba(217, 95, 58, 0.84) !important;
   color: white !important; }
 
+.bg-green2 {
+  background-color: rgba(45, 185, 107, 0.64) !important;
+  color: white !important; }
+
 .bg-green3 {
-  background-color: rgba(103, 217, 122, 0.84) !important;
+  background-color: rgba(45, 185, 107, 0.84) !important;
   color: white !important; }
 
 .bg-magenta3 {
@@ -19,5 +40,10 @@
 
 .size-1-5 {
   font-size: 1.5em; }
+
+.white {
+  color: rgba(255, 255, 255, 0.88); }
+  .white:hover {
+    color: white; }
 
 /*# sourceMappingURL=vars.css.map */

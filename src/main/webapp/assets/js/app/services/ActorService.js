@@ -4,7 +4,8 @@ app.service("ActorService",function(xhr,auth){
     this.notFound = false;
     this.search = [];
     this.reportedList = {};
-    this.UserProfile = function(name){
+
+    this.UserProfile = function(name,callback){
         let object = this;
         if(typeof name === "undefined"){
             name = this.actor.actor.userAccount.username;
@@ -13,6 +14,9 @@ app.service("ActorService",function(xhr,auth){
             object.actor = data.data;
             object.processActors();
             object.notFound = false;
+            if(typeof callback!=="undefined"){
+                callback(data.data);
+            }
         },function(data){
             object.notFound = true;
         });
@@ -26,8 +30,23 @@ app.service("ActorService",function(xhr,auth){
         });
     };
 
+    this.findAll = function(callback){
+        let object = this;
+        if(typeof this.allactors==="undefined"){
+        xhr.get("api/actor/all", function(response){
+            object.allactors = response.data;
+            if(typeof callback!=="undefined"){
+                callback(response.data);
 
+            }
+        })
+        }else{
+            if(typeof callback!=="undefined"){
+                callback(this.allactors);
 
+            }
+        }
+    };
 
     this.rate = function(user,data,sucess,error){
         let object = this;
@@ -42,7 +61,8 @@ app.service("ActorService",function(xhr,auth){
     this.followOrUnfollow = function(id,callback){
         let object = this;
         xhr.get("api/user/"+id+"/follow",function(data){
-            if (typeof callback!== "undefined") callback(data);
+            if (typeof callback!== "undefined")
+                callback(data);
             auth.load(()=>{},true);
         })
     };
@@ -82,11 +102,18 @@ app.service("ActorService",function(xhr,auth){
         actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
         return actor;
     };
-    
-    
-    
-    
-    
+
+
+
+
+    this.getOneActor = function(name,callback){
+        let object = this;
+        xhr.get("api/actor/"+name ,function(response){
+            if(typeof callback !=="undefined"){
+                callback(response.data);
+            }
+        });
+    };
     
     
     this.getUsers = function(teamId){

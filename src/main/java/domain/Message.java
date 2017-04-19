@@ -4,17 +4,12 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,11 +20,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Message extends DomainEntity {
 
 	private Date				moment;
-	private String				title;
 	private String				text;
-	private boolean 			toxic;
 
-	
+
+	public Message(){
+	    this.moment = new Date();
+    }
+
 	@NotBlank
 	public String getText() {
 		return this.text;
@@ -38,10 +35,9 @@ public class Message extends DomainEntity {
 		this.text = text;
 	}
 
-	@NotNull
-	@Past
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -49,30 +45,15 @@ public class Message extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@NotBlank
-	public String getTitle() {
-		return this.title;
-	}
-	public void setTitle(final String title) {
-		this.title = title;
-	}
-	
-	public boolean getToxic() {
-		return this.toxic;
-	}
-	public void setToxic(final boolean toxic) {
-		this.toxic = toxic;
-	}
-
-
 	//Relationships
 	private Actor	sender;
 	private Actor	receiver;
 
 
 	@Valid
-	@JsonIgnore
-	@ManyToOne(optional = true)
+	@JsonIgnoreProperties({"userAccount", "sended", "received", "followerUsers",
+			"followingUsers", "ratingsReceived", "ratingsDone", "teams", "reportsDone", "reportsReceived" })
+	@ManyToOne
 	public Actor getSender() {
 		return this.sender;
 	}
@@ -82,7 +63,8 @@ public class Message extends DomainEntity {
 	}
 
 	@Valid
-	@JsonIgnore
+    @JsonIgnoreProperties({"userAccount", "sended", "received", "followerUsers",
+            "followingUsers", "ratingsReceived", "ratingsDone", "teams", "reportsDone", "reportsReceived" })
 	@ManyToOne(optional = true)
 	public Actor getReceiver() {
 		return this.receiver;

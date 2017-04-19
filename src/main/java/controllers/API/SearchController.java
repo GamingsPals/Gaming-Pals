@@ -11,10 +11,7 @@ import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/api")
@@ -27,8 +24,15 @@ public class SearchController extends ApiAbstractController {
     @ResponseBody
     @RequestMapping(value = "/search")
     public Object search(SearchForm searchForm, HttpServletRequest request, HttpServletResponse response) {
-        Collection<User> result = null;
+        Collection<User> result;
         try{
+            if (searchForm.getUsername()!= null) {
+                if (!searchForm.getUsername().equals("")) {
+                    result = new ArrayList<>();
+                    result.add(userService.findByUserAccountUsername(searchForm.getUsername()));
+                    return result;
+                }
+            }
             if (searchForm.getGame()!= null) {
                 if (!searchForm.getGame().equals("")) {
                     result = userService.usersForGameTag(searchForm.getGame());

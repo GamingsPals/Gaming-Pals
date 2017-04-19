@@ -31,6 +31,7 @@ import domain.DomainEntity;
 
 @Entity
 @Access(AccessType.PROPERTY)
+
 public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Constructors -----------------------------------------------------------

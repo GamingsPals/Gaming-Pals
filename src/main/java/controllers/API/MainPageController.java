@@ -19,7 +19,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/api")
-public class MainPageController extends ApiAbstractController {
+public class    MainPageController extends ApiAbstractController {
 
     @Autowired
     private UserService userService;
@@ -42,19 +42,5 @@ public class MainPageController extends ApiAbstractController {
         }
     }
 
-
-    @ResponseBody
-    @RequestMapping(value = "/test")
-    public Object test(TestForm  testForm, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            Map<String, Object> mapa = new HashMap<>();
-            mapa.put("testForm",testForm);
-
-            return mapa;
-        } catch (Exception e){
-
-           return notFoundError(response,"No puedes ");
-        }
-    }
 
 }

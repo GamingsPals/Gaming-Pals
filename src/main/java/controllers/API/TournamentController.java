@@ -4,6 +4,7 @@ package controllers.API;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -36,17 +37,19 @@ public class TournamentController extends ApiAbstractController {
 
 
 	@RequestMapping(value = "/tournament/assign/{tournamentId}/{teamId}")
-	public Object confrontationList(HttpServletRequest request, HttpServletResponse response, @PathVariable int tournamentId, @PathVariable int teamId) {
+	public Object confrontationList( HttpServletResponse response,
+                                    @PathVariable Tournament tournamentId, @PathVariable Team teamId) {
+	    User principal;
 		try {
-			Assert.notNull(tournamentService.findOne(tournamentId));
+			principal = (User) actorService.findActorByPrincipal();
+			Assert.notNull(principal);
+			Assert.isTrue(teamService.isUserInTeam(teamId,principal));
 		} catch (Exception e) {
 			return unauthorized(response, null);
 		}
 		try {
-			Tournament t = tournamentService.findOne(tournamentId);
-			Team team = teamService.findOne(teamId);
 
-			tournamentService.assign(team, t);
+			tournamentService.assign(teamId, tournamentId);
 			return ok(response, null);
 		} catch (Throwable e) {
 			System.out.println(e.getMessage());
@@ -65,6 +68,7 @@ public class TournamentController extends ApiAbstractController {
 		try {
 
 			Tournament t = tournamentService.reconstruct(tournamentForm);
+			System.out.println(t);
 			t = tournamentService.save(t);
 			t = confrontationService.calculateConfrontations(t);
 

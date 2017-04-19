@@ -109,32 +109,12 @@ public class ActorService {
 		Assert.isTrue(!auts.contains(auts2));
 	}
 
-	public Actor reconstruct(Actor actor, BindingResult bindingResult) {
-
-		Actor res;
-
-		if (actor.getId() == 0) {
-
-			res = actor;
-
-		} else {
-
-			res = findOne(actor.getId());
-
-			res.setName(actor.getName());
-			res.setEmail(actor.getEmail());
-			res.setPicture(actor.getPicture());
-			res.setSurname(actor.getSurname());
-
-			validator.validate(res, bindingResult);
-
-		}
-
-		return res;
-	}
-
 	public Actor findActorByPrincipal() {
 		UserAccount userAccount = LoginService.getPrincipal();
 		return actorRepository.findActorByUserAccount(userAccount);
 	}
+
+    public Actor findByUserAccountUsername(String actor2) {
+		return actorRepository.findByUserAccountUsername(actor2);
+    }
 }

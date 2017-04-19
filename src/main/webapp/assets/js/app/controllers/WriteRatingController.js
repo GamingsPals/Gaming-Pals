@@ -1,4 +1,6 @@
-app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
+                                                SystemMessages, dialog,middleware){
+    middleware.needRol("ANY");
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{});
         $scope.writerating = false;

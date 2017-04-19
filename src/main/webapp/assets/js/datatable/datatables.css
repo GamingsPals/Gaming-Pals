@@ -14,7 +14,7 @@
  * Table styles
  */
 table.dataTable {
-  width: 100%;
+  overflow-x: auto;
   margin: 0 auto;
   clear: both;
   border-collapse: separate;

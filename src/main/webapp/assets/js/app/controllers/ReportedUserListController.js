@@ -1,5 +1,5 @@
 app.controller('ReportedUserListController',function($scope,ActorService,middleware,dialog){
-    middleware.needRol("ADMIN");
+    middleware.needRol("ADMIN,MODERATOR");
     $scope.As = ActorService;
     $scope.As.reportedUsers();
     $scope.showImage = function(image){

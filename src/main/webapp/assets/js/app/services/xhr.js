@@ -20,7 +20,6 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
 
     this.post = function (url, data, sucess,error) {
         $(".loader").show();
-        console.log(data);
         data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
         $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
         $http({

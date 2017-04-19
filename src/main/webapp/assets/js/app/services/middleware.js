@@ -1,7 +1,6 @@
 app.service("middleware",function(auth,$location){
 
     this.needRol = function(rol){
-        console.log("ey");
         let object = this;
         auth.load(function(){
             if (!auth.principal.authenticated) {
@@ -12,16 +11,14 @@ app.service("middleware",function(auth,$location){
             }
             if (rol.toLowerCase() == "ANY".toLowerCase()) return true;
             let result = false;
-            console.log(rol);
             if (rol.indexOf(',')!="-1"){
                 let roles =  rol.split(",");
-                console.log(roles);
                 roles.forEach(function(a){
-                    if ((auth.hasRole(rol))){
+                    if ((auth.hasRole(a))){
                         result = true;
+                        return false;
                     }
                 });
-                console.log(result);
             }
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');

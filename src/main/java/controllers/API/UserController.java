@@ -3,11 +3,14 @@ package controllers.API;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.Actor;
+import org.apache.commons.codec.language.bm.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -95,30 +98,50 @@ public class UserController extends ApiAbstractController {
 			return notFoundError(response, null);
 		}
 		try {
-			Assert.isTrue(signupForm.getPassword().equals(signupForm.getRepeatpassword()));
-			System.out.println(signupForm.getAge());
 			User user = userService.create();
 			user.setAge(signupForm.getAge());
+
 			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 
 			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
 			user.getUserAccount().setUsername(signupForm.getUsername());
-			user.setName(signupForm.getName());
-			user.setSurname(signupForm.getSurname());
 			user.setPicture(signupForm.getPicture());
 			user.setEmail(signupForm.getEmail());
-
-			ArrayList<Language> languages = (ArrayList<Language>) languageService.findAll();
-			user.getLanguages().add(languages.get(0));
+			user.setHeader(signupForm.getHeader());
+            List<Language> languages = new ArrayList<>();
+            for(String e: signupForm.getLanguages().split(",")){
+                languages.add(languageService.findOne(Integer.valueOf(e)));
+            }
 			user.setLanguages(languages);
-
 			userService.save(user);
 			return ok(response, null);
 		} catch (Exception e) {
 
-			System.out.println(binding.getAllErrors());
-
 			return internalservererror(response, null);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/user/all")
+	public Object allUsers(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			User actor = (User) actorService.findActorByPrincipal();
+			Assert.notNull(actor);
+			return userService.findAll();
+		}catch (Exception e){
+			return unauthorized(response,null);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/user/teams")
+	public Object teams(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			User actor = (User) actorService.findActorByPrincipal();
+			Assert.notNull(actor);
+			return actor.getTeams();
+		}catch (Exception e){
+			return unauthorized(response,null);
 		}
 	}
 }

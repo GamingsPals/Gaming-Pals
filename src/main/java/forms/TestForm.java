@@ -1,10 +1,15 @@
 package forms;
 
+import domain.User;
+
+import java.util.Collection;
+
 public class TestForm {
 
 
     private String name;
     private String password;
+    private Collection<User> users;
 
 
     public String getName() {
@@ -22,4 +27,6 @@ public class TestForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

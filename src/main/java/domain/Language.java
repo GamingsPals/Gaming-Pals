@@ -2,10 +2,7 @@ package domain;
 
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -17,7 +14,8 @@ public class Language extends DomainEntity {
 
 	// Attributes
 	private String language;
-	
+	private String longName;
+
 	// Constructor
 	public Language(){
 		super();
@@ -46,5 +44,12 @@ public class Language extends DomainEntity {
 	public void setUsers(Collection<User> users) {
 		this.users = users;
 	}
-	
+
+	public String getLongName() {
+		return longName;
+	}
+
+	public void setLongName(String longName) {
+		this.longName = longName;
+	}
 }

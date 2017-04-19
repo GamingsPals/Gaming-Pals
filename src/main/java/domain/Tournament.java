@@ -35,7 +35,7 @@ public class Tournament extends DomainEntity {
 
 	// Getters and Setters
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull
 	public Date getMomentCreate() {
 		return momentCreate;
@@ -79,7 +79,7 @@ public class Tournament extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull
 	public Date getLimitInscription() {
 		return limitInscription;
@@ -90,7 +90,6 @@ public class Tournament extends DomainEntity {
 	}
 
 	@URL
-	@NotBlank
 	public String getPicture(){return picture;}
 	public void setPicture(String picture){this.picture=picture;}
 

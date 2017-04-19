@@ -1,0 +1,44 @@
+<div style="margin:15px;">
+<a class="button" href="messages" ng-click="goMessages()"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Messages</a>
+</div>
+<div class="chat">
+
+<div class="chat-body">
+    <div class="chat-body-chat" ng-show="chat.userselected!=null">
+        <div class="chat-body-chat-receiver">
+            <img class="profile-image" ng-src="{{chat.userselected.picture}}" />
+            <div class="col">
+                <div>{{chat.userselected.userAccount.username}}</div>
+                <div class="chat-body-chat-status">
+                    <span ng-show="chat.chatMessages[chat.userselected.id].typing">Typing....</span>
+                    <span ng-show="!chat.chatMessages[chat.userselected.id].typing && chat.isConnected(chat.userselected.id)">Connected</span>
+                </div>
+            </div>
+            <div class="col float-right">
+                <a href="https://discord.gg/rmNRp9G" target="_blank"><i class="fa fa-headphones"></i></a>
+            </div>
+
+        </div>
+        <div class="chat-body-chat-messages">
+            <div ng-repeat="m in chat.chatMessages[chat.userselected.id].messages | orderBy: 'moment'"
+               ng-class="(m.sender.id==auth.principal.actor.id) ? 'chat-body-chat-messages-author' :
+            'chat-body-chat-messages-user' ">{{m.text}}</div>
+        </div>
+        <div class="chat-body-chat-inputbox">
+        <div class="chat-body-chat-inputbox-input" resizable-input="" ng-keyup="updateTyping()" ng-keypress="sendMessage($event)" contenteditable="true" ng-model="inputmessage" placeholder="Escribe un mensaje...">
+        </div>
+            <a href="#" class="chat-body-input-key" ng-click="enterMessage()"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="chat-body-notuser" ng-show="chat.userselected==null">
+        <h2>User not found</h2>
+    </div>
+</div>
+</div>
+
+<script>
+   $(document).on("load",function(e){
+       $(".chat-body-chat-input").focus();
+
+   })
+</script>

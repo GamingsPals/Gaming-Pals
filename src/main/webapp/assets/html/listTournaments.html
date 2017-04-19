@@ -1,31 +1,36 @@
-<h1>Tournament list</h1>
-<table>
-    <thead>
-    <tr>
-        <td></td>
-        <td>Title</td>
-        <td>Description</td>
-        <td>Number Teams</td>
-        <td>Limit Inscription</td>
-        <td>Rules</td>
-        <td>Awards</td>
-        <td>Bracket</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="i in Ts.tournaments ">
-        <td><img height="100" width="100" src="{{i.picture}}"> </td>
-        <td>{{i.title}}</td>
-        <td>{{i.description}}</td>
-        <td>{{i.teams.length}}/{{i.numberTeams}}</td>
-        <td>{{i.limitInscription | date:"MM/dd/yyyy 'at' h:mma"}}</td>
-        <td><a href="#" class="button" ng-click="showLongString(i.rules)">View</a></td>
-        <td><a href="#" ng-click="viewAwards(i.id)" class="button">View</a></td>
-        <td><a href="#" ng-click="viewConfrontation(i.id)" class="button">View</a></td>
-    </tr>
-    </tbody>
-    
-<input
-      onclick="javascript: window.location.replace('createTournament');"
-      value="Create tournament" class="button" type="button" />
-</table>
+<h1>Tournaments</h1>
+<div style="margin:30px;">
+<a href="#" dialog="createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">Create Tournament</a>
+</div>
+
+
+<div class="blockcard" ng-repeat="i in Ts.tournaments ">
+    <div class="card-header">
+        <div class="card-header-right">
+            <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
+        </div>
+        <img class="card-header-header" ng-src="{{i.picture}}" />
+    </div>
+    <div class="card-body">
+        <h1>{{i.title}}</h1>
+        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} Teams</p>
+    </div>
+    <div class="card-footer">
+        <div class="col s6 x2">
+            <span ng-if="startedTournament(i)">
+                STARTED!
+            </span>
+            <span ng-if="!startedTournament(i)">
+                 {{i.limitInscription | date:"dd MMM h:mm'h'"}}
+            </span>
+        </div>
+        <div class="col s6 x2">
+            <span ng-if="closedTournament(i)">
+                Inscription Closed! <i class="fa fa-lock small"></i>
+            </span>
+            <span ng-if="!closedTournament(i)">
+                <a href="#" class="button" ng-click="assignTeamToTournament(i)">INSCRIBE IN</a>
+            </span>
+        </div>
+    </div>
+</div>

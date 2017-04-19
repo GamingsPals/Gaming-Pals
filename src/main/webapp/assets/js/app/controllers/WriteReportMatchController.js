@@ -1,4 +1,5 @@
-app.controller('WriteReportMatchController', function($scope, SystemMessages, dialog, TournamentService) {
+app.controller('WriteReportMatchController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
+    middleware.needRol("ANY");
     $scope.sendReportMatchForm = function() {
         console.log($scope.reportMatchForm);
         console.log($scope.$parent.$parent.confrontationId);

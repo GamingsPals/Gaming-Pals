@@ -1,6 +1,10 @@
-<form class="search-filter" method="get" action="search">
+<form class="search-filter" method="get" ng-submit="filter(search)">
     <h1>Search Pals</h1>
     <div class="col s6">
+        <label for="username">
+            Name
+        </label>
+        <input type="text" id="username" name="username" ng-model="search.username" placeholder="Name..."/>
     <label for="game">
         Game
     </label>
@@ -43,7 +47,7 @@
     <tbody>
     <tr ng-repeat="item in As.search">
         <td><img width="60" ng-src="{{item.picture}}"/></td>
-        <td>{{item.userAccount.username}}</td>
+        <td><a href="profile/{{item.userAccount.username}}">{{item.userAccount.username}}</a></td>
         <td>
             <span ng-repeat="g in item.gameInfo">
                 <img
@@ -70,26 +74,6 @@
 </table>
 
 <script>
-
-
-    $.fn.dataTable.enum( [ 'BRONZE','SILVER','GOLD','PLATINUM','DIAMOND','MASTER','CHALLENGER' ] );
-
-    $(document).ready( function () {
-
-        loadTable();
-    } );
-
-    function loadTable(){
-        setTimeout(function() {  $('.data-table').DataTable();
-        }, 500);
-        setTimeout(function() {
-            $("select[name='DataTables_Table_0_length']").selectric(
-                {
-                    disableOnMobile: true
-                }
-            );
-        }, 700);
-    }
 
 
 

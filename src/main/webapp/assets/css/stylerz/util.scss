@@ -1,17 +1,17 @@
 .box{
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  box-shadow:0 2px 5px 0 rgba(0,0,0,0.12), 0 2px 10px 0 rgba(0,0,0,0.1);
   transition: 0.4s;
   &:hover{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.12), 0 2px 10px 0 rgba(0,0,0,0.3);
   }
 }
 
 
 .button{
   @extend .box;
-  padding:8px;
-  padding-right:30px;
-  padding-left:30px;
+  position: relative;
+  padding: 8px 30px;
+  font-size:0.82em;
   display: inline-block;
   border:0;
   border-radius:2px;
@@ -21,10 +21,14 @@
   &:hover{
     cursor: pointer;
     color:$color-base-white-2!important;
-    background-color: $color-base-blue-2;
   }
 }
 
+.icon-button{
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
 .grey-button{
   @extend .button;
   background-color: $color-base-white-2;
@@ -61,8 +65,8 @@
 
 
 .label{
-  font-size:0.8em;
-  padding:5px 10px 5px 10px;
+  font-size:0.7em;
+  padding:3px 5px 3px 5px;
   margin-right:4px;
   border-radius:2pt;
 }
@@ -141,4 +145,64 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+
+.clear-both{
+  clear: both;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color:$color-base-black-6;
+  display: block; /* For Firefox */
+}
+
+/* */
+
+div[contenteditable=true] {
+  width: 290px;
+ padding: 5px;
+}
+
+
+.profile-image{
+  background-color: $color-base-white-1;
+  width:30px;
+  height: 30px;
+  border:1px solid $color-base-black-5;
+  margin-right:5px;
+  border-radius:50%;
+  vertical-align: middle;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.align-middle{
+  vertical-align: middle;
+}
+
+.notification-globe{
+  position: absolute;
+  padding: 2px 4px 2px 4px;
+  background-color: $color-base-red-3;
+  color:$color-base-white-2;
+  border-radius: 50%;
+  font-size: 0.7em;
+  top: 10px;
+  right: 10px;
+  @include om(){
+    position: static;
+    display: inline-block;
+  };
+}
+
+.small{
+  font-size:0.75em;
 }

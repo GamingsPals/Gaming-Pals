@@ -1,4 +1,5 @@
-app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService){
+app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
+    middleware.needRol("ANY");
     $scope.LolData=LolApiService;
     $scope.test =" Asdad";
     console.log("adsda");

@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	@Query("select u from User u order by ratingAvg DESC")
+	@Query("select u from User u order by u.ratingAvg DESC")
     List<User> findBestRanked();	
 	
 	@Query("select u from User u where u.userAccount.id=?1")
@@ -37,8 +37,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from Game g join g.gameInfos gi join gi.user u join u.userAccount ua where g.tag = ?1 and ua.username = ?2")
 	public Collection<User> userFromUsernameAndTagGame();
 
-	@Query("select u from User u where u.name=?1")
-    public User findByName(String text);
 	
 	@Query("select u from User u where u.userAccount.username=?1")
     User findByUserAccountUsername(String string);

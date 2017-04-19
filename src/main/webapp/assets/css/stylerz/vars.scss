@@ -1,4 +1,8 @@
 $color-base-blue-1: rgb(115, 175, 201);
+$color-base-blue-12: rgba(115, 175, 201,0.8);
+$color-base-blue-13: rgba(115, 175, 201,0.6);
+$color-base-blue-14: rgba(115, 175, 201,0.4);
+$color-base-blue-15: rgba(115, 175, 201,0.2);
 $color-base-blue-2: rgb(92, 139, 151);;
 $color-base-blue-3: rgba(54,83,93,1);
 $color-base-blue-4: rgb(35, 66, 79);
@@ -21,14 +25,17 @@ $color-base-black-3:rgba(0,0,0,0.78);
 $color-base-black-4:rgba(0,0,0,0.58);
 $color-base-black-5:rgba(0,0,0,0.38);
 $color-base-black-6:rgba(0,0,0,0.18);
-$color-base-black-7:rgba(0,0,0,0.06);
+$color-base-black-7:rgba(0,0,0,0.08);
+$color-base-black-8:rgba(0,0,0,0.04);
 
 $color-base-red-3: rgba(217, 95, 58, 0.84);
 
-$color-base-green-3: rgba(103, 217, 122, 0.84);
-
+$color-base-green-2: rgba(45, 185, 107, 0.64);
+$color-base-green-3: rgba(45, 185, 107, 0.84);
 
 $color-base-magenta-3: rgba(203, 67, 135, 0.78);
+
+$color-base-yellow-3: rgb(242, 251, 51);
 
 $min-width-responsive:0px;
 $max-width-responsive: 1024px;
@@ -38,12 +45,40 @@ $max-width-responsive: 1024px;
   color:$color-base-white-1!important;
 }
 
+.yellow3{
+  color:$color-base-yellow-3;
+}
+
+.bg-black7{
+  background-color: $color-base-black-7;
+  color:$color-base-black-1;
+}
+
 .red3{
  color: $color-base-red-3!important;
 }
 
+.white1{
+  color:$color-base-white-1!important;
+  &:hover{
+    color:$color-base-white-1!important;
+  }
+}
+
+.white3{
+  color:$color-base-white-3!important;
+  &:hover{
+    color:$color-base-white-3!important;
+  }
+}
+
 .bg-red3{
   background-color: $color-base-red-3!important;
+  color:$color-base-white-1!important;
+}
+
+.bg-green2{
+  background-color: $color-base-green-2!important;
   color:$color-base-white-1!important;
 }
 
@@ -59,4 +94,11 @@ $max-width-responsive: 1024px;
 
 .size-1-5{
   font-size:1.5em;
+}
+
+.white{
+  color:$color-base-white-2;
+  &:hover{
+    color:$color-base-white-1;
+  }
 }

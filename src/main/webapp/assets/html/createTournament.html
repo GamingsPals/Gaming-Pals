@@ -1,25 +1,31 @@
-<form name="tournamentform" ng-submit="enviarTournamentForm()">
+<form name="Tournamentform" ng-controller="CreateTournamentController" ng-submit="enviarTournamentForm()">
 
-	<fieldset>
-		<legend>Tournament</legend>
-		<label>Title</label>
-		<input type="text" placeholder="Title" ng-model="tournamentform.title" />
-		
-		<label> Description </label>
-		<input type="text" placeholder="Description" ng-model="tournamentform.description" />
-		
-		<label> Rules </label>
-		<input type="text" placeholder="Rules" ng-model="tournamentform.rules" />
+	<h2>Create a Tournament</h2>
+    <div class="col s6">
+        <label>Title</label>
+        <input type="text" placeholder="Title" name="title" ng-model="tournamentform.title" required />
+
+        <label> Description </label>
+        <input type="text" placeholder="Description" name="description" ng-model="tournamentform.description" />
+
+        <label> Rules </label>
+        <input type="text" placeholder="Rules" name="rules" ng-model="tournamentform.rules" />
+    </div>
+    <div class="col s6">
 		<label>Number of teams </label>
-		<input type="text" placeholder="Number of teams" ng-model="tournamentform.numberTeams" />
+		<select ng-model="tournamentform.numberTeams" name="numberTeams" tabindex="0" required>
+            <option value="">Select value</option>
+            <option value="4" selected>4 teams</option>
+            <option value="8">8 teams</option>
+            <option value="16">16 teams</option>
+            <option value="32">32 teams</option>
+        </select>
 		<label>Picture</label>
-		<input type="text" placeholder="Picture" ng-model="tournamentform.picture" />
-		
-		
-		<label> Inscription limit </label>
-		<input type="text" placeholder="Inscription Limit" ng-model="tournamentform.limitInscription" />
+		<input type="url" placeholder="http://" ng-model="tournamentform.picture" />
 
-	</fieldset>
+		<label> Inscription limit </label>
+		<input type="date" placeholder="Inscription Limit" ng-model="tournamentform.limitInscription" />
+    </div>
 
 	<input type="submit" value="send" />
 

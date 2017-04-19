@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-base-blue-2".
-        on line 12 of tables.scss
+        on line 8 of tables.scss
 
-7:     tr{
-8:       th,td{
-9:         text-align: left;
-10:         text-transform: uppercase;
-11:         padding:15px;
-12:         background-color: $color-base-blue-2;
-13:         color:$color-base-white-1;
-14:       }
-15:     }
-16:   }
-17:   tbody{
+3:     tr{
+4:       th,td{
+5:         text-align: left;
+6:         text-transform: uppercase;
+7:         padding:15px;
+8:         background-color: $color-base-blue-2;
+9:         color:$color-base-white-1;
+10:       }
+11:     }
+12:   }
+13:   tbody{
 
 Backtrace:
-tables.scss:12
+tables.scss:8
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -100,4 +100,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-blue-2\".\A         on line 12 of tables.scss\A \A 7:     tr{\A 8:       th,td{\A 9:         text-align: left;\A 10:         text-transform: uppercase;\A 11:         padding:15px;\A 12:         background-color: $color-base-blue-2;\A 13:         color:$color-base-white-1;\A 14:       }\A 15:     }\A 16:   }\A 17:   tbody{"; }
+  content: "Error: Undefined variable: \"$color-base-blue-2\".\A         on line 8 of tables.scss\A \A 3:     tr{\A 4:       th,td{\A 5:         text-align: left;\A 6:         text-transform: uppercase;\A 7:         padding:15px;\A 8:         background-color: $color-base-blue-2;\A 9:         color:$color-base-white-1;\A 10:       }\A 11:     }\A 12:   }\A 13:   tbody{"; }

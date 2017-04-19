@@ -3,10 +3,7 @@ package domain;
 
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -53,7 +50,6 @@ public class Team extends DomainEntity {
 	private Collection<Tournament>	tournaments;
 
 
-	@NotEmpty
 	@Valid
 	@ManyToMany
 	public Collection<User> getUsers() {

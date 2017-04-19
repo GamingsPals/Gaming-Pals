@@ -1,23 +1,28 @@
 /*
-Error: Undefined variable: "$color-base-blue-42".
-        on line 5 of menu.scss
+Error: Undefined mixin 'om'.
+        on line 6 of menu.scss, in `om'
+        from line 6 of menu.scss
 
 1: .header {
 2:   position: relative;
-3:   z-index: 2;
-4:   padding-left: 10%;
-5:   background-color: $color-base-blue-42;
-6:   transition: all 0.2s ease-out;
-7:   .header-nav {
-8:     display: inline-table;
-9:     width: 80%;
-10:     img {
+3:   padding:5px;
+4:   z-index:2;
+5:   padding-left: 2%;
+6:   @include om(){
+7:     padding-left:10%;
+8:   }
+9:   background-color: $color-base-blue-42;
+10:   font-size:0.95em;
+11:   transition: all 0.2s ease-out;
 
 Backtrace:
-menu.scss:5
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
+menu.scss:6:in `om'
+menu.scss:6
+C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:351:in `block in visit_mixin'
+C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `block in with_mixin'
+C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `with_mixin'
+C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:349:in `visit_mixin'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
@@ -66,4 +71,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-blue-42\".\A         on line 5 of menu.scss\A \A 1: .header {\A 2:   position: relative;\A 3:   z-index: 2;\A 4:   padding-left: 10%;\A 5:   background-color: $color-base-blue-42;\A 6:   transition: all 0.2s ease-out;\A 7:   .header-nav {\A 8:     display: inline-table;\A 9:     width: 80%;\A 10:     img {"; }
+  content: "Error: Undefined mixin 'om'.\A         on line 6 of menu.scss, in `om'\A         from line 6 of menu.scss\A \A 1: .header {\A 2:   position: relative;\A 3:   padding:5px;\A 4:   z-index:2;\A 5:   padding-left: 2%;\A 6:   @include om(){\A 7:     padding-left:10%;\A 8:   }\A 9:   background-color: $color-base-blue-42;\A 10:   font-size:0.95em;\A 11:   transition: all 0.2s ease-out;"; }

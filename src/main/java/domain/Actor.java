@@ -3,12 +3,7 @@ package domain;
 
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -28,29 +23,8 @@ public abstract class Actor extends DomainEntity {
 
 	//Atributes-----------------------------------------------------------------
 
-	private String	name;
-	private String	surname;
 	private String	email;
 	private String	picture;
-
-
-	@NotBlank
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@NotBlank
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
 
 	@NotBlank
 	@Email
@@ -62,8 +36,6 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@URL
-	@NotBlank
 	public String getPicture() {
 		return picture;
 	}
@@ -114,4 +86,12 @@ public abstract class Actor extends DomainEntity {
 		this.received = received;
 	}
 
+    @Override
+    public String toString() {
+        return "Actor{" +
+                "email='" + email + '\'' +
+                ", picture='" + picture + '\'' +
+                ", userAccount=" + userAccount +
+                '}';
+    }
 }

@@ -9,8 +9,8 @@
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="username" value="Admin" />
+		<property name="password" value="8ebd9b78c89f8757a293ac1ef77038d4" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -19,22 +19,24 @@
 			</list>
 		</property>
 	</bean>
-	
+
+
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="moderator1" />
-		<property name="password" value="38caf4a470117125b995f7ce53e6e6b9" />
+		<property name="username" value="Xpeke" />
+		<property name="password" value="85fa79f06e1c1a9c96d0c9144f446d3b" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MODERATOR" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
+
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="user1" />
-		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="username" value="Jimmy" />
+		<property name="password" value="ae1e7bc765b8b0383f2331bcc0824b97" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -46,20 +48,8 @@
 	
 	
 	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="user2" />
-		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="USER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="user3" />
-		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="username" value="Faker" />
+		<property name="password" value="e3cf531a92b440ad8d28a34f073520ed" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -70,43 +60,33 @@
 	</bean>
 
 
+    <bean id="userAccount5" class="security.UserAccount">
+        <property name="username" value="TestUser" />
+        <property name="password" value="098f6bcd4621d373cade4e832627b4f6" />
+        <property name="authorities">
+            <list>
+                <bean class="security.Authority">
+                    <property name="authority" value="USER" />
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- CreditCards -->
-	<bean id="creditCard1" class="domain.CreditCard">
-		<property name="holderName" value="user1" />
-		<property name="brandName" value="Master Card" />
-		<property name="number" value="5751322855058309" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2017" />
-		<property name="cvvCode" value="200" />
+
+	<bean id="language1" class="domain.Language">
+		<property name="language" value="es" />
+		<property name="longName" value="Español" />
 	</bean>
 
-	<bean id="creditCard2" class="domain.CreditCard">
-		<property name="holderName" value="user1" />
-		<property name="brandName" value="Visa" />
-		<property name="number" value="4532908352606142" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2017" />
-		<property name="cvvCode" value="220" />
+	<bean id="language2" class="domain.Language">
+		<property name="language" value="en" />
+		<property name="longName" value="English" />
 	</bean>
-
-	<bean id="creditCard3" class="domain.CreditCard">
-		<property name="holderName" value="user3" />
-		<property name="brandName" value="American Express" />
-		<property name="number" value="349788920645835" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2017" />
-		<property name="cvvCode" value="220" />
-	</bean>
-
-
 
 	<!-- Admins -->
 	<bean id="administrator1" class="domain.Administrator">
-		<property name="name" value="Admin 1" />
-		<property name="surname" value="Surname Admin 1" />
 		<property name="email" value="adminitrator1@mail.com" />
-		<property name="picture" value="http://edsvideolibrary.com/images/avatars/1.png" />
+		<property name="picture" value="http://findicons.com/files/icons/2526/bloggers/256/admin.png" />
 		<property name="userAccount" ref="userAccount1" />
 		<property name="sended">
 			<list>
@@ -121,36 +101,16 @@
 		
 		
 	</bean>
-	
-	<!-- Moderators -->
-	<bean id="moderator1" class="domain.Moderator">
-		<property name="name" value="Mod 1" />
-		<property name="surname" value="Surname Mod 1" />
-		<property name="email" value="mod1@mail.com" />
-		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
-		<property name="userAccount" ref="userAccount2" />
-		<property name="sended">
-			<list>
-				
-			</list>
-		</property>
-		<property name="received">
-			<list>
-				
-			</list>
-		</property>
-		
-	</bean>
+
 
 
 	<!-- Users -->
 	<bean id="user1" class="domain.User">
-		<property name="name" value="User 1" />
-		<property name="surname" value="Surname User 1" />
 		<property name="email" value="user1@mail.com" />
-		<property name="picture" value="http://khojmaster.com/ui/user/realestate/assets/img/no-user.jpg" />
+		<property name="picture" value="http://vignette4.wikia.nocookie.net/jimmyneutron/images/5/57/Jimmy_Neutron.png/revision/latest?cb=20160731160701" />
 		<property name="userAccount" ref="userAccount3" />
 		<property name="age" value="18" />
+		<property name="header" value="http://i.imgur.com/rOWlDyp.jpg" />
 		<property name="languages">
 			<list>
 				<ref bean="language1"/>
@@ -160,11 +120,9 @@
 		<property name="followingUsers">
 			<list>
 				<ref bean="user2"/>
-				<ref bean="user3"/>
 			</list>
 		</property>
 		<property name="verify" value="false" />
-		<property name="creditCard" ref="creditCard1"/>
 		<property name="sended">
 			<list>
 				
@@ -179,10 +137,9 @@
 	</bean>
 	
 	<bean id="user2" class="domain.User">
-		<property name="name" value="User 2" />
-		<property name="surname" value="Surname User 2" />
 		<property name="email" value="user2@mail.com" />
-		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
+		<property name="header" value="https://pbs.twimg.com/media/BfAz30LCIAAEfE5.jpg" />
+        <property name="picture" value="https://riot-web-static.s3.amazonaws.com/lolesports/2015Top20/01/player-plasdidfnxlcs.png" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="age" value="18" />
 		<property name="languages">
@@ -197,7 +154,6 @@
             </list>
         </property>
 		<property name="verify" value="true" />
-		<property name="creditCard" ref="creditCard2"/>
 		<property name="sended">
 			<list>
 				
@@ -210,70 +166,75 @@
 		</property>
 		
 	</bean>
-	
+
+
 	<bean id="user3" class="domain.User">
-		<property name="name" value="User 3" />
-		<property name="surname" value="Surname User 3" />
 		<property name="email" value="user3@mail.com" />
-		<property name="picture" value="http://hamed3d.persiangig.com/image/admin_icon.jpg" />
-		<property name="userAccount" ref="userAccount5" />
-		<property name="age" value="18" />
+		<property name="header" value="http://www.ozonegaming.com/uploads/WALLPAPERS/Origen/OzoneXpeke/ozoneXpeke_1920x1080.jpg" />
+        <property name="picture" value="https://lolstatic-a.akamaihd.net/esports-assets/production/player/xpeke-8f3dmcvw.png"/>
+		<property name="userAccount" ref="userAccount2" />
+		<property name="age" value="24" />
 		<property name="languages">
 			<list>
 				<ref bean="language1"/>
 				<ref bean="language2"/>
 			</list>
 		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user2"/>
+				<ref bean="user1"/>
+			</list>
+		</property>
 		<property name="verify" value="true" />
-		<property name="creditCard" ref="creditCard3"/>
 		<property name="sended">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="received">
 			<list>
-				
+
 			</list>
 		</property>
+
 	</bean>
 
-	<!-- Messsages -->
-	<bean id="message1" class="domain.Message">
-		<property name="title" value="title 1" />
-		<property name="text" value="text 1" />
-		<property name="moment" value="01/01/2017 10:20" />
-		<property name="toxic" value="false" />
-		<property name="sender" ref="user1"/>
-		<property name="receiver" ref="user2"/>	
-	</bean>
-	
-	<bean id="message2" class="domain.Message">
-		<property name="title" value="title 2" />
-		<property name="text" value="text 2" />
-		<property name="moment" value="02/02/2016 10:20" />
-		<property name="toxic" value="false" />
-		<property name="sender" ref="user1"/>
-		<property name="receiver" ref="user2"/>	
-	</bean>
-	
-	<bean id="message3" class="domain.Message">
-		<property name="title" value="title 3" />
-		<property name="text" value="text 3" />
-		<property name="moment" value="03/03/2017 10:20" />
-		<property name="toxic" value="false" />
-		<property name="sender" ref="user2"/>
-		<property name="receiver" ref="user1"/>	
-	</bean>
-	
-	
+    <bean id="user4" class="domain.User">
+        <property name="email" value="test3@mail.com" />
+        <property name="picture" value="assets/images/avatars/default.png" />
+        <property name="header" value="assets/images/wallpapers/default.jpg" />
+        <property name="userAccount" ref="userAccount5" />
+        <property name="age" value="18" />
+        <property name="languages">
+            <list>
+                <ref bean="language1"/>
+            </list>
+        </property>
+        <property name="followingUsers">
+            <list>
+            </list>
+        </property>
+        <property name="verify" value="true" />
+        <property name="sended">
+            <list>
+
+            </list>
+        </property>
+        <property name="received">
+            <list>
+
+            </list>
+        </property>
+
+    </bean>
+
 	<!-- Teams -->
 	<bean id="team1" class="domain.Team">
-		<property name="name" value="Team1" />
-		<property name="picture" value="http://vignette4.wikia.nocookie.net/leagueoflegends/images/0/04/Demacia_Crest.png/revision/latest?cb=20161117052357" />
+		<property name="name" value="Skt Gaming " />
+		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/0/04/SK_Telecom_T1_logo.png" />
 		<property name="users">
 			<list>
-				<ref bean="user1"/>
 				<ref bean="user2"/>
 				
 			</list>
@@ -286,11 +247,12 @@
 	</bean>
 	
 	<bean id="team2" class="domain.Team">
-		<property name="name" value="Team2" />
-		<property name="picture" value="http://www.foto.com/a.jpg" />
+		<property name="name" value="Fnatic" />
+		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/f/f0/Fnatic_logo.png" />
 		<property name="users">
 			<list>
 				<ref bean="user3"/>
+				<ref bean="user1"/>
 			</list>
 		</property>
 		<property name="tournaments">
@@ -304,12 +266,12 @@
 	<!-- Tournaments -->
 	<bean id="tournament1" class="domain.Tournament">
 		<property name="momentCreate" value="30/03/2017 10:20" />
-		<property name="title" value="Tournament 1"/>
-		<property name="description" value="Description 1"/>
+		<property name="title" value="Spring Tournament"/>
+		<property name="description" value="Face the best and win!"/>
 		<property name="numberTeams" value="4"/>
 		<property name="limitInscription" value="15/06/2017 10:20"/>
-		<property name="rules" value="No se puede insultar" />
-		<property name="picture" value="https://previews.123rf.com/images/lhfgraphics/lhfgraphics1208/lhfgraphics120800159/14707386-Fire-flammable-or-camping-icon-on-round-red-and-brown-imperial-vector-button-with-star-accents-suita-Stock-Vector.jpg" />
+		<property name="rules" value="You can't flame others" />
+		<property name="picture" value="https://upload.wikimedia.org/wikipedia/en/6/62/League_of_Legends_Champion_Series_Logo.jpg.png" />
 		<property name="awards">
 			<list>
 				<ref bean="award1"/>
@@ -330,14 +292,14 @@
 		</property>
 	</bean>
 
-	<!-- Confrontations -->
+	<!-- Matchs -->
 	<bean id="confrontation1" class="domain.Confrontation">
 		<property name="round" value="1"/>
 		<property name="numberMatch" value="1"/>
 		<property name="limitPlay" value="16/06/2017 10:20"/>
 		<property name="reportMatches">
 			<list>
-                <ref bean="reportMatch1"/>
+
 			</list>
 		</property>
 		<property name="participes">
@@ -398,7 +360,7 @@
 	<!-- Awards -->
 	<bean id="award1" class="domain.Award">
 		<property name="image" value="http://ya-ho.ru/wp-content/uploads/2013/10/poppy_2.jpg"/>
-		<property name="description" value="Maravillosa skin de Poppy" />
+		<property name="description" value="Awesome Poppy Skin" />
 		<property name="tournament" ref="tournament1" />
 	</bean>
 
@@ -406,7 +368,7 @@
 	<bean id="reportMatch1" class="domain.ReportMatch">
 		<property name="image" value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
         <property name="result" value="Losser"/>
-        <property name="description" value="He perdido pero bien"></property>
+        <property name="description" value="He perdido pero bien"/>
         <property name="confrontation" ref="confrontation1"/>
         <property name="team" ref="team2"/>
 	</bean>
@@ -423,7 +385,7 @@
 		<property name="comment" value="Me llamó cosas malas"/>
 		<property name="picture" value="http://www.esportsheaven.com/app/webroot/media/8OdUJBQ.jpg"/>
 		<property name="reportedUser" ref="user1"/>
-		<property name="reporterUser" ref="user3"/>
+		<property name="reporterUser" ref="user2"/>
 	</bean>
 	
 	<!-- Ratings -->
@@ -441,7 +403,7 @@
 		<property name="knowledge" value="3" />
 		<property name="attitude" value="4" />
 		<property name="comment" value="Mal jugador" />
-		<property name="ratingUser" ref="user3" />
+		<property name="ratingUser" ref="user2" />
 		<property name="ratedUser" ref="user2" />
 	</bean>
 
@@ -460,32 +422,10 @@
         <property name="knowledge" value="4" />
         <property name="attitude" value="3" />
         <property name="comment" value="Es muy simpático aunque a veces se cabrea bastante" />
-        <property name="ratingUser" ref="user3" />
+        <property name="ratingUser" ref="user2" />
         <property name="ratedUser" ref="user1" />
     </bean>
-	
-	<!-- Languages -->
-	<bean id="language1" class="domain.Language">
-		<property name="language" value="es" />
-		<property name="users">
-			<list>
-				<ref bean="user1"/>	
-				<ref bean="user2"/>
-				<ref bean="user3"/>			
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="language2" class="domain.Language">
-		<property name="language" value="en" />
-		<property name="users">
-			<list>
-				<ref bean="user1"/>
-				<ref bean="user2"/>
-				<ref bean="user3"/>			
-			</list>
-		</property>
-	</bean>
+
 	<!-- Games -->
 
     <bean id="game1" class="domain.Game">
@@ -496,41 +436,32 @@
 	<!-- Summoners-->
 
 	<bean id="summoner2" class="domain.Summoner">
-		<property name="user" ref="user2"/>
-		<property name="username" value="pepe" />
+		<property name="user" ref="user1"/>
+		<property name="username" value="Jimmy" />
 		<property name="game" ref="game1"/>
 	</bean>
 
 	<bean id="summoner3" class="domain.Summoner">
-		<property name="user" ref="user3"/>
-		<property name="username" value="juan" />
+		<property name="user" ref="user2"/>
+		<property name="username" value="HideInBush" />
 		<property name="game" ref="game1"/>
 	</bean>
 
 
 
 	<bean id="league2" class="domain.League">
-		<property name="tier" value="SILVER" />
-		<property name="summoner" ref="summoner2"/>
+		<property name="tier" value="CHALLENGER" />
+		<property name="summoner" ref="summoner3"/>
 	</bean>
 
 	<bean id="league3" class="domain.League">
-		<property name="tier" value="GOLD" />
-		<property name="summoner" ref="summoner3"/>
+		<property name="tier" value="BRONZE" />
+		<property name="summoner" ref="summoner2"/>
 	</bean>
-	
-	<!-- Toxic -->
-	<bean id="toxic" class="domain.Toxic">
-		<property name="keywords">
-			<list>
-				<value>viagra</value>
-				<value>cialis</value>
-				<value>sex</value>
-				<value>love</value>
-				<value>bitch</value>
-				<value>fuck</value>
-			</list>
-		</property>
+
+	<bean id="configuration" class="domain.Configuration">
+		<property name="defaultHeader" value="assets/images/wallpapers/default.jpg"/>
+		<property name="defaultAvatar" value="assets/images/avatars/default.png" />
 	</bean>
 	
 </beans>

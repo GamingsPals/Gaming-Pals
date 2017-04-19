@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import domain.notifications.FollowNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import services.notifications.FollowNotificationService;
 
 @Service
 @Transactional
@@ -38,7 +40,13 @@ public class UserService {
 	private UserRepository	userRepository;
 
 	@Autowired
+    private ConfigurationService configurationService;
+
+	@Autowired
 	private Validator		validator;
+
+	@Autowired
+    FollowNotificationService followNotificationService;
 
 
 	public UserService() {
@@ -55,7 +63,6 @@ public class UserService {
 
 		User res = new User();
 		res.setVerify(false);
-
 		res.setTeams(new ArrayList<Team>());
 		res.setRatingsReceived(new ArrayList<Rating>());
 		res.setRatingsDone(new ArrayList<Rating>());
@@ -95,16 +102,15 @@ public class UserService {
 		userAccount = user.getUserAccount();
 		userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
 		user.setUserAccount(userAccount);
-
+		if(user.getPicture()==null){
+            user.setPicture(configurationService.getConfiguration().getDefaultAvatar());
+		}
+        if(user.getHeader()==null){
+		    user.setHeader(configurationService.getConfiguration().getDefaultHeader());
+        }
 		return save(user);
 	}
 
-	public User findByName(String string) {
-		User u = userRepository.findByName(string);
-		Assert.notNull(u);
-
-		return u;
-	}
 
 	public User edit(User user) {
 
@@ -195,7 +201,13 @@ public class UserService {
 
 		Assert.isTrue(following.contains(user));
 		Assert.isTrue(followers.contains(actor));
-
+        if(!followNotificationService.isNotification(actor,user)) {
+            FollowNotification followNotification = new FollowNotification();
+            followNotification.setFollower(actor);
+            followNotification.setFollowing(user);
+            followNotification.setActor(user);
+            followNotificationService.save(followNotification);
+        }
 	}
 
 	public void unfollowUser(User user) {

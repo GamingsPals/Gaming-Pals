@@ -1,10 +1,16 @@
 .header {
   position: relative;
-  z-index: 2;
-  padding-left: 10%;
+  padding:5px;
+  z-index:2;
+  padding-left: 2%;
+  @include om(){
+    padding-left:10%;
+  }
   background-color: $color-base-blue-42;
+  font-size:0.95em;
   transition: all 0.2s ease-out;
   .header-nav {
+    vertical-align: middle;
     @extend .col, .s3;
     img {
       vertical-align: middle;
@@ -31,6 +37,7 @@ a {
 .nav-menu {
   ul {
     height: 100%;
+    overflow-y: scroll;
     margin: 0;
     z-index: 9999;
     padding: 0;
@@ -49,20 +56,34 @@ a {
     color: $color-base-white-3;
     font-size: 1.3em;
     transition: all 0.5s ease-out;
-    li a {
-      display: list-item !important;
-      padding: 10px;
-      color: $color-base-blue-3;
-      border-bottom: 0 solid transparent;
-      transition: 0.2s all ease-out;
-      margin-right: 2%;
-      &:hover {
-        color: $color-base-white-1;
-        background-color: $color-base-black-5;
-        border-radius: 5px;
-        border: 0;
+    li {
+      a {
+        display: list-item !important;
+        padding: 10px;
+        color: $color-base-blue-3;
+        border-bottom: 0 solid transparent;
+        transition: 0.2s all ease-out;
+        margin-right: 2%;
+        &:hover {
+          color: $color-base-white-1;
+          background-color: $color-base-black-5;
+          border-radius: 5px;
+          border: 0;
+        }
       }
-
+      ul{
+        position: static;
+        transform: none;
+        font-size: 0.8em;
+        margin-left:50px;
+        z-index: inherit;
+        padding: 0;
+        background-color: $color-base-black-7;
+        transition: 0.3s all ease-out;
+        li{
+          list-style: none;
+        }
+      }
     }
     @include om() {
       width: 70%;
@@ -101,14 +122,18 @@ a {
 
 .nav-horizontal {
   @extend .col, .s9;
+  vertical-align: middle;
   text-transform: uppercase;
   @extend .op;
   font-size: 0.8em;
+  @include  omed(){
+    font-size:0.7em;
+  }
   ul {
+    width: 100%;
     display: inline-table;
     margin: 0;
-    width: 50%;
-    margin-left: 5%;
+    margin-left:10px;
     padding: 0;
     li {
       position: relative;
@@ -133,35 +158,43 @@ a {
       }
       &:hover > ul {
         display: block;
+        width:300px;
+        height: auto;
       }
       ul{
         position: absolute;
         display: none;
-        top:15px;
-        left:0;
+        top:45px;
+        width:0;
+        height: 0;
+        transition: 1s all ease-out;
+        right:-150px;
         margin:0;
         padding:0;
-        background-color:$color-base-blue-42;
-        color:$color-base-white-1;
         li{
-          padding:15px;
           display: list-item;
           list-style: none;
+          background-color: $color-base-black-3;
+          a{
+            &:hover {
+              background-color: $color-base-black-3;
+            }
+          }
+          &:hover {
+            background-color: $color-base-black-3;
+          }
         }
       }
     }
   }
   .nav-horizontal-login {
-    width: 30%;
+    @extend .s4;
   }
 }
 
 
 
 .fixed-menu {
-  @media only screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-    padding-left: 3% !important;
-  }
   position: fixed;
   left: 0;
   width: 100%;

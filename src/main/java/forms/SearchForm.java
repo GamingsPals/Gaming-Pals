@@ -5,6 +5,7 @@ public class SearchForm {
 
     private String game;
     private String tier;
+    private String username;
 
     public String getGame() {
         return game;
@@ -22,11 +23,11 @@ public class SearchForm {
         this.tier = tier;
     }
 
-    @Override
-    public String toString() {
-        return "SearchForm{" +
-                "game='" + game + '\'' +
-                ", tier='" + tier + '\'' +
-                '}';
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -3,11 +3,15 @@ app.directive("item",function(LoLStaticData){
     return {
         restrict: "AEC",
         scope:{
-            itemid: "="
+            itemid: "=",
+            itemwidth: "="
         },
         link: function(scope,element,attrs){
             scope.$watch(function(d,v){
-                $(element).html(`<img src="${LoLStaticData.getItemIcon(scope.itemid)}" width="40" />`);
+                let width = (typeof scope.itemwidth !== "undefined") ? scope.itemwidth : "40";
+                if (scope.itemid!=0){
+                $(element).html(`<img src="${LoLStaticData.getItemIcon(scope.itemid)}" width="${width}" />`);
+                }
             })
         }
     }

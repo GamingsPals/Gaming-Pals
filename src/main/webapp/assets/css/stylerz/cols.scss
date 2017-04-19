@@ -1,5 +1,6 @@
 .col{
   display:inline-table;
+  vertical-align: top;
 }
 .s1{
   width:8%;
@@ -11,7 +12,7 @@
   width:24%;
 }
 .s4{
-  width:33%;
+  width:32%;
 }
 .s5{
   width:41%;
@@ -23,7 +24,7 @@
   width:58%;
 }
 .s8{
-  width:66%;
+  width:65%;
 }
 .s9{
   width:74%;
@@ -42,5 +43,29 @@
 .s9,.s10,.s11,.s12{
   @include om(){
       width:100%!important;
+  }
+}
+
+.x1{
+  @include om() {
+    width: 23.9%!important;
+  }
+}
+
+.x2{
+  @include om() {
+    width: 48.9%!important;
+  }
+}
+
+.x3{
+  @include om() {
+    width: 73.9%!important;
+  }
+}
+
+.x4{
+  @include om() {
+    width: 98%!important;
   }
 }

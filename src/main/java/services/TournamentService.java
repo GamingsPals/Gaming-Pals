@@ -95,6 +95,7 @@ public class TournamentService {
 	}
 
 	public void assign(Team team, Tournament t) {
+		Assert.isTrue(t.getTeams().size() < t.getNumberTeams());
 		t.getTeams().add(team);
 		team.getTournaments().add(t);
 		Participes p = participesService.create();

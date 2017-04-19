@@ -2,21 +2,42 @@
 app.service("auth", function(xhr){
 
     this.principal = {};
+    this.listeners = [];
+
     this.load = function(callback,force){
         let object = this;
         if (Object.keys(object.principal).length==0 || force==true) {
             xhr.get("api/isauthenticated", function (data) {
                 object.principal = data.data;
-                callback();
+                object.callListeners(data.data);
+                if(typeof  callback!=="undefined"){
+                    callback();
+                }
             })
         }else{
             callback();
+            this.callListeners(this.principal);
         }
+    };
+
+    this.callListeners = function(data){
+        this.listeners.forEach((a)=>{
+            if(typeof a==="function"){
+                a(data);
+            }
+        })
+    };
+
+    this.addListener = function(callback){
+        this.listeners.push(callback);
     };
 
     this.isPrincipal = function(actor){
         if (typeof actor === "undefined" || !this.isLoaded() || !this.isAuthenticated()) return false;
-        return this.principal.actor.id == actor.id;
+        let result = this.principal.actor.id == actor.id;
+        console.log(actor,this.principal.actor);
+
+        return result;
     };
 
     this.isPrincipalFollowing = function(actor){
@@ -32,6 +53,7 @@ app.service("auth", function(xhr){
 
     this.isAuthenticated = function(){
         if (!this.isLoaded()) return false;
+
         return this.principal.authenticated;
     };
 

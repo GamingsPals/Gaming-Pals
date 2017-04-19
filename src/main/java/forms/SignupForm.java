@@ -5,38 +5,23 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import domain.Language;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import java.util.List;
+
 public class SignupForm {
 
-	private String	name;
-	private String	surname;
+	private String username;
 	private String	email;
 	private String	picture;
-	private String	username;
 	private String	password;
-	private String	repeatpassword;
 	private Integer	age;
+	private String languages;
+	private String header;
 
 
-	@NotBlank
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@NotBlank
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
 
 	@NotBlank
 	public String getEmail() {
@@ -77,16 +62,6 @@ public class SignupForm {
 		this.password = password;
 	}
 
-	@NotBlank
-	@Min(5)
-	@Max(32)
-	public String getRepeatpassword() {
-		return repeatpassword;
-	}
-
-	public void setRepeatpassword(String repeatpassword) {
-		this.repeatpassword = repeatpassword;
-	}
 
 	@NotNull
 	public Integer getAge() {
@@ -97,4 +72,20 @@ public class SignupForm {
 		this.age = age;
 	}
 
+    public String getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
+    }
+
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
 }

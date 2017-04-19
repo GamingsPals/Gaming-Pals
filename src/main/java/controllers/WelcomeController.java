@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class WelcomeController {
 
@@ -32,9 +34,8 @@ public class WelcomeController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping("/**")
-	public ModelAndView index() {
+	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView result;
-
 		result = new ModelAndView("master.page");
 
 		return result;

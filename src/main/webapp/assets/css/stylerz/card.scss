@@ -1,6 +1,6 @@
 .card{
   border-radius:4pt;
-  @extend .s3,.box, .col;
+  @extend .s3, .col, .box;
   h1,h2{
     border:0;
     font-size:1.1em;
@@ -11,12 +11,28 @@
     @extend .s4, .col;
     img{
       vertical-align: text-top;
-      height:70px;
+      max-height: 70px;
+      max-width:70px;
     }
   }
   .card-buttons{
     @extend .s7, .col;
+    a.button{
+      margin-right:8px;
+      margin-top:5px;
+    }
   }
+  a{
+    color: $color-base-black-2;
+    &:visited{
+      color: $color-base-black-2;
+    }
+  }
+  a.button{
+    @extend .white1;
+  }
+
+
 }
 
 .card-small{
@@ -29,11 +45,9 @@
 
 .card-rating{
   padding:5px;
-  @extend .box;
-  margin-right:5px;
-  background-color: $color-base-white-1;
+  margin-right:15px;
+  background-color: $color-base-black-7;
   opacity:1;
-  border:1px solid $color-base-black-6;
   border-radius:4pt;
   img{
     width:60px;
@@ -43,5 +57,70 @@
   .card-rating-text{
     margin-top:5px;
     margin-bottom:5px;
+  }
+}
+
+.blockcard{
+  margin:0;
+  font-size:0.7em;
+  color:$color-base-black-4;
+  margin-bottom:40px;
+  margin-right:10px;
+  border-radius:4pt;
+  padding:0;
+  @extend .s4, .col, .box;
+  .card-header{
+    background-color: $color-base-black-1;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 42%;
+    .card-header-right{
+      z-index:2;
+      padding:5px;
+      position: absolute;
+      top:5px;
+      right:8px;
+    }
+    .card-header-header{
+      width:100%;
+      top:0;
+      right:0;
+      position: absolute;
+    }
+    .card-header-avatar{
+      width: 80px;
+      height: 80px;
+      z-index: 1;
+      position: absolute;
+      transform: translateX(25%);
+      background-color: white;
+      bottom: 0;
+      border: 1px solid $color-base-black-6;
+      border-bottom: 0;
+      opacity: 1;
+    }
+    .card-header-left{
+      z-index:2;
+      background-color: $color-base-black-4;
+      padding:5px;
+      position: absolute;
+      top:5px;
+      right:8px;
+    }
+  }
+  .card-body{
+    background-color: $color-base-white-1;
+    padding:10px;
+    h1{
+      text-transform: none;
+      font-family: Roboto-Regular, sans-serif;
+      color:$color-base-black-1;
+      font-size:1.2em;
+    }
+  }
+  .card-footer{
+    border-top:1px solid $color-base-black-7;
+    background-color: $color-base-black-8;
+    padding:15px;
   }
 }

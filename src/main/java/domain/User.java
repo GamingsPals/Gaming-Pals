@@ -14,21 +14,24 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 
+import domain.notifications.TeamInvitationNotification;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.URL;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
+
 public class User extends Actor {
 
 	// Attributes
 	private int			age;
 	private boolean		verify;
 	private CreditCard	creditCard;
-
+	private String header;
 
 	// Constructor
 	public User() {
@@ -50,7 +53,7 @@ public class User extends Actor {
 	}
 
 	@Valid
-	@OneToOne(optional = true)
+	@OneToOne()
 	@JsonIgnore
 	public CreditCard getCreditCard() {
 		return creditCard;
@@ -75,6 +78,7 @@ public class User extends Actor {
 	private Double					skillAvg;
 	private Collection<Report>		reportsDone;
 	private Collection<Report>		reportsReceived;
+	private Collection<TeamInvitationNotification> teamInvitationNotifications;
 
 
 	@Valid
@@ -174,7 +178,6 @@ public class User extends Actor {
 	@Override
 	@PreUpdate
 	protected void onUpdate() {
-		Double avgRating = 0.;
 		Double avgSkill = 0.;
 		Double avgKnowledge = 0.;
 		Double avgAttitude = 0.;
@@ -234,4 +237,21 @@ public class User extends Actor {
 		this.skillAvg = skillAvg;
 	}
 
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	public Collection<TeamInvitationNotification> getTeamInvitationNotifications() {
+		return teamInvitationNotifications;
+	}
+
+	public void setTeamInvitationNotifications(Collection<TeamInvitationNotification> teamInvitationNotifications) {
+		this.teamInvitationNotifications = teamInvitationNotifications;
+	}
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
 }

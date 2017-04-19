@@ -30,7 +30,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/GamingPals" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gamingpals" />
 		<property name="user" value="user" />
 		<property name="password" value="user" />
 	</bean>
@@ -42,7 +42,7 @@
 	</bean>
 
 	<bean id="sqlDialect" class="java.lang.String">
-		<constructor-arg value="org.hibernate.dialect.MySQLDialect" />
+		<constructor-arg value="org.hibernate.dialect.MySQL5Dialect" />
 	</bean>
 
 	<util:properties id="jpaProperties">
@@ -50,6 +50,7 @@
 		<prop key="hibernate.show_sql">false</prop>
 		<!-- <prop key="hibernate.hbm2ddl.auto">verify</prop> -->
 		<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+
 	</util:properties>
 
 </beans>

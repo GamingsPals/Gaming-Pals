@@ -1,4 +1,5 @@
-app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog, auth) {
+app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog, auth,middleware) {
+    middleware.needRol("ANY");
 	$scope.As = TournamentService;
 	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
 

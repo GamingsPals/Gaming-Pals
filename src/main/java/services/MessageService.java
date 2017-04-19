@@ -1,20 +1,19 @@
 
 package services;
 
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
+import domain.Actor;
+import domain.notifications.MessageNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import security.LoginService;
 import domain.Message;
-import forms.MessageForm;
+import services.notifications.MessageNotificationService;
 
 @Service
 @Transactional
@@ -27,7 +26,7 @@ public class MessageService {
 	private ActorService		actorService;
 
 	@Autowired
-	private Validator			validator;
+	MessageNotificationService messageNotificationService;
 
 
 	public MessageService() {
@@ -41,6 +40,21 @@ public class MessageService {
 		res.setSender(this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername()));
 		return res;
 	}
+
+	public List<Message> messagesByReceiverAndSender(Actor receiver, Actor sender){
+		Assert.notNull(sender);
+		Assert.notNull(receiver);
+		List<Message> aux = new ArrayList<>(sender.getSended());
+		aux.addAll(sender.getReceived());
+		List<Message> result = new ArrayList<>();
+		for(Message e: aux){
+		    if ((e.getReceiver()== receiver && e.getSender() == sender) ||
+                    (e.getSender() == receiver && e.getReceiver() == sender)){
+		        result.add(e);
+            }
+        }
+		return result;
+	}
 	
 	public Collection<Message> findAll() {
 		return this.messageRepository.findAll();
@@ -52,49 +66,43 @@ public class MessageService {
 
 	public Message save(final Message message) {
 		Assert.notNull(message);
-		this.actorService.checkIsLogged();
+
 		return this.messageRepository.save(message);
 	}
 	public void delete(final Message message) {
 		this.messageRepository.delete(message);
 	}
 
-
-	public Message reconstruct(final MessageForm messageForm, final BindingResult binding) {
-		final Message message = this.create();
-		message.setReceiver(messageForm.getReceiver());
-		message.setText(messageForm.getText());
-		message.setTitle(messageForm.getTitle());
-		this.validator.validate(message, binding);
-		return message;
+	public Collection<Actor> messagesByUsers(){
+		Actor actor = actorService.findActorByPrincipal();
+        Assert.notNull(actor);
+        Set<Actor> sended = messageRepository.messagesReceived(actor);
+        Set<Actor> received = messageRepository.messagesSended(actor);
+        Set<Actor> result = new HashSet<>();
+        result.addAll(sended);
+        result.addAll(received);
+        return result;
 	}
 
-	public void deleteMessage(final int messageId) {
-		final Message message = this.findOne(messageId);
-		//Assert.isTrue(message.getReceiver().getUserAccount().getUsername().equals(LoginService.getPrincipal().getUsername()) || message.getSender().getUserAccount().getUsername().equals(LoginService.getPrincipal().getUsername()));
 
-		//		if (message.getSender().getId() == this.actorService.getLoggedActor().getId())
-		//			message.setSender(null);
-		//		if (message.getSender() == null && message.getReceiver() == null)
-		//			this.delete(message);
-		//		else
-		//			message = this.save(message);
-		//
-		//		if (message.getReceiver() == null || message.getReceiver().getId() == this.actorService.getLoggedActor().getId())
-		//			message.setReceiver(null);
-		//		if (message.getReceiver() == null && message.getSender() == null)
-		//			this.delete(message);
-		//		else
-		//			message = this.save(message);
+    public void createFromForm(forms.MessageForms.MessageForm message, Actor sender, Actor receiver) {
+		Message newMessage = new Message();
+		newMessage.setReceiver(receiver);
+		newMessage.setSender(sender);
+		newMessage.setText(message.getMessage());
+		newMessage = save(newMessage);
+		createNotification(message,sender,receiver,newMessage);
+    }
 
-		if (message.getReceiver() != null && message.getReceiver().getId() == this.actorService.getLoggedActor().getId())
-			message.setReceiver(null);
-		if (message.getSender() != null && message.getSender().getId() == this.actorService.getLoggedActor().getId())
-			message.setSender(null);
-
-		if (message.getReceiver() == null)
-			if (message.getSender() == null)
-				this.delete(message);
-
+    private void createNotification(forms.MessageForms.MessageForm message, Actor sender, Actor receiver, Message newMessage){
+		if(message.isNotification()){
+		    MessageNotification persistedMnotification = messageNotificationService.isNotification(receiver,sender);
+			MessageNotification notification = (persistedMnotification !=null) ? persistedMnotification : new MessageNotification();
+			notification.setReceiver(receiver);
+			notification.setSender(sender);
+			notification.setActor(receiver);
+			notification.setNumMessages(notification.getNumMessages()+1);
+			MessageNotification messageNotification = messageNotificationService.save(notification);
+		}
 	}
 }

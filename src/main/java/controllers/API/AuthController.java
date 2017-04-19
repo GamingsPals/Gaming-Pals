@@ -23,7 +23,6 @@ public class AuthController extends ApiAbstractController {
     @RequestMapping(value = "/isauthenticated")
     public Object auth(HttpServletRequest request, HttpServletResponse response) {
      Map<String, Object> result = new HashMap<>();
-
         try{
             Actor actor = actorService.findActorByPrincipal();
             result.put("roles",actor.getUserAccount().getAuthorities());

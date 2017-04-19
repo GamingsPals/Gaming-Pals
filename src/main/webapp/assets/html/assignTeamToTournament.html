@@ -1,0 +1,21 @@
+<div ng-controller="AssignTeamToTournamentController">
+<form name="AssignForm" ng-submit="assignTeamToTournament()">
+    <label>
+        Select a Team
+    </label>
+    <select ng-model="assignForm.team" tabindex="0" ng-change="setTeamSelected()">
+        <option value="">Select a team</option>
+        <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
+    </select>
+
+    <div>Your a going to asing your selected team to <b>{{tournament.title}}</b></div>
+
+    <div class="card " team-card="teamselected" ng-show="teamselected">
+    </div>
+    <div style="margin:15px;">
+
+    <input type="submit" value="Assign" />
+
+    </div>
+</form>
+</div>

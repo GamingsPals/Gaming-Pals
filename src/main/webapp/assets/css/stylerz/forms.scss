@@ -18,7 +18,14 @@ input{
 select{
   max-width:100%;
 }
-
+.plainform{
+  margin:0;
+  padding:0;
+  background-color: transparent;
+  border:0;
+  display: inline-block;
+  vertical-align: middle;
+}
 textarea{
   min-width:80%;
   padding:15px;
@@ -59,4 +66,59 @@ form{
   padding:10px;
   margin:20px;
   background-color: $color-base-black-7;
+}
+
+.form-error{
+  color:$color-base-red-3;
+  font-size:0.6em;
+  padding:4px;
+  border-radius:4pt;
+  background-color: $color-base-black-7;
+}
+
+.autocomplete{
+  display: inline-block;
+  position: relative;
+  input{
+    width:100%;
+    margin:0;
+  }
+  .autocomplete-results{
+    max-height: 200px;
+    z-index: 1000;
+    overflow-y: auto;
+    border:1px solid $color-base-black-5;
+    border-top:0;
+    background-color: $color-base-white-1;
+    position: absolute;
+    top:38px;
+    left:0;
+    width:100%;
+    margin:0;
+    padding:0;
+    li{
+      font-size:0.6em;
+      list-style: none;
+      a{
+        display: block;
+        padding-left:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+        &:hover,&:focus{
+          @extend .list-hover;
+        }
+      }
+    }
+  }
+}
+
+button{
+  outline: 0;
+  &:active,:focus{
+    outline: 0;
+  }
+}
+.list-hover{
+    background-color: $color-base-black-7;
+    outline: 0;
 }

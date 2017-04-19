@@ -1,0 +1,104 @@
+<table style="font-size:0.7em;">
+    <thead>
+    <tr>
+        <th>Red Team ({{(m.match.teams[0].winner) ? 'Victory' : 'Defeat'}})</th>
+        <th>Items</th>
+        <th>KDA</th>
+        <th>Damage</th>
+        <th>Wards</th>
+        <th>CS</th>
+        <th>Gold</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="p in m.match.participants" ng-if="p.teamId==100">
+            <td>
+                <span ng-init="sum = m.match.participantIdentities[p.participantId-1]"></span>
+                <span ng-init="prueba = 'prueba'"></span>
+                <img class="champion-portrait-small" ng-src="{{lolsd.getChampionIcon(lolsd.findChampionById(p.championId).id)}}" />
+                {{sum.player.summonerName}}
+            </td>
+            <td>
+                <div>
+                    <item itemid="p.stats.item0" itemwidth="25"></item>
+                    <item itemid="p.stats.item1" itemwidth="25"></item>
+                    <item itemid="p.stats.item2" itemwidth="25"></item>
+                </div>
+                <div>
+                    <item itemid="p.stats.item3" itemwidth="25"></item>
+                    <item itemid="p.stats.item4" itemwidth="25"></item>
+                    <item itemid="p.stats.item5" itemwidth="25"></item>
+                </div>
+            </td>
+            <td>
+                <div> <b>{{Math.round((p.stats.kills+p.stats.assits)/p.stats.deaths)*100/100}}:1</b></div>
+                {{p.stats.kills}}/{{p.stats.deaths}}/{{p.stats.assists}}
+            </td>
+            <td>
+                {{formatGold(p.stats.totalDamageDealtToChampions)}}
+            </td>
+            <td>
+                <div>{{p.stats.wardsPlaced}} placed</div>
+                <div class="red3">{{p.stats.wardsKilled}} killed</div>
+            </td>
+            <td>
+                {{p.minionsKilled}}
+            </td>
+            <td>
+                {{formatGold(p.stats.goldEarned)}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table style="font-size:0.7em;" class="col s6">
+    <thead>
+    <tr>
+        <th>Blue Team ({{(m.match.teams[1].winner) ? 'Victory' : 'Defeat'}})</th>
+        <th>Items</th>
+        <th>KDA</th>
+        <th>Damage</th>
+        <th>Wards</th>
+        <th>CS</th>
+        <th>Gold</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in m.match.participants" ng-if="p.teamId==200">
+        <td>
+            <span ng-init="sum = m.match.participantIdentities[p.participantId-1]"></span>
+            <span ng-init="prueba = 'prueba'"></span>
+            <img class="champion-portrait-small" ng-src="{{lolsd.getChampionIcon(lolsd.findChampionById(p.championId).id)}}" />
+            {{sum.player.summonerName}}
+        </td>
+        <td>
+            <div>
+                <item itemid="p.stats.item0" itemwidth="25"></item>
+                <item itemid="p.stats.item1" itemwidth="25"></item>
+                <item itemid="p.stats.item2" itemwidth="25"></item>
+            </div>
+            <div>
+                <item itemid="p.stats.item3" itemwidth="25"></item>
+                <item itemid="p.stats.item4" itemwidth="25"></item>
+                <item itemid="p.stats.item5" itemwidth="25"></item>
+            </div>
+        </td>
+        <td>
+           <div> <b>{{Math.round((p.stats.kills+p.stats.assits)/p.stats.deaths)*100/100}}:1</b></div>
+            {{p.stats.kills}}/{{p.stats.deaths}}/{{p.stats.assists}}
+        </td>
+        <td>
+            {{formatGold(p.stats.totalDamageDealtToChampions)}}
+        </td>
+        <td>
+            <div>{{p.stats.wardsPlaced}} placed</div>
+            <div class="red3">{{p.stats.wardsKilled}} killed</div>
+        </td>
+        <td>
+            {{p.stats.minionsKilled}}
+        </td>
+        <td>
+            {{formatGold(p.stats.goldEarned)}}
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -21,7 +21,11 @@
                 </span>
             </div>
             <div>
-                <a href="#" class="float-right" ng-click="seeMatch(m.gameId)">See more</a>
+                <a href="#" class="float-right" ng-click="seeMatch(m.gameId,ms.summoner.region,m)">See more</a>
+            </div>
+            <div class="clear-both"></div>
+            <div class="s12" ng-show="m.showMatch==true" ng-include="'assets/html/includes/match.html'">
+
             </div>
         </div>
     </div>

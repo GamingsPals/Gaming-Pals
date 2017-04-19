@@ -2,8 +2,8 @@
 Error: Undefined variable: "$color-base-blue-3".
         on line 18 of util.scss
 
-13:   padding-right:30px;
-14:   padding-left:30px;
+13:   padding: 8px 30px;
+14:   font-size:0.82em;
 15:   display: inline-block;
 16:   border:0;
 17:   border-radius:2px;
@@ -67,4 +67,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 18 of util.scss\A \A 13:   padding-right:30px;\A 14:   padding-left:30px;\A 15:   display: inline-block;\A 16:   border:0;\A 17:   border-radius:2px;\A 18:   background-color: $color-base-blue-3;\A 19:   color:$color-base-white-2!important;\A 20:   transition: 0.5s all ease-out;\A 21:   &:hover{\A 22:     cursor: pointer;\A 23:     color:$color-base-white-2!important;"; }
+  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 18 of util.scss\A \A 13:   padding: 8px 30px;\A 14:   font-size:0.82em;\A 15:   display: inline-block;\A 16:   border:0;\A 17:   border-radius:2px;\A 18:   background-color: $color-base-blue-3;\A 19:   color:$color-base-white-2!important;\A 20:   transition: 0.5s all ease-out;\A 21:   &:hover{\A 22:     cursor: pointer;\A 23:     color:$color-base-white-2!important;"; }

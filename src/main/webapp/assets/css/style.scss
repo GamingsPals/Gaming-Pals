@@ -1,14 +1,29 @@
-
+@import "font-awesome/css/font-awesome.min.css";
+@import "../js/selectric/selectric.css";
+@import "../js/flexslider/flexslider.css";
+@import "../js/angular/ng-dialog/css/ngDialog.min.css";
+@import "../js/angular/ng-dialog/css/ngDialog-theme-default.min.css";
+@import "../js/datatable/datatables.css";
+@import "../js/datatable/responsive.dataTables.min.css";
 @import "stylerz/stylerz.scss";
-
+@import "hover-min.css";
 
 body{
   font-size:14pt;
   margin:0;
+  line-height: 1.45;
   padding:0;
   background: $color-base-blue-6;
   font-family: Roboto-Regular, sans-serif;
 
+}
+*{
+  &:active{
+    outline: 0;
+  }
+  &:focus{
+    outline: 0;
+  }
 }
 
 main{
@@ -16,11 +31,17 @@ main{
   color:$color-base-black-1!important;
   min-height:500px;
   padding:15px;
+  padding-left:8%;
+  padding-right:8%;
+  @include om(){
+    padding-left:15px;
+    padding-right:15px;
+  };
   text-decoration: none;
   a{
-    color:$color-base-blue-1!important;
+    color:$color-base-blue-1;
     &:hover{
-      color:$color-base-blue-2!important;
+      color:$color-base-blue-2;
     }
   }
 }
@@ -127,5 +148,29 @@ footer{
         }
       }
     }
+  }
+}
+
+.discord-widget{
+  position: fixed;
+  z-index:1000;
+  top:0;
+  right:0;
+  .close-discord{
+    top:0;
+    right:0;
+    position: fixed;
+    color:$color-base-white-3;
+  }
+}
+
+.discord-button{
+  z-index:999;
+  border-radius:10px;
+  position: fixed;
+  right:25px;
+  top:10px;
+  img{
+    width:50px;
   }
 }

@@ -3,6 +3,7 @@ package services;
 import domain.Team;
 import domain.Tournament;
 import domain.User;
+import domain.notifications.TeamInvitationNotification;
 import forms.TeamForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.TeamRepository;
+import services.notifications.TeamInvitationNotificationService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,6 +30,13 @@ public class TeamService {
     //Services
     @Autowired
 	private Validator validator;
+
+    @Autowired
+    private UserService actorService;
+
+    @Autowired
+    private TeamInvitationNotificationService teamInvitationNotificationService;
+
 
     //Constructor
     public TeamService(){super();}
@@ -74,12 +84,37 @@ public class TeamService {
         return result;
 
     }
-    
-    public Team reconstruct(final TeamForm teamForm, final BindingResult binding) {
-		final Team team = this.create();
-		team.setName(teamForm.getName());
-		team.setPicture(teamForm.getPicture());
-		this.validator.validate(team, binding);
-		return team;
-	}
+
+
+    public void createTeamForm(TeamForm team) {
+        User principal = (User) actorService.findByPrincipal();
+        Team saved = new Team();
+        saved.setName(team.getName());
+        saved.setPicture(team.getPicture());
+        List<User> members = new ArrayList<>();
+        members.add(principal);
+        saved.setUsers(members);
+        saved = save(saved);
+        for(User e:team.getMembers()){
+            if(!teamInvitationNotificationService.isNotification(saved,e) && e.getId()!=principal.getId()) {
+                TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
+                teamInvitationNotification.setTeam(saved);
+                teamInvitationNotification.setUser(e);
+                teamInvitationNotification.setActor(e);
+                teamInvitationNotificationService.save(teamInvitationNotification);
+            }
+        }
+    }
+
+    public Boolean isUserInTeam(Team teamId, User principal) {
+        boolean result = false;
+        for(User e : teamId.getUsers()){
+            if(e.getId()==principal.getId()){
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
 }

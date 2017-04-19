@@ -9,7 +9,7 @@ routes = [
 		}, {
 			route : "/login",
 			options : {
-				templateUrl : "login",
+				templateUrl: "main",
 				controller : "Login",
 			}
 		}, {
@@ -24,7 +24,15 @@ routes = [
 				templateUrl : "profile",
 				controller : "Profile",
 			}
-		}, {
+		},
+        {
+            route : "/profile/:username/:tabs",
+            options : {
+                templateUrl : "profile",
+                controller : "Profile",
+            }
+        },
+		{
 			route : "/createTournament",
 			options : {
 				templateUrl : "createTournament",
@@ -84,5 +92,27 @@ routes = [
 				templateUrl : "viewUsersByTeam",
 				controller : "UsersByTeam"
 			}
-		}
+		},
+    {
+        route : "/messages",
+        options : {
+            templateUrl : "main",
+            controller : "Message"
+        }
+    },
+    {
+        route : "/messages/:userId",
+        options : {
+            templateUrl : "main",
+            controller : "Chat"
+        }
+    },
+	{
+        route : "/notifications/:mode",
+        options : {
+            templateUrl : "notifications",
+            controller : "Notifications"
+        }
+    },
+
 ];

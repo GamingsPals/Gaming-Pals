@@ -3,10 +3,7 @@ package domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
