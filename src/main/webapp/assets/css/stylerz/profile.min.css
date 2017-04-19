@@ -1,0 +1,1 @@
+body:before{white-space:pre;font-family:monospace;content:"Error: Undefined mixin 'om'.\A         on line 3 of profile.scss, in `om'\A         from line 3 of profile.scss\A \A 1: .profile-header{\A 2:   background-size: 100%;\A 3:   @include om() {\A 4:     background-size: auto;\A 5:   }\A 6:   padding:15px;\A 7:   h1,h2{\A 8:     border:0;"}
