@@ -54,7 +54,7 @@
 <div class="col s4 float-right lateral-menu">
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
         <h1>Admin Zone</h1>
-        <li><a href="#" class="button">Start Tournament</a> </li>
+        <li><a href="#" class="button" ng-click="TournamentService.advanceRound(tournament)">Start Tournament</a> </li>
     </ul>
     <ul>
         <h1>Inscribe</h1>

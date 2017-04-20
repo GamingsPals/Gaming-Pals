@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import domain.Team;
 import domain.Tournament;
 import forms.TournamentForm;
-import services.ActorService;
-import services.ConfrontationService;
-import services.TeamService;
-import services.TournamentService;
+import services.*;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +32,8 @@ public class TournamentController extends ApiAbstractController {
 	private ActorService			actorService;
 	@Autowired
 	private TeamService				teamService;
+	@Autowired
+    private AdministratorService    administratorService;
 
 
 	@RequestMapping(value = "/tournament/{tournament}")
@@ -114,4 +113,24 @@ public class TournamentController extends ApiAbstractController {
 			return internalservererror(response, null);
 		}
 	}
+
+	@ResponseBody
+    @RequestMapping(value = "/tournament/advanceRound/{tournamentId}")
+    public Object advanceRound(HttpServletResponse response, @PathVariable Tournament tournamentId){
+	    System.out.println("Entra aqui");
+	    try{
+	        Assert.notNull(tournamentId);
+        }catch (Exception e){
+            return notFoundError(response,null);
+        }try {
+            administratorService.checkIsAdmin();
+        }catch (Exception e){
+            return unauthorized(response, null);
+        }try{
+            tournamentService.advanceRound(tournamentId);
+            return ok(response, null);
+        }catch(Exception e){
+            return internalservererror(response,null);
+        }
+    }
 }

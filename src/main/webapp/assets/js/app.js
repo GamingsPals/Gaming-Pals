@@ -10394,6 +10394,11 @@ app.service("SystemMessages", function($timeout){
 		xhr.post("api/tournament/assign/"+tournamentId+"/"+teamId,{})
 	};
 
+	this.advanceRound = function (tournamentId) {
+        let object = this;
+        xhr.post("api/tournament/advanceRound/"+tournamentId);
+    };
+
 	this.getAwards = function(tournamentId){
 		let object = this;
 		xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
@@ -10526,7 +10531,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("userCard",function($compile,auth){
+});;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {
