@@ -50,9 +50,9 @@ app.service("TournamentService", function(xhr){
 		xhr.post("api/tournament/assign/"+tournamentId+"/"+teamId,{})
 	};
 
-	this.advanceRound = function (tournamentId) {
+	this.advanceRound = function (tournament) {
         let object = this;
-        xhr.post("api/tournament/advanceRound/"+tournamentId);
+        xhr.get("api/tournament/advanceRound/"+tournament.id);
     };
 
 	this.getAwards = function(tournamentId){
