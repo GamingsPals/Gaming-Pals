@@ -265,11 +265,11 @@
 	
 	<!-- Tournaments -->
 	<bean id="tournament1" class="domain.Tournament">
-		<property name="momentCreate" value="30/03/2017 10:20" />
+		<property name="momentCreate" value="2017/04/10 10:20" />
 		<property name="title" value="Spring Tournament"/>
 		<property name="description" value="Face the best and win!"/>
 		<property name="numberTeams" value="4"/>
-		<property name="limitInscription" value="15/06/2017 10:20"/>
+		<property name="limitInscription" value="2017/04/18 10:20"/>
 		<property name="rules" value="You can't flame others" />
 		<property name="picture" value="https://images4.alphacoders.com/600/thumb-1920-600528.png" />
 		<property name="awards">
@@ -296,7 +296,7 @@
 	<bean id="confrontation1" class="domain.Confrontation">
 		<property name="round" value="1"/>
 		<property name="numberMatch" value="1"/>
-		<property name="limitPlay" value="16/06/2017 10:20"/>
+		<property name="limitPlay" value="2017/04/19 10:20"/>
 		<property name="reportMatches">
 			<list>
 
@@ -314,7 +314,7 @@
 	<bean id="confrontation2" class="domain.Confrontation">
 		<property name="round" value="1"/>
 		<property name="numberMatch" value="2"/>
-		<property name="limitPlay" value="16/06/2017 10:20"/>
+		<property name="limitPlay" value="2017/04/19 10:20"/>
 		<property name="reportMatches">
 			<list>
 				
@@ -331,7 +331,7 @@
 	<bean id="confrontation3" class="domain.Confrontation">
 		<property name="round" value="2"/>
 		<property name="numberMatch" value="1"/>
-		<property name="limitPlay" value="17/06/2017 10:20"/>
+		<property name="limitPlay" value="2017/04/20 10:20"/>
 		<property name="reportMatches">
 			<list>
 
@@ -348,7 +348,7 @@
 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
-		<property name="isWinner" value="false"/>
+		<property name="isWinner" value="true"/>
 		<property name="team" ref="team1" />
 	</bean>
 

@@ -117,7 +117,6 @@ public class TournamentController extends ApiAbstractController {
 	@ResponseBody
     @RequestMapping(value = "/tournament/advanceRound/{tournamentId}")
     public Object advanceRound(HttpServletResponse response, @PathVariable Tournament tournamentId){
-	    System.out.println("Entra aqui");
 	    try{
 	        Assert.notNull(tournamentId);
         }catch (Exception e){
@@ -130,7 +129,6 @@ public class TournamentController extends ApiAbstractController {
             tournamentService.advanceRound(tournamentId);
             return ok(response, null);
         }catch(Exception e){
-        	System.out.println(e.getMessage());
             return internalservererror(response,e.getMessage());
         }
     }

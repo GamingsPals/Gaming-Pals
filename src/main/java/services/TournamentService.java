@@ -115,27 +115,46 @@ public class TournamentService {
     public void advanceRound(Tournament tournamentId) {
         //Recorro todas las confrontation del torneo
 			for (Confrontation c : tournamentId.getConfrontations()) {
+				System.out.println("----------------------");
 				//Compruebo que no sea la última ronda
-				boolean nonStop = (tournamentId.getConfrontations().size() / 2 ^ c.getRound()) != 1;
+				boolean nonStop = (tournamentId.getNumberTeams() / (Math.pow(2, c.getRound()))) != 1;
+				if(!nonStop){
+					break;
+				}
 				//Preparo el número de enfrentamiento en la siguiente ronda (Depende de si es par o impar)
 				int nexMatch = 1;
 				if (c.getNumberMatch() % 2 != 0) {
-					nexMatch = c.getNumberMatch() / 2 + 1;
+					double aux = (c.getNumberMatch() / 2) + 1;
+					nexMatch = (int) aux;
 				} else {
-					nexMatch = c.getNumberMatch() / 2;
+					double aux = c.getNumberMatch() / 2;
+					nexMatch = (int) aux;
 				}
 				//Con el numberMatch y la round busco la confrontation a la que avanzará el equipo
 				Confrontation nextRound = tournamentRepository.findByRoundAndMatch(c.getRound() + 1, nexMatch, tournamentId.getId());
+				boolean canAdvance = true;
 				//Comprobamos que el limite de jugar ya haya pasado y que el de la siguiente ronda aun no
-				if (c.getLimitPlay().after(new Date()) && nextRound.getLimitPlay().before(new Date()) && nonStop) {
+				if (c.getLimitPlay().before(new Date()) && nextRound.getLimitPlay().after(new Date())) {
 					//Recorremos los Participes del Confrontation, y viendo el ganador lo metemos en la siguiente ronda. O si solo hay un equipo en esa ronda.
 					for (Participes p : c.getParticipes()) {
 						if (p.getIsWinner() || c.getParticipes().size() < 2) {
-							Participes pAux = participesService.create();
-							pAux.setTeam(p.getTeam());
-							pAux = participesService.save(pAux);
-							nextRound.getParticipes().add(pAux);
-							break;
+							//Recorremos los particpes de la ronda siguiente para comprobar si ya ha pasado ese equipo
+							//Si el equipo está en la siguiente ronda, paramos le bucle, si no, lo dejamos como true para comprobar el otro participe
+							for(Participes pN:nextRound.getParticipes()){
+								if(pN.getTeam().equals(p.getTeam())){
+									canAdvance = false;
+									break;
+								}else{
+									canAdvance = true;
+								}
+							}
+							if(canAdvance){
+								Participes pAux = participesService.create();
+								pAux.setTeam(p.getTeam());
+								pAux = participesService.save(pAux);
+								nextRound.getParticipes().add(pAux);
+								break;
+							}
 						}
 					}
 				}

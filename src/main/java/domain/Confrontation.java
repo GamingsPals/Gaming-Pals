@@ -45,7 +45,7 @@ public class Confrontation extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
 	@NotNull
 	public Date getLimitPlay() {
 		return limitPlay;

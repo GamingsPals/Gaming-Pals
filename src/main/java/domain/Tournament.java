@@ -35,7 +35,7 @@ public class Tournament extends DomainEntity {
 
 	// Getters and Setters
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
 	@NotNull
 	public Date getMomentCreate() {
 		return momentCreate;
@@ -79,7 +79,7 @@ public class Tournament extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
 	@NotNull
 	public Date getLimitInscription() {
 		return limitInscription;
