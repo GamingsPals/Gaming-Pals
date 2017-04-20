@@ -3,6 +3,7 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
     let id = $routeParams.id;
+    $scope.matchtoreport = false;
     $scope.loadTournament = function(){
         TournamentService.getTournament(id, function(data){
             $scope.tournament = data.data;
@@ -22,6 +23,13 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
                     $scope.added = true;
                 }
             });
+            TournamentService.getConfrontationsAvailable($scope.tournament,(a)=>{
+                if(a.confrontation!==null && a.team !== null){
+                    console.log("adsd");
+                    $scope.matchtoreport = a;
+                }
+
+            })
         },(a)=>{
             $scope.notfound = true;
         });
@@ -34,4 +42,10 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
        $scope.mode = "resume";
    }
     $scope.tabs=$scope.mode;
+
+   $scope.advanceRound = function(tournament){
+       TournamentService.advanceRound(tournament,(a)=>{
+           $scope.loadTournament();
+       });
+    }
 });

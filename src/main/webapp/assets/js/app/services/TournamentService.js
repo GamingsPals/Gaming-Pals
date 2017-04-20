@@ -34,6 +34,9 @@ app.service("TournamentService", function(xhr){
     };
 
 	this.fullInscription = function(tournament){
+        if(typeof tournament==="undefined"){
+            return false;
+        }
         return tournament.teams.length==tournament.numberTeams
     };
 
@@ -50,9 +53,11 @@ app.service("TournamentService", function(xhr){
 		xhr.post("api/tournament/assign/"+tournamentId+"/"+teamId,{})
 	};
 
-	this.advanceRound = function (tournament) {
+	this.advanceRound = function (tournament,callback) {
         let object = this;
-        xhr.get("api/tournament/advanceRound/"+tournament.id);
+        xhr.get("api/tournament/advanceRound/"+tournament.id,(a)=>{
+            callback(a);
+        });
     };
 
 	this.getAwards = function(tournamentId){
@@ -110,5 +115,13 @@ app.service("TournamentService", function(xhr){
 
     this.getBaseLog = function (x, y) {
         return Math.log(y) / Math.log(x);
+    };
+
+    this.getConfrontationsAvailable = function(tournament,callback){
+        xhr.get("api/tournament/matchtoreport/"+tournament.id,(a)=>{
+            if(typeof callback!=="undefined"){
+                callback(a.data);
+            }
+        })
     }
 });

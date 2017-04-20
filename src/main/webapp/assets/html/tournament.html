@@ -52,9 +52,15 @@
     </div>
 </div>
 <div class="col s4 float-right lateral-menu">
+    <ul ng-if="matchtoreport!=false">
+        <h1>Report Match</h1>
+        <li>
+            <a href="#" class="button" dialog="reportMatch">Report Match</a>
+        </li>
+    </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
         <h1>{{loc.tournament.adminZone}}</h1>
-        <li><a href="#" class="button" ng-click="TournamentService.advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
+        <li><a href="#" class="button" ng-click="advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
     </ul>
     <ul>
         <h1>{{loc.tournament.inscribe}}</h1>
@@ -65,7 +71,6 @@
             <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
             <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
         </ul>
-
     </div>
 </article>
 <article ng-show="notFound==false" ng-cloak>

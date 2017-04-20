@@ -9511,6 +9511,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
     let id = $routeParams.id;
+    $scope.matchtoreport = false;
     $scope.loadTournament = function(){
         TournamentService.getTournament(id, function(data){
             $scope.tournament = data.data;
@@ -9530,6 +9531,13 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
                     $scope.added = true;
                 }
             });
+            TournamentService.getConfrontationsAvailable($scope.tournament,(a)=>{
+                if(a.confrontation!==null && a.team !== null){
+                    console.log("adsd");
+                    $scope.matchtoreport = a;
+                }
+
+            })
         },(a)=>{
             $scope.notfound = true;
         });
@@ -9542,6 +9550,12 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
        $scope.mode = "resume";
    }
     $scope.tabs=$scope.mode;
+
+   $scope.advanceRound = function(tournament){
+       TournamentService.advanceRound(tournament,(a)=>{
+           $scope.loadTournament();
+       });
+    }
 });;app.controller('TournamentListController',function($scope,TournamentService, dialog,middleware){
     middleware.needRol("ANY");
     $scope.Ts = TournamentService;
@@ -9580,10 +9594,15 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 });;app.controller('WriteReportMatchController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
     middleware.needRol("ANY");
     $scope.sendReportMatchForm = function() {
-        console.log($scope.reportMatchForm);
-        console.log($scope.$parent.$parent.confrontationId);
-        TournamentService.reportMatch($scope.$parent.$parent.confrontationId,$scope.reportMatchForm,()=>{SystemMessages.okmessage("Report send!");
-            dialog.closeAll();});
+        $scope.reportMatch.team = $scope.matchtoreport.team.id;
+        TournamentService.reportMatch($scope.matchtoreport.confrontation.id,$scope.reportMatch,()=>{
+            SystemMessages.okmessage("Report send!");
+            $scope.loadTournament();
+            dialog.closeAll();
+        },(a)=>{
+            SystemMessages.errormessage("Error sendin Report");
+            dialog.closeAll();
+        });
     }
 });
 ;;app.service("ActorService",function(xhr,auth){
@@ -10399,6 +10418,9 @@ app.service("SystemMessages", function($timeout){
     };
 
 	this.fullInscription = function(tournament){
+        if(typeof tournament==="undefined"){
+            return false;
+        }
         return tournament.teams.length==tournament.numberTeams
     };
 
@@ -10415,9 +10437,11 @@ app.service("SystemMessages", function($timeout){
 		xhr.post("api/tournament/assign/"+tournamentId+"/"+teamId,{})
 	};
 
-	this.advanceRound = function (tournament) {
+	this.advanceRound = function (tournament,callback) {
         let object = this;
-        xhr.get("api/tournament/advanceRound/"+tournament.id);
+        xhr.get("api/tournament/advanceRound/"+tournament.id,(a)=>{
+            callback(a);
+        });
     };
 
 	this.getAwards = function(tournamentId){
@@ -10475,6 +10499,14 @@ app.service("SystemMessages", function($timeout){
 
     this.getBaseLog = function (x, y) {
         return Math.log(y) / Math.log(x);
+    };
+
+    this.getConfrontationsAvailable = function(tournament,callback){
+        xhr.get("api/tournament/matchtoreport/"+tournament.id,(a)=>{
+            if(typeof callback!=="undefined"){
+                callback(a.data);
+            }
+        })
     }
 });;app.service("UserService",function(xhr,auth){
 

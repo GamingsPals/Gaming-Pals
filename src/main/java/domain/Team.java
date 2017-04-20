@@ -70,4 +70,6 @@ public class Team extends DomainEntity {
 	public void setTournaments(Collection<Tournament> tournaments){this.tournaments=tournaments;}
 
 
+
+
 }

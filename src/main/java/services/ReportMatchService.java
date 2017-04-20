@@ -1,19 +1,19 @@
 package services;
 
-import domain.Confrontation;
-import domain.Participes;
-import domain.ReportMatch;
-import domain.Team;
+import domain.*;
 import forms.ReportMatchForm;
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import repositories.ReportMatchRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -27,6 +27,8 @@ public class ReportMatchService {    //Repositories
     @Autowired
     private ConfrontationService confrontationService;
 
+    @Autowired
+    private ParticipesService participesService;
     //Services
 
     //Constructor
@@ -97,7 +99,7 @@ public class ReportMatchService {    //Repositories
         Assert.notNull(p);
         Boolean report = false;
         switch (reportMatch.getResult()){
-            case "Winnner":
+            case "Winner":
                 report = true;
                 break;
             case "Looser":
@@ -105,8 +107,16 @@ public class ReportMatchService {    //Repositories
                 break;
         }
         p.setIsWinner(report);
+        Participes enemy;
+        for(Participes par: c.getParticipes()){
+            if(par.getId()!=p.getId()){
+                par.setIsWinner(!report);
+            }
+        }
 
         ReportMatch r = save(reportMatch);
+
     }
+
 
 }
