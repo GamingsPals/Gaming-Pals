@@ -186,6 +186,21 @@
   },
   "users":{
   	"usersList":"Lista de usuarios"	
+  },
+  "layout":{
+  "userReportedList":"Lista de usarios reportados",
+  "myGameProfiles":"Mis perfiles de juegos",
+  "myFollowing":"Mis seguidos",
+  "myFollowers":"Mis seguidores",
+  "myTeams":"Mis equipos",
+  "ratingsReceived":"Puntuaciones recibidas",
+  "notifications":"Notificaciones",
+  "teamNotifications":"Invitaciones a equipos",
+  "newFollowers":"Nuevos seguidores",
+  "messages":"Mensajes",
+  "aboutUs":"Sobre nosotros",
+  "contact":"Contactar",
+  "legalNote":"Nota legal" 
   }
   
 }

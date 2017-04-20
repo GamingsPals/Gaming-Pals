@@ -55,21 +55,21 @@
                 {{auth.principal.actor.userAccount.username}}</a>
                 <ul>
                     <li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-                        <a href="user/reported/list"><i class="fa fa-user-times"></i> User reported list</a> </li>
+                        <a href="user/reported/list"><i class="fa fa-user-times"></i> {{loc.layout.userReportedList}}</a> </li>
                     <li>  <a ng-if="auth.hasRole('USER')" href="profile/{{auth.principal.actor.userAccount.username}}/gameprofiles">
-                        <i class="fa fa-gamepad" aria-hidden="true"></i> My Game Profiles
+                        <i class="fa fa-gamepad" aria-hidden="true"></i> {{loc.layout.myGameProfiles}}
                     </a></li>
                     <li>  <a ng-if="auth.hasRole('USER')" href="profile/{{auth.principal.actor.userAccount.username}}/following">
-                        <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> My Following
+                        <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.layout.myFollowing}}
                     </a></li>
                     <li>  <a ng-if="auth.hasRole('USER')" href="profile/{{auth.principal.actor.userAccount.username}}/followers">
-                        <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> My Followers
+                        <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> {{loc.layout.myFollowers}}
                     </a></li>
                     <li>  <a ng-if="auth.hasRole('USER')" href="profile/{{auth.principal.actor.userAccount.username}}/teams">
-                        <i class="fa fa-shield" aria-hidden="true"></i> My Teams
+                        <i class="fa fa-shield" aria-hidden="true"></i> {{loc.layout.myTeams}}
                     </a></li>
                     <li>  <a ng-if="auth.hasRole('USER')" href="profile/{{auth.principal.actor.userAccount.username}}/ratings">
-                        <i class="fa fa-star" aria-hidden="true"></i> Ratings Received
+                        <i class="fa fa-star" aria-hidden="true"></i> {{loc.layout.ratingsReceived}}
                     </a></li>
                     <li>  <a target="_self" href="j_spring_security_logout" ng-if="auth.isAuthenticated()">
                         <i class="fa fa-sign-out" aria-hidden="true"></i> {{loc.logout}}
@@ -80,15 +80,15 @@
                 <div class="notification-globe" ng-show="notifications.numberOfNotifications()>0">
                     {{notifications.numberOfNotifications()}}</div>
                 <i class="fa fa-bell op"></i> <span class="om">
-                <i class="fa fa-bell"></i>Notifications</span></a>
+                <i class="fa fa-bell"></i>{{loc.layout.notifications}}</span></a>
                 <ul>
                     <li ng-if="auth.hasRole('USER')">
-                        <a  href="notifications/teaminvitations" ><i class="fa fa-shield"></i> Team Invitations</a>
+                        <a  href="notifications/teaminvitations" ><i class="fa fa-shield"></i> {{loc.layout.teamNotifications}}</a>
                         <div class="notification-globe float-right" ng-show="notifications.notifications.TeamInvitations.length>0">
                             {{notifications.notifications.TeamInvitations.length}}</div>
                     </li>
                     <li  ng-if="auth.hasRole('USER')">
-                        <a  href="notifications/followers"><i class="fa fa-arrow-circle-o-left"></i> New Followers</a>
+                        <a  href="notifications/followers"><i class="fa fa-arrow-circle-o-left"></i> {{loc.layout.newFollowers}}</a>
                         <div class="notification-globe float-right" ng-show="notifications.notifications.Follower.length>0">
                             {{notifications.notifications.Follower.length}}</div>
                     </li>
@@ -96,7 +96,7 @@
           </li>
             <li>
                 <a href="messages" class="relative" ng-if="auth.isAuthenticated()">
-                    <i class="fa fa-envelope op"></i> <span class="om"><i class="fa fa-envelope"></i> Messages</span>
+                    <i class="fa fa-envelope op"></i> <span class="om"><i class="fa fa-envelope"></i> {{loc.layout.messages}}</span>
                     <div class="notification-globe" ng-show="notifications.getNumNewMessages()>0">
                         {{notifications.getNumNewMessages()}}</div>
                 </a>
@@ -127,9 +127,9 @@
     </main>
     <footer>
         <ul>
-            <li><a href="about"></a> About us</li></li>
-            <li><a href="contact">Contact</a></li>
-            <li><a href="legal"> Legal Note</a></li>
+            <li><a href="about"></a> {{loc.layout.aboutUs}}</li></li>
+            <li><a href="contact">{{loc.layout.contact}}</a></li>
+            <li><a href="legal"> {{loc.layout.legalNote}}</a></li>
             <li><a class="cursor-pointer" href="#" ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a>
                 <a  class="cursor-pointer"  href="#" ng-click="loc.changeLan('es')"><flag lang="es"></flag></a>
         </ul>
