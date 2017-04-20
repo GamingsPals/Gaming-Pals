@@ -431,7 +431,14 @@
     <bean id="game1" class="domain.Game">
         <property name="name" value="League Of Legends"/>
         <property name="tag" value="lol" />
+		<property name="gameid" value="1243423234"/>
     </bean>
+
+	<bean id="game2" class="domain.Game">
+		<property name="name" value="Counter Strike: "/>
+		<property name="tag" value="counter"/>
+		<property name="gameid" value="730"/>
+	</bean>
 
 	<!-- Summoners-->
 

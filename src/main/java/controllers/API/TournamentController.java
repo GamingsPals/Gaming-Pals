@@ -130,7 +130,8 @@ public class TournamentController extends ApiAbstractController {
             tournamentService.advanceRound(tournamentId);
             return ok(response, null);
         }catch(Exception e){
-            return internalservererror(response,null);
+        	System.out.println(e.getMessage());
+            return internalservererror(response,e.getMessage());
         }
     }
 }

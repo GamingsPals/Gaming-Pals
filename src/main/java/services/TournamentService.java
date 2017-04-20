@@ -114,32 +114,32 @@ public class TournamentService {
 
     public void advanceRound(Tournament tournamentId) {
         //Recorro todas las confrontation del torneo
-        for(Confrontation c:tournamentId.getConfrontations()){
-            //Compruebo que no sea la última ronda
-            boolean nonStop = (tournamentId.getConfrontations().size()/2^c.getRound()) !=1;
-            //Preparo el número de enfrentamiento en la siguiente ronda (Depende de si es par o impar)
-            int nexMatch = 1;
-            if(c.getNumberMatch()%2!=0){
-                nexMatch = c.getNumberMatch()/2 + 1;
-            }else{
-                nexMatch = c.getNumberMatch()/2;
-            }
-            //Con el numberMatch y la round busco la confrontation a la que avanzará el equipo
-            Confrontation nextRound = tournamentRepository.findByRoundAndMatch(c.getRound()+1, nexMatch, tournamentId.getId());
-            //Comprobamos que el limite de jugar ya haya pasado y que el de la siguiente ronda aun no
-            if(c.getLimitPlay().after(new Date()) && nextRound.getLimitPlay().before(new Date()) && nonStop){
-                //Recorremos los Participes del Confrontation, y viendo el ganador lo metemos en la siguiente ronda. O si solo hay un equipo en esa ronda.
-                for(Participes p: c.getParticipes()){
-                    if(p.getIsWinner() || c.getParticipes().size()<2){
-                        Participes pAux = participesService.create();
-                        pAux.setTeam(p.getTeam());
-                        pAux = participesService.save(pAux);
-                        nextRound.getParticipes().add(pAux);
-                        break;
-                    }
-                }
-            }
-        }
+			for (Confrontation c : tournamentId.getConfrontations()) {
+				//Compruebo que no sea la última ronda
+				boolean nonStop = (tournamentId.getConfrontations().size() / 2 ^ c.getRound()) != 1;
+				//Preparo el número de enfrentamiento en la siguiente ronda (Depende de si es par o impar)
+				int nexMatch = 1;
+				if (c.getNumberMatch() % 2 != 0) {
+					nexMatch = c.getNumberMatch() / 2 + 1;
+				} else {
+					nexMatch = c.getNumberMatch() / 2;
+				}
+				//Con el numberMatch y la round busco la confrontation a la que avanzará el equipo
+				Confrontation nextRound = tournamentRepository.findByRoundAndMatch(c.getRound() + 1, nexMatch, tournamentId.getId());
+				//Comprobamos que el limite de jugar ya haya pasado y que el de la siguiente ronda aun no
+				if (c.getLimitPlay().after(new Date()) && nextRound.getLimitPlay().before(new Date()) && nonStop) {
+					//Recorremos los Participes del Confrontation, y viendo el ganador lo metemos en la siguiente ronda. O si solo hay un equipo en esa ronda.
+					for (Participes p : c.getParticipes()) {
+						if (p.getIsWinner() || c.getParticipes().size() < 2) {
+							Participes pAux = participesService.create();
+							pAux.setTeam(p.getTeam());
+							pAux = participesService.save(pAux);
+							nextRound.getParticipes().add(pAux);
+							break;
+						}
+					}
+				}
+			}
     }
 
 }

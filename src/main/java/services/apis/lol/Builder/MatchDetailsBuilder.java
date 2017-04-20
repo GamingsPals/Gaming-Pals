@@ -32,7 +32,6 @@ public class MatchDetailsBuilder extends EntityBuilder {
 
     public Map<String, Object> getMatch() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(this.uri);
         Map<String, Object>  map = mapper.readValue(json, new TypeReference<Map<Object, Object>>(){});
 
         return map;

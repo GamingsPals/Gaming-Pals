@@ -45,7 +45,7 @@ public class MessageController extends ApiAbstractController{
         try{
             return  messageService.messagesByUsers();
         } catch (Exception e){
-            return badrequest(response,null);
+            return badrequest(response,e.getMessage());
         }
     }
 

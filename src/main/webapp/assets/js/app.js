@@ -10265,7 +10265,7 @@ app.service("SearchService", function(xhr){
     this.init = function(scope){
         if (auth.isAuthenticated()){
         this.scope = scope;
-        this.socket = io.connect('http://localhost:8081', { 'forceNew': true,
+        this.socket = io.connect('http://gaming-pals.com:8081', { 'forceNew': true,
         query: `id=${auth.principal.actor.id}&picture=${auth.principal.actor.picture}&username=${auth.principal.actor.userAccount.username}`});
         this.connected = true;
         this.listen();
@@ -10394,9 +10394,9 @@ app.service("SystemMessages", function($timeout){
 		xhr.post("api/tournament/assign/"+tournamentId+"/"+teamId,{})
 	};
 
-	this.advanceRound = function (tournamentId) {
+	this.advanceRound = function (tournament) {
         let object = this;
-        xhr.post("api/tournament/advanceRound/"+tournamentId);
+        xhr.get("api/tournament/advanceRound/"+tournament.id);
     };
 
 	this.getAwards = function(tournamentId){
@@ -10531,7 +10531,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;app.directive("userCard",function($compile,auth){
+});;;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {

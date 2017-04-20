@@ -6,11 +6,13 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
 public class Team extends DomainEntity {
@@ -50,6 +52,8 @@ public class Team extends DomainEntity {
 
 
 	@Valid
+    //@JsonIgnoreProperties(value = {"teams"})
+    @JsonIgnore
 	@ManyToMany
 	public Collection<User> getUsers() {
 		return users;

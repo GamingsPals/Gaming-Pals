@@ -9,7 +9,7 @@ app.service("socket", function(auth,$rootScope){
     this.init = function(scope){
         if (auth.isAuthenticated()){
         this.scope = scope;
-        this.socket = io.connect('http://localhost:8081', { 'forceNew': true,
+        this.socket = io.connect('http://gaming-pals.com:8081', { 'forceNew': true,
         query: `id=${auth.principal.actor.id}&picture=${auth.principal.actor.picture}&username=${auth.principal.actor.userAccount.username}`});
         this.connected = true;
         this.listen();
