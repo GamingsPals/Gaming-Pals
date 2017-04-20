@@ -3,13 +3,15 @@ package forms;
 
 import domain.Game;
 
+import java.util.Collection;
 import java.util.List;
 
 
 public class SteamForm {
 
     public String id;
-    public List<Game> games;
+    public Collection<Game> games;
+    public String username;
 
 
     public String getId() {
@@ -20,11 +22,19 @@ public class SteamForm {
         this.id = id;
     }
 
-    public List<Game> getGames() {
+    public Collection<Game> getGames() {
         return games;
     }
 
-    public void setGames(List<Game> games) {
+    public void setGames(Collection<Game> games) {
         this.games = games;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

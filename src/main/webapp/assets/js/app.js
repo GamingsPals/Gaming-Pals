@@ -9053,30 +9053,7 @@ routes = [
     }, {reloadOnSearch: false});
 
     $locationProvider.html5Mode(true);
-});;;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
-    middleware.needRol("ANY");
-    $scope.LolData=LolApiService;
-    $scope.test =" Asdad";
-    console.log("adsda");
-    $scope.validateSummoner = function(){
-        console.log($scope.search);
-        if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
-            $scope.check = true;
-            $scope.search.key = md5($scope.search.summoner);
-            $scope.search.key = $scope.search.key.substring(0, 25);
-        }
-    };
-    $scope.addSummoner = function(){
-        $scope.LolData.mainData($scope.search,function(){
-            dialog.closeAll();
-            $scope.error = false;
-            ActorService.UserProfile();
-        },function(data){
-            console.log(data);
-            $scope.error = data.data.message;
-        });
-    }
-});;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
+});;;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
     $scope.assignForm = {};
     $scope.added = false;
 
@@ -9239,28 +9216,7 @@ app.controller("BracketsController",function($scope,TournamentService){
         return result;
     }
 });
-;app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware){
-    middleware.needRol("ANY");
-    $scope.teamform = {};
-    $scope.teamform.members = [];
-    $scope.selectedmembers = [];
-    $scope.allusers = UserService.alluser.slice();
-    $scope.addMember = function(a){
-        $scope.selectedmembers.push(a);
-        $scope.teamform.members.push(a.id);
-        $scope.allusers.splice($scope.allusers.indexOf(a),1);
-        $scope.showAutoComplete = false;
-    };
-
-    $scope.createTeam = function(){
-        let data = $scope.teamform;
-        xhr.post("api/team/create",data,(data)=>{
-            dialog.closeAll();
-            console.log(data.data);
-            $location.path(`team/${data.data.name}`);
-        })
-    }
-});;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
+;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
     middleware.needRol("ADMIN");
 
 	$scope.enviarTournamentForm = function() {
@@ -9400,6 +9356,91 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.setAsRead = function(noti){
 
     }
+});;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
+    $scope.searched = false;
+    $scope.validateSteam = function(){
+        console.log(typeof $scope.steam.games);
+        console.log($scope.steam.games[0]);
+        xhr.post("api/steam/add",$scope.steam,(a)=>{
+            dialog.closeAll();
+            $scope.ActorService.UserProfile();
+        },(p)=>{
+            $scope.error = "There were some errors, please try again or check your Steam ID";
+        })
+    };
+
+    $scope.checkGames = function(){
+        xhr.get("api/steam/"+$scope.steam.id,((a)=>{
+            $scope.games = a.data;
+            $scope.searched = true;
+        }),(p)=>{
+            $scope.error = "There were some errors, please try again or check your Steam ID";
+            console.log("lol");
+        })
+    }
+});;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
+    middleware.needRol("ANY");
+    $scope.LolData=LolApiService;
+    $scope.test =" Asdad";
+    console.log("adsda");
+    $scope.validateSummoner = function(){
+        console.log($scope.search);
+        if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
+            $scope.check = true;
+            $scope.search.key = md5($scope.search.summoner);
+            $scope.search.key = $scope.search.key.substring(0, 25);
+        }
+    };
+    $scope.addSummoner = function(){
+        $scope.LolData.mainData($scope.search,function(){
+            dialog.closeAll();
+            $scope.error = false;
+            ActorService.UserProfile();
+        },function(data){
+            console.log(data);
+            $scope.error = data.data.message;
+        });
+    }
+});;app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware){
+    middleware.needRol("ANY");
+    $scope.teamform = {};
+    $scope.teamform.members = [];
+    $scope.selectedmembers = [];
+    $scope.allusers = UserService.alluser.slice();
+    $scope.addMember = function(a){
+        $scope.selectedmembers.push(a);
+        $scope.teamform.members.push(a.id);
+        $scope.allusers.splice($scope.allusers.indexOf(a),1);
+        $scope.showAutoComplete = false;
+    };
+
+    $scope.createTeam = function(){
+        let data = $scope.teamform;
+        xhr.post("api/team/create",data,(data)=>{
+            dialog.closeAll();
+            $location.path(`team/${data.data.name}`);
+        })
+    }
+});;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
+                                                SystemMessages, dialog,middleware){
+    middleware.needRol("ANY");
+    $scope.rateUser = function(){
+        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
+            ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
+        });
+        $scope.writerating = false;
+        $scope.rateform = null;
+        SystemMessages.okmessage("Rating added");
+        dialog.closeAll();
+    }
+});;
+app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+    middleware.needRol("ANY");
+    $scope.reportUser = function(){
+        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report send!");
+            dialog.closeAll();});
+
+    }
 });;app.controller('ProfileController', function($scope, middleware, ActorService, $routeParams, dialog) {
     middleware.needRol("ANY");
 	$scope.ActorService = ActorService;
@@ -9535,26 +9576,6 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         console.log(limit<now);
 
         return limit < now;
-    }
-});;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
-                                                SystemMessages, dialog,middleware){
-    middleware.needRol("ANY");
-    $scope.rateUser = function(){
-        ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
-            ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
-        });
-        $scope.writerating = false;
-        $scope.rateform = null;
-        SystemMessages.okmessage("Rating added");
-        dialog.closeAll();
-    }
-});;
-app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
-    middleware.needRol("ANY");
-    $scope.reportUser = function(){
-        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report send!");
-            dialog.closeAll();});
-
     }
 });;app.controller('WriteReportMatchController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
     middleware.needRol("ANY");

@@ -1,0 +1,33 @@
+<form name="steamaccountform" ng-submit="validateSteam() && steamaccountform.$valid">
+    <label for="id">
+        Steam ID <small>(<a href="http://steamidfinder.com/" target="_blank">{{loc.profileview.steam.help}})</a></small>
+    </label>
+    <input name="id" id="id" type="text" placeholder="Steam Id..." ng-model="steam.id" class="s9" required/>
+    <p>Now click the Check button so we can offer to you games available in our system</p>
+    <a class="button cursor-pointer" ng-click="checkGames()">Check</a>
+    <div ng-if="searched==true && games.length>0">
+
+        Select the availables games to add with your Steam Account
+
+    <select multiple name="games" id="games" ng-model="steam.games" class="s9" required>
+        <option value="">Select games</option>
+        <option value="{{i.id}}" ng-repeat="i in games">{{i.name}}</option>
+    </select>
+        <label>
+            Your username in Steam
+        </label>
+        <input type="text" placeholder="Username" name="username" id="username" ng-model="steam.username" class="s9" required/>
+
+    <div ng-show="steam.games.length>0">
+
+
+        <input type="submit" value="Add Steam Account"/>
+
+
+    </div>
+    </div>
+    <div ng-if="searched==true && games.length==0">
+        You don't have any new game too add to the system
+    </div>
+</form>
+<h3 class="red3">{{error}}</h3>

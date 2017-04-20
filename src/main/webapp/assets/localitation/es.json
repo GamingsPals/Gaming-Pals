@@ -9,7 +9,7 @@
     "following": "Siguiendo",
     "followers": "Seguidores",
     "outOf":"basado en ",
-    "ratings":"puntuaciones",
+    "ratings":"Puntuaciones",
     "stats":"Estadísticas",
     "gameProfiles":"Perfiles en juegos",
     "noGames":"Este jugador no tiene ningún juego registrado.",
@@ -17,7 +17,10 @@
     "noFollowing":"Este usuario aún no sigue a nadie.",
     "noTeam":"Este usuario aún no pertenece a ningún equipo.",
     "noRating":"¡Este usuario aún no tiene puntuaciones! Se el primero en puntuarlo.",
-    "writeRating":"Puntuar"
+    "writeRating":"Puntuar",
+    "steam":{
+      "help": "Haz click aquí para averiguar tu ID de Steam"
+    }
   },
   "send" :"Enviar",
   "404user":"USUARIO NO ENCONTRADO",

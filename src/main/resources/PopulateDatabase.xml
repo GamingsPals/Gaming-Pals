@@ -435,10 +435,16 @@
     </bean>
 
 	<bean id="game2" class="domain.Game">
-		<property name="name" value="Counter Strike: "/>
+		<property name="name" value="Counter Strike: Global Offensive"/>
 		<property name="tag" value="counter"/>
 		<property name="gameid" value="730"/>
 	</bean>
+
+    <bean id="game3" class="domain.Game">
+        <property name="name" value="For Honor" />
+        <property name="tag" value="forhonor" />
+        <property name="gameid" value="304390"/>
+    </bean>
 
 	<!-- Summoners-->
 

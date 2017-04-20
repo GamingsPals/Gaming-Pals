@@ -17,7 +17,10 @@
     "noFollowing":"This user doesn't follow anybody.",
     "noTeam":"This user hasn't got any team.",
     "noRating":"This user hasn't got any rating yet! Be the first.",
-    "writeRating":"Write a Rating"
+    "writeRating":"Write a Rating",
+    "steam":{
+      "help": "Click here to find out your Steam ID"
+    }
   },
   "send" :"Send",
   "404user":"USER NOT FOUND",

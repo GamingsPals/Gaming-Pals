@@ -40,4 +40,13 @@ public class GameInfo extends DomainEntity {
 	public void setGame(Game game) {
 		this.game = game;
 	}
+
+	@Override
+	public String toString() {
+		return "GameInfo{" +
+				"user=" + user +
+				", username='" + username + '\'' +
+				", game=" + game +
+				'}';
+	}
 }

@@ -34,7 +34,7 @@
     <ul>
         <li ng-class="(tabs.gameprofiles) ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/gameprofiles">
-                <i class="fa fa-gamepad"></i>{{loc.profileview.gameProfiles}}</a></li>
+                <i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</a></li>
         <li  ng-class="(tabs.following) ? 'active' : ''">
             <a  href="{{url}}/following" class="profile-tabs">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.profileview.following}}</a></li>
@@ -52,10 +52,17 @@
 <div class="profile-main">
     <div class="profile-cards" ng-show="tabs.gameprofiles">
         <h1><i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</h1>
-        <div style="margin:15px">
+        <div class="col s5" style="margin:15px">
         <a href="#" dialogcontroller="AddSummonerController" class="button"
-           dialog="addSummoner" ng-if="ActorService.actor.actor.gameInfo.length==0 && auth.isPrincipal(ActorService.actor.actor)">
+           dialog="addSummoner" ng-if="auth.isPrincipal(ActorService.actor.actor)">
             {{loc.addSummoner.addSummoner}}</a>
+        </div>
+        <div class="col s5" style="margin: 15px;">
+            <a href="#" dialogcontroller="AddSteamAccountController" class="button"
+               dialog="profile/AddSteamAccount"
+               ng-if="auth.isPrincipal(ActorService.actor.actor)">
+                <i class="fa fa-steam-square" aria-hidden="true"></i> Add Steam Account</a>
+
         </div>
         <div ng-if="ActorService.actor.actor.gameInfo.length==0">
             {{loc.profileview.gameProfiles}}
@@ -63,11 +70,11 @@
         <div class="card bg-black7" ng-repeat="i in ActorService.actor.actor.gameInfo">
                 <img class="right game-icon" ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
             <div class="card-buttons">
-                    <span loltier="i.leagues[0].tier"></span>
+                    <span ng-if="i.game.tag=='lol'" loltier="i.leagues[0].tier"></span>
                      <div class="col">
                          {{i.username}}
                              <div class="small">{{tier}}</div>
-                         <a dialog="lolstats" href="#" dialogcontroller="LolstatsController">{{loc.lol.recentMatches}}</a>
+                         <a ng-if="i.game.tag=='lol'"  dialog="lolstats" href="#" dialogcontroller="LolstatsController">{{loc.lol.recentMatches}}</a>
                     </div>
             </div>
         </div>
