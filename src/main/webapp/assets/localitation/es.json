@@ -18,12 +18,15 @@
     "noTeam":"Este usuario aún no pertenece a ningún equipo.",
     "noRating":"¡Este usuario aún no tiene puntuaciones! Se el primero en puntuarlo.",
     "writeRating":"Puntuar",
+    "addSteamAccount":"Añadir cuenta de Steam",
     "steam":{
       "help": "Haz click aquí para averiguar tu ID de Steam"
     }
   },
   "send" :"Enviar",
+  "view":"Ver",
   "404user":"USUARIO NO ENCONTRADO",
+  "rate":"Valorar",
   "seeMore":"Ver mas",
   "signup": "Regístrate",
   "login": "Entrar",
@@ -90,7 +93,8 @@
   "searchMember":"Buscar un miembro:",
   "members":"Miembros seleccionados",
   "create":"Crear equipo",
-  "teamName": "Nombre del equipo"
+  "teamName": "Nombre del equipo",
+  "membs":"Miembros"
   },
   "tournament":{
  	 "create":"Crear un torneo",
@@ -104,7 +108,14 @@
  	 "tournaments":"Torneos",
  	 "started":"¡EN MARCHA!",
  	 "inscriptionClosed":"¡Inscripción cerrada!",
- 	 "inscribe":"INSCRIBIRSE"
+ 	 "inscribe":"INSCRIBIRSE",
+ 	 "inscriptedTeams":"Equipos inscriptos",
+ 	 "bracket":"Emparejamiento",
+ 	 "awards":"Premios",
+ 	 "adminZone":"Zona del administrador",
+ 	 "advanceRounds":"Avanzar rondas",
+ 	 "information":"Information",
+ 	 "notFound":"Torneo no encontrado"
   },
   "lol":{
  	 "recentMatches":"Partidas recientes"
@@ -127,6 +138,54 @@
   	"accept":"Aceptar",
   	"noNewFollowers":"No has sido seguido últimamente.",
   	"followYou":"Has followed you"
+  },
+  "reportform":{
+  "report":"Reportar",
+  "proof":"Prueba",
+  "comment":"Comentario",
+  "reportMatch":"Reportar partida",
+  "result":"Resultado",
+  "selectOption":"Selecciona una opción",
+  "looser":"Perdedor",
+  "winner":"Ganador",
+  "incidence":"Incidencia"
+  },
+  "search":{
+  "pals":"Buscar amigos",
+  "game":"Juego",
+  "selectGame":"Selecciona un juego",
+  "tier":"Nivel",
+  "selectTier":"Selecciona el nivel",
+  "bronze":"Bronce",
+  "silver":"Plata",
+  "gold":"Oro",
+  "platinum":"Platino",
+  "diamond":"Diamante",
+  "master":"Maestro",
+  "challenger":"Aspirante",
+  "resetFilter":"Reiniciar filtro",
+  "games":"Juegos",
+  "ratingAvg":"Puntuación media",
+  "filter":"Filtrar"
+  },
+  "teamForm":{
+  "t":"Equipo",
+  "teamNotFound":"Equipo no encontrado"
+  },
+  "confrontationview":{
+  	"controntationList":"Lista de enfrentamientos",
+  	"round":"Ronda",
+  	"numberMatch":"Número de partida",
+  	"limit":"Límite para jugar"  	
+  },
+  "reportview":{
+  "list":"Lista de reportes",
+  "reportedUsed":"Usuario reportado",
+  "action":"Acción"
+  
+  },
+  "users":{
+  	"usersList":"Lista de usuarios"	
   }
   
 }

@@ -10,40 +10,40 @@
     <ul>
         <li ng-class="(tabs.resume) ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/resume">
-               Resume</a></li>
+               {{loc.tournament.description}}</a></li>
         <li  ng-class="(tabs.rules) ? 'active' : ''">
             <a  href="{{url}}/rules" class="profile-tabs">
-                Rules</a></li>
+                 {{loc.tournament.rules}}</a></li>
         <li  ng-class="(tabs.teams) ? 'active' : ''">
             <a  href="{{url}}/teams" class="profile-tabs">
-               Inscripted Teams</a></li>
+                {{loc.tournament.inscriptedTeams}}</a></li>
         <li  ng-class="(tabs.bracket) ? 'active' : ''">
             <a  href="{{url}}/bracket" class="profile-tabs" >
-              Bracket</a></li>
+              {{loc.tournament.bracket}}</a></li>
         <li  ng-class="(tabs.awards) ? 'active' : ''">
             <a  href="{{url}}/awards" class="profile-tabs">
-                Awards</a></li>
+                {{loc.tournament.awards}}</a></li>
     </ul>
 </div>
 <div class="col s8" style="min-height: 500px">
     <div ng-if="mode=='resume'">
-        <h1>Resume</h1>
+        <h1>{{loc.tournament.description}}</h1>
         <p>{{tournament.description}}</p>
     </div>
     <div ng-if="mode=='rules'">
-        <h1>Rules</h1>
+        <h1> {{loc.tournament.rules}}</h1>
         <p>{{tournament.rules}}</p>
     </div>
     <div ng-if="mode=='teams'">
-        <h1>Teams</h1>
+        <h1> {{loc.tournament.teams}}</h1>
         <div class="col s3" team-card="i" ng-repeat="i in tournament.teams"></div>
     </div>
     <div ng-if="mode=='bracket'">
-        <h1>Bracket</h1>
+        <h1>{{loc.tournament.bracket}}</h1>
         <div ng-include="'assets/html/includes/brackets.html'"></div>
     </div>
     <div ng-if="mode=='awards'">
-        <h1>Awards</h1>
+        <h1>{{loc.tournament.awards}}</h1>
         <div  class="blockcard col s3" ng-repeat="i in tournament.awards">
             <div class="card-body">
                 <img style="width:80px;vertical-align: text-top" ng-src="{{i.image}}" /> {{i.description}}
@@ -53,22 +53,22 @@
 </div>
 <div class="col s4 float-right lateral-menu">
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-        <h1>Admin Zone</h1>
-        <li><a href="#" class="button" ng-click="TournamentService.advanceRound(tournament)">Advance Rounds</a> </li>
+        <h1>{{loc.tournament.adminZone}}</h1>
+        <li><a href="#" class="button" ng-click="TournamentService.advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
     </ul>
     <ul>
-        <h1>Inscribe</h1>
+        <h1>{{loc.tournament.inscribe}}</h1>
         <li ng-include="'assets/html/assignTeamToTournament.html'"></li>
     </ul>
         <ul>
-            <h1>Information</h1>
-            <li>Limit of Inscription: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
-            <li> Number of Teams: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
+            <h1>{{loc.tournament.information}}</h1>
+            <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
+            <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
         </ul>
 
     </div>
 </article>
 <article ng-show="notFound==false" ng-cloak>
-    <giant>Tournament Not Found</giant>
+    <giant>{{loc.tournament.notFound}}</giant>
 </article>
 <div class="clear-both s12"></div>

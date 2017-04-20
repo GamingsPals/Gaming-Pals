@@ -61,7 +61,7 @@
             <a href="#" dialogcontroller="AddSteamAccountController" class="button"
                dialog="profile/AddSteamAccount"
                ng-if="auth.isPrincipal(ActorService.actor.actor)">
-                <i class="fa fa-steam-square" aria-hidden="true"></i> Add Steam Account</a>
+                <i class="fa fa-steam-square" aria-hidden="true"></i> {{loc.profileview.addSteamAccount}}</a>
 
         </div>
         <div ng-if="ActorService.actor.actor.gameInfo.length==0">

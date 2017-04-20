@@ -6,11 +6,11 @@
     </div>
 
 <div class="col s12">
-    <h1>Members</h1>
+    <h1>{{loc.team.membs}}</h1>
     <div ng-repeat="a in team.users" user-card="a"></div>
 </div>
 
 </article>
 <article ng-show="notFound==false" ng-cloak>
-    <giant>Team Not Found</giant>
+    <giant>{{loc.teamForm.teamNotFound}}</giant>
 </article>

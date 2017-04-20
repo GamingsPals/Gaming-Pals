@@ -1,13 +1,13 @@
 <div ng-controller="ConfrontationTournamentListController">
-<h1>Confrontation list</h1>
+<h1>{{loc.confrontation.controntationList}}</h1>
 <table>
     <thead>
     <tr>
-        <td>Round</td>
-        <td>Number match</td>
-        <td>Limit play</td>
-        <td>Teams</td>
-        <td>Report</td>
+        <td>{{loc.confrontation.round}}</td>
+        <td>{{loc.confrontation.numberMatch}}</td>
+        <td>{{loc.confrontation.limitPlay}}</td>
+        <td>{{loc.tournament.teams}}</td>
+        <td>{{loc.reportform.report}}</td>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
          		{{x.team.name}}
          	</div>
         </td>
-         <td><a href="#" ng-click="reportMatch(i.id)" ng-if="canShowReport(i) && alreadyReport(i)" class="button">Report</a></td>
+         <td><a href="#" ng-click="reportMatch(i.id)" ng-if="canShowReport(i) && alreadyReport(i)" class="button">{{loc.reportform.report}}</a></td>
     </tr>
     </tbody>
 </table>

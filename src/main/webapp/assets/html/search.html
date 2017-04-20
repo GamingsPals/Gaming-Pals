@@ -1,47 +1,47 @@
 <form class="search-filter" method="get" ng-submit="filter(search)">
-    <h1>Search Pals</h1>
+    <h1>{{loc.search.pals}}</h1>
     <div class="col s6">
         <label for="username">
-            Name
+            {{loc.signupform.name}}
         </label>
-        <input type="text" id="username" name="username" ng-model="search.username" placeholder="Name..."/>
+        <input type="text" id="username" name="username" ng-model="search.username" placeholder="{{loc.signupform.name}}..."/>
     <label for="game">
-        Game
+        {{loc.search.game}}
     </label>
     <select class="s8" id="game" name="game" ng-model="search.game" ng-change="search.tier=null">
-        <option value="">Select a Game</option>
+        <option value="">{{loc.search.selectGame}}</option>
         <option value="lol">League of Legends</option>
     </select>
     </div>
     <div class="col s6">
         <span ng-show="search.game=='lol'">
              <label for="tier">
-            Tier
+            {{loc.search.tier}}
         </label>
         <select id="tier" name="tier" ng-model="search.tier">
-            <option value="">Select Tier</option>
-            <option value="BRONZE">Bronze</option>
-            <option value="SILVER">Silver</option>
-            <option value="GOLD">Gold</option>
-            <option value="PLATINUM">Platinum</option>
-            <option value="DIAMOND">Diamond</option>
-            <option value="MASTER">Master</option>
-            <option value="CHALLENGER">Challenger</option>
+            <option value="">{{loc.search.selectTier}}</option>
+            <option value="BRONZE"> {{loc.search.bronze}}</option>
+            <option value="SILVER"> {{loc.search.silver}}</option>
+            <option value="GOLD"> {{loc.search.gold}}</option>
+            <option value="PLATINUM"> {{loc.search.platinum}}</option>
+            <option value="DIAMOND"> {{loc.search.diamond}}</option>
+            <option value="MASTER"> {{loc.search.master}}</option>
+            <option value="CHALLENGER"> {{loc.search.challenger}}</option>
         </select>
         </span>
     </div>
-    <input type="submit"  value="Filter" /> <a href="search" class="small">Reset Filter</a>
+    <input type="submit"  value="{{loc.search.filter}}" /> <a href="search" class="small">{{loc.search.resetFilter}}</a>
 
 </form>
 <table class="data-table" >
     <thead>
     <tr>
         <td>#</td>
-        <td>Username</td>
-        <td>Games</td>
-        <td>Languages</td>
-        <td>Rating Avg.</td>
-        <td>Tier</td>
+        <td>{{loc.loginview.username}}</td>
+        <td>{{loc.search.games}}</td>
+        <td>{{loc.signupform.languages}}</td>
+        <td>{{loc.search.ratingAvg}}</td>
+        <td>{{loc.search.tier}}</td>
     </tr>
     </thead>
     <tbody>

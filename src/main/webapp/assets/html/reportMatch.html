@@ -1,19 +1,19 @@
 <div ng-controller="WriteReportMatchController">
-<h2 class="text-center">Report Match</h2>
+<h2 class="text-center">{{loc.reportform.reportMatch}}</h2>
 <form name="reportMatchForm" ng-submit="sendReportMatchForm()">
-    <label>Image</label>
+    <label>{{loc.signupform.picture}}</label>
     <input type="url" ng-model="reportMatchForm.image" placeholder="http://" />
-    <label>Result</label>
+    <label>{{loc.reportform.result}}</label>
     <select id="result" name="result" ng-model="reportMatchForm.result">
-        <option value="">Select a option</option>
-        <option value="Losser">Losser</option>
-        <option value="Winner">Winner</option>
-        <option value="Incidence">Incidence</option>
+        <option value="">{{loc.reportform.selectOption}}</option>
+        <option value="Losser">{{loc.reportform.looser}}</option>
+        <option value="Winner">{{loc.reportform.winner}}</option>
+        <option value="Incidence">{{loc.reportform.incidence}}</option>
     </select>
-    <label>Description</label>
-    <input type="text" placeholder="Description" ng-model="reportMatchForm.description" />
+    <label>{{loc.tournament.description}}</label>
+    <input type="text" placeholder="{{loc.tournament.description}}" ng-model="reportMatchForm.description" />
 
 
-    <input type="submit" value="Report" />
+    <input type="submit" value="{{loc.reportform.report}}" />
 </form>
 </div>

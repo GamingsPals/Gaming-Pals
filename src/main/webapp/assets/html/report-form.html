@@ -1,17 +1,17 @@
 <div not-principal="ActorService.actor.actor">
-    <h2 class="text-center">Report {{ActorService.actor.actor.userAccount.username}}</h2>
+    <h2 class="text-center">{{loc.reportform.report}} {{ActorService.actor.actor.userAccount.username}}</h2>
     <form class="forms-center" ng-submit="reportUser()">
         <label for="picture">
-            Picture / Proof
+            {{loc.signupform.picture}} / {{loc.reportform.proof}}
         </label>
         <input type="url" required id="picture" name="picture" ng-model="reportform.picture" placeholder="http://" />
         <label for="comment">
-            Comment
+            {{loc.reportform.comment}}
         </label>
-        <textarea name="comment" id="comment" ng-model="reportform.comment" placeholder="Comment..."  required>
+        <textarea name="comment" id="comment" ng-model="reportform.comment" placeholder="{{loc.reportform.comment}}..."  required>
 
         </textarea>
 
-        <input type="submit" value="Report" />
+        <input type="submit" value="{{loc.reportform.report}}" />
     </form>
 </div>

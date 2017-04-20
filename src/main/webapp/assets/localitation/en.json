@@ -18,12 +18,15 @@
     "noTeam":"This user hasn't got any team.",
     "noRating":"This user hasn't got any rating yet! Be the first.",
     "writeRating":"Write a Rating",
+    "addSteamAccount":"Add Steam Account",
     "steam":{
       "help": "Click here to find out your Steam ID"
     }
   },
   "send" :"Send",
   "404user":"USER NOT FOUND",
+  "rate":"Rate",
+  "view":"View",
   "seeMore":"See more",
   "signup": "Sign up",
   "login": "Login",
@@ -32,7 +35,7 @@
   "dotaslider": "Dota 2 Community coming soon!",
   "loginview":{
     "password": "Password",
-    "username" : "Username",
+    "username" : "User name",
     "message" : "Join our community and start playing better and happier",
     "donthaveaccount": "Don't have an account yet?",
     "wrong": "User or password are wrong, please try again."
@@ -90,7 +93,8 @@
   "searchMember":"Search a member:",
   "members":"Members selected",
   "create":"Create Team",
-  "teamName": "Team name"
+  "teamName": "Team name",
+  "membs":"Members"
   },
   "tournament":{
  	 "create":"Create a Tournament",
@@ -104,7 +108,14 @@
  	 "tournaments":"tournaments",
  	 "started":"STARTED!",
  	 "inscriptionClosed":"Inscription Closed!",
- 	 "inscribe":"INSCRIBE IN"
+ 	 "inscribe":"INSCRIBE IN",
+ 	 "inscriptedTeams":"Inscripted Teams",
+ 	 "bracket":"Bracket",
+ 	 "awards":"Awards",
+ 	 "adminZone":"Admin zone",
+ 	 "advanceRounds":"Advance Rounds",
+ 	 "information":"Information",
+ 	 "notFound":"Tournament not found"
   },
   "lol":{
  	 "recentMatches":"Recent Matches"
@@ -128,6 +139,54 @@
   	"accept":"accept",
   	"noNewFollowers":"You haven't been followed lately",
   	"followYou":"Has followed you"
+  },
+  "reportform":{
+  "report":"Report",
+  "proof":"Proof",
+  "comment":"Comment",
+  "reportMatch":"Report match",
+  "result":"Result",
+  "selectOption":"Select a option",
+  "looser":"Losser",
+  "winner":"Winner",
+  "incidence":"Incidence"
+  },
+  "search":{
+  "pals":"Search pals",
+  "game":"Game",
+  "selectGame":"Select a game",
+  "tier":"Tier",
+  "selectTier":"Select tier",
+  "bronze":"Bronze",
+  "silver":"Silver",
+  "gold":"Gold",
+  "platinum":"Platinum",
+  "diamond":"Diamond",
+  "master":"Master",
+  "challenger":"Challenger",
+  "resetFilter":"Reset filter",
+  "games":"Games",
+  "ratingAvg":"Rating average",
+  "filter":"Filter"
+  },
+  "teamForm":{
+  	"t":"Team",
+ 	 "teamNotFound":"Team Not Found"
+  },
+  "confrontationview":{
+  	"controntationList":"Confrontation list",
+  	"round":"Round",
+  	"numberMatch":"Number match",
+  	"limit":"Limit play"  	
+  },
+  "reportview":{
+  "list":"Report list",
+  "reportedUsed":"Reported User",
+  "action":"Action"
+  },
+  "users":{
+  	"usersList":"Users list"
+  	
   }
   
   
