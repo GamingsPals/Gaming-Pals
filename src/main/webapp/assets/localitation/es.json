@@ -201,6 +201,14 @@
   "aboutUs":"Sobre nosotros",
   "contact":"Contactar",
   "legalNote":"Nota legal" 
+  },
+  "steam":{
+  	"clickCheck":"Ahora haga clic en el botón Comprobar para poder ofrecerle juegos disponibles en nuestro sistema.",
+  	"check":"Comprobar",
+  	"availablesGames":"Selecciona los juegos disponibles para añadir con tu Cuenta de Steam.",
+  	"selectGames":"Selecciona tus juegos",
+  	"yourUsernameSteam":"Tu nombre de usuario en Steam",
+  	"noHaveGames":"No dispones de juegos nuevos para añadir."
   }
   
 }

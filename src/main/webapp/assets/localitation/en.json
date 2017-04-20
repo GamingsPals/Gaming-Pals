@@ -201,6 +201,14 @@
   "aboutUs":"About us",
   "contact":"Contact",
   "legalNote":"Legal Note" 
+  },
+  "steam":{
+  	"clickCheck":"Now click the Check button so we can offer to you games available in our system",
+  	"check":"Check",
+  	"availablesGames":"Select the availables games to add with your Steam Account",
+  	"selectGames":"Select games",
+  	"yourUsernameSteam":"Your username in Steam",
+  	"noHaveGames":"You don't have any new game too add to the system"
   }
   
 }
