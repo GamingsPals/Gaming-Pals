@@ -129,7 +129,7 @@
         <ul>
             <li><a href="about"></a> {{loc.layout.aboutUs}}</li></li>
             <li><a href="contact">{{loc.layout.contact}}</a></li>
-            <li><a href="legal"> {{loc.layout.legalNote}}</a></li>
+            <li><a href="legalIssues" ng-click="legalIssues()"> {{loc.layout.legalNote}}</a></li>
             <li><a class="cursor-pointer" href="#" ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a>
                 <a  class="cursor-pointer"  href="#" ng-click="loc.changeLan('es')"><flag lang="es"></flag></a>
         </ul>

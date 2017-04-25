@@ -1,5 +1,5 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog){
     localization.init($scope);
     $rootScope.loc = localization;
     $scope.auth = auth;
@@ -36,6 +36,10 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
     $scope.searchUsername = function(name){
         $location.path("search").search("username",name);
     };
+
+    $scope.legalIssues = function () {
+        dialog.open("legalIssues",$scope);
+    }
 
 
 });

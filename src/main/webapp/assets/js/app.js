@@ -9266,7 +9266,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });
 ;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog){
     localization.init($scope);
     $rootScope.loc = localization;
     $scope.auth = auth;
@@ -9303,6 +9303,10 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.searchUsername = function(name){
         $location.path("search").search("username",name);
     };
+
+    $scope.legalIssues = function () {
+        dialog.open("legalIssues",$scope);
+    }
 
 
 });;app.controller('MessageController',function($scope, socket,chat,auth,ActorService,middleware, dialog){
@@ -10584,7 +10588,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("userCard",function($compile,auth){
+});;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {
