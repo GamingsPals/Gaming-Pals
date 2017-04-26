@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import domain.*;
 import domain.notifications.FollowNotification;
+import forms.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import domain.CreditCard;
-import domain.GameInfo;
-import domain.Language;
-import domain.Message;
-import domain.Rating;
-import domain.Report;
-import domain.Team;
-import domain.User;
 import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
@@ -38,6 +32,12 @@ public class UserService {
 	// Managed Repository
 	@Autowired
 	private UserRepository	userRepository;
+
+	@Autowired
+    private GameService gameService;
+
+	@Autowired
+    private LanguageService languageService;
 
 	@Autowired
     private ConfigurationService configurationService;
@@ -140,46 +140,6 @@ public class UserService {
 		return res;
 	}
 
-	public User reconstruct(User user, BindingResult bindingResult) {
-
-		User res;
-
-		if (user.getId() == 0) {
-
-			res = user;
-
-		} else {
-
-			res = findOne(user.getId());
-
-			CreditCard aux = res.getCreditCard();
-			CreditCard c = user.getCreditCard();
-			aux.setBrandName(c.getBrandName());
-			aux.setCvvCode(c.getCvvCode());
-			aux.setExpirationMonth(c.getExpirationMonth());
-			aux.setExpirationYear(c.getExpirationYear());
-			aux.setHolderName(c.getHolderName());
-			aux.setNumber(c.getNumber());
-
-			res.setCreditCard(aux);
-
-			validator.validate(res, bindingResult);
-
-		}
-
-		return res;
-
-	}
-
-	public boolean hasValidCreditCard(User user) {
-		CreditCard c = user.getCreditCard();
-		//Assert.isTrue(contest.getOpening().getTime()>(System.currentTimeMillis()-86400000));
-		//Date expiration = new Cale
-		Calendar calendar = new GregorianCalendar(c.getExpirationYear(), c.getExpirationMonth(), 1);
-		Date expiration = calendar.getTime();
-
-		return expiration.getTime() > (System.currentTimeMillis() + 86400000 * 7);
-	}
 
 	//Follow & Unfollow.
 
@@ -287,5 +247,45 @@ public class UserService {
 		Collection<User> users = userRepository.userFromUsernameAndTagGame();
 		Assert.notNull(users);
 		return users;
+	}
+
+	public Collection<User> search(SearchForm searchForm) {
+	    try {
+            List<User> users = userRepository.findAll();
+            List<Language> languages = searchForm.getLanguages();
+            List<Game> games = searchForm.getGames();
+            Integer page = (searchForm.getPage()!=null) ? searchForm.getPage() : 1;
+            Integer limit = (searchForm.getLimit()!=null) ? Math.min(searchForm.getLimit(),20) : 4;
+            List<User> result = new ArrayList<>();
+            for (User e : users) {
+                List<Game> userGames = new ArrayList<>();
+                for (GameInfo gameInfo : e.getGameInfo()) {
+                    userGames.add(gameInfo.getGame());
+                }
+                if(games!=null){
+                    if (!userGames.containsAll(games)) continue;
+                }
+                if(languages!=null){
+                    if (!e.getLanguages().containsAll(languages)) continue;
+                }
+                if (searchForm.getUsername() != null) {
+                    System.out.println(e.getUserAccount().getUsername()+" "+searchForm.getUsername());
+                    if (!e.getUserAccount().getUsername().contains(searchForm.getUsername()))continue;
+                }
+                if (searchForm.getRatingAvg() != null) {
+                    if (e.getRatingAvg() < searchForm.getRatingAvg()) continue;
+                }
+
+                result.add(e);
+            }
+            Integer fromIndex = (page - 1) * limit;
+            Integer toIndex = ((fromIndex + limit) <= result.size()) ? fromIndex + limit : result.size();
+            System.out.println(fromIndex+" "+toIndex);
+            result =  result.subList(fromIndex, toIndex);
+            return result;
+        } catch (Exception e){
+	        System.out.println(e.getMessage());
+	        return userRepository.findAll();
+        }
 	}
 }

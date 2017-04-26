@@ -4,6 +4,7 @@
   "tournaments" :"Tournaments",
   "profile": "Profile",
   "profileview": {
+    "editprofile": "Edit Profile",
     "follow" : "Follow",
     "unfollow" : "UnFollow",
     "following": "Following",

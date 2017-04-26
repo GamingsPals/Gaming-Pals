@@ -8,11 +8,11 @@ Error: Undefined variable: "$color-base-blue-3".
 16:   border:0;
 17:   border-radius:2px;
 18:   background-color: $color-base-blue-3;
-19:   color:$color-base-white-2!important;
+19:   color:$color-base-white-2;
 20:   transition: 0.5s all ease-out;
 21:   &:hover{
 22:     cursor: pointer;
-23:     color:$color-base-white-2!important;
+23:     color:$color-base-white-2;
 
 Backtrace:
 util.scss:18
@@ -67,4 +67,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 18 of util.scss\A \A 13:   padding: 8px 30px;\A 14:   font-size:0.82em;\A 15:   display: inline-block;\A 16:   border:0;\A 17:   border-radius:2px;\A 18:   background-color: $color-base-blue-3;\A 19:   color:$color-base-white-2!important;\A 20:   transition: 0.5s all ease-out;\A 21:   &:hover{\A 22:     cursor: pointer;\A 23:     color:$color-base-white-2!important;"; }
+  content: "Error: Undefined variable: \"$color-base-blue-3\".\A         on line 18 of util.scss\A \A 13:   padding: 8px 30px;\A 14:   font-size:0.82em;\A 15:   display: inline-block;\A 16:   border:0;\A 17:   border-radius:2px;\A 18:   background-color: $color-base-blue-3;\A 19:   color:$color-base-white-2;\A 20:   transition: 0.5s all ease-out;\A 21:   &:hover{\A 22:     cursor: pointer;\A 23:     color:$color-base-white-2;"; }

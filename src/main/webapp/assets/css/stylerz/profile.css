@@ -1,20 +1,21 @@
 /*
 Error: Undefined mixin 'om'.
-        on line 3 of profile.scss, in `om'
-        from line 3 of profile.scss
+        on line 4 of profile.scss, in `om'
+        from line 4 of profile.scss
 
 1: .profile-header{
-2:   background-size: 100%;
-3:   @include om() {
-4:     background-size: auto;
-5:   }
-6:   padding:15px;
-7:   h1,h2{
-8:     border:0;
+2:   position: relative;
+3:   background-size: 100%;
+4:   @include om() {
+5:     background-size: auto;
+6:   }
+7:   padding:15px;
+8:   .profile-header-editprofile{
+9:     position: absolute;
 
 Backtrace:
-profile.scss:3:in `om'
-profile.scss:3
+profile.scss:4:in `om'
+profile.scss:4
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:351:in `block in visit_mixin'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `block in with_mixin'
 C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
@@ -68,4 +69,4 @@ C:/Ruby23-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'om'.\A         on line 3 of profile.scss, in `om'\A         from line 3 of profile.scss\A \A 1: .profile-header{\A 2:   background-size: 100%;\A 3:   @include om() {\A 4:     background-size: auto;\A 5:   }\A 6:   padding:15px;\A 7:   h1,h2{\A 8:     border:0;"; }
+  content: "Error: Undefined mixin 'om'.\A         on line 4 of profile.scss, in `om'\A         from line 4 of profile.scss\A \A 1: .profile-header{\A 2:   position: relative;\A 3:   background-size: 100%;\A 4:   @include om() {\A 5:     background-size: auto;\A 6:   }\A 7:   padding:15px;\A 8:   .profile-header-editprofile{\A 9:     position: absolute;"; }

@@ -28,4 +28,9 @@ public class GameService {
     public Summoner getSummonerByUser(User user){
         return gameRepository.getSummonerByUser(user);
     }
+
+    public Game findOne(Integer integer) {
+
+        return gameRepository.findOne(integer);
+    }
 }

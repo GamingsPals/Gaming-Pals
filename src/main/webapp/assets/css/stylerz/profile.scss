@@ -1,9 +1,15 @@
 .profile-header{
+  position: relative;
   background-size: 100%;
   @include om() {
     background-size: auto;
   }
   padding:15px;
+  .profile-header-editprofile{
+    position: absolute;
+    right:25px;
+    top:25px;
+  }
   h1,h2{
     border:0;
     text-transform: none;

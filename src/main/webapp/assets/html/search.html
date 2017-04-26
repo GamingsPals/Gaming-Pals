@@ -5,76 +5,28 @@
             {{loc.signupform.name}}
         </label>
         <input type="text" id="username" name="username" ng-model="search.username" placeholder="{{loc.signupform.name}}..."/>
-    <label for="game">
+    <label for="games">
         {{loc.search.game}}
     </label>
-    <select class="s8" id="game" name="game" ng-model="search.game" ng-change="search.tier=null">
-        <option value="">{{loc.search.selectGame}}</option>
-        <option value="lol">League of Legends</option>
+        {{search.game}}
+    <select class="s8" multiple id="games" name="games" ng-model="search.games">
+        <option value="">Select a Game</option>
+        <option value="{{i.id}}" ng-repeat="i in games">{{i.name}}</option>
     </select>
     </div>
     <div class="col s6">
-        <span ng-show="search.game=='lol'">
-             <label for="tier">
-            {{loc.search.tier}}
+        <label for="languages">
+            {{loc.search.languages}}
         </label>
-        <select id="tier" name="tier" ng-model="search.tier">
-            <option value="">{{loc.search.selectTier}}</option>
-            <option value="BRONZE"> {{loc.search.bronze}}</option>
-            <option value="SILVER"> {{loc.search.silver}}</option>
-            <option value="GOLD"> {{loc.search.gold}}</option>
-            <option value="PLATINUM"> {{loc.search.platinum}}</option>
-            <option value="DIAMOND"> {{loc.search.diamond}}</option>
-            <option value="MASTER"> {{loc.search.master}}</option>
-            <option value="CHALLENGER"> {{loc.search.challenger}}</option>
+        {{search.languages}}
+        <select class="s8" multiple id="languages" name="languages" ng-model="search.languages">
+            <option value="">Select Languages</option>
+            <option value="{{i.id}}" ng-repeat="i in languages">{{i.longName}}</option>
         </select>
-        </span>
+        <input type="number" value="5" title="Limit" ng-model="search.limit" placeholder="Limit of Results"/>
     </div>
     <input type="submit"  value="{{loc.search.filter}}" /> <a href="search" class="small">{{loc.search.resetFilter}}</a>
 
 </form>
-<table class="data-table" >
-    <thead>
-    <tr>
-        <td>#</td>
-        <td>{{loc.loginview.username}}</td>
-        <td>{{loc.search.games}}</td>
-        <td>{{loc.signupform.languages}}</td>
-        <td>{{loc.search.ratingAvg}}</td>
-        <td>{{loc.search.tier}}</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="item in As.search">
-        <td><img width="60" ng-src="{{item.picture}}"/></td>
-        <td><a href="profile/{{item.userAccount.username}}">{{item.userAccount.username}}</a></td>
-        <td>
-            <span ng-repeat="g in item.gameInfo">
-                <img
-                      ng-src="assets/images/games/icons/{{g.game.tag}}icon.png" width="60"/>
-            <span class="hide">{{g.game.tag}}</span>
-                </span>
-        </td>
-        <td>
-            <div class="flags">
-                <img  ng-repeat="lan in item.languages"
-                      ng-src="assets/images/flags/{{lan.language}}.png" />
-            </div>
-        </td>
-        <td>
-            {{item.ratingAvg}}
-        </td>
-        <td>
-                    <span loltier="item.gameInfo[0].leagues[0].tier"></span>
-                   <span class="hide">{{(item.gameInfo[0].leagues.length>0) ?
-                       item.gameInfo[0].leagues[0].tier : 'unranked'}}</span>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="card " user-card="item" ng-repeat="item in As.search"></div>
 
-<script>
-
-
-
-</script>

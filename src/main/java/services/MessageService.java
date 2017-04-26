@@ -76,12 +76,8 @@ public class MessageService {
 	public Collection<Actor> messagesByUsers(){
 		Actor actor = actorService.findActorByPrincipal();
         Assert.notNull(actor);
-        Set<Actor> sended = messageRepository.messagesReceived(actor);
-        Set<Actor> received = messageRepository.messagesSended(actor);
-        Set<Actor> result = new HashSet<>();
-        result.addAll(sended);
-        result.addAll(received);
-        return result;
+        List<Actor> received = messageRepository.messagesSended(actor);
+        return received;
 	}
 
 

@@ -24,6 +24,7 @@ public class StringToGameConverter implements Converter<String, Game> {
 	public Game convert(String text) {
 		Game result;
 		int id;
+		System.out.println(text);
 		try {
 			if (StringUtils.isEmpty(text))
 				result = null;

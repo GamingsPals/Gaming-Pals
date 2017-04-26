@@ -20,6 +20,7 @@ app.service("middleware",function(auth,$location){
                     }
                 });
             }
+            console.log(rol);
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');
             }

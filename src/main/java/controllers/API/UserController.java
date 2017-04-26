@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Actor;
+import forms.EditProfileForm;
 import org.apache.commons.codec.language.bm.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -142,6 +143,38 @@ public class UserController extends ApiAbstractController {
 			return actor.getTeams();
 		}catch (Exception e){
 			return unauthorized(response,null);
+		}
+	}
+
+
+	@ResponseBody
+	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+	public Object editProfile(EditProfileForm signupForm, HttpServletRequest request, HttpServletResponse response) {
+	    User user;
+		try {
+			Assert.notNull(signupForm);
+		} catch (Exception e) {
+			return notFoundError(response, null);
+		}
+		try {
+			user = userService.findByPrincipal();
+			Assert.notNull(user);
+			user.setAge(signupForm.getAge());
+
+			user.getUserAccount().setUsername(signupForm.getUsername());
+			user.setPicture(signupForm.getPicture());
+			user.setEmail(signupForm.getEmail());
+			user.setHeader(signupForm.getHeader());
+            List<Language> languages = new ArrayList<>();
+            for(String e: signupForm.getLanguages().split(",")){
+                languages.add(languageService.findOne(Integer.valueOf(e)));
+            }
+            user.setLanguages(languages);
+			userService.save(user);
+			return ok(response, null);
+		} catch (Exception e) {
+
+			return internalservererror(response, e.getMessage());
 		}
 	}
 }

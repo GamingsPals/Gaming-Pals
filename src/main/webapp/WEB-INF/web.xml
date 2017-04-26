@@ -13,6 +13,7 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/servlet.xml</param-value>
@@ -29,6 +30,15 @@
       <param-value>true</param-value>
     </init-param>
   </servlet>
+  <!--<security-constraint>-->
+    <!--<web-resource-collection>-->
+      <!--<web-resource-name>*</web-resource-name>-->
+      <!--<url-pattern>/*</url-pattern>-->
+    <!--</web-resource-collection>-->
+    <!--<user-data-constraint>-->
+      <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
+    <!--</user-data-constraint>-->
+  <!--</security-constraint>-->
   <servlet-mapping>
     <servlet-name>GamingPalsServlet</servlet-name>
     <url-pattern>/</url-pattern>

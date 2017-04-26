@@ -92,6 +92,14 @@ $max-width-responsive: 1024px;
   color:$color-base-white-1!important;
 }
 
+.bg-white2{
+  background-color: $color-base-white-2!important;
+  color:$color-base-black-2!important;
+  &:hover{
+    color:$color-base-black-2;
+  }
+}
+
 .size-1-5{
   font-size:1.5em;
 }

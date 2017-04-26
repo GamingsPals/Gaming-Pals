@@ -52,8 +52,7 @@ public class Team extends DomainEntity {
 
 
 	@Valid
-    //@JsonIgnoreProperties(value = {"teams"})
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"teams"})
 	@ManyToMany
 	public Collection<User> getUsers() {
 		return users;

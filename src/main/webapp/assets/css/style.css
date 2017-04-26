@@ -58,6 +58,12 @@
   background-color: rgba(203, 67, 135, 0.78) !important;
   color: white !important; }
 
+.bg-white2 {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  color: rgba(0, 0, 0, 0.88) !important; }
+  .bg-white2:hover {
+    color: rgba(0, 0, 0, 0.88); }
+
 .size-1-5 {
   font-size: 1.5em; }
 
@@ -142,11 +148,11 @@
   border: 0;
   border-radius: 2px;
   background-color: #36535d;
-  color: rgba(255, 255, 255, 0.88) !important;
+  color: rgba(255, 255, 255, 0.88);
   transition: 0.5s all ease-out; }
   .button:hover, .grey-button:hover, input[type=submit]:hover, .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key:hover {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.88) !important; }
+    color: rgba(255, 255, 255, 0.88); }
 
 .icon-button {
   position: absolute;
@@ -420,8 +426,6 @@ div[contenteditable=true] {
 a {
   color: inherit;
   text-decoration: none; }
-  a:visited {
-    color: inherit; }
   a:hover {
     color: inherit; }
 
@@ -553,7 +557,8 @@ a {
 .fixed-menu {
   position: fixed;
   left: 0;
-  width: 100%; }
+  width: 100%;
+  top: 0; }
 
 .lateral-menu ul {
   margin-top: 40px;
@@ -743,11 +748,16 @@ table {
   background-image: url("../images/dota2slider.jpg"); }
 
 .profile-header {
+  position: relative;
   background-size: 100%;
   padding: 15px; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     .profile-header {
       background-size: auto; } }
+  .profile-header .profile-header-editprofile {
+    position: absolute;
+    right: 25px;
+    top: 25px; }
   .profile-header h1, .profile-header h2 {
     border: 0;
     text-transform: none;

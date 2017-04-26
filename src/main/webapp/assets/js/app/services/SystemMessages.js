@@ -21,8 +21,11 @@ app.service("SystemMessages", function($timeout){
         this.message = `<i class="fa fa-close"></i> ${message}`;
         this.show = true;
         let object = this;
+        console.log("lol");
+        $(".message-system").show();
         $timeout(function(){
             object.show = false;
+            $(".message-system").hide();
         },3000);
     }
 

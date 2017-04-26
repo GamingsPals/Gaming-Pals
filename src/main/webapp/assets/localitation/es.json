@@ -4,6 +4,7 @@
   "tournaments" :"Torneos",
   "profile": "Perfil",
   "profileview": {
+    "editprofile": "Editar Perfil",
     "follow" : "Seguir",
     "unfollow" : "Dejar de seguir",
     "following": "Siguiendo",

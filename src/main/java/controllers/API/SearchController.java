@@ -26,27 +26,10 @@ public class SearchController extends ApiAbstractController {
     public Object search(SearchForm searchForm, HttpServletRequest request, HttpServletResponse response) {
         Collection<User> result;
         try{
-            if (searchForm.getUsername()!= null) {
-                if (!searchForm.getUsername().equals("")) {
-                    result = new ArrayList<>();
-                    result.add(userService.findByUserAccountUsername(searchForm.getUsername()));
-                    return result;
-                }
-            }
-            if (searchForm.getGame()!= null) {
-                if (!searchForm.getGame().equals("")) {
-                    result = userService.usersForGameTag(searchForm.getGame());
-                    if (searchForm.getTier() != null) {
-                        if (!searchForm.getTier().equals("")) {
-                            result = userService.usersFromGameAndTier(searchForm.getGame(), searchForm.getTier());
-                        }
-                    }
-                    return result;
-                }
-            }
-            return userService.findAll();
+            return userService.search(searchForm);
         }catch (Exception e){
-            return internalservererror(response,null);
+            System.out.println(e.getMessage());
+            return internalservererror(response,e.getMessage());
         }
     }
 

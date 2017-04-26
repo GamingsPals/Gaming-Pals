@@ -22,7 +22,7 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
                 socket.disconnect();
             }
     });
-
+    $scope.$location = $location;
     $rootScope.csrf = csrf;
     $scope.MessageSystem = SystemMessages;
     $scope.sanitize = $sanitize;

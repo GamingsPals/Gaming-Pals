@@ -9228,6 +9228,29 @@ app.controller("BracketsController",function($scope,TournamentService){
 		});
 	}
 });
+;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth) {
+    middleware.needRol("USER");
+    $scope.languagesForm = [];
+    LanguageService.getAll(function(data){
+		$scope.languagesForm = data;
+	});
+    if(auth.isAuthenticated()){
+        $scope.form = auth.principal.actor;
+        $scope.form.username = $scope.form.userAccount.username;
+    }
+	$scope.enviarForm = function() {
+        $scope.form.languages.forEach((value,key,arr)=>{
+            $scope.form.languages[key] = value.id;
+        });
+	    xhr.post("api/user/edit", $scope.form,function(){
+		dialog.closeAll();
+		auth.load(()=>{},true);
+        },function(){
+		    $scope.error = "There was something wrong with your form, try again!"
+        });
+
+	};
+});
 ;
 app.controller('HomeController',function($scope){
 });;
@@ -9289,7 +9312,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
                 socket.disconnect();
             }
     });
-
+    $scope.$location = $location;
     $rootScope.csrf = csrf;
     $scope.MessageSystem = SystemMessages;
     $scope.sanitize = $sanitize;
@@ -9472,9 +9495,11 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
         dialog.open("showImage",$scope);
     }
 });;
-app.controller('SearchController',function($scope,SearchService,$location,middleware){
+app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, LanguageService){
     middleware.needRol("ANY");
     $scope.As = SearchService;
+    $scope.search = {};
+    $scope.search.page = 1;
     $scope.As.filter($location.search());
     $scope.search = $location.search();
     $scope.filter = function(object){
@@ -9483,7 +9508,16 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
                 $location.search(i,object[i]);
             }
         }
-    }
+    };
+
+    GameService.all((a)=>{
+        $scope.games = a.data;
+        console.log($scope.games);
+    });
+    LanguageService.getAll(function(data){
+        $scope.languages = data;
+    });
+
 });
 ;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService) {
     middleware.needRol("NONE");
@@ -10006,6 +10040,23 @@ app.service("dialog", function(ngDialog,$rootScope){
             }
         })
     }
+});;app.service("GameService",function(xhr){
+    this.main = {};
+
+    this.all = function(success,error){
+        let object = this;
+        xhr.get("api/games/all",function(data){
+            if(typeof success !=="undefined")
+                success(data);
+        },function(data){
+            if(typeof error !=="undefined")
+                error(data);
+        })
+    };
+
+
+
+
 });;app.service("LanguageService", function(xhr){
 
     this.getAll = function(callback){
@@ -10065,7 +10116,7 @@ app.service("dialog", function(ngDialog,$rootScope){
 
     this.loadVersion = function(callback){
         let object = this;
-        xhr.get("https://ddragon.leagueoflegends.com/api/versions.json",function(data){
+        xhr.get("//ddragon.leagueoflegends.com/api/versions.json",function(data){
             object.version = data.data[0];
             if (typeof callback!=="undefined"){
                 callback();
@@ -10075,7 +10126,7 @@ app.service("dialog", function(ngDialog,$rootScope){
 
     this.loadItems = function(){
         let object = this;
-        xhr.get(`http://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/item.json`, function(data){
+        xhr.get(`//ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/item.json`, function(data){
             object.items = data.data.data;
         })
     };
@@ -10094,7 +10145,7 @@ app.service("dialog", function(ngDialog,$rootScope){
 
     this.loadChampions = function(){
         let object = this;
-        xhr.get(`http://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/champion.json`, function(data){
+        xhr.get(`//ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/champion.json`, function(data){
             object.champions = data.data.data;
         })
     };
@@ -10179,6 +10230,7 @@ app.service("dialog", function(ngDialog,$rootScope){
                     }
                 });
             }
+            console.log(rol);
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');
             }
@@ -10309,7 +10361,7 @@ app.service("SearchService", function(xhr){
     this.init = function(scope){
         if (auth.isAuthenticated()){
         this.scope = scope;
-        this.socket = io.connect('http://gaming-pals.com:8081', { 'forceNew': true,
+        this.socket = io.connect('//gaming-pals.com:8081', { 'secure':true, 'forceNew': true,
         query: `id=${auth.principal.actor.id}&picture=${auth.principal.actor.picture}&username=${auth.principal.actor.userAccount.username}`});
         this.connected = true;
         this.listen();
@@ -10381,8 +10433,11 @@ app.service("SystemMessages", function($timeout){
         this.message = `<i class="fa fa-close"></i> ${message}`;
         this.show = true;
         let object = this;
+        console.log("lol");
+        $(".message-system").show();
         $timeout(function(){
             object.show = false;
+            $(".message-system").hide();
         },3000);
     }
 

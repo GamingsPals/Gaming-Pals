@@ -30,7 +30,6 @@ public class User extends Actor {
 	// Attributes
 	private int			age;
 	private boolean		verify;
-	private CreditCard	creditCard;
 	private String header;
 
 	// Constructor
@@ -52,16 +51,6 @@ public class User extends Actor {
 		this.age = age;
 	}
 
-	@Valid
-	@OneToOne()
-	@JsonIgnore
-	public CreditCard getCreditCard() {
-		return creditCard;
-	}
-
-	public void setCreditCard(CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
 
 
 	// Relationships
