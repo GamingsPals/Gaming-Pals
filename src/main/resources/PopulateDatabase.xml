@@ -61,8 +61,80 @@
 
 
 	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="TestUser" />
-		<property name="password" value="098f6bcd4621d373cade4e832627b4f6" />
+		<property name="username" value="EmilioGF56" />
+		<property name="password" value="660ba48cbe33d810923aa91e1d140ce8" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="PacoGu19" />
+		<property name="password" value="4171f108d7943910d23a4c70bf4f4797" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="CañitaBrava45" />
+		<property name="password" value="2514d38c0d91fb3d5b3fc34b864edc69" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="LolKiller69" />
+		<property name="password" value="90da3c1bba4dcf5fef612a68e28e682d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="LolMasterN1" />
+		<property name="password" value="80594517ae576c5d7c86a6d4992d791f" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="MaríaSinatra26" />
+		<property name="password" value="63c353f3036e3793bbc6e737e4ffd3c8" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="RonaldoMadeira23" />
+		<property name="password" value="31b8a49fa0c191417f6ab0f3016031d5" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -207,11 +279,11 @@
 	</bean>
 
 	<bean id="user4" class="domain.User">
-		<property name="email" value="test3@mail.com" />
-		<property name="picture" value="assets/images/avatars/default.png" />
-		<property name="header" value="assets/images/wallpapers/default.jpg" />
+		<property name="email" value="EmilioGF56@mail.com" />
+		<property name="picture" value="https://steamuserimages-a.akamaihd.net/ugc/505823901766078996/D99E8F90D5A694351EFF8E2094F78F47D60CA66D/" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount5" />
-		<property name="age" value="18" />
+		<property name="age" value="56" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -219,6 +291,197 @@
 		</property>
 		<property name="followingUsers">
 			<list>
+				<ref bean="user9" />
+				<ref bean="user6" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user5" class="domain.User">
+		<property name="email" value="PacoGu19@mail.com" />
+		<property name="picture" value="http://i.imgur.com/RHfEu.png" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="age" value="19" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+				<ref bean="language2" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user4" />
+				<ref bean="user7" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user6" class="domain.User">
+		<property name="email" value="CañitaBrava45@mail.com" />
+		<property name="picture" value="http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/3c/Nidalee_Poro_Icon.png/revision/latest?cb=20150214174101" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="age" value="45" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user10" />
+				<ref bean="user3" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user7" class="domain.User">
+		<property name="email" value="LolKiller69@mail.com" />
+		<property name="picture" value="http://icons.iconarchive.com/icons/fazie69/league-of-legends-gold-border/512/Gnar-icon.png" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount8" />
+		<property name="age" value="27" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+				<ref bean="language2" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user8" />
+				<ref bean="user5" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user8" class="domain.User">
+		<property name="email" value="LolMasterN1@mail.com" />
+		<property name="picture" value="http://orig05.deviantart.net/3039/f/2012/306/d/6/league_of_legends_baleful_grasp_icon_by_ponponmonster-d5jpnnf.png" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount9" />
+		<property name="age" value="30" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user3" />
+				<ref bean="user4" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user9" class="domain.User">
+		<property name="email" value="MaríaSinatra26@mail.com" />
+		<property name="picture" value="http://www.freeiconspng.com/uploads/league-of-legends-icon-9.jpg" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="age" value="26" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+				<ref bean="language2" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user10" />
+				<ref bean="user5" />
+			</list>
+		</property>
+		<property name="verify" value="true" />
+		<property name="sended">
+			<list>
+
+			</list>
+		</property>
+		<property name="received">
+			<list>
+
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="user10" class="domain.User">
+		<property name="email" value="RonaldoMadeira23@mail.com" />
+		<property name="picture" value="http://i.imgur.com/hlHuLjI.jpg" />
+		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="age" value="23" />
+		<property name="languages">
+			<list>
+				<ref bean="language1" />
+			</list>
+		</property>
+		<property name="followingUsers">
+			<list>
+				<ref bean="user9" />
+				<ref bean="user7" />
 			</list>
 		</property>
 		<property name="verify" value="true" />
@@ -302,7 +565,47 @@
 			
 			</list>
 		</property>
+	</bean> 
+	 
+	<bean id="team5" class="domain.Team">
+		<property name="name" value="Wizards" />
+		<property name="picture"
+			value="http://images.eldiario.es/hojaderouter/Equipo-femenino-League-Legends-Wizards_EDIIMA20140715_0112_13.jpg" />
+		<property name="users">
+			<list>
+				<ref bean="user6" />
+				<ref bean="user7" />
+				<ref bean="user8" />
+				<ref bean="user9" />
+				<ref bean="user10" />
+			</list>
+		</property>
+		<property name="tournaments">
+			<list>
+			
+			</list>
+		</property>
 	</bean>
+	
+	<bean id="team6" class="domain.Team">
+		<property name="name" value="Curse" />
+		<property name="picture" 
+			value="https://hydra-media.cursecdn.com/lol.gamepedia.com/thumb/6/63/Team_Curse_S3_LCS_Spring.jpg/400px-Team_Curse_S3_LCS_Spring.jpg?version=89ab02ac376299a0468697f86c5aac64" />
+		<property name="users">
+			<list>
+				<ref bean="user1" />
+				<ref bean="user2" />
+				<ref bean="user3" />
+				<ref bean="user4" />
+				<ref bean="user5" />
+			</list>
+		</property>
+		<property name="tournaments">
+			<list>
+			
+			</list>
+		</property>
+	</bean> 
 
 
 	<!-- Tournaments -->
@@ -331,9 +634,70 @@
 			<list>
 				<ref bean="team1" />
 				<ref bean="team2" />
+				<ref bean="team3" />
+				<ref bean="team4" />
 			</list>
 		</property>
-	</bean>
+	</bean> 
+	
+	<bean id="tournament2" class="domain.Tournament">
+		<property name="momentCreate" value="2017/04/11 10:20" />
+		<property name="title" value="Special Tournament" />
+		<property name="description" value="Face the best and win!" />
+		<property name="numberTeams" value="4" />
+		<property name="limitInscription" value="2017/04/25 10:20" />
+		<property name="rules" value="You can't flame others" />
+		<property name="picture"
+			value="http://las.leagueoflegends.com/sites/default/files/styles/scale_large/public/upload/art/bg_champion_missfortune_1920x1080.jpg?itok=YQComS4A" />
+		<property name="awards">
+			<list>
+				<ref bean="award2" />
+			</list>
+		</property>
+		<property name="confrontations">
+			<list>
+				<ref bean="confrontation1" />
+				<ref bean="confrontation2" />
+				<ref bean="confrontation3" />
+			</list>
+		</property>
+		<property name="teams">
+			<list>
+				<ref bean="team3" />
+				<ref bean="team4" />
+				<ref bean="team5" />
+				<ref bean="team6" />
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="tournament3" class="domain.Tournament">
+		<property name="momentCreate" value="2017/04/19 10:20" />
+		<property name="title" value="Summer Tournament" />
+		<property name="description" value="Face the best and win!" />
+		<property name="numberTeams" value="4" />
+		<property name="limitInscription" value="2017/05/29 10:20" />
+		<property name="rules" value="You can't flame others" />
+		<property name="picture"
+			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />
+		<property name="awards">
+			<list>
+				<ref bean="award3" />
+				<ref bean="award4" />
+			</list>
+		</property>
+		<property name="confrontations">
+			<list>
+			</list>
+		</property>
+		<property name="teams">
+			<list>
+				<ref bean="team3" />
+				<ref bean="team4" />
+				<ref bean="team5" />
+			</list>
+		</property>
+	</bean> 
 
 
 
@@ -354,7 +718,7 @@
 			</list>
 		</property>
 		<property name="tournament" ref="tournament1" />
-	</bean>
+	</bean> 
 
 	<bean id="confrontation2" class="domain.Confrontation">
 		<property name="round" value="1" />
@@ -390,32 +754,102 @@
 		</property>
 		<property name="tournament" ref="tournament1" />
 	</bean>
+ 
 
+	<bean id="confrontation4" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/04/26 10:20" />
+		<property name="reportMatches">
+			<list>
 
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+				<ref bean="participes5" />
+				<ref bean="participes6" />
+			</list>
+		</property>
+		<property name="tournament" ref="tournament2" />
+	</bean>
+
+	<bean id="confrontation5" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="2" />
+		<property name="limitPlay" value="2017/04/26 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+				<ref bean="participes7" />
+				<ref bean="participes8" />
+			</list>
+		</property>
+		<property name="tournament" ref="tournament2" />
+	</bean>
+
+	<bean id="confrontation6" class="domain.Confrontation">
+		<property name="round" value="2" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/04/27 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament2" />
+	</bean> 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
 		<property name="isWinner" value="true" />
-		<property name="team" ref="team1" />
+		<property name="team" ref="team3" />
 	</bean>
 
 	<bean id="participes2" class="domain.Participes">
 		<property name="isWinner" value="false" />
-		<property name="team" ref="team2" />
-	</bean>
+		<property name="team" ref="team4" />
+	</bean> 
 
 	<bean id="participes3" class="domain.Participes">
 		<property name="isWinner" value="false" />
-		<property name="team" ref="team3" />
+		<property name="team" ref="team5" />
 	</bean>
 	
 	<bean id="participes4" class="domain.Participes">
 		<property name="isWinner" value="true" />
-		<property name="team" ref="team4" />
+		<property name="team" ref="team6" />
+	</bean> 
+
+
+	<bean id="participes5" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team1" />
 	</bean>
 
+	<bean id="participes6" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team2" />
+	</bean>
+
+	<bean id="participes7" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team3" />
+	</bean>
 	
-
-
+	<bean id="participes8" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team4" />
+	</bean> 
+	
 
 	<!-- Awards -->
 	<bean id="award1" class="domain.Award">
@@ -423,7 +857,28 @@
 			value="http://ya-ho.ru/wp-content/uploads/2013/10/poppy_2.jpg" />
 		<property name="description" value="Awesome Poppy Skin" />
 		<property name="tournament" ref="tournament1" />
-	</bean>
+	</bean> 
+	
+	<bean id="award2" class="domain.Award">
+		<property name="image"
+			value="http://korsaka.com/wp-content/uploads/2016/08/17500-lol.jpg" />
+		<property name="description" value="17500 Riot Points" />
+		<property name="tournament" ref="tournament2" />
+	</bean> 
+	
+	<bean id="award3" class="domain.Award">
+		<property name="image"
+			value="http://ya-ho.ru/wp-content/uploads/2013/10/poppy_2.jpg" />
+		<property name="description" value="Awesome Poppy Skin" />
+		<property name="tournament" ref="tournament3" />
+	</bean> 
+	
+	<bean id="award4" class="domain.Award">
+		<property name="image"
+			value="http://korsaka.com/wp-content/uploads/2016/08/17500-lol.jpg" />
+		<property name="description" value="17500 Riot Points" />
+		<property name="tournament" ref="tournament3" />
+	</bean> 
 
 	<!-- Reports Matches -->
 	<bean id="reportMatch1" class="domain.ReportMatch">
@@ -433,6 +888,15 @@
 		<property name="description" value="He perdido pero bien" />
 		<property name="confrontation" ref="confrontation1" />
 		<property name="team" ref="team2" />
+	</bean> 
+	
+	<bean id="reportMatch2" class="domain.ReportMatch">
+		<property name="image"
+			value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
+		<property name="result" value="Losser" />
+		<property name="description" value="He perdido pero bien" />
+		<property name="confrontation" ref="confrontation5" />
+		<property name="team" ref="team2" /> 
 	</bean>
 
 	<!-- User Reports -->
@@ -451,7 +915,14 @@
 		<property name="reportedUser" ref="user1" />
 		<property name="reporterUser" ref="user2" />
 	</bean>
-
+	
+	<bean id="report3" class="domain.Report">
+		<property name="comment" value="Insultó a todo el equipo" />
+		<property name="picture"
+			value="http://apollo-uploads-las.s3.amazonaws.com/1442448455/maxresdefault.jpg" />
+		<property name="reportedUser" ref="user4" />
+		<property name="reporterUser" ref="user5" />
+	</bean> 
 	<!-- Ratings -->
 	<bean id="rating1" class="domain.Rating">
 		<property name="skill" value="5" />
@@ -491,6 +962,26 @@
 		<property name="ratingUser" ref="user2" />
 		<property name="ratedUser" ref="user1" />
 	</bean>
+	
+	<bean id="rating5" class="domain.Rating">
+		<property name="skill" value="1" />
+		<property name="knowledge" value="1" />
+		<property name="attitude" value="1" />
+		<property name="comment"
+			value="Se ha quedado AFK toda la partidaq" />
+		<property name="ratingUser" ref="user5" />
+		<property name="ratedUser" ref="user6" />
+	</bean>
+	
+	<bean id="rating6" class="domain.Rating">
+		<property name="skill" value="5" />
+		<property name="knowledge" value="5" />
+		<property name="attitude" value="5" />
+		<property name="comment"
+			value="Gracias a él hemos ganado" />
+		<property name="ratingUser" ref="user8" />
+		<property name="ratedUser" ref="user9" />
+	</bean>
 
 	<!-- Games -->
 
@@ -525,7 +1016,54 @@
 		<property name="username" value="HideInBush" />
 		<property name="game" ref="game1" />
 	</bean>
+	
+		<bean id="summoner4" class="domain.Summoner">
+		<property name="user" ref="user4" />
+		<property name="username" value="EmilioGF56" />
+		<property name="game" ref="game1" />
+	</bean>
 
+	<bean id="summoner5" class="domain.Summoner">
+		<property name="user" ref="user5" />
+		<property name="username" value="PacoGu19" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	
+	<bean id="summoner6" class="domain.Summoner">
+		<property name="user" ref="user6" />
+		<property name="username" value="CañitaBrava45" />
+		<property name="game" ref="game1" />
+	</bean>
+
+	<bean id="summoner7" class="domain.Summoner">
+		<property name="user" ref="user7" />
+		<property name="username" value="LolKiller69" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+		<bean id="summoner8" class="domain.Summoner">
+		<property name="user" ref="user8" />
+		<property name="username" value="LolMasterN1" />
+		<property name="game" ref="game1" />
+	</bean>
+
+	<bean id="summoner9" class="domain.Summoner">
+		<property name="user" ref="user9" />
+		<property name="username" value="MaríaSinatra26" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	
+	<bean id="summoner10" class="domain.Summoner">
+		<property name="user" ref="user10" />
+		<property name="username" value="RonaldoMadeira23" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	
+
+	
 
 
 	<bean id="league2" class="domain.League">
@@ -537,6 +1075,43 @@
 		<property name="tier" value="BRONZE" />
 		<property name="summoner" ref="summoner2" />
 	</bean>
+	
+	<bean id="league4" class="domain.League">
+		<property name="tier" value="CHALLENGER" />
+		<property name="summoner" ref="summoner4" />
+	</bean>
+
+	<bean id="league5" class="domain.League">
+		<property name="tier" value="GOLD" />
+		<property name="summoner" ref="summoner5" />
+	</bean>
+	
+	<bean id="league6" class="domain.League">
+		<property name="tier" value="GOLD" />
+		<property name="summoner" ref="summoner6" />
+	</bean>
+
+	<bean id="league7" class="domain.League">
+		<property name="tier" value="BRONZE" />
+		<property name="summoner" ref="summoner7" />
+	</bean>
+	
+	<bean id="league8" class="domain.League">
+		<property name="tier" value="SILVER" />
+		<property name="summoner" ref="summoner8" />
+	</bean>
+
+	<bean id="league9" class="domain.League">
+		<property name="tier" value="BRONZE" />
+		<property name="summoner" ref="summoner9" />
+	</bean>
+	
+	<bean id="league10" class="domain.League">
+		<property name="tier" value="DIAMOND" />
+		<property name="summoner" ref="summoner10" />
+	</bean>
+
+	
 
 	<bean id="configuration" class="domain.Configuration">
 		<property name="defaultHeader" value="assets/images/wallpapers/default.jpg" />
