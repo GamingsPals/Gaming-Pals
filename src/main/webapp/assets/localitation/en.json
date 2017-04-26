@@ -134,10 +134,10 @@
   	"notifications":"Notifications",
   	"teamInvitations":"Team invitations",
   	"newFollowers":"New Followers",
-  	"noTeamInvitations":"You haven't reveived invitations lately",
+  	"noTeamInvitations":"You haven't received invitations recently",
   	"reject":"Reject",
   	"accept":"accept",
-  	"noNewFollowers":"You haven't been followed lately",
+  	"noNewFollowers":"You haven't been followed recently",
   	"followYou":"Has followed you"
   },
   "reportform":{
