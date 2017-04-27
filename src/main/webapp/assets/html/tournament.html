@@ -62,7 +62,7 @@
         <h1>{{loc.tournament.adminZone}}</h1>
         <li><a href="#" class="button" ng-click="advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
     </ul>
-    <ul>
+    <ul ng-if="auth.hasRole('USER')">
         <h1>{{loc.tournament.inscribe}}</h1>
         <li ng-include="'assets/html/assignTeamToTournament.html'"></li>
     </ul>

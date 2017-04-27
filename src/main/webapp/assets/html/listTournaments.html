@@ -31,7 +31,7 @@
             <span ng-if="closedTournament(i)">
                 {{loc.tournament.inscriptionClosed}} <i class="fa fa-lock small"></i>
             </span>
-            <span ng-if="!closedTournament(i)">
+            <span ng-if="!closedTournament(i) && auth.hasRole('USER')">
                 <a href="tournament/{{i.id}}" class="button"> {{loc.tournament.inscribe}}</a>
             </span>
         </div>
