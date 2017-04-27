@@ -512,6 +512,7 @@
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament1" />
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -546,6 +547,7 @@
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament1" />
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -581,6 +583,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -600,7 +603,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
+				<ref bean="tournament3" />	
 			</list>
 		</property>
 	</bean> 
@@ -686,10 +689,17 @@
 		</property>
 		<property name="confrontations">
 			<list>
+				<ref bean="confrontation7" />
+				<ref bean="confrontation8" />
+				<ref bean="confrontation9" />
 			</list>
 		</property>
 		<property name="teams">
 			<list>
+				<ref bean="team1" />
+				<ref bean="team3" />
+				<ref bean="team5" />
+				<ref bean="team6" />
 			</list>
 		</property>
 	</bean> 
@@ -807,7 +817,7 @@
 	<bean id="confrontation7" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="1" />
-		<property name="limitPlay" value="2017/05/26 10:20" />
+		<property name="limitPlay" value="2017/04/27 15:00" />
 		<property name="reportMatches">
 			<list>
 
@@ -815,6 +825,8 @@
 		</property>
 		<property name="participes">
 			<list>
+				<ref bean="participes9" />
+				<ref bean="participes10" />
 			</list>
 		</property>
 		<property name="tournament" ref="tournament3" />
@@ -823,7 +835,7 @@
 	<bean id="confrontation8" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="2" />
-		<property name="limitPlay" value="2017/05/26 10:20" />
+		<property name="limitPlay" value="2017/04/27 15:00" />
 		<property name="reportMatches">
 			<list>
 
@@ -831,6 +843,8 @@
 		</property>
 		<property name="participes">
 			<list>
+				<ref bean="participes11" />
+				<ref bean="participes12" />
 
 			</list>
 		</property>
@@ -893,6 +907,26 @@
 	<bean id="participes8" class="domain.Participes">
 		<property name="isWinner" value="true" />
 		<property name="team" ref="team4" />
+	</bean> 
+	
+	<bean id="participes9" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team1" />
+	</bean>
+
+	<bean id="participes10" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team6" />
+	</bean>
+
+	<bean id="participes11" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team3" />
+	</bean>
+	
+	<bean id="participes12" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team5" />
 	</bean> 
 	
 
