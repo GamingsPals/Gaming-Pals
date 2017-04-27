@@ -562,7 +562,6 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
 			</list>
 		</property>
 	</bean> 
@@ -582,7 +581,6 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
 			</list>
 		</property>
 	</bean>
@@ -676,7 +674,7 @@
 		<property name="title" value="Summer Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
-		<property name="limitInscription" value="2017/05/29 10:20" />
+		<property name="limitInscription" value="2017/04/27 14:30" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />
@@ -692,9 +690,6 @@
 		</property>
 		<property name="teams">
 			<list>
-				<ref bean="team3" />
-				<ref bean="team4" />
-				<ref bean="team5" />
 			</list>
 		</property>
 	</bean> 

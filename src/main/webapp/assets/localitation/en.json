@@ -86,8 +86,8 @@
   },
   "assignTeam":{
   	"select":"Select a Team",
-  	"selectedTeam":"You are going to inscribe your selected team to ",
-  	"inscribe":"Inscribe"
+  	"selectedTeam":"You are going to join your selected team to ",
+  	"inscribe":"Join"
   },
   "team":{
   "searchMember":"Search a member:",
@@ -108,7 +108,7 @@
  	 "tournaments":"Tournaments",
  	 "started":"STARTED!",
  	 "inscriptionClosed":"Inscription Closed!",
- 	 "inscribe":"INSCRIBE IN",
+ 	 "inscribe":"JOIN IN",
  	 "inscriptedTeams":"Inscripted Teams",
  	 "bracket":"Bracket",
  	 "awards":"Awards",
