@@ -803,6 +803,56 @@
 		</property>
 		<property name="tournament" ref="tournament2" />
 	</bean> 
+	
+	<bean id="confrontation7" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/05/26 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean>
+
+	<bean id="confrontation8" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="2" />
+		<property name="limitPlay" value="2017/05/26 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean>
+
+	<bean id="confrontation9" class="domain.Confrontation">
+		<property name="round" value="2" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/05/28 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean> 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
 		<property name="isWinner" value="true" />
