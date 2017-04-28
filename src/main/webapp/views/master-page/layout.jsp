@@ -67,17 +67,30 @@
 					<li><a href="#" ng-if="!auth.isAuthenticated()"
 						dialog="signup"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
 				</span>
+                <li><a
+                        href="#"
+                        ng-if="auth.hasRole('ADMIN')"> <img class="profile-image"
+                                                           ng-src="{{auth.principal.actor.picture}}" />
+                    {{auth.principal.actor.userAccount.username}}
+                </a>
+                    <ul>
+                        <li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
+                            <a href="user/reported/list"><i class="fa fa-user-times"></i>
+                                {{loc.layout.userReportedList}}</a>
+                        </li>
+                        <li><a target="_self" href="j_spring_security_logout"
+                              ng-if="auth.isAuthenticated()"> <i class="fa fa-sign-out"
+                                                                 aria-hidden="true"></i> {{loc.logout}}
+                        </a></li>
+                    </ul>
+                </li>
 				<li><a
 					href="profile/{{auth.principal.actor.userAccount.username}}"
-					ng-if="auth.isAuthenticated()"> <img class="profile-image"
+					ng-if="auth.hasRole('USER')"> <img class="profile-image"
 						ng-src="{{auth.principal.actor.picture}}" />
 						{{auth.principal.actor.userAccount.username}}
 				</a>
 					<ul>
-						<li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-							<a href="user/reported/list"><i class="fa fa-user-times"></i>
-								{{loc.layout.userReportedList}}</a>
-						</li>
 						<li><a ng-if="auth.hasRole('USER')"
 							href="profile/{{auth.principal.actor.userAccount.username}}/gameprofiles">
 								<i class="fa fa-gamepad" aria-hidden="true"></i>

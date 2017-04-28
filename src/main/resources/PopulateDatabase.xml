@@ -512,6 +512,7 @@
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament1" />
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -546,6 +547,7 @@
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament1" />
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -562,7 +564,6 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
 			</list>
 		</property>
 	</bean> 
@@ -582,7 +583,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
+				<ref bean="tournament3" />
 			</list>
 		</property>
 	</bean>
@@ -602,7 +603,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
-			
+				<ref bean="tournament3" />	
 			</list>
 		</property>
 	</bean> 
@@ -676,7 +677,7 @@
 		<property name="title" value="Summer Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
-		<property name="limitInscription" value="2017/05/29 10:20" />
+		<property name="limitInscription" value="2017/04/27 14:30" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />
@@ -688,13 +689,17 @@
 		</property>
 		<property name="confrontations">
 			<list>
+				<ref bean="confrontation7" />
+				<ref bean="confrontation8" />
+				<ref bean="confrontation9" />
 			</list>
 		</property>
 		<property name="teams">
 			<list>
+				<ref bean="team1" />
 				<ref bean="team3" />
-				<ref bean="team4" />
 				<ref bean="team5" />
+				<ref bean="team6" />
 			</list>
 		</property>
 	</bean> 
@@ -808,6 +813,60 @@
 		</property>
 		<property name="tournament" ref="tournament2" />
 	</bean> 
+	
+	<bean id="confrontation7" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/04/27 15:00" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+				<ref bean="participes9" />
+				<ref bean="participes10" />
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean>
+
+	<bean id="confrontation8" class="domain.Confrontation">
+		<property name="round" value="1" />
+		<property name="numberMatch" value="2" />
+		<property name="limitPlay" value="2017/04/27 15:00" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+				<ref bean="participes11" />
+				<ref bean="participes12" />
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean>
+
+	<bean id="confrontation9" class="domain.Confrontation">
+		<property name="round" value="2" />
+		<property name="numberMatch" value="1" />
+		<property name="limitPlay" value="2017/05/28 10:20" />
+		<property name="reportMatches">
+			<list>
+
+			</list>
+		</property>
+		<property name="participes">
+			<list>
+
+			</list>
+		</property>
+		<property name="tournament" ref="tournament3" />
+	</bean> 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
 		<property name="isWinner" value="true" />
@@ -848,6 +907,26 @@
 	<bean id="participes8" class="domain.Participes">
 		<property name="isWinner" value="true" />
 		<property name="team" ref="team4" />
+	</bean> 
+	
+	<bean id="participes9" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team1" />
+	</bean>
+
+	<bean id="participes10" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team6" />
+	</bean>
+
+	<bean id="participes11" class="domain.Participes">
+		<property name="isWinner" value="false" />
+		<property name="team" ref="team3" />
+	</bean>
+	
+	<bean id="participes12" class="domain.Participes">
+		<property name="isWinner" value="true" />
+		<property name="team" ref="team5" />
 	</bean> 
 	
 
