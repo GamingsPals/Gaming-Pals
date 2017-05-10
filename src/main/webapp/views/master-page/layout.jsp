@@ -11,6 +11,10 @@
 <html lang="en">
 <head>
 
+
+<meta name=”description” content="Be prepared to a hole new gaming experience joining our community. 0% Toxicity. 100% Fun." />
+
+
 <style type="text/css">
 .paypal {
 	border: 0;
