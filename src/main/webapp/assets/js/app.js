@@ -9024,6 +9024,13 @@ routes = [
         }
     },
     {
+        route : "/contact",
+        options : {
+            templateUrl : "contact",
+            controller : "Contact"
+        }
+    },
+    {
         route : "/messages/:userId",
         options : {
             templateUrl : "main",
@@ -9073,8 +9080,6 @@ routes = [
 });;app.controller('AssignTeamTournamentController', function($scope, TournamentService, $routeParams,middleware) {
     middleware.needRol("ANY");
 	$scope.As = TournamentService;
-	console.log($routeParams.tournamentId);
-	console.log($routeParams.teamId);
 	$scope.As.assignTeam($routeParams.tournamentId, $routeParams.teamId);
 });
 ;app.controller('AwardsTournamentListController', function($scope, TournamentService,middleware) {
@@ -9216,11 +9221,12 @@ app.controller("BracketsController",function($scope,TournamentService){
         return result;
     }
 });
-;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
+;app.controller("ContactController", function($scope){
+
+});;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
     middleware.needRol("ADMIN");
 
 	$scope.enviarTournamentForm = function() {
-		console.log("ey");
 		xhr.post("api/createTournament", $scope.tournamentform, function(){
 		    dialog.closeAll();
             TournamentService.getTournaments();
@@ -9386,8 +9392,6 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 });;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
     $scope.searched = false;
     $scope.validateSteam = function(){
-        console.log(typeof $scope.steam.games);
-        console.log($scope.steam.games[0]);
         xhr.post("api/steam/add",$scope.steam,(a)=>{
             dialog.closeAll();
             $scope.ActorService.UserProfile();
@@ -9402,16 +9406,13 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.searched = true;
         }),(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
-            console.log("lol");
         })
     }
 });;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
     middleware.needRol("ANY");
     $scope.LolData=LolApiService;
     $scope.test =" Asdad";
-    console.log("adsda");
     $scope.validateSummoner = function(){
-        console.log($scope.search);
         if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
             $scope.check = true;
             $scope.search.key = md5($scope.search.summoner);
@@ -9424,7 +9425,6 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.error = false;
             ActorService.UserProfile();
         },function(data){
-            console.log(data);
             $scope.error = data.data.message;
         });
     }
@@ -9449,7 +9449,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         })
     }
 });;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
-                                                SystemMessages, dialog,middleware){
+                                                SystemMessages, dialog){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
@@ -9500,23 +9500,24 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     $scope.As = SearchService;
     $scope.search = {};
     $scope.search.page = 1;
+    $scope.search.limit = 10;
     $scope.As.filter($location.search());
     $scope.search = $location.search();
     $scope.filter = function(object){
+        delete object._csrf;
         for(let i in object){
             if(object.hasOwnProperty(i)){
                 $location.search(i,object[i]);
             }
         }
     };
-
     GameService.all((a)=>{
         $scope.games = a.data;
-        console.log($scope.games);
     });
     LanguageService.getAll(function(data){
         $scope.languages = data;
     });
+
 
 });
 ;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog) {
@@ -9528,7 +9529,6 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 	});
 
 	$scope.enviarForm = function() {
-	    console.log($scope.form);
 		xhr.post("api/signup", $scope.form,function(){
             dialog.closeAll();
             $location.path("/login");
@@ -9573,7 +9573,6 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
             });
             TournamentService.getConfrontationsAvailable($scope.tournament,(a)=>{
                 if(a.confrontation!==null && a.team !== null){
-                    console.log("adsd");
                     $scope.matchtoreport = a;
                 }
 
@@ -9595,6 +9594,15 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
        TournamentService.advanceRound(tournament,(a)=>{
            $scope.loadTournament();
        });
+    };
+
+    $scope.getStyleFromResult = function(tournament,id){
+       let result = false;
+       for(let i of tournament.participes){
+           if(i.isWinner === true) result = true;
+       }
+       if(!result) return '';
+        return (tournament.participes[id].isWinner===true) ? 'winner' : 'looser';
     }
 });;app.controller('TournamentListController',function($scope,TournamentService, dialog,middleware){
     middleware.needRol("ANY");
@@ -9626,8 +9634,6 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     $scope.startedTournament = function (tournament) {
         let now = new Date();
         let limit = new Date(tournament.limitInscription);
-
-        console.log(limit<now);
 
         return limit < now;
     }
@@ -10063,7 +10069,6 @@ app.service("dialog", function(ngDialog,$rootScope){
 
     this.getAll = function(callback){
              xhr.get("api/languages/all", function(response){
-            console.log(response);
             if(typeof  callback!=="undefined"){
                 callback(response.data);
             }
@@ -10091,7 +10096,6 @@ app.service("dialog", function(ngDialog,$rootScope){
     };
 
     this.changeLan = function(lan){
-        console.log("ey");
       $cookies.put("language",lan);
       this.init();
     }
@@ -10232,7 +10236,6 @@ app.service("dialog", function(ngDialog,$rootScope){
                     }
                 });
             }
-            console.log(rol);
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
                 return object.goTo('');
             }
@@ -10295,7 +10298,7 @@ app.service("dialog", function(ngDialog,$rootScope){
         messageNotification.numMessages +=1;
         let key = this.notifications.Message.indexOf(messageNotification);
         this.notifications.Message[key] = messageNotification;
-        console.log(this.notifications.Message);
+
         $rootScope.$apply();
     };
 
@@ -10340,7 +10343,7 @@ app.service("SearchService", function(xhr){
 
     this.filter = function(filter,callback){
         let object = this;
-        xhr.get("api/search?"+$.param(filter),function(data){
+        xhr.post("api/search",filter,function(data){
             object.search = data.data;
             if (typeof callback !== "undefined") callback();
         })
@@ -10352,6 +10355,7 @@ app.service("SearchService", function(xhr){
             object.search = data.data;
         })
     };
+
 });;app.service("socket", function(auth,$rootScope){
 
     this.socket = null;
@@ -10435,7 +10439,6 @@ app.service("SystemMessages", function($timeout){
         this.message = `<i class="fa fa-close"></i> ${message}`;
         this.show = true;
         let object = this;
-        console.log("lol");
         $(".message-system").show();
         $timeout(function(){
             object.show = false;
@@ -10645,7 +10648,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;app.directive("userCard",function($compile,auth){
+});;;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {
@@ -10878,7 +10881,6 @@ app.directive("loltier",function(){
             let elipsis = $($(".profile-nav-mbutton").children("a")[0]);
             let list = $($(element).children("ul")[0]);
             let overlay = $(`<div class="toverlay"></div>`);
-            console.log("hola");
             elipsis.on("click",function(e){
                 e.preventDefault();
                 $(".toverlay").hide();
@@ -10924,7 +10926,6 @@ app.directive("loltier",function(){
                         if(index<0) index = 0;
                         if(index>size) index = size;
                         lis.each((test)=>{
-                            console.log(test);
                            $(lis[test]).children("a").removeClass("list-hover");
                         });
                         $(lis[index]).children("a").addClass("list-hover");
@@ -10972,7 +10973,24 @@ function notPrincipal(element,actor,auth){
     }else{
         $(element).show();
     }
-};app.directive('passwordVerify', function() {
+};let paginations = [];
+app.directive("paginate",function($filter){
+    return{
+        restrict: "AEC",
+        scope:{
+            "paginate": "=",
+        },
+        link: function(scope,element,attrs){
+
+            scope.watch("paginate",(a)=>{
+                if(a){
+                   let pageResults = attrs.limit;
+                   let page = attrs.page;
+                }
+            })
+        }
+    }
+});;app.directive('passwordVerify', function() {
     return {
         restrict: 'A',
         require: '?ngModel',
@@ -10989,6 +11007,25 @@ function notPrincipal(element,actor,auth){
             actor: "="
         },
         link: function(scope,element,attrs){
+            let calculateRating = function(actor){
+                actor.avgknowledge = 0;
+                actor.avgattitude = 0;
+                actor.avgskill = 0;
+                let object = this;
+                actor.ratingsReceived.forEach(function(a){
+                    actor.avgknowledge += a.knowledge;
+                    actor.avgattitude += a.attitude;
+                    actor.avgskill += a.skill;
+                });
+                let nRatings = (actor.ratingsReceived.length>0) ? actor.ratingsReceived.length : 1;
+                actor.avgknowledge = Math.round((actor.avgknowledge/nRatings) * 100) / 100;
+                actor.avgattitude = Math.round((actor.avgattitude/nRatings) * 100) / 100;
+                actor.avgskill = Math.round((actor.avgskill/nRatings) * 100) / 100;
+                actor.nRatings = actor.ratingsReceived.length;
+                actor.avgrating = (actor.avgattitude + actor.avgskill + actor.avgknowledge) / 3;
+                return actor;
+            };
+            scope.actor = calculateRating(scope.actor);
             let avgattitude = scope.actor.avgattitude;
             let avgskill = scope.actor.avgskill;
             let avgknowledge = scope.actor.avgknowledge;

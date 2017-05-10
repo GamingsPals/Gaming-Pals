@@ -16,13 +16,6 @@ public class SearchForm {
     private Integer page;
     private Integer limit;
 
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
 
     public String getUsername() {
         return username;
@@ -31,11 +24,6 @@ public class SearchForm {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public void setLanguages(List<Language> languages) {
-        this.languages = languages;
-    }
-
 
 
     public Integer getRatingAvg() {
@@ -54,9 +42,6 @@ public class SearchForm {
         this.page = page;
     }
 
-    public List<Language> getLanguages() {
-        return languages;
-    }
 
     public Integer getLimit() {
         return limit;
@@ -64,5 +49,21 @@ public class SearchForm {
 
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
     }
 }

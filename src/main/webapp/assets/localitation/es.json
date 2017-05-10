@@ -152,6 +152,8 @@
   "incidence":"Incidencia"
   },
   "search":{
+    "languages": "Idiomas",
+    "ratingavg": "Puntuación media",
   "pals":"Buscar amigos",
   "game":"Juego",
   "selectGame":"Selecciona un juego",
@@ -273,6 +275,12 @@
     "duration1": "GAMINGPALS podrá modificar los términos y condiciones aquí estipuladas, total o parcialmente, publicando cualquier cambio en la misma forma en que aparece este Aviso legal o a través de cualquier tipo de comunicación dirigida a los Usuarios. La vigencia temporal de este Aviso legal coincide, por lo tanto, con el tiempo de su exposición, hasta que sean modificadas total o parcialmente, momento en el cual pasará a tener vigencia el Aviso legal modificado. Con independencia de lo dispuesto en las condiciones particulares, GAMINGPALS podrá dar por terminado, suspender o interrumpir, en cualquier momento sin necesidad de preaviso, el acceso a los contenidos de la página, sin posibilidad por parte del Usuario de exigir indemnización alguna.",
     "legislation": "10. LEGISLACIÓN Y JURISDICCIÓN APLICABLE",
     "legislation1": "Las relaciones establecidas entre GAMINGPALS y el Usuario se regirán por lo dispuesto en la normativa española vigente. GAMINGPALS y el Usuario, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, someterán cuales quiera controversias y/o litigiosal conocimiento de los Juzgados y Tribunales de la ciudad de Sevilla (España)."
+  },
+  "contact":{
+    "contact":"Contactanos",
+    "contactus": "Puedes enviarnos un email a la siguiente dirección de correo"
+
   }
+
 
 }

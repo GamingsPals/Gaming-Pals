@@ -29,7 +29,6 @@ app.directive("ngAutocomplete", function(ActorService){
                         if(index<0) index = 0;
                         if(index>size) index = size;
                         lis.each((test)=>{
-                            console.log(test);
                            $(lis[test]).children("a").removeClass("list-hover");
                         });
                         $(lis[index]).children("a").addClass("list-hover");

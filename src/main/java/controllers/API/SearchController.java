@@ -6,6 +6,7 @@ import forms.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import services.UserService;
 
@@ -22,7 +23,7 @@ public class SearchController extends ApiAbstractController {
     UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "/search")
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     public Object search(SearchForm searchForm, HttpServletRequest request, HttpServletResponse response) {
         Collection<User> result;
         try{

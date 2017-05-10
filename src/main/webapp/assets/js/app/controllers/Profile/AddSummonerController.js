@@ -2,9 +2,7 @@ app.controller('AddSummonerController',function($scope,LolApiService,dialog,Acto
     middleware.needRol("ANY");
     $scope.LolData=LolApiService;
     $scope.test =" Asdad";
-    console.log("adsda");
     $scope.validateSummoner = function(){
-        console.log($scope.search);
         if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
             $scope.check = true;
             $scope.search.key = md5($scope.search.summoner);
@@ -17,7 +15,6 @@ app.controller('AddSummonerController',function($scope,LolApiService,dialog,Acto
             $scope.error = false;
             ActorService.UserProfile();
         },function(data){
-            console.log(data);
             $scope.error = data.data.message;
         });
     }

@@ -30,7 +30,8 @@
 		<bean class="converters.NotificationToStringConverter" />
 		<bean class="converters.GameToStringConverter" />
 		<bean class="converters.StringToGameConverter" />
-
+		<bean class="converters.StringToLanguageConverter"/>
+		<bean class="converters.LanguageToStringConverter"/>
 		<bean class="converters.StringToNotificationConverter" />
 		<bean class="converters.UserToStringConverter" /> 
 		<bean class="converters.UserAccountToStringConverter" />

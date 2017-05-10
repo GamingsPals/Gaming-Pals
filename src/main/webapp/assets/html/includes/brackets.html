@@ -3,12 +3,13 @@
         <h2>{{getRound(i)}}</h2>
         <div class="col s3 bracket-rounds" ng-repeat="p in ts.numberOfConfrontation(i,tournament)">
             <div class="bracket-match">
-                <div class="bracket-team">
+                <div class="bracket-team" ng-class="getStyleFromResult(ts.getMatch(i,p,tournament),0)">
                     <span>{{ts.getMatch(i,p,tournament).participes[0].team.name}}</span>
                 <img style="width:100%" ng-src="{{ts.getMatch(i,p,tournament).participes[0].team.picture}}"/>
                 </div>
                 <h3 style="text-align: center">VS</h3>
-                <div class="bracket-team">
+                <div class="bracket-team"
+                     ng-class="getStyleFromResult(ts.getMatch(i,p,tournament),1)">
                     <span>{{ts.getMatch(i,p,tournament).participes[1].team.name}}</span>
                 <img style="width:100%" ng-src="{{ts.getMatch(i,p,tournament).participes[1].team.picture}}"/>
                 </div>

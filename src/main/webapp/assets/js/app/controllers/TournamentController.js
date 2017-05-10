@@ -25,7 +25,6 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
             });
             TournamentService.getConfrontationsAvailable($scope.tournament,(a)=>{
                 if(a.confrontation!==null && a.team !== null){
-                    console.log("adsd");
                     $scope.matchtoreport = a;
                 }
 
@@ -47,5 +46,14 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
        TournamentService.advanceRound(tournament,(a)=>{
            $scope.loadTournament();
        });
+    };
+
+    $scope.getStyleFromResult = function(tournament,id){
+       let result = false;
+       for(let i of tournament.participes){
+           if(i.isWinner === true) result = true;
+       }
+       if(!result) return '';
+        return (tournament.participes[id].isWinner===true) ? 'winner' : 'looser';
     }
 });

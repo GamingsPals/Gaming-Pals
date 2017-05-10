@@ -29,8 +29,6 @@ app.controller('TournamentListController',function($scope,TournamentService, dia
         let now = new Date();
         let limit = new Date(tournament.limitInscription);
 
-        console.log(limit<now);
-
         return limit < now;
     }
 });

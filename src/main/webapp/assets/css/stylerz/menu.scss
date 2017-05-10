@@ -159,9 +159,10 @@ a {
         height: auto;
       }
       ul{
+        background-color: $color-base-blue-42;
         position: absolute;
         display: none;
-        top:45px;
+        top:50px;
         width:0;
         height: 0;
         transition: 1s all ease-out;
@@ -169,16 +170,14 @@ a {
         margin:0;
         padding:0;
         li{
+          background-color: $color-base-black-5;
+          width: 100%;
           display: list-item;
           list-style: none;
-          background-color: $color-base-black-3;
           a{
             &:hover {
-              background-color: $color-base-black-3;
+              background-color: $color-base-blue-42;
             }
-          }
-          &:hover {
-            background-color: $color-base-black-3;
           }
         }
       }
@@ -218,13 +217,15 @@ a {
 }
 
 .tournament-header{
+  @include stroke(2,$color-base-black-7);
   position: relative;
   max-height: 200px;
   overflow: hidden;
   h1{
+    border:0;
     position: absolute;
-    bottom: 5px;
-    left:5px;
+    bottom: 10px;
+    left:15px;
     color:$color-base-white-1;
   }
   img{

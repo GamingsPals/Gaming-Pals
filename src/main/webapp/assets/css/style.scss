@@ -179,3 +179,14 @@ footer{
     width:50px;
   }
 }
+
+.beta{
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url(../images/beta.png);
+  z-index: 2;
+  background-size: 100% 100%;
+}

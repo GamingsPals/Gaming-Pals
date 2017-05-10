@@ -123,6 +123,13 @@ routes = [
         }
     },
     {
+        route : "/contact",
+        options : {
+            templateUrl : "contact",
+            controller : "Contact"
+        }
+    },
+    {
         route : "/messages/:userId",
         options : {
             templateUrl : "main",

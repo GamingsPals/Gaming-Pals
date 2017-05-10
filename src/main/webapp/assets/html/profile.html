@@ -123,10 +123,12 @@
         <a href="#" class="button" not-principal="ActorService.actor.actor"
            dialog="write-rating-form" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
-        <div class="card-rating col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
-            <div class="col s12">
-                <div class="card-rating-text">{{r.comment}}</div>
-                <div>
+        <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
+            <div class="card-header">
+                {{r.ratingUser.userName}}
+            </div>
+                <div class="card-body">{{r.comment}}</div>
+                <div class="card-footer">
                     <ul class="list-horizontal">
                         <li class="col">
                             <div class="label bg-green3" title="Attitude">A {{r.attitude}}</div>
@@ -139,7 +141,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
         </div>
 
     </div>

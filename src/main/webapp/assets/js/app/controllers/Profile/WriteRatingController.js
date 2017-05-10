@@ -1,5 +1,5 @@
 app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
-                                                SystemMessages, dialog,middleware){
+                                                SystemMessages, dialog){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{

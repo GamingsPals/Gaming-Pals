@@ -89,6 +89,11 @@
 					ng-if="auth.hasRole('USER')"> <img class="profile-image"
 						ng-src="{{auth.principal.actor.picture}}" />
 						{{auth.principal.actor.userAccount.username}}
+				</a><a ng-if="auth.hasRole('ADMIN')"
+						href="#"
+						> <img class="profile-image"
+														   ng-src="{{auth.principal.actor.picture}}" />
+					{{auth.principal.actor.userAccount.username}}
 				</a>
 					<ul>
 						<li><a ng-if="auth.hasRole('USER')"
@@ -189,8 +194,8 @@
 		ng-show="SystemMessages.show" ng-bind-html="SystemMessages.message">
 	</div>
 
-	</div>
 
+	<div class="beta"></div>
 	<div class="loader"></div>
 	<script>
 		let

@@ -1,12 +1,8 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.*;
 import domain.notifications.FollowNotification;
@@ -84,6 +80,12 @@ public class UserService {
 
 	public User save(User user) {
 		Assert.notNull(user);
+        if(user.getPicture()==null){
+            user.setPicture(configurationService.getConfiguration().getDefaultAvatar());
+        }
+        if(user.getHeader()==null){
+            user.setHeader(configurationService.getConfiguration().getDefaultHeader());
+        }
 		return userRepository.save(user);
 	}
 
@@ -102,6 +104,8 @@ public class UserService {
 		userAccount = user.getUserAccount();
 		userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
 		user.setUserAccount(userAccount);
+		System.out.println(user.getPicture());
+		System.out.println(user.getHeader());
 		if(user.getPicture()==null){
             user.setPicture(configurationService.getConfiguration().getDefaultAvatar());
 		}
@@ -255,7 +259,7 @@ public class UserService {
             List<Language> languages = searchForm.getLanguages();
             List<Game> games = searchForm.getGames();
             Integer page = (searchForm.getPage()!=null) ? searchForm.getPage() : 1;
-            Integer limit = (searchForm.getLimit()!=null) ? Math.min(searchForm.getLimit(),20) : 4;
+            Integer limit = (searchForm.getLimit()!=null) ? Math.min(searchForm.getLimit(),20) : 10;
             List<User> result = new ArrayList<>();
             for (User e : users) {
                 List<Game> userGames = new ArrayList<>();
@@ -288,4 +292,19 @@ public class UserService {
 	        return userRepository.findAll();
         }
 	}
+
+	public List<User> getRelatedUsers(){
+	    User u = findByPrincipal();
+        Map<User,Double> map = new HashMap<>();
+	    Assert.notNull(u);
+	    List<Team> teams = new ArrayList<>( u.getTeams());
+	    for(Team t : teams){
+	        for(User e: t.getUsers()){
+	            if(e.equals(u)) continue;
+
+            }
+        }
+
+        return new ArrayList<>();
+    }
 }

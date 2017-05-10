@@ -48,7 +48,7 @@ app.service("NotificationService", function(xhr,auth,$rootScope){
         messageNotification.numMessages +=1;
         let key = this.notifications.Message.indexOf(messageNotification);
         this.notifications.Message[key] = messageNotification;
-        console.log(this.notifications.Message);
+
         $rootScope.$apply();
     };
 

@@ -1192,6 +1192,13 @@
 
 	
 
+	<bean id="steamcounter" class="domain.SteamAccount">
+		<property name="steamID" value="13414" />
+		<property name="game" ref="game2" />
+		<property name="user" ref="user6" />
+		<property name="username" value="Username" />
+	</bean>
+
 	<bean id="configuration" class="domain.Configuration">
 		<property name="defaultHeader" value="assets/images/wallpapers/default.jpg" />
 		<property name="defaultAvatar" value="assets/images/avatars/default.png" />

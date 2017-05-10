@@ -5,12 +5,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Range;
-import serializers.CustomRatingsSerializer;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -71,7 +68,7 @@ public class Rating extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-    @JsonSerialize(using = CustomRatingsSerializer.class)
+    @JsonIgnore
 	public User getRatingUser() {
 		return ratingUser;
 	}

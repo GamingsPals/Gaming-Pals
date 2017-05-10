@@ -183,6 +183,7 @@ div[contenteditable=true] {
 
 .profile-image{
   background-color: $color-base-white-1;
+  @extend .box;
   width:30px;
   height: 30px;
   border:1px solid $color-base-black-5;

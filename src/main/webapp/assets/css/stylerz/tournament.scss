@@ -20,6 +20,7 @@
           span {
             position: absolute;
             color: $color-base-white-1;
+            @include stroke(2,$color-base-black-3);
             z-index:5;
             bottom: 0;
             left: 5px;
@@ -28,4 +29,14 @@
       }
     }
   }
+}
+
+.winner{
+  opacity: 1;
+  border:2px solid $color-base-magenta-3;
+}
+
+.looser{
+  opacity:0.5;
+  border:2px solid $color-base-black-7;
 }

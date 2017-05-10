@@ -18,12 +18,14 @@
         <label for="languages">
             {{loc.search.languages}}
         </label>
-        {{search.languages}}
         <select class="s8" multiple id="languages" name="languages" ng-model="search.languages">
             <option value="">Select Languages</option>
             <option value="{{i.id}}" ng-repeat="i in languages">{{i.longName}}</option>
         </select>
-        <input type="number" value="5" title="Limit" ng-model="search.limit" placeholder="Limit of Results"/>
+        <label for="ratingAvg">
+            {{loc.search.ratingavg}}
+        </label>
+        <input id="ratingAvg" type="number" min="0" max="5" placeholder="Rating Avg." ng-model="search.ratingAvg"/>
     </div>
     <input type="submit"  value="{{loc.search.filter}}" /> <a href="search" class="small">{{loc.search.resetFilter}}</a>
 

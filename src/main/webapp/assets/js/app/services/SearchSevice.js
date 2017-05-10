@@ -5,7 +5,7 @@ app.service("SearchService", function(xhr){
 
     this.filter = function(filter,callback){
         let object = this;
-        xhr.get("api/search?"+$.param(filter),function(data){
+        xhr.post("api/search",filter,function(data){
             object.search = data.data;
             if (typeof callback !== "undefined") callback();
         })
@@ -17,4 +17,5 @@ app.service("SearchService", function(xhr){
             object.search = data.data;
         })
     };
+
 });

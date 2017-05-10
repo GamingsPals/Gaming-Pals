@@ -87,7 +87,7 @@
   },
   "assignTeam":{
   	"select":"Select a Team",
-  	"selectedTeam":"You are going to join your selected team to ",
+  	"selectedTeam":"You are going to inscribe your selected team to ",
   	"inscribe":"Join"
   },
   "team":{
@@ -105,12 +105,12 @@
  	 "numberTeams":"Number of teams ",
  	 "selectValue":"Select value",
  	 "teams":"Teams",
- 	 "inscriptionLimit":"Join limit",
+ 	 "inscriptionLimit":"Inscription limit",
  	 "tournaments":"Tournaments",
  	 "started":"STARTED!",
- 	 "inscriptionClosed":"Join Closed!",
+ 	 "inscriptionClosed":"Inscription Closed!",
  	 "inscribe":"JOIN IN",
- 	 "inscriptedTeams":"Joined Teams",
+ 	 "inscriptedTeams":"Inscripted Teams",
  	 "bracket":"Bracket",
  	 "awards":"Awards",
  	 "adminZone":"Admin zone",
@@ -153,6 +153,8 @@
   "incidence":"Incidence"
   },
   "search":{
+    "languages": "Languages",
+    "ratingavg": "Rating Avg.",
   "pals":"Search pals",
   "game":"Game",
   "selectGame":"Select a game",

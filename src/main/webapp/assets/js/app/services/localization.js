@@ -20,7 +20,6 @@ app.service("localization",function(xhr,$cookies){
     };
 
     this.changeLan = function(lan){
-        console.log("ey");
       $cookies.put("language",lan);
       this.init();
     }
