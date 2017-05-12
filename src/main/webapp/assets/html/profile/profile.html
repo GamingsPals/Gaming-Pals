@@ -63,9 +63,9 @@
 <div class="profile-main">
     <div class="profile-cards" ng-show="tabs.gameprofiles">
         <h1><i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</h1>
-        <div class="col s5" style="margin:15px">
+        <div class="col s5" style="margin:15px" ng-if="(ActorService.actor.actor.gameInfo | filter: lol).length !=1 ">
         <a href="#" dialogcontroller="AddSummonerController" class="button"
-           dialog="addSummoner" ng-if="auth.isPrincipal(ActorService.actor.actor)">
+           dialog="addSummoner" ng-if="auth.isPrincipal(ActorService.actor.actor)" >
             {{loc.addSummoner.addSummoner}}</a>
         </div>
         <div class="col s5" style="margin: 15px;">
