@@ -12,7 +12,7 @@ app.run(function($rootScope,$location,dialog) {
         history.push($location.$$path);
         let top = $("#top");
         if(typeof top !=="undefined"){
-            $("html, body").animate({ scrollTop: top.offset().top }, "medium");
+            $("html, body").animate({ scrollTop: top.offsetTop }, "medium");
         }
     });
 

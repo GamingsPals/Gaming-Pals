@@ -1,5 +1,6 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService){
+    $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
     localization.init($scope);
     $rootScope.loc = localization;
@@ -25,7 +26,7 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
     });
     $scope.$location = $location;
     $rootScope.csrf = csrf;
-    $scope.MessageSystem = SystemMessages;
+    $scope.SystemMessages = SystemMessages;
     $scope.sanitize = $sanitize;
     $scope.lolsd = LoLStaticData;
     $scope.lolsd.loadVersion(()=>{

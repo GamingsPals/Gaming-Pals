@@ -13,7 +13,7 @@ app.service("SystemMessages", function($timeout){
         let object = this;
         $timeout(function(){
             object.show = false;
-        },2000);
+        },2500);
     };
 
     this.errormessage = function(message){

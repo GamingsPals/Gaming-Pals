@@ -4,7 +4,6 @@ app.directive("dropdown",function(){
         link: function(scope,element,attrs){
             let elipsis = $($(element).children(".dropdown-button")[0]);
             let list = $($(element).children("ul")[0]);
-            console.log(list);
             let overlay = $(`<div class="toverlay"></div>`);
             elipsis.on("click",function(e){
                 e.preventDefault();

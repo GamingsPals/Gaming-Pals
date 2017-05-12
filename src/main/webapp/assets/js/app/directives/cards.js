@@ -1,4 +1,4 @@
-app.directive("userCard",function($compile,auth){
+app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {
@@ -11,6 +11,7 @@ app.directive("userCard",function($compile,auth){
                 if(typeof scope.userCard!=="undefined"){
                 scope.i = scope.userCard;
                 scope.auth = auth;
+                scope.AdminService = AdminService;
                 let template = `
                 <div class="card-header">
                 <div class="card-header-right">
@@ -20,13 +21,14 @@ app.directive("userCard",function($compile,auth){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
-                  <div class="dropdown" dropdown="">
+                 <div class="dropdown float-right" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li><a href="#">Test</a></li>
+                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i.id)">Ban User</a></li>
+                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i.id)">Unban User</a></li>
                         </ul>
                     </div>
+                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>

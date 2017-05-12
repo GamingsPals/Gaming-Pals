@@ -8893,7 +8893,7 @@ app.run(function($rootScope,$location,dialog) {
         history.push($location.$$path);
         let top = $("#top");
         if(typeof top !=="undefined"){
-            $("html, body").animate({ scrollTop: top.offset().top }, "medium");
+            $("html, body").animate({ scrollTop: top.offsetTop }, "medium");
         }
     });
 
@@ -9055,10 +9055,6 @@ routes = [
     middleware.needRol("ADMIN,MODERATOR");
     $scope.As = ActorService;
     $scope.As.reportedUsers();
-    $scope.showImage = function(image){
-        $scope.image = image;
-        dialog.open("showImage",$scope);
-    }
 });;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
     $scope.assignForm = {};
     $scope.added = false;
@@ -9350,7 +9346,8 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });
 ;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService){
+    $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
     localization.init($scope);
     $rootScope.loc = localization;
@@ -9376,7 +9373,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     });
     $scope.$location = $location;
     $rootScope.csrf = csrf;
-    $scope.MessageSystem = SystemMessages;
+    $scope.SystemMessages = SystemMessages;
     $scope.sanitize = $sanitize;
     $scope.lolsd = LoLStaticData;
     $scope.lolsd.loadVersion(()=>{
@@ -9817,6 +9814,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         });
     };
 
+});;app.service("AdminService",function(xhr,auth){
+    this.pepe = "lol";
+    this.ban = function(id){
+        xhr.get("api/admin/ban/"+id);
+    }
 });;
 app.service("auth", function(xhr){
 
@@ -10474,7 +10476,7 @@ app.service("SystemMessages", function($timeout){
         let object = this;
         $timeout(function(){
             object.show = false;
-        },2000);
+        },2500);
     };
 
     this.errormessage = function(message){
@@ -10697,7 +10699,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("userCard",function($compile,auth){
+});;;;app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {
@@ -10710,6 +10712,7 @@ app.service("SystemMessages", function($timeout){
                 if(typeof scope.userCard!=="undefined"){
                 scope.i = scope.userCard;
                 scope.auth = auth;
+                scope.AdminService = AdminService;
                 let template = `
                 <div class="card-header">
                 <div class="card-header-right">
@@ -10719,13 +10722,14 @@ app.service("SystemMessages", function($timeout){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
-                  <div class="dropdown" dropdown="">
+                 <div class="dropdown float-right" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li><a href="#">Test</a></li>
+                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i.id)">Ban User</a></li>
+                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i.id)">Unban User</a></li>
                         </ul>
                     </div>
+                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>
@@ -10823,7 +10827,6 @@ app.directive("teamCard",function($compile){
         link: function(scope,element,attrs){
             let elipsis = $($(element).children(".dropdown-button")[0]);
             let list = $($(element).children("ul")[0]);
-            console.log(list);
             let overlay = $(`<div class="toverlay"></div>`);
             elipsis.on("click",function(e){
                 e.preventDefault();
