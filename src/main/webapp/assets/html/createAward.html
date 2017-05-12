@@ -1,0 +1,11 @@
+<div ng-controller="CreateAwardController">
+    <h2 class="text-center">{{loc.awardForm.createAward}}</h2>
+    <form name="awardForm" ng-submit="sendAwardForm()">
+        <label>{{loc.awardForm.image}}</label>
+        <input type="url" ng-model="award.image" placeholder="http://" />
+        <label>{{loc.awardForm.description}}</label>
+        <input type="text" placeholder="{{loc.awardForm.description}}" ng-model="award.description" />
+
+        <input type="submit" value="{{loc.awardForm.create}}" />
+    </form>
+</div>

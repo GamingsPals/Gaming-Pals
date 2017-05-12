@@ -65,7 +65,7 @@
     "error8": "Seleccione un valor para este campo.",
     "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals",
     "required": "Obligatorio"
-  
+
   },
   "main": {
  	 "friendly": "Nuestra comunidad es acogedora y no toleramos ningún tipo de toxicidad.",
@@ -120,7 +120,8 @@
  	 "adminZone":"Zona del administrador",
  	 "advanceRounds":"Avanzar rondas",
  	 "information":"Information",
- 	 "notFound":"Torneo no encontrado"
+ 	 "notFound":"Torneo no encontrado",
+     "createAward": "Crear premio"
   },
   "lol":{
  	 "recentMatches":"Partidas recientes"
@@ -183,16 +184,16 @@
   	"controntationList":"Lista de enfrentamientos",
   	"round":"Ronda",
   	"numberMatch":"Número de partida",
-  	"limit":"Límite para jugar"  	
+  	"limit":"Límite para jugar"
   },
   "reportview":{
   "list":"Lista de reportes",
   "reportedUsed":"Usuario reportado",
   "action":"Acción"
-  
+
   },
   "users":{
-  	"usersList":"Lista de usuarios"	
+  	"usersList":"Lista de usuarios"
   },
   "layout":{
   "userReportedList":"Lista de usarios reportados",
@@ -295,7 +296,13 @@
      "p2": "Con este objetivo, les ofrecemos un entorno gratuito donde encontrar, evaluar y calificara otros jugadores. También les ofrecemos las herramientas de comunicación adecuadas para ello.",
      "p3": "Como característica adicional, ofrecemos la posibilidad de poder unirte a nuestros torneos. En nuestra web podrás jugar torneos de videojuegos de Steam y League of Legends. Tendrás un lugar donde poner a prueba tus habilidades de competición con otros amigos por premios geniales. ",
      "p4": "¡Únete a nosotros de forma gratuita y empieza a formar parte de la mejor comunidad de gaming!"
- }
+ },
+  "awardForm":{
+    "createAward": "Crear premio",
+    "image": "Imagen",
+    "description": "Descripci�n",
+    "create": "Crear"
+  }
 
 
 }

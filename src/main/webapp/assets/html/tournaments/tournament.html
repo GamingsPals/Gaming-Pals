@@ -49,6 +49,9 @@
                 <img style="width:80px;vertical-align: text-top" ng-src="{{i.image}}" /> {{i.description}}
             </div>
         </div>
+        <div ng-if="auth.hasRole('ADMIN')">
+            <a href="#" class="button" dialog="createAward">{{loc.tournament.createAward}}</a>
+        </div>
     </div>
 </div>
 <div class="col s4 float-right lateral-menu">

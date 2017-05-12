@@ -9277,6 +9277,18 @@ app.controller("BracketsController",function($scope,TournamentService){
 });
 ;app.controller("ContactController", function($scope){
 
+});;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
+    middleware.needRol("ADMIN");
+    $scope.sendAwardForm = function() {
+        TournamentService.createAward($scope.$parent.tournament, $scope.awardForm, ()=>{
+            SystemMessages.okmessage("Award create!");
+            $scope.loadTournament();
+            dialog.closeAll();
+        }),(a)=>{
+            SystemMessages.errormessage("Error sendin Report");
+            dialog.closeAll();
+        }
+    }
 });;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
     middleware.needRol("ADMIN");
 
@@ -9380,10 +9392,10 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.legalIssues = function () {
         dialog.open("legalIssues",$scope);
     };
+
     $scope.aboutUs = function () {
         dialog.open("aboutUs",$scope);
     };
-
     $scope.checkProtocol = function(){
         console.log($location.protocol());
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
@@ -10551,6 +10563,11 @@ app.service("SystemMessages", function($timeout){
 		xhr.post("api/user/"+confrontation+"/reportMatch", data,sucess,error);
 	};
 
+    this.createAward = function(tournament, data, sucess, error){
+        let object = this;
+        xhr.post("/awards/"+tournament.id+"/create", data,sucess,error);
+    };
+
     this.numberOfRounds = function(tournament){
         if(typeof tournament==="undefined"){
             return [];
@@ -10603,6 +10620,7 @@ app.service("SystemMessages", function($timeout){
             }
         })
     }
+
 });;app.service("UserService",function(xhr,auth){
 
     this.findAll = function(callback){
@@ -10679,7 +10697,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("userCard",function($compile,auth){
+});;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {
