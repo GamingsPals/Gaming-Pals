@@ -35,6 +35,7 @@
   "logout": "Logout",
   "lolslider": "Join our  League Of Legends. 0% Toxicity 100% Fun",
   "dotaslider": "Dota 2 Community coming soon!",
+
   "loginview":{
     "password": "Password",
     "username" : "User name",
@@ -63,7 +64,8 @@
     "error6": "Please enter a valid url.",
     "error7": "Please enter a number.",
     "error8": "Please select a value for this field.",
-    "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals"
+    "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals",
+    "required": "Required"
   },
   "main": {
  	 "friendly": " Our community is 100% friendly and we do not allow by any means toxicity.",

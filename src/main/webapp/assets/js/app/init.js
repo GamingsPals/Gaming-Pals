@@ -11,9 +11,9 @@ app.run(function($rootScope,$location,dialog) {
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
         let top = $("#top");
-        $(document).on("ready",function () {
+        if(typeof top !=="undefined"){
             $("html, body").animate({ scrollTop: top.offset().top }, "medium");
-        })
+        }
     });
 
     $rootScope.back = function () {

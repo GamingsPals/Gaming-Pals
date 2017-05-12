@@ -97,10 +97,13 @@
         </div>
         <div class="card "
 
-             user-card="i" ng-repeat="i in ActorService.actor.followers|paginate:pagination">
+             user-card="i" ng-repeat="i in ActorService.actor.followers|paginate:1">
     </div>
-        <ul class="pagination" qp-paginate-url="false"
-            gp-paginate="{{ActorService.actor.followers.length}}"
+        <ul class="pagination"
+            qp-paginate-url="false"
+            gp-paginate
+            gp-paginate-items="ActorService.actor.followers"
+            gp-paginate-id="1"
             gp-paginate-limit="6">
         </ul>
     </div>
@@ -109,11 +112,14 @@
         <div ng-if="ActorService.actor.following.length==0">
             {{loc.profileview.noFollowing}}
         </div>
-        <div class="card " user-card="i" ng-repeat="i in ActorService.actor.following|paginate:pagination">
+        <div class="card " user-card="i" ng-repeat="i in ActorService.actor.following|paginate:2">
 
         </div>
-        <ul class="pagination" qp-paginate-url="false"
-            gp-paginate="{{ActorService.actor.following.length}}"
+        <ul class="pagination"
+            qp-paginate-url="false"
+            gp-paginate
+            gp-paginate-items="ActorService.actor.following"
+            gp-paginate-id="2"
             gp-paginate-limit="6">
         </ul>
     </div>
@@ -126,11 +132,14 @@
         <div ng-if="ActorService.actor.teams.length==0">
             {{loc.profileview.noTeam}}
         </div>
-        <div class="card " team-card="i" ng-repeat="i in ActorService.actor.teams|paginate:pagination">
+        <div class="card " team-card="i" ng-repeat="i in ActorService.actor.teams|paginate:3">
         </div>
 
-        <ul class="pagination" qp-paginate-url="false"
-            gp-paginate="{{ActorService.actor.teams.length}}"
+        <ul class="pagination"
+            qp-paginate-url="false"
+            gp-paginate
+            gp-paginate-items="ActorService.actor.teams"
+            gp-paginate-id="3"
             gp-paginate-limit="6">
         </ul>
 
@@ -144,7 +153,7 @@
         <a href="#" class="button" not-principal="ActorService.actor.actor"
            dialog="write-rating-form" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
-        <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived|paginate:pagination">
+        <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived|paginate:4">
                 <div class="card-body">{{r.comment}}</div>
                 <div class="card-footer">
                     <ul class="list-horizontal">
@@ -161,10 +170,13 @@
                 </div>
         </div>
 
-        <ul class="pagination" qp-paginate-url="false"
-            gp-paginate="{{ActorService.actor.actor.ratingsReceived.length}}"
-            gp-paginate-limit="6">
-        </ul>
+          <ul class="pagination"
+               qp-paginate-url="false"
+               gp-paginate
+               gp-paginate-items="ActorService.actor.actor.ratingsReceived"
+               gp-paginate-id="4"
+               gp-paginate-limit="6">
+    </ul>
     </div>
 </div>
 </div>

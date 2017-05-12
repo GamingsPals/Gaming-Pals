@@ -5,7 +5,7 @@
 </div>
 
 
-<div class="blockcard" ng-repeat="i in Ts.tournaments ">
+<div class="blockcard" ng-repeat="i in Ts.tournaments|paginate:'tournaments'">
     <a href="tournament/{{i.id}}">
     <div class="card-header">
         <div class="card-header-right">
@@ -38,3 +38,9 @@
         </div>
     </div>
 </div>
+<ul class="pagination"
+    gp-paginate-url="true"
+    gp-paginate
+    gp-paginate-items="Ts.tournaments"
+    gp-paginate-id="tournaments"
+    gp-paginate-limit="6"></ul>

@@ -31,10 +31,12 @@
 
 </form>
 <div class="card" user-card="item"
-     ng-repeat="item in As.search|paginate:pagination"></div>
+     ng-repeat="item in As.search|paginate:'search'"></div>
 
 <ul class="pagination"
-    qp-paginate-url="true"
-    gp-paginate="{{As.search.length}}"
-    gp-paginate-limit="6">
+    gp-paginate-url="true"
+    gp-paginate-items="As.search"
+    gp-paginate
+    gp-paginate-limit="6"
+    gp-paginate-id="search">
 </ul>

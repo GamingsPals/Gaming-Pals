@@ -1,5 +1,6 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService){
+    $scope.pagination = PaginationService;
     localization.init($scope);
     $rootScope.loc = localization;
     $scope.auth = auth;

@@ -39,7 +39,8 @@
     "password": "Contraseña",
     "username" : "Nombre de usuario",
     "message" : "Únete a nuestra comunidad y comienza a jugar mejor y más feliz",
-    "donthaveaccount": "¿Aún no tienes cuenta?"
+    "donthaveaccount": "¿Aún no tienes cuenta?",
+    "wrong": "El usuario o la contraseña son iconrrectos, porfavor vuelva a intentarlo"
   },
   "signupform": {
     "name": "Nombre",
@@ -62,7 +63,8 @@
     "error6": "Introduzca una URL válido.",
     "error7": "Introduzca un número.",
     "error8": "Seleccione un valor para este campo.",
-    "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals"
+    "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals",
+    "required": "Obligatorio"
   
   },
   "main": {
@@ -140,7 +142,7 @@
   	"reject":"Rechazar",
   	"accept":"Aceptar",
   	"noNewFollowers":"No has sido seguido últimamente.",
-  	"followYou":"Has followed you"
+    "followYou": "Te ha seguido"
   },
   "reportform":{
   "report":"Reportar",
