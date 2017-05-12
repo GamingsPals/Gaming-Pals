@@ -21,6 +21,12 @@
             <div class="profile-info-flags" >
                 <img  ng-repeat="lan in ActorService.actor.actor.languages" ng-src="assets/images/flags/{{lan.language}}.png" />
             </div>
+            <div class="profile-info-friends">
+                <h2>{{loc.profileview.bestpals}}</h2>
+                <a ng-repeat="u in ActorService.actor.relatedUsers" href="profile/{{u.userAccount.username}}">
+                    <img class="profile-image" ng-src="{{u.picture}}"/>
+                </a>
+            </div>
         </div>
         <div class="profile-stats">
             {{loc.profileview.stats}} <small>(0-5)</small>
@@ -89,17 +95,27 @@
         <div ng-if="ActorService.actor.followers.length==0">
             {{loc.profileview.noFollowers}}
         </div>
-        <div class="card "  user-card="i" ng-repeat="i in ActorService.actor.followers">
+        <div class="card "
+
+             user-card="i" ng-repeat="i in ActorService.actor.followers|paginate:pagination">
     </div>
+        <ul class="pagination" qp-paginate-url="false"
+            gp-paginate="{{ActorService.actor.followers.length}}"
+            gp-paginate-limit="6">
+        </ul>
     </div>
     <div id="profile-following" class="profile-cards" ng-show="tabs.following">
         <h1><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.profileview.following}}</h1>
         <div ng-if="ActorService.actor.following.length==0">
             {{loc.profileview.noFollowing}}
         </div>
-        <div class="card " user-card="i" ng-repeat="i in ActorService.actor.following">
+        <div class="card " user-card="i" ng-repeat="i in ActorService.actor.following|paginate:pagination">
 
         </div>
+        <ul class="pagination" qp-paginate-url="false"
+            gp-paginate="{{ActorService.actor.following.length}}"
+            gp-paginate-limit="6">
+        </ul>
     </div>
 
     <div id="profile-teams" class="profile-cards" ng-show="tabs.teams">
@@ -110,8 +126,13 @@
         <div ng-if="ActorService.actor.teams.length==0">
             {{loc.profileview.noTeam}}
         </div>
-        <div class="card " team-card="i" ng-repeat="i in ActorService.actor.teams">
+        <div class="card " team-card="i" ng-repeat="i in ActorService.actor.teams|paginate:pagination">
         </div>
+
+        <ul class="pagination" qp-paginate-url="false"
+            gp-paginate="{{ActorService.actor.teams.length}}"
+            gp-paginate-limit="6">
+        </ul>
 
 </div>
     <div id="profile-ratings" class="profile-cards" ng-show="tabs.ratings">
@@ -123,10 +144,7 @@
         <a href="#" class="button" not-principal="ActorService.actor.actor"
            dialog="write-rating-form" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
-        <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived">
-            <div class="card-header">
-                {{r.ratingUser.userName}}
-            </div>
+        <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived|paginate:pagination">
                 <div class="card-body">{{r.comment}}</div>
                 <div class="card-footer">
                     <ul class="list-horizontal">
@@ -143,6 +161,10 @@
                 </div>
         </div>
 
+        <ul class="pagination" qp-paginate-url="false"
+            gp-paginate="{{ActorService.actor.actor.ratingsReceived.length}}"
+            gp-paginate-limit="6">
+        </ul>
     </div>
 </div>
 </div>

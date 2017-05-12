@@ -40,7 +40,7 @@
     </div>
     <div ng-if="mode=='bracket'">
         <h1>{{loc.tournament.bracket}}</h1>
-        <div ng-include="'assets/html/includes/brackets.html'"></div>
+        <div ng-include="'assets/html/tournaments/brackets.html'"></div>
     </div>
     <div ng-if="mode=='awards'">
         <h1>{{loc.tournament.awards}}</h1>
@@ -55,7 +55,7 @@
     <ul ng-if="matchtoreport!=false">
         <h1>Report Match</h1>
         <li>
-            <a href="#" class="button" dialog="reportMatch">Report Match</a>
+            <a href="#" class="button" dialog="tournaments/reportMatch">Report Match</a>
         </li>
     </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
@@ -64,7 +64,7 @@
     </ul>
     <ul ng-if="auth.hasRole('USER')">
         <h1>{{loc.tournament.inscribe}}</h1>
-        <li ng-include="'assets/html/assignTeamToTournament.html'"></li>
+        <li ng-include="'assets/html/tournaments/assignTeamToTournament.html'"></li>
     </ul>
         <ul>
             <h1>{{loc.tournament.information}}</h1>

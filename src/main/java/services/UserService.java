@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import domain.*;
 import domain.notifications.FollowNotification;
+import forms.EditProfileForm;
 import forms.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -20,6 +21,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import services.notifications.FollowNotificationService;
+import utilities.RelatedUsers;
 
 @Service
 @Transactional
@@ -104,8 +106,6 @@ public class UserService {
 		userAccount = user.getUserAccount();
 		userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
 		user.setUserAccount(userAccount);
-		System.out.println(user.getPicture());
-		System.out.println(user.getHeader());
 		if(user.getPicture()==null){
             user.setPicture(configurationService.getConfiguration().getDefaultAvatar());
 		}
@@ -130,7 +130,7 @@ public class UserService {
 		User user;
 		userAccount = LoginService.getPrincipal();
 		user = userRepository.findByPrincipal(userAccount.getId());
-		Assert.isTrue(user.getUserAccount().equals(userAccount));
+
 		return user;
 	}
 	public Boolean isUser() {
@@ -258,8 +258,6 @@ public class UserService {
             List<User> users = userRepository.findAll();
             List<Language> languages = searchForm.getLanguages();
             List<Game> games = searchForm.getGames();
-            Integer page = (searchForm.getPage()!=null) ? searchForm.getPage() : 1;
-            Integer limit = (searchForm.getLimit()!=null) ? Math.min(searchForm.getLimit(),20) : 10;
             List<User> result = new ArrayList<>();
             for (User e : users) {
                 List<Game> userGames = new ArrayList<>();
@@ -273,8 +271,8 @@ public class UserService {
                     if (!e.getLanguages().containsAll(languages)) continue;
                 }
                 if (searchForm.getUsername() != null) {
-                    System.out.println(e.getUserAccount().getUsername()+" "+searchForm.getUsername());
-                    if (!e.getUserAccount().getUsername().contains(searchForm.getUsername()))continue;
+                	Collection<User> byName = userRepository.usersByName("%"+searchForm.getUsername()+"%");
+                	if(!(byName.contains(e))) continue;
                 }
                 if (searchForm.getRatingAvg() != null) {
                     if (e.getRatingAvg() < searchForm.getRatingAvg()) continue;
@@ -282,29 +280,42 @@ public class UserService {
 
                 result.add(e);
             }
-            Integer fromIndex = (page - 1) * limit;
-            Integer toIndex = ((fromIndex + limit) <= result.size()) ? fromIndex + limit : result.size();
-            System.out.println(fromIndex+" "+toIndex);
-            result =  result.subList(fromIndex, toIndex);
+
             return result;
         } catch (Exception e){
-	        System.out.println(e.getMessage());
 	        return userRepository.findAll();
         }
 	}
 
-	public List<User> getRelatedUsers(){
-	    User u = findByPrincipal();
-        Map<User,Double> map = new HashMap<>();
-	    Assert.notNull(u);
-	    List<Team> teams = new ArrayList<>( u.getTeams());
-	    for(Team t : teams){
-	        for(User e: t.getUsers()){
-	            if(e.equals(u)) continue;
+	public List<User> getRelatedUsers(User user){
+	    Assert.notNull(user);
+        RelatedUsers relatedUsers = new RelatedUsers(user);
+        relatedUsers.calculate();
 
-            }
-        }
-
-        return new ArrayList<>();
+        return relatedUsers.getRelatedUsers();
     }
+
+    public User findUserByEmail(String email) {
+		return userRepository.findUserByEmail(email);
+    }
+
+	public void editForm(EditProfileForm signupForm) {
+		User user = findByPrincipal();
+		Assert.notNull(user);
+		user.setAge(signupForm.getAge());
+		if(!signupForm.getPassword().equals("") || signupForm.getPassword()!=null){
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
+		}
+		user.getUserAccount().setUsername(signupForm.getUsername());
+		user.setPicture(signupForm.getPicture());
+		user.setEmail(signupForm.getEmail());
+		user.setHeader(signupForm.getHeader());
+		List<Language> languages = new ArrayList<>();
+		for(String e: signupForm.getLanguages().split(",")){
+			languages.add(languageService.findOne(Integer.valueOf(e)));
+		}
+		user.setLanguages(languages);
+		save(user);
+	}
 }

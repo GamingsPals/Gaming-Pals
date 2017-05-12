@@ -39,7 +39,15 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
 
     $scope.legalIssues = function () {
         dialog.open("legalIssues",$scope);
-    }
+    };
+
+    $scope.checkProtocol = function(){
+        console.log($location.protocol());
+        if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
+            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
+        }
+    };
+    $scope.checkProtocol();
 
 
 });

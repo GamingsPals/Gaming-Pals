@@ -10,6 +10,7 @@
     "following": "Following",
     "followers": "Followers",
     "outOf":"out of ",
+    "bestpals": "Best Pals",
     "ratings":"ratings",
     "stats":"Stats",
     "gameProfiles":"Game Profiles",
@@ -43,6 +44,7 @@
   },
   "signupform": {
     "name": "Name",
+    "succesfull": "You've registered into the system successful, please login and start new making friends",
     "userAccount": "User Account Data",
     "username": "Username",
     "error1": "Please enter a value for this field.",
@@ -275,6 +277,11 @@
     "duration1": "GAMINGPALS may modify the terms and conditions stipulated herein, in whole or in part, by publishing any changes in the same way as this Legal Notice or through any type of communication addressed to Users. The temporary validity of this Legal Notice therefore coincides with the time of its exposure, until they are totally or partially modified, at which time the modified Legal Notice will become effective. Regardless of the provisions of the specific conditions, GAMINGPALS may terminate, suspend or interrupt, at any time without notice, access to the contents of the page, without the possibility of the User demanding compensation.",
     "legislation": "10. LEGISLATION AND APPLICABLE JURISDICTION",
     "legislation1": "The relationships established between GAMINGPALS and the User shall be governed by the provisions of current Spanish legislation. GAMINGPALS and the User, expressly waiving any other jurisdiction that may correspond to them, will submit any disputes and / or litigation to the knowledge of the Courts and Tribunals of the city of Seville (Spain)."
-  }
+  },
+  "passwordrecovery": {
+  "header" : "Password Recovery",
+  "notfound": "There wasn't found any account linked to that email address",
+    "internal": "There was an error trying to reset your password"
+}
   
 }

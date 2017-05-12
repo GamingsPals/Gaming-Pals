@@ -1,6 +1,7 @@
 <h1>{{loc.tournament.tournaments}}</h1>
 <div style="margin:30px;">
-<a href="#" dialog="createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">{{loc.tournament.create}}</a>
+<a href="#" dialog="tournaments/createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">
+    {{loc.tournament.create}}</a>
 </div>
 
 

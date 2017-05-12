@@ -11,6 +11,7 @@
     "followers": "Seguidores",
     "outOf":"basado en ",
     "ratings":"Puntuaciones",
+    "bestpals": "Mejores amigos",
     "stats":"Estadísticas",
     "gameProfiles":"Perfiles en juegos",
     "noGames":"Este jugador no tiene ningún juego registrado.",
@@ -44,6 +45,7 @@
     "name": "Nombre",
     "userAccount": "Datos de usuario",
     "username": "Nombre de usuario",
+    "succesfull": "Te has registrado correctamente en el sistema, por favor logueate y empieza a hacer nuevos amigos",
     "error1": "Introduzca un valor para este campo.",
     "error2": "El campo debe tener más de 5 carácteres",
     "error3": "El campo debe tener menos de 32 carácteres",
@@ -280,6 +282,11 @@
     "contact":"Contactanos",
     "contactus": "Puedes enviarnos un email a la siguiente dirección de correo"
 
+  },
+  "passwordrecovery": {
+    "header" : "Recuperación de contraseña",
+    "notfound": "No se encontró ninguna cuenta ligada a esa direcció email",
+    "internal": "Humo un error intentando recuperar tu contraseña"
   }
 
 

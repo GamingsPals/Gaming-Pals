@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -13,6 +14,7 @@ import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import domain.Administrator;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -47,4 +49,12 @@ public class AdministratorService {
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(aut));
 	}
 
+    public Administrator findByPrincipal() {
+			UserAccount userAccount;
+			Administrator administrator;
+			userAccount = LoginService.getPrincipal();
+			administrator = administratorRepository.findByPrincipal(userAccount);
+
+			return administrator;
+    }
 }

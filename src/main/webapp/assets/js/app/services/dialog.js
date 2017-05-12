@@ -1,6 +1,7 @@
 
 app.service("dialog", function(ngDialog,$rootScope){
 
+
     this.open = function(template,scope,controller) {
         let path = "assets/html/"+template+".html";
         let options = {};
@@ -10,6 +11,7 @@ app.service("dialog", function(ngDialog,$rootScope){
         this.dialog = ngDialog.open(options);
         return this.dialog;
     };
+
 
     this.closeAll = function(){
         ngDialog.closeAll();

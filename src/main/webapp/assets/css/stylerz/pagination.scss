@@ -1,0 +1,29 @@
+.pagination{
+  li{
+    @extend .box;
+    display: inline-block;
+    margin-right:10px;
+    color: $color-base-black-2;
+    background-color: $color-base-black-7;
+    &:hover{
+      background-color: $color-base-black-6;
+    }
+    a{
+      padding:6px 13px 6px 13px;
+      color:inherit;
+      display: block;
+      &:hover{
+        color:inherit;
+      }
+    }
+  }
+  .active{
+    background-color: $color-base-blue-2;
+    color:$color-base-white-2;
+    &:hover{
+      background-color: $color-base-blue-1;
+      color:$color-base-white-1;
+    }
+
+  }
+}

@@ -8891,12 +8891,16 @@ app.run(function($rootScope,$location,dialog) {
 
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
-
+        let top = $("#top");
+        $(document).on("ready",function () {
+            $("html, body").animate({ scrollTop: top.offset().top }, "medium");
+        })
     });
 
     $rootScope.back = function () {
         let prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
         $location.path(prevUrl);
+        dialog.closeAll();
     };
 
 });;let
@@ -8913,43 +8917,51 @@ routes = [
 				templateUrl: "main",
 				controller : "Login",
 			}
-		}, {
-			route : "/user/reported/list",
+		},
+    {
+        route : "/passwordRecovery",
+        options : {
+            templateUrl: "main",
+            controller : "PasswordRecovery",
+        }
+    },
+	{
+			route : "/adminpanel",
 			options : {
-				templateUrl : "viewreport",
-				controller : "ReportedUserList",
+				templateUrl : "admin/panel",
+				controller : "AdminPanel",
 			}
 		}, {
 			route : "/profile/:username",
 			options : {
-				templateUrl : "profile",
+				templateUrl : "profile/profile",
 				controller : "Profile",
 			}
 		},
         {
             route : "/profile/:username/:tabs",
             options : {
-                templateUrl : "profile",
+                templateUrl : "profile/profile",
                 controller : "Profile",
             }
         },
 		{
 			route : "/createTournament",
 			options : {
-				templateUrl : "createTournament",
+				templateUrl : "tournaments/createTournament",
 				controller : "CreateTournament"
 			}
 		}, {
 			route : "/tournament/list",
 			options : {
-				templateUrl : "listTournaments",
+				templateUrl : "tournaments/listTournaments",
 				controller : "TournamentList"
 			}
 		},
 		{
 			route : "/tournament/:id",
 			options : {
-				templateUrl : "tournament",
+				templateUrl : "tournaments/tournament",
 				controller : "Tournament"
 			}
 		},
@@ -8963,31 +8975,8 @@ routes = [
 		{
 			route : "/tournament/:id/:menu",
 			options : {
-				templateUrl : "tournament",
+				templateUrl : "tournaments/tournament",
 				controller : "Tournament"
-			}
-		},
-		{
-			route : "/confrontation/:tournamentId",
-			options : {
-				templateUrl : "viewConfrontation",
-				controller : "ConfrontationTournamentList"
-			}
-		}
-
-		, {
-			route : "/tournament/assign/:tournamentId/:teamId",
-			options : {
-				templateUrl : "listTournaments",
-				controller : "AssignTeamTournament"
-			}
-		}
-
-		, {
-			route : "/award/:tournamentId",
-			options : {
-				templateUrl : "viewAwards",
-				controller : "AwardsTournamentList"
 			}
 		},
 
@@ -9000,7 +8989,7 @@ routes = [
 		}, {
 			route : "/signup",
 			options : {
-				templateUrl : "signup",
+				templateUrl : "main",
 				controller : "Signup"
 			}
 		}, {
@@ -9051,7 +9040,9 @@ routes = [
         if(typeof a.options.templateUrl !=="undefined"){
             a.options.templateUrl = `assets/html/${a.options.templateUrl}.html`;
         }
-        a.options.controller = `${a.options.controller}Controller`;
+        if(typeof a.options.controller !=="undefined"){
+            a.options.controller = `${a.options.controller}Controller`;
+        }
         $routeProvider.when(a.route,a.options);
     });
 
@@ -9081,6 +9072,61 @@ routes = [
     middleware.needRol("ANY");
 	$scope.As = TournamentService;
 	$scope.As.assignTeam($routeParams.tournamentId, $routeParams.teamId);
+});
+;;
+app.controller('LoginController',function($scope,dialog,middleware,$location,auth ){
+    middleware.needRol("NONE");
+    $scope.error = $location.search().error;
+
+    let dialog2 = dialog.open("auth/login",$scope);
+     dialog.redirect(dialog2,(a)=>{
+     });
+
+});
+;app.controller('PasswordRecoveryController', function($scope, middleware, xhr, $location,LanguageService, dialog) {
+    //middleware.needRol("NONE");
+    $scope.success = false;
+    let dialog2 = dialog.open("auth/passwordRecovery",$scope);
+    dialog.redirect(dialog2,(a)=>{
+    });
+	$scope.submitPasswordRecovery = function(form) {
+	    console.log(form);
+		xhr.post("api/auth/passwordRecovery", form, function(){
+            $scope.success = true;
+        },function(e){
+		    $scope.notfound = false;
+		    $scope.interal = true;
+		    if(e.status===404){
+		        $scope.notfound = true;
+            }
+            if(e.status===500){
+                $scope.internal = true;
+            }
+
+        });
+
+	}
+});
+;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog) {
+    middleware.needRol("NONE");
+    $scope.success = false;
+    $scope.languagesForn = [];
+    let dialog2 = dialog.open("auth/signup",$scope);
+    dialog.redirect(dialog2,(a)=>{
+    });
+    LanguageService.getAll(function(data){
+		$scope.languagesForn = data;
+	});
+
+	$scope.enviarForm = function(data) {
+		xhr.post("api/signup", data,function(){
+            $scope.success = true;
+        },function(){
+		    $scope.error = "There was something wrong with your form, try again!";
+            dialog.closeAll();
+        });
+
+	}
 });
 ;app.controller('AwardsTournamentListController', function($scope, TournamentService,middleware) {
     middleware.needRol("ANY");
@@ -9260,17 +9306,6 @@ app.controller("BracketsController",function($scope,TournamentService){
 ;
 app.controller('HomeController',function($scope){
 });;
-app.controller('LoginController',function($scope,dialog,middleware,$location,auth){
-    middleware.needRol("NONE");
-    $scope.error = $location.search().error;
-    dialog.open("login",$scope);
-    $scope.goLogin = function(){
-        dialog.closeAll();
-        dialog.open("signup");
-    }
-
-});
-;
 app.controller('LolstatsController',function($scope,MatchService,$routeParams,middleware){
     middleware.needRol("ANY");
     $scope.ms = MatchService;
@@ -9335,7 +9370,15 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 
     $scope.legalIssues = function () {
         dialog.open("legalIssues",$scope);
-    }
+    };
+
+    $scope.checkProtocol = function(){
+        console.log($location.protocol());
+        if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
+            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
+        }
+    };
+    $scope.checkProtocol();
 
 
 });;app.controller('MessageController',function($scope, socket,chat,auth,ActorService,middleware, dialog){
@@ -9499,11 +9542,12 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     middleware.needRol("ANY");
     $scope.As = SearchService;
     $scope.search = {};
-    $scope.search.page = 1;
-    $scope.search.limit = 10;
+    $scope.page = (typeof $location.search().page!=="undefined") ? $location.search().page : 1;
+    $scope.limit = 6;
     $scope.As.filter($location.search());
     $scope.search = $location.search();
     $scope.filter = function(object){
+        object.page=1;
         delete object._csrf;
         for(let i in object){
             if(object.hasOwnProperty(i)){
@@ -9518,26 +9562,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         $scope.languages = data;
     });
 
-
-});
-;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog) {
-    middleware.needRol("NONE");
-    $scope.success = false;
-    $scope.languagesForn = [];
-    LanguageService.getAll(function(data){
-		$scope.languagesForn = data;
-	});
-
-	$scope.enviarForm = function() {
-		xhr.post("api/signup", $scope.form,function(){
-            dialog.closeAll();
-            $location.path("/login");
-        },function(){
-		    $scope.error = "There was something wrong with your form, try again!"
-            dialog.closeAll();
-        });
-
-	}
+    $location.search("_csrf",null);
 });
 ;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr){
     middleware.needRol("ANY");
@@ -9785,7 +9810,7 @@ app.service("auth", function(xhr){
     this.load = function(callback,force){
         let object = this;
         if (Object.keys(object.principal).length==0 || force==true) {
-            xhr.get("api/isauthenticated", function (data) {
+            xhr.get("api/auth/isauthenticated", function (data) {
                 object.principal = data.data;
                 object.callListeners(data.data);
                 if(typeof  callback!=="undefined"){
@@ -9818,7 +9843,7 @@ app.service("auth", function(xhr){
     };
 
     this.isPrincipalFollowing = function(actor){
-        if(typeof actor==="undefined" || typeof this.principal.actor==="undefined"){
+        if(typeof actor==="undefined" || typeof this.principal.actor==="undefined" || this.hasRole('ADMIN')){
             return false;
         }
         return typeof this.principal.following.find((a)=> {return a.id == actor.id}) !== "undefined";
@@ -10022,6 +10047,7 @@ app.service("auth", function(xhr){
 });;
 app.service("dialog", function(ngDialog,$rootScope){
 
+
     this.open = function(template,scope,controller) {
         let path = "assets/html/"+template+".html";
         let options = {};
@@ -10031,6 +10057,7 @@ app.service("dialog", function(ngDialog,$rootScope){
         this.dialog = ngDialog.open(options);
         return this.dialog;
     };
+
 
     this.closeAll = function(){
         ngDialog.closeAll();
@@ -10973,33 +11000,112 @@ function notPrincipal(element,actor,auth){
     }else{
         $(element).show();
     }
-};let paginations = [];
-app.directive("paginate",function($filter){
+};
+app.directive("gpPaginate",function($compile,$location){
     return{
         restrict: "AEC",
         scope:{
-            "paginate": "=",
+            "gpPaginate": "@",
+            "gpPaginateLimit": "@",
+            "gpPaginatePage": "@",
+            "qpPaginateUrl": "@"
         },
         link: function(scope,element,attrs){
+            scope.$watchGroup(["gpPaginate","pagination.page"],(a)=>{
+                scope.gpPaginatePage = parseInt(scope.gpPaginatePage);
+                if(typeof a !=="undefined"){
+                    scope.pagination = {};
+                    scope.pagination.limit = scope.gpPaginateLimit;
+                    scope.pagination.url = Boolean(scope.qpPaginateUrl);
+                    if(scope.pagination.url===true){
+                        if(typeof $location.search().page!=="undefined"){
+                            scope.pagination.page = $location.search().page;
+                        }else{
+                            scope.pagination.page = 1;
+                        }
+                    }else{
+                        if(typeof scope.pagination.page==="undefined"){
+                            scope.pagination.page = 1;
+                        }
+                    }
+                    scope.pagination.records = scope.gpPaginate;
+                    scope.pagination.numberPages = Math.ceil(scope.pagination.records/scope.pagination.limit);
+                    scope.pagination.lastPage = scope.pagination.numberPages;
+                    scope.pagination.pages = [];
+                    console.log(scope.pagination);
+                    for(let i =1;i<=scope.pagination.numberPages;i++){
+                        scope.pagination.pages.push(i);
+                    }
 
-            scope.watch("paginate",(a)=>{
-                if(a){
-                   let pageResults = attrs.limit;
-                   let page = attrs.page;
+                    let template =
+                        `<li><a  href="#" ng-click="pagination.changePage('1')" ng-if="pagination.numberPages>1"
+                        ng-class="(pagination.page=='1') ? 'active' : ''">
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i></a> </li>
+                        <li ng-repeat="page in pagination.pages track by $index" ng-class="(pagination.page==page) ? 'active' : ''">
+                        <a href="#" ng-click="pagination.changePage(page)">{{page}}</a> </li>
+                        <li><a href="#" ng-click="pagination.changePage(pagination.numberPages)" 
+                        ng-if="pagination.numberPages>3"     ng-class="(pagination.page==pagination.numberPages) ? 'active' : ''">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>`;
+                    scope.pagination.changePage = function(page){
+                        scope.pagination.page = page;
+                        if(scope.pagination.url===true){
+                            $location.search("page",page);
+                        }
+                    };
+                    element.html(template);
+                    $compile(element.contents())(scope);
                 }
             })
         }
     }
+});
+
+
+app.filter('paginate', function() {
+
+
+    return function(input,pagination) {
+        if(typeof input!=="undefined"){
+
+            console.log(pagination);
+        if(typeof pagination==="undefined"){
+            pagination = {};
+            pagination.page = 1;
+            pagination.limit = 10;
+        }
+        let page = pagination.page;
+        let limit =  pagination.limit;
+        let min = (page-1)*limit;
+        let max = (page-1)*limit+limit;
+        max = Math.min(input.length,max);
+
+        return input.slice(min,max);
+        }
+        return input;
+    }
+
 });;app.directive('passwordVerify', function() {
     return {
         restrict: 'A',
         require: '?ngModel',
         link: function(scope, elem, attrs, ngModel) {
-            ngModel.$validators.passwordVerifyValidator = function(modelValue, viewValue) {
-                return viewValue === attrs.passwordVerify;
-            };
+                    ngModel.$validators.passwordVerifyValidator = function(modelValue, viewValue) {
+                        if(typeof attrs.required==="undefined") {
+                            if( typeof attrs.passwordVerify !=="string"){
+                                return true;
+                            }
+                            if(attrs.passwordVerify===""){
+                                console.log("here2");
+                                return true;
+                            }
+                        }
+                        console.log("here3");
+                        return viewValue === attrs.passwordVerify;
+                    };
+
+                }
+
         }
-    };
 });;app.directive("rating",function(){
     return{
         restrict: "E",

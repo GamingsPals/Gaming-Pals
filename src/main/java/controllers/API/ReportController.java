@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import services.ActorService;
-import services.RatingService;
-import services.ReportService;
-import services.UserService;
+import services.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +21,9 @@ public class ReportController extends ApiAbstractController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AdministratorService administratorService;
 
     @Autowired
     private ReportService reportService;
@@ -56,12 +56,10 @@ public class ReportController extends ApiAbstractController {
     }
 
     @RequestMapping(value = "/report/user/list")
-    public Object reportedUserList(HttpServletResponse response)
-            throws Exception{
+    public Object reportedUserList(HttpServletResponse response) {
         try{
-            Assert.notNull(actorService.findActorByPrincipal());
-            Actor actor = actorService.findActorByPrincipal();
-            Assert.isTrue(actor instanceof Moderator || actor instanceof Administrator);
+           Administrator administrator = administratorService.findByPrincipal();
+           Assert.notNull(administrator);
         } catch (Exception e) {
             return unauthorized(response,null);
         }

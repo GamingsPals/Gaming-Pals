@@ -18,12 +18,12 @@
 	<div class="form-error" ng-show="error">
 		{{loc.loginview.wrong}}
 	</div>
-
+	<div class="small float-right"><a href="passwordRecovery">Did you forgot your password?</a> </div>
 	<input type="submit" value="{{loc.send}}" />
 
 </form>
 
 <div class="forms-center">
-	{{loc.loginview.donthaveaccount}} <a href="#" ng-click="goLogin()">{{loc.signup}}</a>
+	{{loc.loginview.donthaveaccount}} <a href="signup">{{loc.signup}}</a>
 </div>
 </div>

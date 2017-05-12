@@ -1,6 +1,6 @@
 <div ng-show="!success">
 <h2 class="text-center ng-binding">{{loc.singup}}</h2>
-<form name="signupform" ng-submit="signupform.$valid && enviarForm()" ng-controller="SignupController">
+<form name="signupform" ng-submit="signupform.$valid && enviarForm(form)">
 
     <div class="col s6">
 
@@ -93,5 +93,5 @@
     </div>
 <div ng-show="success">
    <div>{{loc.signupform.success}}</div>
-    <div ng-include="'assets/html/login.html'"></div>
+   <a href="login">Login</a>
 </div>

@@ -12,43 +12,51 @@ routes = [
 				templateUrl: "main",
 				controller : "Login",
 			}
-		}, {
-			route : "/user/reported/list",
+		},
+    {
+        route : "/passwordRecovery",
+        options : {
+            templateUrl: "main",
+            controller : "PasswordRecovery",
+        }
+    },
+	{
+			route : "/adminpanel",
 			options : {
-				templateUrl : "viewreport",
-				controller : "ReportedUserList",
+				templateUrl : "admin/panel",
+				controller : "AdminPanel",
 			}
 		}, {
 			route : "/profile/:username",
 			options : {
-				templateUrl : "profile",
+				templateUrl : "profile/profile",
 				controller : "Profile",
 			}
 		},
         {
             route : "/profile/:username/:tabs",
             options : {
-                templateUrl : "profile",
+                templateUrl : "profile/profile",
                 controller : "Profile",
             }
         },
 		{
 			route : "/createTournament",
 			options : {
-				templateUrl : "createTournament",
+				templateUrl : "tournaments/createTournament",
 				controller : "CreateTournament"
 			}
 		}, {
 			route : "/tournament/list",
 			options : {
-				templateUrl : "listTournaments",
+				templateUrl : "tournaments/listTournaments",
 				controller : "TournamentList"
 			}
 		},
 		{
 			route : "/tournament/:id",
 			options : {
-				templateUrl : "tournament",
+				templateUrl : "tournaments/tournament",
 				controller : "Tournament"
 			}
 		},
@@ -62,31 +70,8 @@ routes = [
 		{
 			route : "/tournament/:id/:menu",
 			options : {
-				templateUrl : "tournament",
+				templateUrl : "tournaments/tournament",
 				controller : "Tournament"
-			}
-		},
-		{
-			route : "/confrontation/:tournamentId",
-			options : {
-				templateUrl : "viewConfrontation",
-				controller : "ConfrontationTournamentList"
-			}
-		}
-
-		, {
-			route : "/tournament/assign/:tournamentId/:teamId",
-			options : {
-				templateUrl : "listTournaments",
-				controller : "AssignTeamTournament"
-			}
-		}
-
-		, {
-			route : "/award/:tournamentId",
-			options : {
-				templateUrl : "viewAwards",
-				controller : "AwardsTournamentList"
 			}
 		},
 
@@ -99,7 +84,7 @@ routes = [
 		}, {
 			route : "/signup",
 			options : {
-				templateUrl : "signup",
+				templateUrl : "main",
 				controller : "Signup"
 			}
 		}, {

@@ -4,6 +4,7 @@ package forms;
 import domain.Game;
 import domain.Language;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class SearchForm {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String username) throws UnsupportedEncodingException {
+        this.username = new String(username.getBytes(),"UTF-8");
     }
 
 

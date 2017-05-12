@@ -30,5 +30,11 @@
     <input type="submit"  value="{{loc.search.filter}}" /> <a href="search" class="small">{{loc.search.resetFilter}}</a>
 
 </form>
-<div class="card " user-card="item" ng-repeat="item in As.search"></div>
+<div class="card" user-card="item"
+     ng-repeat="item in As.search|paginate:pagination"></div>
 
+<ul class="pagination"
+    qp-paginate-url="true"
+    gp-paginate="{{As.search.length}}"
+    gp-paginate-limit="6">
+</ul>

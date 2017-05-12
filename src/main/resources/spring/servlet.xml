@@ -35,6 +35,7 @@
 
 	<import resource="config/data.xml" />
 
+
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" mode="proxy" />
 	
 	<bean id="persistenceProvider" class="org.hibernate.jpa.HibernatePersistenceProvider" />	
@@ -82,7 +83,7 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames" ref="messages" />
-		<property name="defaultEncoding" value="ISO-8859-1" />
+		<property name="defaultEncoding" value="UTF-9" />
 		<property name="fallbackToSystemLocale" value="false" />
 	</bean>
 

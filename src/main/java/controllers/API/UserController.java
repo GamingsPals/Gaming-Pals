@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,6 +52,7 @@ public class UserController extends ApiAbstractController {
 	@RequestMapping(value = "/user/{user2}")
 	public Object usersBestRanked(@PathVariable String user2, HttpServletRequest request, HttpServletResponse response) {
 		try {
+			user2 = new String(user2.getBytes(),"UTF-8");
 			User user = userService.findByUserAccountUsername(user2);
 			Assert.notNull(user2);
 			Map<String, Object> result = new LinkedHashMap<>();
@@ -58,6 +60,7 @@ public class UserController extends ApiAbstractController {
 			result.put("followers", user.getFollowerUsers());
 			result.put("following", user.getFollowingUsers());
 			result.put("teams", user.getTeams());
+			result.put("relatedUsers",userService.getRelatedUsers(user));
 			return result;
 		} catch (Exception e) {
 			return notFoundError(response, null);
@@ -126,7 +129,7 @@ public class UserController extends ApiAbstractController {
 	@RequestMapping(value = "/user/all")
 	public Object allUsers(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			User actor = (User) actorService.findActorByPrincipal();
+			Actor actor = actorService.findActorByPrincipal();
 			Assert.notNull(actor);
 			return userService.findAll();
 		}catch (Exception e){
@@ -157,20 +160,8 @@ public class UserController extends ApiAbstractController {
 			return notFoundError(response, null);
 		}
 		try {
-			user = userService.findByPrincipal();
-			Assert.notNull(user);
-			user.setAge(signupForm.getAge());
+			userService.editForm(signupForm);
 
-			user.getUserAccount().setUsername(signupForm.getUsername());
-			user.setPicture(signupForm.getPicture());
-			user.setEmail(signupForm.getEmail());
-			user.setHeader(signupForm.getHeader());
-            List<Language> languages = new ArrayList<>();
-            for(String e: signupForm.getLanguages().split(",")){
-                languages.add(languageService.findOne(Integer.valueOf(e)));
-            }
-            user.setLanguages(languages);
-			userService.save(user);
 			return ok(response, null);
 		} catch (Exception e) {
 

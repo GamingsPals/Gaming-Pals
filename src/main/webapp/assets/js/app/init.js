@@ -10,12 +10,16 @@ app.run(function($rootScope,$location,dialog) {
 
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
-
+        let top = $("#top");
+        $(document).on("ready",function () {
+            $("html, body").animate({ scrollTop: top.offset().top }, "medium");
+        })
     });
 
     $rootScope.back = function () {
         let prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
         $location.path(prevUrl);
+        dialog.closeAll();
     };
 
 });

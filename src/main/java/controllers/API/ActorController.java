@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import services.ActorService;
 import services.UserService;
@@ -44,6 +45,7 @@ public class ActorController extends ApiAbstractController {
             return unauthorized(response,null);
         }
         try{
+
             Actor actor = actorService.findByUserAccountUsername(actor2);
             Assert.notNull(actor);
 
@@ -52,4 +54,5 @@ public class ActorController extends ApiAbstractController {
             return internalservererror(response,null);
         }
     }
+
 }

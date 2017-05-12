@@ -20,10 +20,16 @@ public class EditProfileForm {
 	private Integer	age;
 	private String languages;
 	private String header;
+	private String password;
 
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-	@NotBlank
 	public String getEmail() {
 		return email;
 	}
@@ -32,8 +38,6 @@ public class EditProfileForm {
 		this.email = email;
 	}
 
-	@NotBlank
-	@URL
 	public String getPicture() {
 		return picture;
 	}
@@ -42,7 +46,6 @@ public class EditProfileForm {
 		this.picture = picture;
 	}
 
-	@NotBlank
 	public String getUsername() {
 		return username;
 	}
@@ -52,7 +55,6 @@ public class EditProfileForm {
 	}
 
 
-	@NotNull
 	public Integer getAge() {
 		return age;
 	}

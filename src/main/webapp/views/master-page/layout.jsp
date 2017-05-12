@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
 
-
+	<meta name="google-site-verification" content="KuiLMsxz21j6ykarF10BE83VTARR2IBHWMzU25wD8-4" />
 <meta name=”description” content="Be prepared to a hole new gaming experience joining our community. 0% Toxicity. 100% Fun." />
 
 
@@ -68,8 +68,7 @@
 				<span ng-if="!auth.isAuthenticated()">
 					<li><a href="login"><i class="fa fa-sign-in"></i>
 							{{loc.login}}</a></li>
-					<li><a href="#" ng-if="!auth.isAuthenticated()"
-						dialog="signup"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
+					<li><a href="signup" ng-if="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
 				</span>
                 <li><a
                         href="#"
@@ -79,7 +78,7 @@
                 </a>
                     <ul>
                         <li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-                            <a href="user/reported/list"><i class="fa fa-user-times"></i>
+                            <a href="adminpanel"><i class="fa fa-user-times"></i>
                                 {{loc.layout.userReportedList}}</a>
                         </li>
                         <li><a target="_self" href="j_spring_security_logout"
@@ -88,16 +87,11 @@
                         </a></li>
                     </ul>
                 </li>
-				<li><a
+				<li ng-if="auth.hasRole('USER')"><a
 					href="profile/{{auth.principal.actor.userAccount.username}}"
-					ng-if="auth.hasRole('USER')"> <img class="profile-image"
+					> <img class="profile-image"
 						ng-src="{{auth.principal.actor.picture}}" />
 						{{auth.principal.actor.userAccount.username}}
-				</a><a ng-if="auth.hasRole('ADMIN')"
-						href="#"
-						> <img class="profile-image"
-														   ng-src="{{auth.principal.actor.picture}}" />
-					{{auth.principal.actor.userAccount.username}}
 				</a>
 					<ul>
 						<li><a ng-if="auth.hasRole('USER')"
@@ -178,7 +172,7 @@
 				</ul>
 			</div>
 		</div>
-		<main ng-view> </main>
+		<main ng-view id="top"> </main>
 		<footer>
 			<ul>
 				<li><a href="about"></a> {{loc.layout.aboutUs}}</li>

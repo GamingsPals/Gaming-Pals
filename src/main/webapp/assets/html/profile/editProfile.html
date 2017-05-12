@@ -2,7 +2,6 @@
 <h2 class="text-center ng-binding">{{loc.profileView.editprofile}}</h2>
 <form name="signupform" ng-submit="signupform.$valid && enviarForm()">
     <div class="col s6">
-
    <h2>{{loc.signupform.userAccount}}</h2>
     <label>
         {{loc.signupform.username}}
@@ -23,6 +22,25 @@
              ng-show="signupform.email.$dirty && signupform.email.$invalid">
             <div ng-message="required">{{loc.signupform.error1}}</div>
             <div ng-message="email">{{loc.signupform.error5}}</div>
+        </div>
+        <label>
+            {{loc.signupform.password}}
+        </label>
+        <input type="password" name="password"  title="Password"  ng-model="form.password" ng-minlength="0" ng-maxlength="32"
+               minlength="5" maxlength="32" />
+        <div class="form-error" ng-messages="signupform.password.$error" role="alert"
+             ng-show="signupform.password.$dirty && signupform.password.$invalid">
+            <div ng-message="minlength">{{loc.signupform.error2}}</div>
+            <div ng-message="minlength">{{loc.signupform.error3}}</div>
+        </div>
+        <label>
+            {{loc.signupform.rPassword}}
+        </label>
+        <input type="password"  name="confirmpassword" title="Confirm Password"  ng-model="confirmpassword"
+               password-verify="{{signupform.password.$modelValue}}"/>
+        <div class="form-error" ng-messages="signupform.confirmpassword.$error" role="alert"
+             ng-show="signupform.confirmpassword.$dirty && signupform.confirmpassword.$invalid">
+            <div ng-show="signupform.confirmpassword.$invalid">{{loc.signupform.error4}}</div>
         </div>
     </div>
     <div class="col s6">

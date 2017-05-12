@@ -3,7 +3,9 @@ app.config(function($routeProvider,$locationProvider){
         if(typeof a.options.templateUrl !=="undefined"){
             a.options.templateUrl = `assets/html/${a.options.templateUrl}.html`;
         }
-        a.options.controller = `${a.options.controller}Controller`;
+        if(typeof a.options.controller !=="undefined"){
+            a.options.controller = `${a.options.controller}Controller`;
+        }
         $routeProvider.when(a.route,a.options);
     });
 

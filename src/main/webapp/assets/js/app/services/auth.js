@@ -7,7 +7,7 @@ app.service("auth", function(xhr){
     this.load = function(callback,force){
         let object = this;
         if (Object.keys(object.principal).length==0 || force==true) {
-            xhr.get("api/isauthenticated", function (data) {
+            xhr.get("api/auth/isauthenticated", function (data) {
                 object.principal = data.data;
                 object.callListeners(data.data);
                 if(typeof  callback!=="undefined"){
@@ -40,7 +40,7 @@ app.service("auth", function(xhr){
     };
 
     this.isPrincipalFollowing = function(actor){
-        if(typeof actor==="undefined" || typeof this.principal.actor==="undefined"){
+        if(typeof actor==="undefined" || typeof this.principal.actor==="undefined" || this.hasRole('ADMIN')){
             return false;
         }
         return typeof this.principal.following.find((a)=> {return a.id == actor.id}) !== "undefined";

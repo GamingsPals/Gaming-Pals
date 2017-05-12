@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +43,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		super();
 
 		this.authorities = new ArrayList<Authority>();
+		this.locked = false;
 	}
 
 	// Attributes -------------------------------------------------------------
@@ -51,6 +53,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String username;
 	private String password;
 	private Collection<Authority> authorities;
+	private Boolean locked;
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
@@ -101,6 +104,14 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		authorities.remove(authority);
 	}
 
+	public Boolean getLocked() {
+		return locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
 	@Transient
 	@JsonIgnore
 	@Override
@@ -111,7 +122,8 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+
+		return !locked;
 	}
 
 	@JsonIgnore
