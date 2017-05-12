@@ -289,7 +289,13 @@
     "header" : "Recuperación de contraseña",
     "notfound": "No se encontró ninguna cuenta ligada a esa direcció email",
     "internal": "Humo un error intentando recuperar tu contraseña"
-  }
+  },
+  "aboutUs":{
+  	 "p1": "GamingPals es el lugar donde encontrarte con tus mejores amigos para tus partidas de videojuegos. Nace de la idea de que los jugadores positivos y que inspiran confianza se merecen una buena experiencia de juego con gente que no conocen de internet.",
+     "p2": "Con este objetivo, les ofrecemos un entorno gratuito donde encontrar, evaluar y calificara otros jugadores. También les ofrecemos las herramientas de comunicación adecuadas para ello.",
+     "p3": "Como característica adicional, ofrecemos la posibilidad de poder unirte a nuestros torneos. En nuestra web podrás jugar torneos de videojuegos de Steam y League of Legends. Tendrás un lugar donde poner a prueba tus habilidades de competición con otros amigos por premios geniales. ",
+     "p4": "¡Únete a nosotros de forma gratuita y empieza a formar parte de la mejor comunidad de gaming!"
+ }
 
 
 }

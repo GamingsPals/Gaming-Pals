@@ -9380,6 +9380,9 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.legalIssues = function () {
         dialog.open("legalIssues",$scope);
     };
+    $scope.aboutUs = function () {
+        dialog.open("aboutUs",$scope);
+    };
 
     $scope.checkProtocol = function(){
         console.log($location.protocol());

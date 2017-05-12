@@ -284,6 +284,12 @@
   "header" : "Password Recovery",
   "notfound": "There wasn't found any account linked to that email address",
     "internal": "There was an error trying to reset your password"
-}
+},
+  "aboutUs":{
+  	 "p1": "GamingPals is the place where you will meet the best partners for your video game sessions. It borns from the idea that gamers who are positive and spread good vibes deserve to have proper experience while playing with random people from the internet.",
+     "p2": "For that purpose we provide them a free environment where they have the tools to find,  evaluate and rate other players. Also providing them the proper communication tools for that purpose.",
+     "p3": "As an additional feature we offer you the possibility of joining our tournaments league. Here you will be able to play tournament of games from steam and league of legends. There you will have a place where you can test your skills competing with others pals for really cool prizes.",
+     "p4": "Join us for free and start being a part of the coolest gaming community!"
+ }
   
 }

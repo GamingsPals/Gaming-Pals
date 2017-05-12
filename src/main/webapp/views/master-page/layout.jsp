@@ -175,8 +175,7 @@
 		<main ng-view id="top"> </main>
 		<footer>
 			<ul>
-				<li><a href="about"></a> {{loc.layout.aboutUs}}</li>
-
+				<li><a href="about" ng-click="aboutUs()"> {{loc.layout.aboutUs}}</a> </li>
 				<li><a href="contact">{{loc.layout.contact}}</a></li>
 				<li><a href="legalIssues" ng-click="legalIssues()">
 						{{loc.layout.legalNote}}</a></li>

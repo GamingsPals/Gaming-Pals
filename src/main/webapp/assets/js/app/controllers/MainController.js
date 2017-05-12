@@ -42,6 +42,9 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         dialog.open("legalIssues",$scope);
     };
 
+    $scope.aboutUs = function () {
+        dialog.open("aboutUs",$scope);
+    };
     $scope.checkProtocol = function(){
         console.log($location.protocol());
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
