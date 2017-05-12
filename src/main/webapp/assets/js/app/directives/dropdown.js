@@ -1,6 +1,6 @@
 app.directive("dropdown",function(){
     return {
-        restrict: "AEC",
+        restrict: "AE",
         link: function(scope,element,attrs){
             let elipsis = $($(element).children(".dropdown-button")[0]);
             let list = $($(element).children("ul")[0]);

@@ -1,5 +1,7 @@
 .dropdown{
   display: inline-table;
+  font-size: 14pt;
+  text-shadow: none;
   position: relative;
   .button{
     display: inline-table;
@@ -7,7 +9,8 @@
   ul{
     z-index:15;
     @extend .box;
-    background-color: $color-base-white-1;  display: none;
+    background-color: $color-base-white-1;
+    display: none;
     margin: 0;
     border:1px solid $color-base-black-6;
     padding: 0;
@@ -19,10 +22,11 @@
       display: list-item;
       a{
         padding:15px;
+        color:$color-base-black-1;
         display: block;
         border-bottom: 1px solid $color-base-black-7;
         &:hover{
-          background-color: $color-base-black-8;
+          background-color: $color-base-black-8!important;
         }
       }
     }

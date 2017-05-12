@@ -21,11 +21,11 @@ app.directive("userCard",function($compile,auth,AdminService){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                 <div class="dropdown float-right" dropdown>
+                 <div class="dropdown float-right" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i.id)">Ban User</a></li>
-                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i.id)">Unban User</a></li>
+                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i)">Ban User</a></li>
+                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i)">Unban User</a></li>
                         </ul>
                     </div>
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>

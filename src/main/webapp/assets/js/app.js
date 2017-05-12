@@ -9814,10 +9814,13 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         });
     };
 
-});;app.service("AdminService",function(xhr,auth){
+});;app.service("AdminService",function(xhr,SystemMessages){
     this.pepe = "lol";
-    this.ban = function(id){
-        xhr.get("api/admin/ban/"+id);
+    this.ban = function(user){
+        xhr.get("api/admin/ban/"+user.id,(a)=>{
+            let banned = (user.userAccount.locked==true) ? "Unbanned" : "Banned";
+            SystemMessages.okmessage("User "+banned)
+        });
     }
 });;
 app.service("auth", function(xhr){
@@ -10722,11 +10725,11 @@ app.service("SystemMessages", function($timeout){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                 <div class="dropdown float-right" dropdown>
+                 <div class="dropdown float-right" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i.id)">Ban User</a></li>
-                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i.id)">Unban User</a></li>
+                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i)">Ban User</a></li>
+                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i)">Unban User</a></li>
                         </ul>
                     </div>
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
@@ -10823,7 +10826,7 @@ app.directive("teamCard",function($compile){
     }
 });;app.directive("dropdown",function(){
     return {
-        restrict: "AEC",
+        restrict: "AE",
         link: function(scope,element,attrs){
             let elipsis = $($(element).children(".dropdown-button")[0]);
             let list = $($(element).children("ul")[0]);
