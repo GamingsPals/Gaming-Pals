@@ -91,7 +91,7 @@
   },
   "assignTeam":{
   	"select":"Select a Team",
-  	"selectedTeam":"You are going to inscribe your selected team to ",
+  	"selectedTeam":"You are going to inscribe your selected team to",
   	"inscribe":"Join"
   },
   "team":{
