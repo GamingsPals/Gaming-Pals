@@ -10699,7 +10699,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("userCard",function($compile,auth,AdminService){
+});;;app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {

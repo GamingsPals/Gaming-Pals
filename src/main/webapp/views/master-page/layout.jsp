@@ -124,7 +124,7 @@
 								aria-hidden="true"></i> {{loc.logout}}
 						</a></li>
 					</ul></li>
-				<li><a href="#" class="relative" ng-if="auth.isAuthenticated()">
+				<li><a href="#" class="relative" ng-if="auth.hasRole('USER')">
 						<div class="notification-globe"
 							ng-show="notifications.numberOfNotifications()>0">
 							{{notifications.numberOfNotifications()}}</div> <i

@@ -66,19 +66,12 @@ public class TeamController extends ApiAbstractController{
 	@ResponseBody
 	@RequestMapping(value = "/team/{name}")
 	public Object get(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
-		User principal;
 		try {
 			Assert.notNull(name);
 		} catch (Exception e) {
 			return badrequest(response, null);
 		}
-		try {
-			Actor actor= actorService.findActorByPrincipal();
-			principal = (User) actor;
-			Assert.notNull(principal);
-		} catch (Exception e) {
-			return unauthorized(response, null);
-		}
+
 		try {
 			Team t = teamService.findByName(name);
 			Assert.notNull(t);
