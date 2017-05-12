@@ -21,13 +21,7 @@ app.directive("userCard",function($compile,auth,AdminService){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                 <div class="dropdown float-right" ng-if="auth.hasRole('ADMIN')" dropdown>
-                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
-                      <ul>
-                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i)">Ban User</a></li>
-                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i)">Unban User</a></li>
-                        </ul>
-                    </div>
+                 <span class="float-right" admin-tools="i"></span>
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
@@ -40,12 +34,13 @@ app.directive("userCard",function($compile,auth,AdminService){
                 </div>
                   </div>
                   <div class="card-footer">
-                  <div class="col s8 x3">
+                  <div class="col s7 x2">
                   <a class="button" ng-if="auth.principal.actor.id!=i.id" href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
                     </div>
-                  <div class="col s3 x1">
+                  <div class="col s3 x1 float-right">
                            <div follow="i"></div>
                     </div>
+                    <div class="clear-both"></div>
         
                         </div>
                 
@@ -85,11 +80,12 @@ app.directive("teamCard",function($compile){
               
                   </div>
                   <div class="card-footer">
-                  <div class="col s8 x3">
+                  <div class="col s7 x2">
                     </div>
-                  <div class="col s3 x1">
+                  <div class="col s3 x1 float-right">
                            <a class="button" href="team/{{i.name}}">Visit</a>
                     </div>
+                    <div class="clear-both"></div>
         
                         </div>
                 

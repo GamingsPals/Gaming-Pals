@@ -140,12 +140,15 @@ public class UserController extends ApiAbstractController {
 	@ResponseBody
 	@RequestMapping(value = "/user/teams")
 	public Object teams(HttpServletRequest request, HttpServletResponse response) {
+		Actor user;
 		try {
-			User actor = (User) actorService.findActorByPrincipal();
-			Assert.notNull(actor);
-			return actor.getTeams();
+			user =  actorService.findActorByPrincipal();
+			if(user instanceof User){
+				return (User) ((User) user).getTeams();
+			}
+			return new ArrayList<>();
 		}catch (Exception e){
-			return unauthorized(response,null);
+			return internalservererror(response,null);
 		}
 	}
 

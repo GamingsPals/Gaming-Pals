@@ -316,4 +316,9 @@ public class UserService {
 		user.setLanguages(languages);
 		save(user);
 	}
+
+    public Collection<User> findAllNotBanned() {
+
+		return userRepository.findAllNotBanned();
+    }
 }

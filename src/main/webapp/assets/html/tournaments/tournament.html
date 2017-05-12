@@ -8,19 +8,19 @@
     <div class="profile-nav-mbutton om">
         <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
     <ul>
-        <li ng-class="(tabs.resume) ? 'active' : ''">
+        <li ng-class="(mode=='resume') ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/resume">
                {{loc.tournament.description}}</a></li>
-        <li  ng-class="(tabs.rules) ? 'active' : ''">
+        <li  ng-class="(mode=='rules') ? 'active' : ''">
             <a  href="{{url}}/rules" class="profile-tabs">
                  {{loc.tournament.rules}}</a></li>
-        <li  ng-class="(tabs.teams) ? 'active' : ''">
+        <li  ng-class="(mode=='teams') ? 'active' : ''">
             <a  href="{{url}}/teams" class="profile-tabs">
                 {{loc.tournament.inscriptedTeams}}</a></li>
-        <li  ng-class="(tabs.bracket) ? 'active' : ''">
+        <li  ng-class="(mode=='bracket') ? 'active' : ''">
             <a  href="{{url}}/bracket" class="profile-tabs" >
               {{loc.tournament.bracket}}</a></li>
-        <li  ng-class="(tabs.awards) ? 'active' : ''">
+        <li  ng-class="(mode == 'awards') ? 'active' : ''">
             <a  href="{{url}}/awards" class="profile-tabs">
                 {{loc.tournament.awards}}</a></li>
     </ul>

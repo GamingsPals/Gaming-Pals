@@ -1,0 +1,14 @@
+<h2>Banned users</h2>
+<div ng-if="bannedusers.length==0">
+    There isn't any user banned yet
+</div>
+<div class="card" user-card="item"
+     ng-repeat="item in bannedusers|paginate:'bannedusers'"></div>
+
+<ul class="pagination"
+    gp-paginate-url="false"
+    gp-paginate-items="bannedusers"
+    gp-paginate
+    gp-paginate-limit="6"
+    gp-paginate-id="bannedusers">
+</ul>

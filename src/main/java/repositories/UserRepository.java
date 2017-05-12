@@ -46,4 +46,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u where u.email=?1")
     User findUserByEmail(String email);
+
+	@Query("select u from User u where u.userAccount.locked=true")
+    Collection<User> findAllNotBanned();
 }

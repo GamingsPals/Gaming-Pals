@@ -1,0 +1,10 @@
+.blocktext{
+  background-color: $color-base-black-7;
+  border-radius: 4pt;
+  padding:15px;
+  margin:30px;
+  @include om(){
+    margin-left:0;
+    margin-right:0;
+  }
+}

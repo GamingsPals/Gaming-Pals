@@ -1,0 +1,36 @@
+<h2>Reports list</h2>
+<div ng-if="reportedusers.length==0">
+    There isn't any report
+</div>
+<div class="blocktext s12" ng-repeat="item in reportedusers|paginate:'reportedusers'">
+    <div>
+
+    <h2><a href="profile/{{item.reportedUser.userAccount.username}}">
+        <img ng-src="{{item.reportedUser.picture}}" class="profile-image"/>
+        {{item.reportedUser.userAccount.username}} <span class="float-right" admin-tools="item.reportedUser"></span>
+    </a>
+    </h2>
+    <p>{{item.comment}}</p>
+    </div>
+    <div>
+        <div class="col s7 x2 float-left">
+           <b>Reported by</b> <a href="profile/{{item.reporterUser.userAccount.username}}">
+                <img ng-src="{{item.reporterUser.picture}}" class="profile-image"/>
+                {{item.reporterUser.userAccount.username}}
+            </a>
+        </div>
+        <div class="col s3 x1 float-right">
+            <div class="button bg-red3" style="position: relative;">
+                <i class="fa fa-close"></i> Delete</div>
+        </div>
+        <div class="clear-both"></div>
+
+    </div>
+</div>
+
+<ul class="pagination"
+    gp-paginate-items="reportedusers"
+    gp-paginate
+    gp-paginate-limit="2"
+    gp-paginate-id="reportedusers">
+</ul>

@@ -573,6 +573,19 @@ a {
   .lateral-menu ul li {
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+  .lateral-menu ul .link {
+    padding: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+    .lateral-menu ul .link a {
+      display: block;
+      padding: 15px;
+      color: black; }
+      .lateral-menu ul .link a:hover {
+        background-color: rgba(0, 0, 0, 0.04); }
+  .lateral-menu ul .active {
+    background-color: rgba(0, 0, 0, 0.18); }
+    .lateral-menu ul .active a:hover {
+      background-color: rgba(255, 255, 255, 0.18); }
 
 .tournament-header {
   text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.08), -2px -1px 0 rgba(0, 0, 0, 0.08), -2px 0px 0 rgba(0, 0, 0, 0.08), -2px 1px 0 rgba(0, 0, 0, 0.08), -2px 2px 0 rgba(0, 0, 0, 0.08), -1px -2px 0 rgba(0, 0, 0, 0.08), -1px -1px 0 rgba(0, 0, 0, 0.08), -1px 0px 0 rgba(0, 0, 0, 0.08), -1px 1px 0 rgba(0, 0, 0, 0.08), -1px 2px 0 rgba(0, 0, 0, 0.08), 0px -2px 0 rgba(0, 0, 0, 0.08), 0px -1px 0 rgba(0, 0, 0, 0.08), 0px 0px 0 rgba(0, 0, 0, 0.08), 0px 1px 0 rgba(0, 0, 0, 0.08), 0px 2px 0 rgba(0, 0, 0, 0.08), 1px -2px 0 rgba(0, 0, 0, 0.08), 1px -1px 0 rgba(0, 0, 0, 0.08), 1px 0px 0 rgba(0, 0, 0, 0.08), 1px 1px 0 rgba(0, 0, 0, 0.08), 1px 2px 0 rgba(0, 0, 0, 0.08), 2px -2px 0 rgba(0, 0, 0, 0.08), 2px -1px 0 rgba(0, 0, 0, 0.08), 2px 0px 0 rgba(0, 0, 0, 0.08), 2px 1px 0 rgba(0, 0, 0, 0.08), 2px 2px 0 rgba(0, 0, 0, 0.08);
@@ -1079,6 +1092,8 @@ table {
   font-size: 14pt;
   text-shadow: none;
   position: relative; }
+  .dropdown a {
+    color: rgba(0, 0, 0, 0.88); }
   .dropdown .button, .dropdown .grey-button, .dropdown input[type=submit], .dropdown .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key, .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .dropdown .chat-body-input-key {
     display: inline-table; }
   .dropdown ul {
@@ -1090,8 +1105,7 @@ table {
     padding: 0;
     min-width: 250px;
     position: absolute;
-    top: 0;
-    left: 0; }
+    top: 0; }
     .dropdown ul li {
       display: list-item; }
       .dropdown ul li a {
@@ -1101,6 +1115,16 @@ table {
         border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
         .dropdown ul li a:hover {
           background-color: rgba(0, 0, 0, 0.04) !important; }
+
+.blocktext {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 4pt;
+  padding: 15px;
+  margin: 30px; }
+  @media only screen and (min-width: 0px) and (max-width: 1024px) {
+    .blocktext {
+      margin-left: 0;
+      margin-right: 0; } }
 
 .center-container {
   margin-left: 4%;
@@ -1246,10 +1270,10 @@ footer {
 
 .beta {
   position: fixed;
-  right: 0;
+  left: 0;
   top: 0;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   background-image: url(../images/beta.png);
   z-index: 2;
   background-size: 100% 100%; }

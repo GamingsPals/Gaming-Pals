@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import services.ActorService;
 import services.ParticipesService;
 import services.ReportMatchService;
 import services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -25,6 +27,9 @@ public class ReportMatchController extends ApiAbstractController{
 
     @Autowired
     private ReportMatchService reportMatchService;
+
+    @Autowired
+    private ActorService actorService;
 
     @Autowired
     private ParticipesService participesService;
@@ -84,9 +89,9 @@ public class ReportMatchController extends ApiAbstractController{
 
     @RequestMapping("/tournament/matchtoreport/{tournament}")
     public Object getConfrontation(@PathVariable Tournament tournament, HttpServletResponse response){
-        User principal;
+        Actor principal;
         try{
-            principal = userService.findByPrincipal();
+            principal = actorService.findActorByPrincipal();
             Assert.notNull(principal);
         }catch (Exception e){
             return unauthorized(response,null);
@@ -97,6 +102,7 @@ public class ReportMatchController extends ApiAbstractController{
             return badrequest(response,null);
         }
         try{
+            if(!(principal instanceof User)) return new ArrayList<>();
             Map<String,Object> result = participesService.getConfrontation(tournament);
             Assert.notNull(result);
 

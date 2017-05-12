@@ -1,12 +1,18 @@
 <div class="col s4 float-right lateral-menu">
     <ul>
         <h1>Users</h1>
-        <li>User Report List</li>
-        <li>Banned Users</li>
+        <li class="link" ng-class="(mode=='usersreportedlist') ? 'active' :''"><a href="adminpanel/usersreportedlist"> User Report List</a></li>
+        <li class="link" ng-class="(mode=='usersbanned') ? 'active' :''"><a href="adminpanel/usersbanned"> Users Banned List</a> </li>
     </ul>
 </div>
 
 <div class="s8" style="min-height: 500px;padding-top:20px;">
     <h1>Admin Panel</h1>
+    <section ng-if="mode=='usersbanned'" ng-include="'assets/html/admin/bannedUsers.html'">
+
+    </section>
+    <section ng-if="mode=='usersreportedlist'" ng-include="'assets/html/admin/reportedUsersList.html'">
+
+    </section>
 </div>
 

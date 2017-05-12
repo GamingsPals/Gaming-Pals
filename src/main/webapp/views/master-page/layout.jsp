@@ -70,15 +70,15 @@
 							{{loc.login}}</a></li>
 					<li><a href="signup" ng-if="!auth.isAuthenticated()"><i class="fa fa-user-plus"></i> {{loc.signup}}</a></li>
 				</span>
-                <li><a
+                <li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')"><a
                         href="#"
                         ng-if="auth.hasRole('ADMIN')"> <img class="profile-image"
                                                            ng-src="{{auth.principal.actor.picture}}" />
                     {{auth.principal.actor.userAccount.username}}
                 </a>
                     <ul>
-                        <li ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
-                            <a href="adminpanel"><i class="fa fa-user-times"></i>
+                        <li >
+                            <a href="adminpanel"><i class="fa fa-user-lock"></i>
                                 {{loc.layout.userReportedList}}</a>
                         </li>
                         <li><a target="_self" href="j_spring_security_logout"

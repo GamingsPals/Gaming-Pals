@@ -23,12 +23,6 @@ app.service("ActorService",function(xhr,auth){
     };
 
 
-    this.reportedUsers = function(){
-        let object = this;
-        xhr.get("api/report/user/list" ,function(response){
-            object.reportedList = response.data;
-        });
-    };
 
     this.findAll = function(callback){
         let object = this;

@@ -26,7 +26,15 @@ routes = [
 				templateUrl : "admin/panel",
 				controller : "AdminPanel",
 			}
-		}, {
+		},
+    {
+        route : "/adminpanel/:menu",
+        options : {
+            templateUrl : "admin/panel",
+            controller : "AdminPanel",
+        }
+    },
+	{
 			route : "/profile/:username",
 			options : {
 				templateUrl : "profile/profile",

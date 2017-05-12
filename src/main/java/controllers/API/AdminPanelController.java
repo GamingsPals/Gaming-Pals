@@ -57,6 +57,24 @@ public class AdminPanelController extends ApiAbstractController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/admin/ban/list")
+	public Object banedUsers(HttpServletResponse response){
+		Administrator administrator;
+		try{
+			administrator = administratorService.findByPrincipal();
+			Assert.notNull(administrator);
+		} catch (Exception e){
+			return unauthorized(response,null);
+		}
+		try{
+
+			return userService.findAllNotBanned();
+		} catch (Exception e){
+			return internalservererror(response,null);
+		}
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/admin/reports/list")
 	public Object list(HttpServletResponse response) {
 		try{

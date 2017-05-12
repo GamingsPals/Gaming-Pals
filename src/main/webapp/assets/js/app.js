@@ -8931,7 +8931,15 @@ routes = [
 				templateUrl : "admin/panel",
 				controller : "AdminPanel",
 			}
-		}, {
+		},
+    {
+        route : "/adminpanel/:menu",
+        options : {
+            templateUrl : "admin/panel",
+            controller : "AdminPanel",
+        }
+    },
+	{
 			route : "/profile/:username",
 			options : {
 				templateUrl : "profile/profile",
@@ -9051,10 +9059,29 @@ routes = [
     }, {reloadOnSearch: false});
 
     $locationProvider.html5Mode(true);
-});;;;app.controller('AdminPanelController',function($scope,ActorService,middleware,dialog){
+});;;;app.controller('AdminPanelController',function($scope,ActorService,middleware,AdminService,$routeParams,$location){
     middleware.needRol("ADMIN,MODERATOR");
-    $scope.As = ActorService;
-    $scope.As.reportedUsers();
+    $scope.getBannedUsers = ()=>{
+        AdminService.getBannedUsers((a)=>{
+            $scope.bannedusers = a;
+        });
+    };
+    AdminService.addHookBannedUser((actor)=>{
+        $scope.getBannedUsers();
+    });
+
+    AdminService.getReportedUsers((a)=>{
+        $scope.reportedusers = a;
+    });
+
+    $scope.getBannedUsers();
+    $scope.mode = $routeParams.menu;
+    console.log($scope.mode);
+    if(typeof $scope.mode ==="undefined"){
+        $location.path("adminpanel/usersbanned");
+    }
+
+
 });;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
     $scope.assignForm = {};
     $scope.added = false;
@@ -9714,12 +9741,6 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
 
-    this.reportedUsers = function(){
-        let object = this;
-        xhr.get("api/report/user/list" ,function(response){
-            object.reportedList = response.data;
-        });
-    };
 
     this.findAll = function(callback){
         let object = this;
@@ -9815,11 +9836,50 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
 });;app.service("AdminService",function(xhr,SystemMessages){
-    this.pepe = "lol";
+    this.hooksBannedUsers = [];
+
+    this.addHookBannedUser = function(callback){
+        if(typeof callback==="function"){
+            this.hooksBannedUsers.push(callback);
+        }
+    };
+
     this.ban = function(user){
+        let object = this;
         xhr.get("api/admin/ban/"+user.id,(a)=>{
             let banned = (user.userAccount.locked==true) ? "Unbanned" : "Banned";
-            SystemMessages.okmessage("User "+banned)
+            SystemMessages.okmessage("User "+banned);
+            object.closeDropdowns();
+            user.userAccount.locked = !user.userAccount.locked;
+            object.hooksBannedUsers.forEach((i)=>{
+                if(typeof i==="function"){
+                    i(user);
+                }
+            });
+        });
+    };
+
+    this.closeDropdowns = function(){
+        let list = $(".dropdown");
+        list.each((a)=>{
+            $($(list[a]).children("ul")[0]).hide();
+            $(".toverlay").remove();
+        })
+    };
+
+    this.getBannedUsers = function (callback) {
+        xhr.get("api/admin/ban/list",(a)=> {
+            if (typeof callback !== "undefined") {
+                callback(a.data);
+            }
+        })
+    };
+    this.getReportedUsers = function(callback) {
+        let object = this;
+        xhr.get("api/admin/reports/list", function (response) {
+            if (typeof callback !== "undefined") {
+                callback(response.data);
+            }
         });
     }
 });;
@@ -10065,7 +10125,34 @@ app.service("auth", function(xhr){
             this.handleMessages(callback);
     }
 
-});;
+});;class Dao{
+
+    constructor(array){
+        this.elements = array;
+    }
+
+    remove(id){
+        let element = this.find(id);
+        let index = this.elements.indexOf(element);
+        this.elements.splice(index,1);
+    }
+
+    save(entity){
+        let element = this.find(entity.id);
+        let index = this.elements.indexOf(element);
+        this.elements[index] = entity;
+    }
+
+    find(id){
+        return this.elements.find((a)=>{
+            return a.id == id;
+        })
+    }
+
+    get(){
+        return this.elements;
+    }
+};
 app.service("dialog", function(ngDialog,$rootScope){
 
 
@@ -10702,7 +10789,32 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;app.directive("userCard",function($compile,auth,AdminService){
+});;;;app.directive("adminTools",function($compile){
+    return {
+        restrict: "AEC",
+        scope: {
+            "adminTools": "="
+        },
+
+        link: function(scope,element,attrs){
+            scope.$parent.adminTools = scope.adminTools;
+            scope.$watch('adminTools',()=>{
+            let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li ng-if="adminTools.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(adminTools)">Ban User</a></li>
+                    <li ng-if="adminTools.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(adminTools)">Unban User</a></li>
+                        </ul>
+                    </div>`;
+            $(element).html(template);
+            $compile(element.contents())(scope.$parent);
+            });
+        }
+    }
+
+
+
+});;app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {
@@ -10725,13 +10837,7 @@ app.service("SystemMessages", function($timeout){
                     <img class="card-header-avatar" ng-src="{{i.picture}}">
                  </div>
                  <div class="card-body">
-                 <div class="dropdown float-right" ng-if="auth.hasRole('ADMIN')" dropdown>
-                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
-                      <ul>
-                    <li ng-if="i.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(i)">Ban User</a></li>
-                    <li ng-if="i.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(i)">Unban User</a></li>
-                        </ul>
-                    </div>
+                 <span class="float-right" admin-tools="i"></span>
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
@@ -10744,12 +10850,13 @@ app.service("SystemMessages", function($timeout){
                 </div>
                   </div>
                   <div class="card-footer">
-                  <div class="col s8 x3">
+                  <div class="col s7 x2">
                   <a class="button" ng-if="auth.principal.actor.id!=i.id" href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
                     </div>
-                  <div class="col s3 x1">
+                  <div class="col s3 x1 float-right">
                            <div follow="i"></div>
                     </div>
+                    <div class="clear-both"></div>
         
                         </div>
                 
@@ -10789,11 +10896,12 @@ app.directive("teamCard",function($compile){
               
                   </div>
                   <div class="card-footer">
-                  <div class="col s8 x3">
+                  <div class="col s7 x2">
                     </div>
-                  <div class="col s3 x1">
+                  <div class="col s3 x1 float-right">
                            <a class="button" href="team/{{i.name}}">Visit</a>
                     </div>
+                    <div class="clear-both"></div>
         
                         </div>
                 
@@ -10824,18 +10932,29 @@ app.directive("teamCard",function($compile){
             })
         }
     }
-});;app.directive("dropdown",function(){
+});;
+
+app.directive("dropdown",function(){
     return {
         restrict: "AE",
         link: function(scope,element,attrs){
             let elipsis = $($(element).children(".dropdown-button")[0]);
             let list = $($(element).children("ul")[0]);
             let overlay = $(`<div class="toverlay"></div>`);
+            let overlap = false;
             elipsis.on("click",function(e){
                 e.preventDefault();
                 $(".toverlay").hide(150);
                 $("body").append(overlay);
                 list.show();
+                let width = list.offset().left+list.width();
+                let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                list.css({"left":'0', "right":''});
+                if(width>w || overlap){
+                    list.css({"right":'0','left':''});
+                    overlap = true;
+                }
                 overlay.on("click",function(e){
                     e.preventDefault();
                     list.hide(150);
@@ -10845,7 +10964,8 @@ app.directive("teamCard",function($compile){
 
         }
     }
-});;app.directive("flag", function($compile){
+});
+;app.directive("flag", function($compile){
     return {
         restrict: "AE",
         link: function(scope,element,attrs){
