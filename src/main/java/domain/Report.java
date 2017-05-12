@@ -1,64 +1,57 @@
-
 package domain;
 
-import javax.persistence.*;
-
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = "report")
 public class Report extends DomainEntity {
 
-	//Attributes
-	private String	picture;
-	private String	comment;
-	private User reporterUser;
-	private User reportedUser;
+    private String comment;
+    private String picture;
+    private User reporterUser;
+    private User reportedUser;
 
+    @NotBlank
+    @SafeHtml
+    public String getComment() {
+        return comment;
+    }
 
-	//Constructor
-	public Report() {
-		super();
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-	//Getters and setters
+    @URL
+    public String getPicture() {
+        return picture;
+    }
 
-	@URL
-	@NotBlank
-	public String getPicture() {
-		return picture;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    @ManyToOne
+    public User getReporterUser() {
+        return reporterUser;
+    }
 
-	@NotBlank
-	public String getComment() {
-		return comment;
-	}
+    public void setReporterUser(User reporterUser) {
+        this.reporterUser = reporterUser;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    @ManyToOne
+    public User getReportedUser() {
+        return reportedUser;
+    }
 
-	@ManyToOne
-	public User getReporterUser() {
-		return reporterUser;
-	}
-
-	public void setReporterUser(User reporterUser) {
-		this.reporterUser = reporterUser;
-	}
-
-	@ManyToOne
-	public User getReportedUser() {
-		return reportedUser;
-	}
-
-	public void setReportedUser(User reportedUser) {
-		this.reportedUser = reportedUser;
-	}
+    public void setReportedUser(User reportedUser) {
+        this.reportedUser = reportedUser;
+    }
 }

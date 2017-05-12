@@ -3,10 +3,7 @@ package controllers.API;
 import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +15,6 @@ public class ReportController extends ApiAbstractController {
 
     @Autowired
     private ActorService actorService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private AdministratorService administratorService;
@@ -55,18 +49,5 @@ public class ReportController extends ApiAbstractController {
         }
     }
 
-    @RequestMapping(value = "/report/user/list")
-    public Object reportedUserList(HttpServletResponse response) {
-        try{
-           Administrator administrator = administratorService.findByPrincipal();
-           Assert.notNull(administrator);
-        } catch (Exception e) {
-            return unauthorized(response,null);
-        }
-        try{
-            return reportService.findAll();
-        } catch (Exception e){
-            return internalservererror(response,null);
-        }
-    }
+
 }

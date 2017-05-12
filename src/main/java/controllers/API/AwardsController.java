@@ -57,16 +57,17 @@ public class AwardsController extends ApiAbstractController {
 			return notFoundError(response,null);
 		}
 		try{
-			administratorService.checkIsAdmin();
+			Assert.notNull(administratorService.findByPrincipal());
 		}catch (Exception e){
 			return unauthorized(response,null);
 		}
 		try{
 			Award award = awardService.reconstruct(awardForm);
 			award.setTournament(tournament);
+			awardService.save(award);
 			return ok(response, null);
 		}catch (Exception e){
-			return internalservererror(response,null);
+			return internalservererror(response,e.getMessage());
 		}
 	}
 }

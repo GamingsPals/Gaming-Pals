@@ -21,11 +21,5 @@ public class SteamAccount extends GameInfo {
         this.steamID = steamID;
     }
 
-    @Override
-    public String toString() {
-        return "SteamAccount{" +
-                "username='" + username + '\'' +
-                ", steamID='" + steamID + '\'' +
-                '}';
-    }
+
 }

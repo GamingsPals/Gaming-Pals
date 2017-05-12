@@ -61,22 +61,20 @@ public class UserService {
 
 		User res = new User();
 		res.setVerify(false);
-		res.setTeams(new ArrayList<Team>());
-		res.setRatingsReceived(new ArrayList<Rating>());
-		res.setRatingsDone(new ArrayList<Rating>());
+		res.setTeams(new ArrayList<>());
+		res.setRatingsReceived(new ArrayList<>());
+		res.setRatingsDone(new ArrayList<>());
 		res.setUserAccount(userAccount);
-		res.setFollowerUsers(new ArrayList<User>());
-		res.setFollowingUsers(new ArrayList<User>());
-		res.setReceived(new ArrayList<Message>());
-		res.setSended(new ArrayList<Message>());
-		res.setLanguages(new ArrayList<Language>());
-		res.setGameInfo(new ArrayList<GameInfo>());
+		res.setFollowerUsers(new ArrayList<>());
+		res.setFollowingUsers(new ArrayList<>());
+		res.setReceived(new ArrayList<>());
+		res.setSended(new ArrayList<>());
+		res.setLanguages(new ArrayList<>());
+		res.setGameInfo(new ArrayList<>());
 		res.setRatingAvg(0.0);
 		res.setAttitudeAvg(0.0);
 		res.setKnowledgeAvg(0.0);
 		res.setSkillAvg(0.0);
-		res.setReportsDone(new ArrayList<Report>());
-		res.setReportsReceived(new ArrayList<Report>());
 		return res;
 	}
 

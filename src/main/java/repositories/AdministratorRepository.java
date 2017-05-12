@@ -12,6 +12,6 @@ import security.UserAccount;
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
 
-    @Query("select a from Administrator  a where a.userAccount.id=?1")
+    @Query("select a from Administrator  a where a.userAccount=?1")
     Administrator findByPrincipal(UserAccount id);
 }

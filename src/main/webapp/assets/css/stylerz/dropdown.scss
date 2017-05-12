@@ -1,0 +1,30 @@
+.dropdown{
+  display: inline-table;
+  position: relative;
+  .button{
+    display: inline-table;
+  }
+  ul{
+    z-index:15;
+    @extend .box;
+    background-color: $color-base-white-1;  display: none;
+    margin: 0;
+    border:1px solid $color-base-black-6;
+    padding: 0;
+    min-width: 250px;
+    position:absolute;
+    top: 0;
+    left:0;
+    li{
+      display: list-item;
+      a{
+        padding:15px;
+        display: block;
+        border-bottom: 1px solid $color-base-black-7;
+        &:hover{
+          background-color: $color-base-black-8;
+        }
+      }
+    }
+  }
+}

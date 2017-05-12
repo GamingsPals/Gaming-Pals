@@ -2,18 +2,14 @@ package services;
 
 import domain.*;
 import forms.ReportMatchForm;
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import repositories.ReportMatchRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 @Service
 @Transactional

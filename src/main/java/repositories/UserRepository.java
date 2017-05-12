@@ -31,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select s.user from League l join l.summoner s join s.game g where g.tag = ?1 and l.tier = ?2")
 	Collection<User> usersFromGameAndTier(String gameTag, String tier);
 	
-	@Query("select u from User u join u.languages l order by l")
+	@Query("select u from User u join u.languages l order by l.language")
 	Collection<User> usersForLanguage();
 
 	@Query("select u from User u join u.languages l where l.language=?1")

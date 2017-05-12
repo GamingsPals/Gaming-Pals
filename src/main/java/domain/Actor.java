@@ -86,12 +86,5 @@ public abstract class Actor extends DomainEntity {
 		this.received = received;
 	}
 
-    @Override
-    public String toString() {
-        return "Actor{" +
-                "email='" + email + '\'' +
-                ", picture='" + picture + '\'' +
-                ", userAccount=" + userAccount +
-                '}';
-    }
+
 }

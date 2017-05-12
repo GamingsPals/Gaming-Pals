@@ -994,14 +994,14 @@
 		<property name="reportedUser" ref="user1" />
 		<property name="reporterUser" ref="user2" />
 	</bean>
-	
+
 	<bean id="report3" class="domain.Report">
 		<property name="comment" value="Insultó a todo el equipo" />
 		<property name="picture"
 			value="http://apollo-uploads-las.s3.amazonaws.com/1442448455/maxresdefault.jpg" />
 		<property name="reportedUser" ref="user4" />
 		<property name="reporterUser" ref="user5" />
-	</bean> 
+	</bean>
 	<!-- Ratings -->
 	<bean id="rating1" class="domain.Rating">
 		<property name="skill" value="5" />

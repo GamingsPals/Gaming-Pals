@@ -16,7 +16,7 @@ import repositories.ReportRepository;
 public class StringToReportConverter implements Converter<String, Report> {
 
 	@Autowired
-	ReportRepository reportRepository;
+	private ReportRepository reportRepository;
 
 
 	@Override

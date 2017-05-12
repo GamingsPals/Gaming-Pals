@@ -7,11 +7,9 @@ import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import services.ActorService;
-import services.AdministratorService;
-import services.GameService;
-import services.UserService;
+import services.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +27,11 @@ public class AdminPanelController extends ApiAbstractController {
 	@Autowired
 	private AdministratorService administratorService;
 
+	@Autowired
+	private ReportService reportService;
 
+	@ResponseBody
+	@RequestMapping(value = "/admin/ban/{user}")
 	public Object banPlayer(User user,HttpServletResponse response){
 		Administrator administrator;
 		try{
@@ -52,6 +54,22 @@ public class AdminPanelController extends ApiAbstractController {
 		} catch (Exception e){
 			return internalservererror(response,null);
 		}
+	}
 
+	@ResponseBody
+	@RequestMapping(value = "/admin/reports/list")
+	public Object list(HttpServletResponse response) {
+		try{
+			Administrator administrator = administratorService.findByPrincipal();
+			Assert.notNull(administrator);
+		} catch (Exception e) {
+			return unauthorized(response,null);
+		}
+		try{
+			return reportService.findAll();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+			return internalservererror(response,null);
+		}
 	}
 }

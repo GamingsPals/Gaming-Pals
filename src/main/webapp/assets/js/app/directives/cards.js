@@ -21,6 +21,12 @@ app.directive("userCard",function($compile,auth){
                  </div>
                  <div class="card-body">
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
+                  <div class="dropdown" dropdown="">
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li><a href="#">Test</a></li>
+                        </ul>
+                    </div>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>

@@ -9280,13 +9280,13 @@ app.controller("BracketsController",function($scope,TournamentService){
 });;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
     middleware.needRol("ADMIN");
     $scope.sendAwardForm = function() {
-        TournamentService.createAward($scope.$parent.tournament, $scope.awardForm, ()=>{
+        console.log($scope.award);
+        TournamentService.createAward($scope.$parent.tournament, $scope.award, ()=>{
             SystemMessages.okmessage("Award create!");
             $scope.loadTournament();
             dialog.closeAll();
         }),(a)=>{
-            SystemMessages.errormessage("Error sendin Report");
-            dialog.closeAll();
+            SystemMessages.errormessage("Error creating Tournament");
         }
     }
 });;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
@@ -10565,7 +10565,7 @@ app.service("SystemMessages", function($timeout){
 
     this.createAward = function(tournament, data, sucess, error){
         let object = this;
-        xhr.post("/awards/"+tournament.id+"/create", data,sucess,error);
+        xhr.post("api/awards/"+tournament.id+"/create", data,sucess,error);
     };
 
     this.numberOfRounds = function(tournament){
@@ -10697,7 +10697,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;app.directive("userCard",function($compile,auth){
+});;;;app.directive("userCard",function($compile,auth){
     return{
         restrict: "A",
         scope: {
@@ -10720,6 +10720,12 @@ app.service("SystemMessages", function($timeout){
                  </div>
                  <div class="card-body">
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
+                  <div class="dropdown" dropdown="">
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li><a href="#">Test</a></li>
+                        </ul>
+                    </div>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>
@@ -10809,6 +10815,28 @@ app.directive("teamCard",function($compile){
             $(element).on('click',function(e){
                 dialog.open(attrs.dialog,scope,attrs.dialogcontroller);
             })
+        }
+    }
+});;app.directive("dropdown",function(){
+    return {
+        restrict: "AEC",
+        link: function(scope,element,attrs){
+            let elipsis = $($(element).children(".dropdown-button")[0]);
+            let list = $($(element).children("ul")[0]);
+            console.log(list);
+            let overlay = $(`<div class="toverlay"></div>`);
+            elipsis.on("click",function(e){
+                e.preventDefault();
+                $(".toverlay").hide(150);
+                $("body").append(overlay);
+                list.show();
+                overlay.on("click",function(e){
+                    e.preventDefault();
+                    list.hide(150);
+                    $(this).remove();
+                })
+            });
+
         }
     }
 });;app.directive("flag", function($compile){

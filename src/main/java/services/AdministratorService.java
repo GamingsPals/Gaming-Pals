@@ -54,7 +54,6 @@ public class AdministratorService {
 			Administrator administrator;
 			userAccount = LoginService.getPrincipal();
 			administrator = administratorRepository.findByPrincipal(userAccount);
-			System.out.print(administrator);
 
 			return administrator;
     }

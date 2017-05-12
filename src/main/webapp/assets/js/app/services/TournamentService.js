@@ -74,7 +74,7 @@ app.service("TournamentService", function(xhr){
 
     this.createAward = function(tournament, data, sucess, error){
         let object = this;
-        xhr.post("/awards/"+tournament.id+"/create", data,sucess,error);
+        xhr.post("api/awards/"+tournament.id+"/create", data,sucess,error);
     };
 
     this.numberOfRounds = function(tournament){

@@ -1,67 +1,55 @@
-
 package services;
 
-import java.util.Collection;
-
-import javax.transaction.Transactional;
-
+import domain.Report;
 import domain.User;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import domain.Report;
 import repositories.ReportRepository;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Service
 @Transactional
 public class ReportService {
 
-	// Managed repository -----------------------------------------------------
-	@Autowired
-	private ReportRepository reportRepository;
+    @Autowired
+    private ReportRepository reportRepository;
 
-	@Autowired
+    @Autowired
     private UserService userService;
-	// Supporting services ----------------------------------------------------
 
 
-	// Constructors -----------------------------------------------------------
-	public ReportService() {
-		super();
-	}
-	// Simple CRUD methods ----------------------------------------------------
-	public Report create() {
-		Report res = new Report();
-		return res;
-	}
-	public Collection<Report> findAll() {
-		Collection<Report> res = reportRepository.findAll();
-		Assert.notNull(res);
-		return res;
-	}
-	public Report findOne(int reportId) {
-		return reportRepository.findOne(reportId);
-	}
-	public Report save(Report report) {
-		Assert.notNull(report);
-		return reportRepository.save(report);
-	}
-	public void delete(Report report) {
-		reportRepository.delete(report);
-	}
-
-    public void report(User user,Report report) {
-		User u = userService.findByPrincipal();
-		Assert.notNull(u);
-		Assert.notNull(user);
-		Assert.notNull(report);
-        report.setReportedUser(user);
-        report.setReporterUser(u);
-
-		save(report);
-
+    public List<Report> findAll(){
+        try{
+            return reportRepository.findAllReports();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new ArrayList<>();
     }
-    // Other business methods -------------------------------------------------
 
+    public void report(User user, Report report) {
+        Assert.notNull(report);
+        Assert.notNull(user);
+        User reporterUser = userService.findByPrincipal();
+        Assert.notNull(reporterUser);
+        Report report1 = new Report();
+        report1.setComment(report.getComment());
+        report1.setPicture(report.getPicture());
+        report1.setReporterUser(reporterUser);
+        report1.setReportedUser(user);
+
+        save(report1);
+    }
+
+    private Report save(Report report1) {
+        Assert.notNull(report1);
+
+        return reportRepository.save(report1);
+    }
 }
