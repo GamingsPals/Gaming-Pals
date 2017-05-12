@@ -15,7 +15,17 @@
                     <i class="fa fa-envelope"></i>
                 </a> </span>
                 <span dialog="report-form" report not-principal="ActorService.actor.actor" title="Report"
-                      dialogcontroller="WriteReportController"><i class="fa fa-exclamation-triangle"></i> </span></h1>
+                      dialogcontroller="WriteReportController"><i class="fa fa-exclamation-triangle"></i> </span>
+
+                <span class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                    <ul>
+                        <li ng-if="ActorService.actor.actor.userAccount.locked==false">
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">Ban User</a></li>
+                        <li ng-if="ActorService.actor.actor.userAccount.locked==true">
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">Unban User</a></li>
+                    </ul>
+                </span></h1>
             <div class="profile-info-follow"><div follow="ActorService.actor.actor"></div> </div>
 
             <div class="profile-info-flags" >

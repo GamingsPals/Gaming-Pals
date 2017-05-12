@@ -1076,6 +1076,8 @@ table {
 
 .dropdown {
   display: inline-table;
+  font-size: 14pt;
+  text-shadow: none;
   position: relative; }
   .dropdown .button, .dropdown .grey-button, .dropdown input[type=submit], .dropdown .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .chat-body-input-key, .chat .chat-body .chat-body-chat .chat-body-chat-inputbox .dropdown .chat-body-input-key {
     display: inline-table; }
@@ -1094,10 +1096,11 @@ table {
       display: list-item; }
       .dropdown ul li a {
         padding: 15px;
+        color: black;
         display: block;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
         .dropdown ul li a:hover {
-          background-color: rgba(0, 0, 0, 0.04); }
+          background-color: rgba(0, 0, 0, 0.04) !important; }
 
 .center-container {
   margin-left: 4%;
