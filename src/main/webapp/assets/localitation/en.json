@@ -281,7 +281,11 @@
     "legislation": "10. LEGISLATION AND APPLICABLE JURISDICTION",
     "legislation1": "The relationships established between GAMINGPALS and the User shall be governed by the provisions of current Spanish legislation. GAMINGPALS and the User, expressly waiving any other jurisdiction that may correspond to them, will submit any disputes and / or litigation to the knowledge of the Courts and Tribunals of the city of Seville (Spain)."
   },
-  "passwordrecovery": {
+  "contact": {
+    "contact": "Contact us",
+    "contactus": "You can send an email to the following email address:"
+  },
+    "passwordrecovery": {
   "header" : "Password Recovery",
   "notfound": "There wasn't found any account linked to that email address",
     "internal": "There was an error trying to reset your password"
