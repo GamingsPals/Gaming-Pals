@@ -66,8 +66,8 @@
   "main": {
  	 "friendly": " Our community is 100% friendly and we do not allow by any means toxicity.",
  	 "slogan": "Be prepared to a hole new gaming experience joining our community. 0% Toxicity. 100% Fun",
- 	 "competition":" Compete with pals in tournaments where you can make friends and compete in a friendly gaming enviroment",
- 	 "community":" Follow pals or be follow, make requests to play and rate pals with 3 diferents metrics",
+ 	 "competition":"Compete with pals in tournaments where you can make friends and enjoy a positive gaming enviroment",
+ 	 "community":" Follow pals or be followed, make requests to play and rate pals with 3 diferent metrics",
  	 "attitude":"Attitude",
  	 "knowledge":"Knowledge",
  	 "skill":"Skill",
@@ -191,7 +191,7 @@
   	"usersList":"Users list"
   },
   "layout":{
-  "userReportedList":"User reported list",
+  "userReportedList":"Reported users list",
   "myGameProfiles":"My Game Profiles",
   "myFollowing":"My Following",
   "myFollowers":"My Followers",
