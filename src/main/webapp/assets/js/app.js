@@ -9480,7 +9480,13 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.setAsRead = function(noti){
 
     }
-});;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
+});;app.controller('PaypalController', function($scope, middleware, xhr, $location, LanguageService, dialog) {
+	middleware.needRol("USER");
+	$scope.ejecutaPaypal = function(data) {
+		xhr.get("api/user/updatepaypal", data);
+	}
+});
+;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
     $scope.searched = false;
     $scope.validateSteam = function(){
         xhr.post("api/steam/add",$scope.steam,(a)=>{
@@ -10789,7 +10795,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("adminTools",function($compile){
+});;;app.directive("adminTools",function($compile){
     return {
         restrict: "AEC",
         scope: {
