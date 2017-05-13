@@ -9,11 +9,20 @@ app.controller('AdminPanelController',function($scope,ActorService,middleware,Ad
         $scope.getBannedUsers();
     });
 
-    AdminService.getReportedUsers((a)=>{
-        $scope.reportedusers = a;
-    });
+    $scope.getReportedUsers =  function(){
+        AdminService.getReportedUsers((a)=>{
+            $scope.reportedusers = a;
+        });
+    };
+
+    $scope.deleteReport = function(report){
+        AdminService.deleteReport(report,(a)=>{
+            $scope.getReportedUsers();
+        })
+    };
 
     $scope.getBannedUsers();
+    $scope.getReportedUsers();
     $scope.mode = $routeParams.menu;
     console.log($scope.mode);
     if(typeof $scope.mode ==="undefined"){

@@ -221,15 +221,15 @@ a {
         padding:15px;
         color:$color-base-black-1;
         &:hover{
-          background-color: $color-base-black-8;
+          background-color: $color-base-black-7;
         }
       }
     }
     .active{
-      background-color: $color-base-black-6;
+      background-color: $color-base-black-7;
       a{
         &:hover{
-          background-color: $color-base-white-6;
+          background-color: $color-base-black-8;
         }
       }
     }

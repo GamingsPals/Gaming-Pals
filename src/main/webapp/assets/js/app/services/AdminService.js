@@ -22,6 +22,16 @@ app.service("AdminService",function(xhr,SystemMessages){
         });
     };
 
+    this.deleteReport = function(report,callback){
+        let object = this;
+        xhr.get("api/admin/report/"+report.id+"/delete",(a)=>{
+            SystemMessages.okmessage("Report removed");
+            if(typeof callback!=="undefined"){
+                callback(a.response);
+            }
+        });
+    };
+
     this.closeDropdowns = function(){
         let list = $(".dropdown");
         list.each((a)=>{

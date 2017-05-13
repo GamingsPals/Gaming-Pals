@@ -9,7 +9,7 @@ routes = [
 		}, {
 			route : "/updatepaypal",
 			options : {
-				templateUrl : "user/updatepaypal",
+				templateUrl : "updatepaypal",
 				controller : "Paypal",
 			}
 		}, {

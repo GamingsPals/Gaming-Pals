@@ -23,7 +23,7 @@ public class ReportController extends ApiAbstractController {
     private ReportService reportService;
 
 
-    @RequestMapping(value = "/user/{user}/report",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/report/{user}",method = RequestMethod.POST)
     public Object rate(@PathVariable User user, Report report, HttpServletResponse response)
             throws Exception{
         try{
@@ -43,6 +43,27 @@ public class ReportController extends ApiAbstractController {
         }
         try{
             reportService.report(user,report);
+            return ok(response,null);
+        } catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
+    @RequestMapping(value = "/admin/report/{report}/delete")
+    public Object deleteReport(@PathVariable Report report, HttpServletResponse response){
+        try{
+            administratorService.checkIsAdmin();
+        } catch (Exception e){
+            return unauthorized(response,null);
+        }
+        try{
+            Assert.notNull(report);
+        } catch (Exception e){
+            return notFoundError(response,null);
+        }
+        try{
+            reportService.delete(report);
+
             return ok(response,null);
         } catch (Exception e){
             return internalservererror(response,null);

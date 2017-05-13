@@ -132,4 +132,23 @@ public class TournamentController extends ApiAbstractController {
             return internalservererror(response,e.getMessage());
         }
     }
+
+	@ResponseBody
+	@RequestMapping(value = "/tournament/{tournament}/delete")
+	public Object delete(HttpServletResponse response, @PathVariable Tournament tournament){
+		try{
+			Assert.notNull(tournament);
+		}catch (Exception e){
+			return notFoundError(response,null);
+		}try {
+			administratorService.checkIsAdmin();
+		}catch (Exception e){
+			return unauthorized(response, null);
+		}try{
+			tournamentService.delete(tournament);
+			return ok(response, null);
+		}catch(Exception e){
+			return internalservererror(response,e.getMessage());
+		}
+	}
 }

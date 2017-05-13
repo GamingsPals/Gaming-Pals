@@ -58,6 +58,7 @@ public class TournamentService {
 	public void delete(Tournament tournament) {
 
 		Assert.notNull(tournament);
+		Assert.isTrue(tournament.getLimitInscription().after(new Date()));
 		tournamentRepository.delete(tournament);
 
 	}

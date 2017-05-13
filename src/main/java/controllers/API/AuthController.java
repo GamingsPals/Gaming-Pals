@@ -48,6 +48,7 @@ public class AuthController extends ApiAbstractController {
             }
             result.put("authenticated",true);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             result.put("authenticated",false);
         }
         return result;

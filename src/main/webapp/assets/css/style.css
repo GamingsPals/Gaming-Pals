@@ -581,11 +581,11 @@ a {
       padding: 15px;
       color: black; }
       .lateral-menu ul .link a:hover {
-        background-color: rgba(0, 0, 0, 0.04); }
+        background-color: rgba(0, 0, 0, 0.08); }
   .lateral-menu ul .active {
-    background-color: rgba(0, 0, 0, 0.18); }
+    background-color: rgba(0, 0, 0, 0.08); }
     .lateral-menu ul .active a:hover {
-      background-color: rgba(255, 255, 255, 0.18); }
+      background-color: rgba(0, 0, 0, 0.04); }
 
 .tournament-header {
   text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.08), -2px -1px 0 rgba(0, 0, 0, 0.08), -2px 0px 0 rgba(0, 0, 0, 0.08), -2px 1px 0 rgba(0, 0, 0, 0.08), -2px 2px 0 rgba(0, 0, 0, 0.08), -1px -2px 0 rgba(0, 0, 0, 0.08), -1px -1px 0 rgba(0, 0, 0, 0.08), -1px 0px 0 rgba(0, 0, 0, 0.08), -1px 1px 0 rgba(0, 0, 0, 0.08), -1px 2px 0 rgba(0, 0, 0, 0.08), 0px -2px 0 rgba(0, 0, 0, 0.08), 0px -1px 0 rgba(0, 0, 0, 0.08), 0px 0px 0 rgba(0, 0, 0, 0.08), 0px 1px 0 rgba(0, 0, 0, 0.08), 0px 2px 0 rgba(0, 0, 0, 0.08), 1px -2px 0 rgba(0, 0, 0, 0.08), 1px -1px 0 rgba(0, 0, 0, 0.08), 1px 0px 0 rgba(0, 0, 0, 0.08), 1px 1px 0 rgba(0, 0, 0, 0.08), 1px 2px 0 rgba(0, 0, 0, 0.08), 2px -2px 0 rgba(0, 0, 0, 0.08), 2px -1px 0 rgba(0, 0, 0, 0.08), 2px 0px 0 rgba(0, 0, 0, 0.08), 2px 1px 0 rgba(0, 0, 0, 0.08), 2px 2px 0 rgba(0, 0, 0, 0.08);

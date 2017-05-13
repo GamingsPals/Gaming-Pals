@@ -20,9 +20,10 @@
             </a>
         </div>
         <div class="col s3 x1 float-right">
-            <div class="button bg-red3" style="position: relative;">
-                <i class="fa fa-close"></i> Delete</div>
+            <a  class="button bg-red3" style="position: relative;" ng-click="deleteReport(item)">
+                <i class="fa fa-close"></i> Delete</a>
         </div>
+
         <div class="clear-both"></div>
 
     </div>
@@ -31,6 +32,6 @@
 <ul class="pagination"
     gp-paginate-items="reportedusers"
     gp-paginate
-    gp-paginate-limit="2"
+    gp-paginate-limit="6"
     gp-paginate-id="reportedusers">
 </ul>

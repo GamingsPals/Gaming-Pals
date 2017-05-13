@@ -52,4 +52,10 @@ public class ReportService {
 
         return reportRepository.save(report1);
     }
+
+    public void delete(Report report) {
+        Assert.notNull(report);
+
+        reportRepository.delete(report);
+    }
 }

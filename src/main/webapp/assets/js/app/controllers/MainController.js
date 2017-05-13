@@ -1,8 +1,9 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService){
     $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
     localization.init($scope);
+    $scope.TournamentService = TournamentService;
     $rootScope.loc = localization;
     $scope.auth = auth;
     $scope.ActorService = ActorService;

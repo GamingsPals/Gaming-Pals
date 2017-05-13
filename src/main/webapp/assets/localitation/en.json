@@ -11,7 +11,7 @@
     "followers": "Followers",
     "outOf":"out of ",
     "bestpals": "Best Pals",
-    "ratings":"ratings",
+    "ratings":"Ratings",
     "stats":"Stats",
     "gameProfiles":"Game Profiles",
     "noGames":" This user hasn't got any game registered.",
@@ -26,7 +26,7 @@
     }
   },
   "send" :"Send",
-  "404user":"USER NOT FOUND",
+  "notFounduser":"USER NOT FOUND",
   "rate":"Rate",
   "view":"View",
   "seeMore":"See more",

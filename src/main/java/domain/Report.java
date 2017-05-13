@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 @Access(AccessType.PROPERTY)
 public class Report extends DomainEntity {
 
+
+
     private String comment;
     private String picture;
     private User reporterUser;

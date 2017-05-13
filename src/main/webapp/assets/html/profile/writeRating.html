@@ -1,4 +1,4 @@
-<div is-auth>
+<div>
     <h2 class="text-center">{{loc.profileview.writeRating}}</h2>
     <form class="forms-center" ng-submit="rateUser()">
         <input type="hidden" ng-model="rateform.csrf"
@@ -9,19 +9,19 @@
                 <label for="attitude">
                     {{loc.main.attitude}}
                 </label>
-                <input id="attitude" ng-model="rateform.attitude" name="attitude" placeholder="0-5" type="number" min="0" max="5" />
+                <input id="attitude" ng-model="rateform.attitude" name="attitude" placeholder="1-5" type="number" min="1" max="5" />
             </div>
             <div class="col s1">
                 <label for="knowledge">
                     {{loc.main.knowledge}}
                 </label>
-                <input id="knowledge" name="knowledge" ng-model="rateform.knowledge" placeholder="0-5" type="number" min="0" max="5" />
+                <input id="knowledge" name="knowledge" ng-model="rateform.knowledge" placeholder="1-5" type="number" min="1" max="5" />
             </div>
             <div class="col s1">
                 <label for="skill">
                     {{loc.main.skill}}
                 </label>
-                <input id="skill" name="skill" ng-model="rateform.skill" placeholder="0-5" type="number" min="0" max="5" />
+                <input id="skill" name="skill" ng-model="rateform.skill" placeholder="1-5" type="number" min="1" max="5" />
             </div>
         </div>
         <label for="comment">

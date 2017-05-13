@@ -62,7 +62,7 @@ public class Confrontation extends DomainEntity {
 
 
 	@Valid
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	public Collection<Participes> getParticipes() {
 		return participes;
 	}
@@ -71,7 +71,7 @@ public class Confrontation extends DomainEntity {
 	}
 
 	@Valid
-	@OneToMany(mappedBy = "confrontation")
+	@OneToMany(mappedBy = "confrontation",cascade = CascadeType.ALL)
 	public Collection<ReportMatch> getReportMatches() {
 		return reportMatches;
 	}

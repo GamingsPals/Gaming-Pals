@@ -8914,7 +8914,7 @@ routes = [
 		}, {
 			route : "/updatepaypal",
 			options : {
-				templateUrl : "user/updatepaypal",
+				templateUrl : "updatepaypal",
 				controller : "Paypal",
 			}
 		}, {
@@ -9063,11 +9063,20 @@ routes = [
         $scope.getBannedUsers();
     });
 
-    AdminService.getReportedUsers((a)=>{
-        $scope.reportedusers = a;
-    });
+    $scope.getReportedUsers =  function(){
+        AdminService.getReportedUsers((a)=>{
+            $scope.reportedusers = a;
+        });
+    };
+
+    $scope.deleteReport = function(report){
+        AdminService.deleteReport(report,(a)=>{
+            $scope.getReportedUsers();
+        })
+    };
 
     $scope.getBannedUsers();
+    $scope.getReportedUsers();
     $scope.mode = $routeParams.menu;
     console.log($scope.mode);
     if(typeof $scope.mode ==="undefined"){
@@ -9075,29 +9084,7 @@ routes = [
     }
 
 
-});;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
-    $scope.assignForm = {};
-    $scope.added = false;
-
-    $scope.setTeamSelected = function(){
-        $scope.teamselected = $scope.userteams.find((a)=>{
-            return a.id === +$scope.assignForm.team;
-        })
-    };
-    $scope.assignTeamToTournament = function(){
-        if($scope.assignForm.team !==""){
-            xhr.get(`api/tournament/assign/${$scope.tournament.id}/${$scope.assignForm.team}`,function(data){
-                $scope.added = true;
-                $scope.loadTournament();
-            })
-        }
-    }
-});;app.controller('AssignTeamTournamentController', function($scope, TournamentService, $routeParams,middleware) {
-    middleware.needRol("ANY");
-	$scope.As = TournamentService;
-	$scope.As.assignTeam($routeParams.tournamentId, $routeParams.teamId);
-});
-;;
+});;;
 app.controller('LoginController',function($scope,dialog,middleware,$location,auth ){
     middleware.needRol("NONE");
     $scope.error = $location.search().error;
@@ -9152,34 +9139,93 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 
 	}
 });
-;app.controller('AwardsTournamentListController', function($scope, TournamentService,middleware) {
+;app.controller("ContactController", function($scope){
+
+});;
+app.controller('HomeController',function($scope){
+});;
+app.controller('LolstatsController',function($scope,MatchService,$routeParams,middleware){
     middleware.needRol("ANY");
-	$scope.As = TournamentService;
-	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
-});
-;
-app.controller("BracketsController",function($scope,TournamentService){
-    $scope.ts = TournamentService;
-
-    $scope.getRound = function(i){
-        let nrounds = $scope.ts.nrounds($scope.tournament);
-        let vround = nrounds - i;
-        switch (vround){
-            case 0:
-                return "Final";
-                break;
-            case 1:
-                return "Semi Finals";
-                break;
-            case 2:
-                return "Quarter Finals";
-                break;
-            default:
-                return "Round i";
-
-        }
+    $scope.ms = MatchService;
+    let id = $routeParams.userid;
+    if(typeof $routeParams.userid === "undefined"){
+        id = $scope.ActorService.actor.actor.id;
     }
-});;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,$location,NotificationService){
+    $scope.ms.getRecentMatches(id);
+    $scope.seeMatch = function(matchId,region,m){
+        if ( m.showMatch===true){
+            m.showMatch = false;
+        }else{
+            if (m.loaded !== true){
+                $scope.ms.getMatch(matchId,region);
+                m.loaded = true;
+            }
+        m.showMatch=true;
+        }
+    };
+    $scope.formatGold = function(gold){
+        return gold > 999 ? (gold/1000).toFixed(1) + 'k' : gold
+    }
+});
+;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService){
+    $scope.AdminService = AdminService;
+    $scope.pagination = PaginationService;
+    localization.init($scope);
+    $scope.TournamentService = TournamentService;
+    $rootScope.loc = localization;
+    $scope.auth = auth;
+    $scope.ActorService = ActorService;
+    $scope.notifications = NotificationService;
+    $scope.auth.load();
+
+    $scope.auth.addListener((data)=>{
+            UserService.findAll(function(data){
+                UserService.all = data;
+            });
+            if($scope.auth.isAuthenticated()){
+                $scope.notifications.getNews();
+                if (!socket.connected){
+                    socket.init($rootScope);
+                    chat.handleListeners();
+                    socket.listen();
+                }
+            }else{
+                socket.disconnect();
+            }
+    });
+    $scope.$location = $location;
+    $rootScope.csrf = csrf;
+    $scope.SystemMessages = SystemMessages;
+    $scope.sanitize = $sanitize;
+    $scope.lolsd = LoLStaticData;
+    $scope.lolsd.loadVersion(()=>{
+        $scope.lolsd.loadChampions();
+        $scope.lolsd.loadItems();
+    });
+    $scope.Math = Math;
+
+    $scope.searchUsername = function(name){
+        $location.path("search").search("username",name);
+    };
+
+    $scope.legalIssues = function () {
+        dialog.open("legalIssues",$scope);
+    };
+
+    $scope.aboutUs = function () {
+        dialog.open("aboutUs",$scope);
+    };
+    $scope.checkProtocol = function(){
+        console.log($location.protocol());
+        if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
+            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
+        }
+    };
+    $scope.checkProtocol();
+
+
+});;;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,$location,NotificationService){
     middleware.needRol("USER,MODERATOR,ADMIN");
     $scope.As = ActorService;
     $scope.soc = socket;
@@ -9247,181 +9293,6 @@ app.controller("BracketsController",function($scope,TournamentService){
         $location.path("messages");
     }
 
-});;app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog, auth,middleware) {
-    middleware.needRol("ANY");
-	$scope.As = TournamentService;
-	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
-
-    $scope.reportMatch = function(confrontationId){
-        $scope.confrontationId = confrontationId;
-        dialog.open("reportMatch",$scope);
-    };
-
-    $scope.canShowReport = function (confrontation) {
-        $scope.confrontation = confrontation;
-        let actor = auth.principal.actor;
-        let user;
-        let result = false;
-        confrontation.participes.forEach((p)=> {
-            user = p.team.users.find((u) => {
-                return u.id == actor.id
-            });
-            if(typeof user !=="undefined"){
-                result = true;
-                return false;
-            }
-        });
-        return result;
-    };
-
-    $scope.alreadyReport = function (confrontation) {
-        $scope.confrontation = confrontation;
-        let actor = auth.principal.actor;
-        let result = true;
-        let user;
-        confrontation.reportMatches.forEach((rp)=>{
-            user = rp.team.users.find((u)=>{
-                return u.id ==actor.id;
-            });
-            if(typeof user !=="undefined"){
-                result = false;
-                return false;
-            }
-        });
-        return result;
-    }
-});
-;app.controller("ContactController", function($scope){
-
-});;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
-    middleware.needRol("ADMIN");
-    $scope.sendAwardForm = function() {
-        console.log($scope.award);
-        TournamentService.createAward($scope.$parent.tournament, $scope.award, ()=>{
-            SystemMessages.okmessage("Award create!");
-            $scope.loadTournament();
-            dialog.closeAll();
-        }),(a)=>{
-            SystemMessages.errormessage("Error creating Tournament");
-        }
-    }
-});;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
-    middleware.needRol("ADMIN");
-
-	$scope.enviarTournamentForm = function() {
-		xhr.post("api/createTournament", $scope.tournamentform, function(){
-		    dialog.closeAll();
-            TournamentService.getTournaments();
-            $location.path("/tournament/list");
-		});
-	}
-});
-;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth) {
-    middleware.needRol("USER");
-    $scope.languagesForm = [];
-    LanguageService.getAll(function(data){
-		$scope.languagesForm = data;
-	});
-    if(auth.isAuthenticated()){
-        $scope.form = auth.principal.actor;
-        $scope.form.username = $scope.form.userAccount.username;
-    }
-	$scope.enviarForm = function() {
-        $scope.form.languages.forEach((value,key,arr)=>{
-            $scope.form.languages[key] = value.id;
-        });
-	    xhr.post("api/user/edit", $scope.form,function(){
-		dialog.closeAll();
-		auth.load(()=>{},true);
-        },function(){
-		    $scope.error = "There was something wrong with your form, try again!"
-        });
-
-	};
-});
-;
-app.controller('HomeController',function($scope){
-});;
-app.controller('LolstatsController',function($scope,MatchService,$routeParams,middleware){
-    middleware.needRol("ANY");
-    $scope.ms = MatchService;
-    let id = $routeParams.userid;
-    if(typeof $routeParams.userid === "undefined"){
-        id = $scope.ActorService.actor.actor.id;
-    }
-    $scope.ms.getRecentMatches(id);
-    $scope.seeMatch = function(matchId,region,m){
-        if ( m.showMatch===true){
-            m.showMatch = false;
-        }else{
-            if (m.loaded !== true){
-                $scope.ms.getMatch(matchId,region);
-                m.loaded = true;
-            }
-        m.showMatch=true;
-        }
-    };
-    $scope.formatGold = function(gold){
-        return gold > 999 ? (gold/1000).toFixed(1) + 'k' : gold
-    }
-});
-;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService){
-    $scope.AdminService = AdminService;
-    $scope.pagination = PaginationService;
-    localization.init($scope);
-    $rootScope.loc = localization;
-    $scope.auth = auth;
-    $scope.ActorService = ActorService;
-    $scope.notifications = NotificationService;
-    $scope.auth.load();
-
-    $scope.auth.addListener((data)=>{
-            UserService.findAll(function(data){
-                UserService.all = data;
-            });
-            if($scope.auth.isAuthenticated()){
-                $scope.notifications.getNews();
-                if (!socket.connected){
-                    socket.init($rootScope);
-                    chat.handleListeners();
-                    socket.listen();
-                }
-            }else{
-                socket.disconnect();
-            }
-    });
-    $scope.$location = $location;
-    $rootScope.csrf = csrf;
-    $scope.SystemMessages = SystemMessages;
-    $scope.sanitize = $sanitize;
-    $scope.lolsd = LoLStaticData;
-    $scope.lolsd.loadVersion(()=>{
-        $scope.lolsd.loadChampions();
-        $scope.lolsd.loadItems();
-    });
-    $scope.Math = Math;
-
-    $scope.searchUsername = function(name){
-        $location.path("search").search("username",name);
-    };
-
-    $scope.legalIssues = function () {
-        dialog.open("legalIssues",$scope);
-    };
-
-    $scope.aboutUs = function () {
-        dialog.open("aboutUs",$scope);
-    };
-    $scope.checkProtocol = function(){
-        console.log($location.protocol());
-        if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
-            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
-        }
-    };
-    $scope.checkProtocol();
-
-
 });;app.controller('MessageController',function($scope, socket,chat,auth,ActorService,middleware, dialog){
     middleware.needRol("USER,MODERATOR,ADMIN");
     $scope.As = ActorService;
@@ -9475,6 +9346,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });;app.controller('PaypalController', function($scope, middleware, xhr, $location) {
 	middleware.needRol("USER");
+	console.log("ey");
 	$scope.ejecutaPaypal = function() {
 		xhr.get("api/user/updatepaypal");
 		$location.path("/");
@@ -9540,7 +9412,30 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $location.path(`team/${data.data.name}`);
         })
     }
-});;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
+});;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth) {
+    middleware.needRol("USER");
+    $scope.languagesForm = [];
+    LanguageService.getAll(function(data){
+		$scope.languagesForm = data;
+	});
+    if(auth.isAuthenticated()){
+        $scope.form = auth.principal.actor;
+        $scope.form.username = $scope.form.userAccount.username;
+    }
+	$scope.enviarForm = function() {
+        $scope.form.languages.forEach((value,key,arr)=>{
+            $scope.form.languages[key] = value.id;
+        });
+	    xhr.post("api/user/edit", $scope.form,function(){
+		dialog.closeAll();
+		auth.load(()=>{},true);
+        },function(){
+		    $scope.error = "There was something wrong with your form, try again!"
+        });
+
+	};
+});
+;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
                                                 SystemMessages, dialog){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
@@ -9556,7 +9451,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
     middleware.needRol("ANY");
     $scope.reportUser = function(){
-        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report send!");
+        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report sended!");
             dialog.closeAll();});
 
     }
@@ -9612,7 +9507,123 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         $scope.team = a.data;
         $scope.notFound = true;
     });
-});;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
+});;;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
+    $scope.assignForm = {};
+    $scope.added = false;
+
+    $scope.setTeamSelected = function(){
+        $scope.teamselected = $scope.userteams.find((a)=>{
+            return a.id === +$scope.assignForm.team;
+        })
+    };
+    $scope.assignTeamToTournament = function(){
+        if($scope.assignForm.team !==""){
+            xhr.get(`api/tournament/assign/${$scope.tournament.id}/${$scope.assignForm.team}`,function(data){
+                $scope.added = true;
+                $scope.loadTournament();
+            })
+        }
+    }
+});;app.controller('AssignTeamTournamentController', function($scope, TournamentService, $routeParams,middleware) {
+    middleware.needRol("ANY");
+	$scope.As = TournamentService;
+	$scope.As.assignTeam($routeParams.tournamentId, $routeParams.teamId);
+});
+;app.controller('AwardsTournamentListController', function($scope, TournamentService,middleware) {
+    middleware.needRol("ANY");
+	$scope.As = TournamentService;
+	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
+});
+;
+app.controller("BracketsController",function($scope,TournamentService){
+    $scope.ts = TournamentService;
+
+    $scope.getRound = function(i){
+        let nrounds = $scope.ts.nrounds($scope.tournament);
+        let vround = nrounds - i;
+        switch (vround){
+            case 0:
+                return "Final";
+                break;
+            case 1:
+                return "Semi Finals";
+                break;
+            case 2:
+                return "Quarter Finals";
+                break;
+            default:
+                return "Round i";
+
+        }
+    }
+});;app.controller('ConfrontationTournamentListController', function($scope, TournamentService, dialog, auth,middleware) {
+    middleware.needRol("ANY");
+	$scope.As = TournamentService;
+	$scope.As.getConfrontations($scope.$parent.$parent.tournmanentId);
+
+    $scope.reportMatch = function(confrontationId){
+        $scope.confrontationId = confrontationId;
+        dialog.open("reportMatch",$scope);
+    };
+
+    $scope.canShowReport = function (confrontation) {
+        $scope.confrontation = confrontation;
+        let actor = auth.principal.actor;
+        let user;
+        let result = false;
+        confrontation.participes.forEach((p)=> {
+            user = p.team.users.find((u) => {
+                return u.id == actor.id
+            });
+            if(typeof user !=="undefined"){
+                result = true;
+                return false;
+            }
+        });
+        return result;
+    };
+
+    $scope.alreadyReport = function (confrontation) {
+        $scope.confrontation = confrontation;
+        let actor = auth.principal.actor;
+        let result = true;
+        let user;
+        confrontation.reportMatches.forEach((rp)=>{
+            user = rp.team.users.find((u)=>{
+                return u.id ==actor.id;
+            });
+            if(typeof user !=="undefined"){
+                result = false;
+                return false;
+            }
+        });
+        return result;
+    }
+});
+;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
+    middleware.needRol("ADMIN");
+    $scope.sendAwardForm = function() {
+        console.log($scope.award);
+        TournamentService.createAward($scope.$parent.tournament, $scope.award, ()=>{
+            SystemMessages.okmessage("Award create!");
+            $scope.loadTournament();
+            dialog.closeAll();
+        }),(a)=>{
+            SystemMessages.errormessage("Error creating Tournament");
+        }
+    }
+});;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService) {
+    middleware.needRol("ADMIN");
+
+	$scope.enviarTournamentForm = function() {
+		xhr.post("api/createTournament", $scope.tournamentform, function(){
+		    dialog.closeAll();
+            TournamentService.getTournaments();
+            $location.path("/tournament/list");
+		});
+	}
+});
+;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
     middleware.needRol("USER,ADMIN");
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
@@ -9768,7 +9779,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
     this.report = function(user,data,sucess,error){
         let object = this;
-        xhr.post("api/user/"+user+"/report", data,sucess,error);
+        xhr.post("api/user/report/"+user, data,sucess,error);
     };
 
     this.followOrUnfollow = function(id,callback){
@@ -9857,6 +9868,16 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
                     i(user);
                 }
             });
+        });
+    };
+
+    this.deleteReport = function(report,callback){
+        let object = this;
+        xhr.get("api/admin/report/"+report.id+"/delete",(a)=>{
+            SystemMessages.okmessage("Report removed");
+            if(typeof callback!=="undefined"){
+                callback(a.response);
+            }
         });
     };
 
@@ -10644,12 +10665,27 @@ app.service("SystemMessages", function($timeout){
         });
     };
 
+	this.canBeDeleted = function(tournament){
+	    if(typeof tournament==="undefined") return false;
+
+	    return tournament.limitInscription>new Date();
+    };
+
 	this.getAwards = function(tournamentId){
 		let object = this;
 		xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
 			object.awards = response.data;
 		});
 	};
+
+	this.delete = function(tournament){
+	    if(this.canBeDeleted(tournament)===false) return false;
+	    let object = this;
+        xhr.get("api/tournament/"+tournament.id+"/delete" ,function(response){
+            object.getTournament(tournament.id);
+            object.getTournaments();
+        });
+    };
 
 	this.reportMatch = function(confrontation,data,sucess,error){
 		let object = this;
@@ -10790,7 +10826,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;app.directive("adminTools",function($compile){
+});;;;app.directive("adminTools",function($compile){
     return {
         restrict: "AEC",
         scope: {
@@ -10809,6 +10845,32 @@ app.service("SystemMessages", function($timeout){
                     </div>`;
             $(element).html(template);
             $compile(element.contents())(scope.$parent);
+            });
+        }
+    }
+
+
+
+});
+
+app.directive("tournamentTools",function($compile){
+    return {
+        restrict: "AEC",
+        scope: {
+            "tournamentTools": "="
+        },
+
+        link: function(scope,element,attrs){
+            scope.$parent.tournamentTools = scope.tournamentTools;
+            scope.$watch('tournamentTools',()=>{
+                let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li><a href="#" ng-if="TournamentService.canBeDeleted(tournamentTools)" ng-click="TournamentService.delete(tournamentTools)">Delete</a></li>
+                        </ul>
+                    </div>`;
+                $(element).html(template);
+                $compile(element.contents())(scope.$parent);
             });
         }
     }

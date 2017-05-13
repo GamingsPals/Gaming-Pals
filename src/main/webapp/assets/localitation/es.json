@@ -27,7 +27,7 @@
   },
   "send" :"Enviar",
   "view":"Ver",
-  "404user":"USUARIO NO ENCONTRADO",
+  "notFounduser":"USUARIO NO ENCONTRADO",
   "rate":"Valorar",
   "seeMore":"Ver mas",
   "signup": "Regístrate",

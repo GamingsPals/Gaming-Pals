@@ -60,12 +60,27 @@ app.service("TournamentService", function(xhr){
         });
     };
 
+	this.canBeDeleted = function(tournament){
+	    if(typeof tournament==="undefined") return false;
+
+	    return tournament.limitInscription>new Date();
+    };
+
 	this.getAwards = function(tournamentId){
 		let object = this;
 		xhr.get("api/awards/tournament/list?tournamentId="+tournamentId ,function(response){
 			object.awards = response.data;
 		});
 	};
+
+	this.delete = function(tournament){
+	    if(this.canBeDeleted(tournament)===false) return false;
+	    let object = this;
+        xhr.get("api/tournament/"+tournament.id+"/delete" ,function(response){
+            object.getTournament(tournament.id);
+            object.getTournaments();
+        });
+    };
 
 	this.reportMatch = function(confrontation,data,sucess,error){
 		let object = this;

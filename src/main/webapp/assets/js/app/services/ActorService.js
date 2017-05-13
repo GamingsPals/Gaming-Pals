@@ -49,7 +49,7 @@ app.service("ActorService",function(xhr,auth){
 
     this.report = function(user,data,sucess,error){
         let object = this;
-        xhr.post("api/user/"+user+"/report", data,sucess,error);
+        xhr.post("api/user/report/"+user, data,sucess,error);
     };
 
     this.followOrUnfollow = function(id,callback){

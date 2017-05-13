@@ -14,7 +14,7 @@
                 <span title="Send Message"><a class="white3" href="messages/{{ActorService.actor.actor.userAccount.username}}">
                     <i class="fa fa-envelope"></i>
                 </a> </span>
-                <span dialog="report-form" report not-principal="ActorService.actor.actor" title="Report"
+                <span dialog="profile/writeReport" report not-principal="ActorService.actor.actor" title="Report"
                       dialogcontroller="WriteReportController"><i class="fa fa-exclamation-triangle"></i> </span>
 
                 <span class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
@@ -158,7 +158,7 @@
         </div>
         <div style="margin:30px;">
         <a href="#" class="button" not-principal="ActorService.actor.actor"
-           dialog="write-rating-form" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
+           dialog="profile/writeRating" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
         <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived|paginate:4">
                 <div class="card-body">{{r.comment}}</div>
@@ -188,6 +188,6 @@
 </div>
 
 <div ng-if="ActorService.notFound">
-    <giant>404 {{loc.404user}}</giant>
+    <giant>404 {{loc.notFounduser}}</giant>
 </div>
 

@@ -43,10 +43,11 @@ public class AdministratorService {
 		return result;
 	}
 
-	public void checkIsAdmin() {
-		Authority aut = new Authority();
-		aut.setAuthority(Authority.ADMIN);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(aut));
+	public Administrator checkIsAdmin() {
+		Administrator administrator = findByPrincipal();
+		Assert.notNull(administrator);
+
+		return administrator;
 	}
 
     public Administrator findByPrincipal() {
