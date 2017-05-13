@@ -10826,7 +10826,7 @@ app.service("SystemMessages", function($timeout){
             }
         );
     };
-});;;;app.directive("adminTools",function($compile){
+});;;app.directive("adminTools",function($compile){
     return {
         restrict: "AEC",
         scope: {
