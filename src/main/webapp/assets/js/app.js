@@ -9475,9 +9475,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });;app.controller('PaypalController', function($scope, middleware, xhr, $location) {
 	middleware.needRol("USER");
-	$scope.ejecutaPaypal = function(data) {
-		xhr.get("api/user/updatepaypal", data);
+	$scope.ejecutaPaypal = function() {
+		xhr.get("api/user/updatepaypal");
+		$location.path("/");
 	}
+	$scope.ejecutaPaypal();
 });
 ;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
     $scope.searched = false;

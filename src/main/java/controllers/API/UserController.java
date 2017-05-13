@@ -173,6 +173,7 @@ public class UserController extends ApiAbstractController {
 		try {
 			final Actor actor = this.actorService.findActorByPrincipal();
 			Assert.notNull(actor);
+			System.out.println("Hola");
 			this.userService.postpaypal();
 			return this.ok(response, null);
 		} catch (final Exception e) {
