@@ -116,7 +116,6 @@ public class TournamentService {
     public void advanceRound(Tournament tournamentId) {
         //Recorro todas las confrontation del torneo
 			for (Confrontation c : tournamentId.getConfrontations()) {
-				System.out.println("----------------------");
 				//Compruebo que no sea la última ronda
 				boolean nonStop = (tournamentId.getNumberTeams() / (Math.pow(2, c.getRound()))) != 1;
 				if(!nonStop){

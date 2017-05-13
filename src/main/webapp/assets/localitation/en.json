@@ -41,7 +41,8 @@
     "username" : "User name",
     "message" : "Join our community and start playing better and happier",
     "donthaveaccount": "Don't have an account yet?",
-    "wrong": "User or password are wrong, please try again."
+    "wrong": "User or password are wrong, please try again.",
+    "forgotPassword": "Did you forgot your password?"
   },
   "signupform": {
     "name": "Name",
@@ -122,7 +123,8 @@
  	 "information":"Information",
  	 "notFound":"Tournament not found",
      "createAward": "Create Award",
-     "reportMatch": "Report Match"
+     "reportMatch": "Report Match",
+     "delete": ""
   },
   "lol":{
  	 "recentMatches":"Recent Matches"
@@ -287,9 +289,12 @@
     "contactus": "You can send an email to the following email address:"
   },
     "passwordrecovery": {
-  "header" : "Password Recovery",
-  "notfound": "There wasn't found any account linked to that email address",
-    "internal": "There was an error trying to reset your password"
+      "header" : "Password Recovery",
+      "notfound": "There wasn't found any account linked to that email address",
+      "internal": "There was an error trying to reset your password",
+      "login1": "A new password has sent to your email, check your email and",
+      "login2": "Login",
+      "login3": "with your new password."
 },
   "aboutUs":{
   	 "p1": "GamingPals is the place where you will meet the best partners for your video game sessions. It borns from the idea that gamers who are positive and spread good vibes deserve to have proper experience while playing with random people from the internet.",

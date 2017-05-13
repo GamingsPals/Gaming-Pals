@@ -40,7 +40,8 @@
     "username" : "Nombre de usuario",
     "message" : "Únete a nuestra comunidad y comienza a jugar mejor y más feliz",
     "donthaveaccount": "¿Aún no tienes cuenta?",
-    "wrong": "El usuario o la contraseña son iconrrectos, porfavor vuelva a intentarlo"
+    "wrong": "El usuario o la contraseña son iconrrectos, porfavor vuelva a intentarlo",
+    "forgotPassword": "¿Has olvidado tu contraseña?"
   },
   "signupform": {
     "name": "Nombre",
@@ -290,7 +291,10 @@
   "passwordrecovery": {
     "header" : "Recuperación de contraseña",
     "notfound": "No se encontró ninguna cuenta ligada a esa direcció email",
-    "internal": "Humo un error intentando recuperar tu contraseña"
+    "internal": "Humo un error intentando recuperar tu contraseña",
+    "login1": "Se ha enviado una nueva contraseña a tu correo electrónico, consulta tu correo electrónico y",
+    "login2": "loguéate",
+    "login3": "con tu nueva contraseña."
   },
   "aboutUs":{
   	 "p1": "GamingPals es el lugar donde encontrarte con tus mejores amigos para tus partidas de videojuegos. Nace de la idea de que los jugadores positivos y que inspiran confianza se merecen una buena experiencia de juego con gente que no conocen de internet.",
