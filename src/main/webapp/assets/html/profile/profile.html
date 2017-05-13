@@ -21,9 +21,9 @@
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                     <ul>
                         <li ng-if="ActorService.actor.actor.userAccount.locked==false">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">Ban User</a></li>
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ban}}Ban User</a></li>
                         <li ng-if="ActorService.actor.actor.userAccount.locked==true">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">Unban User</a></li>
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ubnan}}Unban User</a></li>
                     </ul>
                 </span></h1>
             <div class="profile-info-follow"><div follow="ActorService.actor.actor"></div> </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="profile-stats">
-            {{loc.profileview.stats}} <small>(0-5)</small>
+            {{loc.profileview.stats}} <small>(1-5)</small>
             <ul>
                 <li><h2>{{loc.main.skill}}</h2> <span class="green">{{ActorService.actor.actor.avgskill}}</span></li>
                 <li><h2>{{loc.main.knowledge}}</h2> <span class="green">{{ActorService.actor.actor.avgknowledge}}</span></li>

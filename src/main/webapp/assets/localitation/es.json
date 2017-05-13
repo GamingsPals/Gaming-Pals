@@ -20,6 +20,8 @@
     "noTeam":"Este usuario aún no pertenece a ningún equipo.",
     "noRating":"¡Este usuario aún no tiene puntuaciones! Se el primero en puntuarlo.",
     "writeRating":"Puntuar",
+    "ban": "Banear usuario",
+    "unban": "Desbanear usuario",
     "addSteamAccount":"Añadir cuenta de Steam",
     "steam":{
       "help": "Haz click aquí para averiguar tu ID de Steam"
@@ -93,7 +95,10 @@
   "assignTeam":{
   	"select":"Selecciona un equipo",
   	"selectedTeam":"El equipo seleccionado se inscribirá a ",
-  	"inscribe":"Inscribir"
+  	"inscribe":"Inscribir",
+    "dontTeam": "No tienes ningún equipo disponible para inscribirte en el torneo.",
+    "started": "El torneo ya ha comenzado.",
+    "full": "La inscripción está llena."
   },
   "team":{
   "searchMember":"Buscar un miembro:",
@@ -161,22 +166,23 @@
   "search":{
     "languages": "Idiomas",
     "ratingavg": "Puntuación media",
-  "pals":"Buscar amigos",
-  "game":"Juego",
-  "selectGame":"Selecciona un juego",
-  "tier":"Nivel",
-  "selectTier":"Selecciona el nivel",
-  "bronze":"Bronce",
-  "silver":"Plata",
-  "gold":"Oro",
-  "platinum":"Platino",
-  "diamond":"Diamante",
-  "master":"Maestro",
-  "challenger":"Aspirante",
-  "resetFilter":"Reiniciar filtro",
-  "games":"Juegos",
-  "ratingAvg":"Puntuación media",
-  "filter":"Filtrar"
+    "pals":"Buscar amigos",
+    "game":"Juegos",
+    "selectGame":"Selecciona un juego",
+    "tier":"Nivel",
+    "selectTier":"Selecciona el nivel",
+    "bronze":"Bronce",
+    "silver":"Plata",
+    "gold":"Oro",
+    "platinum":"Platino",
+    "diamond":"Diamante",
+    "master":"Maestro",
+    "challenger":"Aspirante",
+    "resetFilter":"Reiniciar filtro",
+   "games":"Juegos",
+    "ratingAvg":"Puntuación media",
+    "filter":"Filtrar",
+    "selectlanguages": "Selecciona idiomas"
   },
   "teamForm":{
   "t":"Equipo",
@@ -189,10 +195,13 @@
   	"limit":"Límite para jugar"
   },
   "reportview":{
-  "list":"Lista de reportes",
-  "reportedUsed":"Usuario reportado",
-  "action":"Acción"
-
+   "list":"Lista de reportes",
+    "reportedUsed":"Usuario reportado",
+    "action":"Acción",
+    "reports": "Lista de reportes",
+    "any": "No hay ningún reporte",
+    "delete": "Eliminar",
+    "by": "Reportado por"
   },
   "users":{
   	"usersList":"Lista de usuarios"
@@ -307,6 +316,16 @@
     "image": "Imagen",
     "description": "Descripción",
     "create": "Crear"
+  },
+  "ban":{
+    "title": "Usuarios baneados",
+    "notban": "Todavía no hay ningún usuario baneado"
+  },
+  "panel":{
+    "users": "Usuarios",
+    "userreport": "Lista de usuarios reportados",
+    "users2": "Lista de usuarios baneados",
+    "adminpanel": "Panel de administrador"
   }
 
 

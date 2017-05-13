@@ -21,16 +21,16 @@
     </div>
 </form>
     <div ng-if="userteams.length==0 && (TournamentService.isInscriptionOver(tournament)==false || TournamentService.fullInscription(tournament)==false)">
-        You don't have any Team that is available to inscribe into the tournament
+        {{loc.assignTeam.dontTeam}}
     </div>
     </div>
     <div ng-if="TournamentService.isInscriptionOver(tournament)==true || TournamentService.fullInscription(tournament)==true">
         <div ng-if="TournamentService.isInscriptionOver(tournament)==true">
-            Tournament has already started.
+            {{loc.assignTeam.started}}
         </div>
 
         <div ng-if="TournamentService.fullInscription(tournament)==true">
-            The inscription is full
+            {{loc.assignTeam.full}}
         </div>
     </div>
 </div>

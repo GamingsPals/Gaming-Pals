@@ -1,6 +1,6 @@
-<h2>Banned users</h2>
+<h2>{{loc.ban.title}}</h2>
 <div ng-if="bannedusers.length==0">
-    There isn't any user banned yet
+    {{loc.ban.notban}}
 </div>
 <div class="card" user-card="item"
      ng-repeat="item in bannedusers|paginate:'bannedusers'"></div>

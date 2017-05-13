@@ -20,6 +20,8 @@
     "noTeam":"This user hasn't got any team.",
     "noRating":"This user hasn't got any rating yet! Be the first.",
     "writeRating":"Write a Rating",
+    "ban": "Ban user",
+    "unban": "Unban user",
     "addSteamAccount":"Add Steam Account",
     "steam":{
       "help": "Click here to find out your Steam ID"
@@ -93,7 +95,10 @@
   "assignTeam":{
   	"select":"Select a Team",
   	"selectedTeam":"You are going to inscribe your selected team to",
-  	"inscribe":"Join"
+  	"inscribe":"Join",
+    "dontTeam": "You don't have any Team that is available to inscribe into the tournament",
+    "started": "Tournament has already started.",
+    "full": "The inscription is full"
   },
   "team":{
   "searchMember":"Search a member:",
@@ -163,22 +168,23 @@
   "search":{
     "languages": "Languages",
     "ratingavg": "Rating Avg.",
-  "pals":"Search pals",
-  "game":"Game",
-  "selectGame":"Select a game",
-  "tier":"Tier",
-  "selectTier":"Select tier",
-  "bronze":"Bronze",
-  "silver":"Silver",
-  "gold":"Gold",
-  "platinum":"Platinum",
-  "diamond":"Diamond",
-  "master":"Master",
-  "challenger":"Challenger",
-  "resetFilter":"Reset filter",
-  "games":"Games",
-  "ratingAvg":"Rating average",
-  "filter":"Filter"
+    "pals":"Search pals",
+    "game":"Games",
+    "selectGame":"Select a game",
+    "tier":"Tier",
+    "selectTier":"Select tier",
+    "bronze":"Bronze",
+    "silver":"Silver",
+    "gold":"Gold",
+    "platinum":"Platinum",
+    "diamond":"Diamond",
+    "master":"Master",
+    "challenger":"Challenger",
+    "resetFilter":"Reset filter",
+    "games":"Games",
+    "ratingAvg":"Rating average",
+    "filter":"Filter",
+    "selectlanguages": "Select languages"
   },
   "teamForm":{
   	"t":"Team",
@@ -191,9 +197,13 @@
   	"limit":"Limit play"
   },
   "reportview":{
-  "list":"Report list",
-  "reportedUsed":"Reported User",
-  "action":"Action"
+    "list":"Report list",
+    "reportedUsed":"Reported User",
+    "action":"Action",
+    "reports": "Reports list",
+    "any": "There isn't any report",
+    "delete": "Delete",
+    "by": "Reported by"
   },
   "users":{
   	"usersList":"Users list"
@@ -307,6 +317,16 @@
     "image": "Image",
     "description": "Description",
     "create": "Create"
+  },
+  "ban":{
+    "title": "Banned users",
+    "notban": "There isn't any user banned yet"
+  },
+  "panel":{
+    "users": "Users",
+    "userreport": "User Report List",
+    "users2": "Users Banned List",
+    "adminpanel": "Admin Panel"
   }
 
 }

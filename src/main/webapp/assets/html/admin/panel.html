@@ -1,13 +1,13 @@
 <div class="col s4 float-right lateral-menu">
     <ul>
-        <h1>Users</h1>
-        <li class="link" ng-class="(mode=='usersreportedlist') ? 'active' :''"><a href="adminpanel/usersreportedlist"> User Report List</a></li>
-        <li class="link" ng-class="(mode=='usersbanned') ? 'active' :''"><a href="adminpanel/usersbanned"> Users Banned List</a> </li>
+        <h1>{{loc.panel.users}}</h1>
+        <li class="link" ng-class="(mode=='usersreportedlist') ? 'active' :''"><a href="adminpanel/usersreportedlist">{{loc.panel.userreport}}</a></li>
+        <li class="link" ng-class="(mode=='usersbanned') ? 'active' :''"><a href="adminpanel/usersbanned"> {{loc.panel.users2}}</a> </li>
     </ul>
 </div>
 
 <div class="s8" style="min-height: 500px;padding-top:20px;">
-    <h1>Admin Panel</h1>
+    <h1>{{loc.panel.adminpanel}}</h1>
     <section ng-if="mode=='usersbanned'" ng-include="'assets/html/admin/bannedUsers.html'">
 
     </section>
