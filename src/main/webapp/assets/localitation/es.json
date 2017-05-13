@@ -121,7 +121,8 @@
  	 "advanceRounds":"Avanzar rondas",
  	 "information":"Information",
  	 "notFound":"Torneo no encontrado",
-     "createAward": "Crear premio"
+     "createAward": "Crear premio",
+     "reportMatch": "Reportar partido"
   },
   "lol":{
  	 "recentMatches":"Partidas recientes"

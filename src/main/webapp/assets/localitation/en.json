@@ -121,7 +121,8 @@
  	 "advanceRounds":"Advance Rounds",
  	 "information":"Information",
  	 "notFound":"Tournament not found",
-     "createAward": "Create Award"
+     "createAward": "Create Award",
+     "reportMatch": "Report Match"
   },
   "lol":{
  	 "recentMatches":"Recent Matches"

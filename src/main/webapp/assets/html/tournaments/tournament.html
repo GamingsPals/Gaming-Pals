@@ -56,9 +56,9 @@
 </div>
 <div class="col s4 float-right lateral-menu">
     <ul ng-if="matchtoreport!=false">
-        <h1>Report Match</h1>
+        <h1>{{loc.tournament.reportMatch}}</h1>
         <li>
-            <a href="#" class="button" dialog="tournaments/reportMatch">Report Match</a>
+            <a href="#" class="button" dialog="tournaments/reportMatch">{{loc.tournament.reportMatch}}</a>
         </li>
     </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">

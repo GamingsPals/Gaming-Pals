@@ -511,7 +511,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
-				<ref bean="tournament1" />
+				<ref bean="tournament2" />
 				<ref bean="tournament3" />
 			</list>
 		</property>
@@ -524,12 +524,11 @@
 		<property name="users">
 			<list>
 				<ref bean="user3" />
-				<ref bean="user1" />
 			</list>
 		</property>
 		<property name="tournaments">
 			<list>
-				<ref bean="tournament1" />
+				<ref bean="tournament2" />
 			</list>
 		</property>
 	</bean>
@@ -540,13 +539,13 @@
 			value="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSzeACD_XDmPvmtZSNltg348tf6-S9gExBLYnKqijfACNAZSg7E5Q" />
 		<property name="users">
 			<list>
-				<ref bean="user3" />
 				<ref bean="user4" />
 			</list>
 		</property>
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament1" />
+				<ref bean="tournament2" />
 				<ref bean="tournament3" />
 			</list>
 		</property>
@@ -558,12 +557,13 @@
 			value="http://t12.deviantart.net/K3hJm1WkWDrPaii3AzgL9Up-4rc=/fit-in/700x350/filters:fixed_height(100,100):origin()/pre09/09da/th/pre/i/2015/107/4/c/croqueta_logo_by_tresancoras-d7l0j1v.jpg" />
 		<property name="users">
 			<list>
-			<ref bean="user3" />
 				<ref bean="user1" />
 			</list>
 		</property>
 		<property name="tournaments">
 			<list>
+				<ref bean="tournament1" />
+				<ref bean="tournament2" />
 			</list>
 		</property>
 	</bean> 
@@ -583,6 +583,7 @@
 		</property>
 		<property name="tournaments">
 			<list>
+				<ref bean="tournament1" />
 				<ref bean="tournament3" />
 			</list>
 		</property>
@@ -594,16 +595,12 @@
 			value="https://hydra-media.cursecdn.com/lol.gamepedia.com/thumb/6/63/Team_Curse_S3_LCS_Spring.jpg/400px-Team_Curse_S3_LCS_Spring.jpg?version=89ab02ac376299a0468697f86c5aac64" />
 		<property name="users">
 			<list>
-				<ref bean="user1" />
-				<ref bean="user2" />
-				<ref bean="user3" />
-				<ref bean="user4" />
 				<ref bean="user5" />
 			</list>
 		</property>
 		<property name="tournaments">
 			<list>
-				<ref bean="tournament3" />	
+				<ref bean="tournament1" />
 			</list>
 		</property>
 	</bean> 
@@ -633,10 +630,10 @@
 		</property>
 		<property name="teams">
 			<list>
-				<ref bean="team1" />
-				<ref bean="team2" />
 				<ref bean="team3" />
 				<ref bean="team4" />
+				<ref bean="team5" />
+				<ref bean="team6" />
 			</list>
 		</property>
 	</bean> 
@@ -657,17 +654,17 @@
 		</property>
 		<property name="confrontations">
 			<list>
-				<ref bean="confrontation1" />
-				<ref bean="confrontation2" />
-				<ref bean="confrontation3" />
+				<ref bean="confrontation4" />
+				<ref bean="confrontation5" />
+				<ref bean="confrontation6" />
 			</list>
 		</property>
 		<property name="teams">
 			<list>
+				<ref bean="team1" />
+				<ref bean="team2" />
 				<ref bean="team3" />
 				<ref bean="team4" />
-				<ref bean="team5" />
-				<ref bean="team6" />
 			</list>
 		</property>
 	</bean> 
@@ -699,7 +696,6 @@
 				<ref bean="team1" />
 				<ref bean="team3" />
 				<ref bean="team5" />
-				<ref bean="team6" />
 			</list>
 		</property>
 	</bean> 
@@ -731,7 +727,7 @@
 		<property name="limitPlay" value="2017/04/20 10:20" />
 		<property name="reportMatches">
 			<list>
-
+				<ref bean="reportMatch2"/>
 			</list>
 		</property>
 		<property name="participes">
@@ -746,7 +742,7 @@
 	<bean id="confrontation3" class="domain.Confrontation">
 		<property name="round" value="2" />
 		<property name="numberMatch" value="1" />
-		<property name="limitPlay" value="2017/04/21 10:20" />
+		<property name="limitPlay" value="2017/06/21 10:20" />
 		<property name="reportMatches">
 			<list>
 
@@ -767,7 +763,7 @@
 		<property name="limitPlay" value="2017/04/26 10:20" />
 		<property name="reportMatches">
 			<list>
-
+				<ref bean="reportMatch3"/>
 			</list>
 		</property>
 		<property name="participes">
@@ -785,7 +781,7 @@
 		<property name="limitPlay" value="2017/04/26 10:20" />
 		<property name="reportMatches">
 			<list>
-
+				<ref bean="reportMatch2"/>
 			</list>
 		</property>
 		<property name="participes">
@@ -826,7 +822,6 @@
 		<property name="participes">
 			<list>
 				<ref bean="participes9" />
-				<ref bean="participes10" />
 			</list>
 		</property>
 		<property name="tournament" ref="tournament3" />
@@ -838,7 +833,7 @@
 		<property name="limitPlay" value="2017/04/27 15:00" />
 		<property name="reportMatches">
 			<list>
-
+				<ref bean="reportMatch4"/>
 			</list>
 		</property>
 		<property name="participes">
@@ -857,7 +852,6 @@
 		<property name="limitPlay" value="2017/05/28 10:20" />
 		<property name="reportMatches">
 			<list>
-
 			</list>
 		</property>
 		<property name="participes">
@@ -869,7 +863,7 @@
 	</bean> 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="isWinner" value="false" />
 		<property name="team" ref="team3" />
 	</bean>
 
@@ -914,10 +908,6 @@
 		<property name="team" ref="team1" />
 	</bean>
 
-	<bean id="participes10" class="domain.Participes">
-		<property name="isWinner" value="false" />
-		<property name="team" ref="team6" />
-	</bean>
 
 	<bean id="participes11" class="domain.Participes">
 		<property name="isWinner" value="false" />
@@ -960,14 +950,15 @@
 	</bean> 
 
 	<!-- Reports Matches -->
+
 	<bean id="reportMatch1" class="domain.ReportMatch">
 		<property name="image"
-			value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
-		<property name="result" value="Losser" />
-		<property name="description" value="He perdido pero bien" />
-		<property name="confrontation" ref="confrontation1" />
-		<property name="team" ref="team2" />
-	</bean> 
+				  value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
+		<property name="result" value="Winner" />
+		<property name="description" value="I won" />
+		<property name="confrontation" ref="confrontation2" />
+		<property name="team" ref="team6" />
+	</bean>
 	
 	<bean id="reportMatch2" class="domain.ReportMatch">
 		<property name="image"
@@ -976,6 +967,24 @@
 		<property name="description" value="He perdido pero bien" />
 		<property name="confrontation" ref="confrontation5" />
 		<property name="team" ref="team2" /> 
+	</bean>
+
+	<bean id="reportMatch3" class="domain.ReportMatch">
+		<property name="image"
+				  value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
+		<property name="result" value="Losser" />
+		<property name="description" value="I won" />
+		<property name="confrontation" ref="confrontation4" />
+		<property name="team" ref="team1" />
+	</bean>
+
+	<bean id="reportMatch4" class="domain.ReportMatch">
+		<property name="image"
+				  value="https://i.blogs.es/94c802/lol-captura/450_1000.png" />
+		<property name="result" value="Losser" />
+		<property name="description" value="Gané" />
+		<property name="confrontation" ref="confrontation8" />
+		<property name="team" ref="team5" />
 	</bean>
 
 	<!-- User Reports -->
