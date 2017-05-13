@@ -11,22 +11,22 @@
         </div>
         <div class="profile-info">
             <h1>{{ActorService.actor.actor.userAccount.username}}
-                <span title="Send Message"><a class="white3" href="messages/{{ActorService.actor.actor.userAccount.username}}">
+                <span title="Send Message"  not-principal="ActorService.actor.actor"><a class="white3" href="messages/{{ActorService.actor.actor.userAccount.username}}">
                     <i class="fa fa-envelope"></i>
                 </a> </span>
-                <span dialog="profile/writeReport" report not-principal="ActorService.actor.actor" title="Report"
+                <span dialog="profile/writeReport"  ng-if="auth.hasRole('USER')" report not-principal="ActorService.actor.actor" title="Report"
                       dialogcontroller="WriteReportController"><i class="fa fa-exclamation-triangle"></i> </span>
 
                 <span class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                     <ul>
                         <li ng-if="ActorService.actor.actor.userAccount.locked==false">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ban}}Ban User</a></li>
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ban}}</a></li>
                         <li ng-if="ActorService.actor.actor.userAccount.locked==true">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ubnan}}Unban User</a></li>
+                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ubnan}}</a></li>
                     </ul>
                 </span></h1>
-            <div class="profile-info-follow"><div follow="ActorService.actor.actor"></div> </div>
+            <div class="profile-info-follow"  ng-if="auth.hasRole('USER')"><div follow="ActorService.actor.actor"></div> </div>
 
             <div class="profile-info-flags" >
                 <img  ng-repeat="lan in ActorService.actor.actor.languages" ng-src="assets/images/flags/{{lan.language}}.png" />
@@ -56,7 +56,7 @@
         <li ng-class="(tabs.gameprofiles) ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/gameprofiles">
                 <i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</a></li>
-        <li  ng-class="(tabs.following) ? 'active' : ''">
+        <li  ng-class="(tabs.following) ? 'active' : ''" >
             <a  href="{{url}}/following" class="profile-tabs">
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> {{loc.profileview.following}}</a></li>
         <li  ng-class="(tabs.followers) ? 'active' : ''">
@@ -157,7 +157,7 @@
             {{loc.profileview.noRating}}
         </div>
         <div style="margin:30px;">
-        <a href="#" class="button" not-principal="ActorService.actor.actor"
+        <a href="#" class="button" not-principal="ActorService.actor.actor" ng-if="auth.hasRole('USER')"
            dialog="profile/writeRating" dialogcontroller="WriteRatingController">{{loc.profileview.writeRating}}</a>
         </div>
         <div class="blockcard col s4" ng-repeat="r in ActorService.actor.actor.ratingsReceived|paginate:4">
