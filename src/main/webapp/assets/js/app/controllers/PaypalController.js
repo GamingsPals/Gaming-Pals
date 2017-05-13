@@ -1,4 +1,4 @@
-app.controller('PaypalController', function($scope, middleware, xhr, $location, LanguageService, dialog) {
+app.controller('PaypalController', function($scope, middleware, xhr, $location) {
 	middleware.needRol("USER");
 	$scope.ejecutaPaypal = function(data) {
 		xhr.get("api/user/updatepaypal", data);
