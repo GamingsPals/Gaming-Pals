@@ -22,7 +22,7 @@
     "writeRating":"Puntuar",
     "ban": "Banear usuario",
     "unban": "Desbanear usuario",
-    "addSteamAccount":"Añadir cuenta de Steam",
+    "addSteamAccount":"Añadir juego de Steam",
     "steam":{
       "help": "Haz click aquí para averiguar tu ID de Steam"
     }

@@ -22,7 +22,7 @@
     "writeRating":"Write a Rating",
     "ban": "Ban user",
     "unban": "Unban user",
-    "addSteamAccount":"Add Steam Account",
+    "addSteamAccount":"Add Steam Game",
     "steam":{
       "help": "Click here to find out your Steam ID"
     }
