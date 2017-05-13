@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -9,17 +10,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 
-import domain.notifications.TeamInvitationNotification;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.validator.constraints.URL;
+
+import domain.notifications.TeamInvitationNotification;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -28,9 +28,11 @@ import org.hibernate.validator.constraints.URL;
 public class User extends Actor {
 
 	// Attributes
-	private int			age;
-	private boolean		verify;
-	private String header;
+	private int		age;
+	private boolean	verify;
+	private Date	lastpaid;
+	private String	header;
+
 
 	// Constructor
 	public User() {
@@ -42,62 +44,69 @@ public class User extends Actor {
 
 	}
 
-	//Getters and Setters 
+	//Getters and Setters
 	public int getAge() {
-		return age;
+		return this.age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(final int age) {
 		this.age = age;
 	}
 
+	public Date getLastpaid() {
+		return this.lastpaid;
+	}
+
+	public void setLastpaid(final Date lastpaid) {
+		this.lastpaid = lastpaid;
+	}
 
 
 	// Relationships
-	private Collection<Team>		teams;
-	private Collection<Rating>		ratingsDone;
-	private Collection<Rating>		ratingsReceived;
-	private Collection<User>		followingUsers;
-	private Collection<User>		followerUsers;
-	private Collection<Language>	languages;
-	private Collection<GameInfo>	gameInfo;
-	private Double					ratingAvg;
-	private Double					attitudeAvg;
-	private Double					knowledgeAvg;
-	private Double					skillAvg;
-	private Collection<Report>		reportsDone;
-	private Collection<Report>		reportsReceived;
-	private Collection<TeamInvitationNotification> teamInvitationNotifications;
+	private Collection<Team>						teams;
+	private Collection<Rating>						ratingsDone;
+	private Collection<Rating>						ratingsReceived;
+	private Collection<User>						followingUsers;
+	private Collection<User>						followerUsers;
+	private Collection<Language>					languages;
+	private Collection<GameInfo>					gameInfo;
+	private Double									ratingAvg;
+	private Double									attitudeAvg;
+	private Double									knowledgeAvg;
+	private Double									skillAvg;
+	private Collection<Report>						reportsDone;
+	private Collection<Report>						reportsReceived;
+	private Collection<TeamInvitationNotification>	teamInvitationNotifications;
 
 
 	@Valid
 	@ManyToMany(mappedBy = "users")
 	@JsonIgnore
 	public Collection<Team> getTeams() {
-		return teams;
+		return this.teams;
 	}
 
-	public void setTeams(Collection<Team> teams) {
+	public void setTeams(final Collection<Team> teams) {
 		this.teams = teams;
 	}
 
 	@Valid
 	@OneToMany(mappedBy = "ratingUser")
 	public Collection<Rating> getRatingsDone() {
-		return ratingsDone;
+		return this.ratingsDone;
 	}
 
-	public void setRatingsDone(Collection<Rating> valuesRatings) {
+	public void setRatingsDone(final Collection<Rating> valuesRatings) {
 		this.ratingsDone = valuesRatings;
 	}
 
 	@Valid
 	@OneToMany(mappedBy = "ratedUser")
 	public Collection<Rating> getRatingsReceived() {
-		return ratingsReceived;
+		return this.ratingsReceived;
 	}
 
-	public void setRatingsReceived(Collection<Rating> isValuedRatings) {
+	public void setRatingsReceived(final Collection<Rating> isValuedRatings) {
 		this.ratingsReceived = isValuedRatings;
 	}
 
@@ -105,10 +114,10 @@ public class User extends Actor {
 	@ManyToMany
 	@JsonIgnore
 	public Collection<User> getFollowingUsers() {
-		return followingUsers;
+		return this.followingUsers;
 	}
 
-	public void setFollowingUsers(Collection<User> followingUsers) {
+	public void setFollowingUsers(final Collection<User> followingUsers) {
 		this.followingUsers = followingUsers;
 	}
 
@@ -116,10 +125,10 @@ public class User extends Actor {
 	@ManyToMany(mappedBy = "followingUsers")
 	@JsonIgnore
 	public Collection<User> getFollowerUsers() {
-		return followerUsers;
+		return this.followerUsers;
 	}
 
-	public void setFollowerUsers(Collection<User> followerUsers) {
+	public void setFollowerUsers(final Collection<User> followerUsers) {
 		this.followerUsers = followerUsers;
 	}
 
@@ -127,35 +136,35 @@ public class User extends Actor {
 	@Valid
 	@ManyToMany()
 	public Collection<Language> getLanguages() {
-		return languages;
+		return this.languages;
 	}
 
-	public void setLanguages(Collection<Language> languages) {
+	public void setLanguages(final Collection<Language> languages) {
 		this.languages = languages;
 	}
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public Collection<GameInfo> getGameInfo() {
-		return gameInfo;
+		return this.gameInfo;
 	}
 
-	public void setGameInfo(Collection<GameInfo> gameUsers) {
+	public void setGameInfo(final Collection<GameInfo> gameUsers) {
 		this.gameInfo = gameUsers;
 	}
 
 	public boolean isVerify() {
-		return verify;
+		return this.verify;
 	}
 
-	public void setVerify(boolean verify) {
+	public void setVerify(final boolean verify) {
 		this.verify = verify;
 	}
 
 	public Double getRatingAvg() {
-		return ratingAvg;
+		return this.ratingAvg;
 	}
 
-	public void setRatingAvg(Double ratingAvg) {
+	public void setRatingAvg(final Double ratingAvg) {
 		this.ratingAvg = ratingAvg;
 	}
 
@@ -170,7 +179,7 @@ public class User extends Actor {
 		Double avgSkill = 0.;
 		Double avgKnowledge = 0.;
 		Double avgAttitude = 0.;
-		for (Rating e : this.getRatingsReceived()) {
+		for (final Rating e : this.getRatingsReceived()) {
 			avgSkill += e.getSkill();
 			avgKnowledge += e.getKnowledge();
 			avgAttitude += e.getAttitude();
@@ -185,62 +194,63 @@ public class User extends Actor {
 	@JsonIgnore
 	@OneToMany(mappedBy = "reporterUser")
 	public Collection<Report> getReportsDone() {
-		return reportsDone;
+		return this.reportsDone;
 	}
 
-	public void setReportsDone(Collection<Report> reportsDone) {
+	public void setReportsDone(final Collection<Report> reportsDone) {
 		this.reportsDone = reportsDone;
 	}
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "reportedUser")
 	public Collection<Report> getReportsReceived() {
-		return reportsReceived;
+		return this.reportsReceived;
 	}
 
-	public void setReportsReceived(Collection<Report> reportsReceived) {
+	public void setReportsReceived(final Collection<Report> reportsReceived) {
 		this.reportsReceived = reportsReceived;
 	}
 
 	public Double getAttitudeAvg() {
-		return attitudeAvg;
+		return this.attitudeAvg;
 	}
 
-	public void setAttitudeAvg(Double attitudeAvg) {
+	public void setAttitudeAvg(final Double attitudeAvg) {
 		this.attitudeAvg = attitudeAvg;
 	}
 
 	public Double getKnowledgeAvg() {
-		return knowledgeAvg;
+		return this.knowledgeAvg;
 	}
 
-	public void setKnowledgeAvg(Double knowledgeAvg) {
+	public void setKnowledgeAvg(final Double knowledgeAvg) {
 		this.knowledgeAvg = knowledgeAvg;
 	}
 
 	public Double getSkillAvg() {
-		return skillAvg;
+		return this.skillAvg;
 	}
 
-	public void setSkillAvg(Double skillAvg) {
+	public void setSkillAvg(final Double skillAvg) {
 		this.skillAvg = skillAvg;
 	}
 
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	public Collection<TeamInvitationNotification> getTeamInvitationNotifications() {
-		return teamInvitationNotifications;
+		return this.teamInvitationNotifications;
 	}
 
-	public void setTeamInvitationNotifications(Collection<TeamInvitationNotification> teamInvitationNotifications) {
+	public void setTeamInvitationNotifications(final Collection<TeamInvitationNotification> teamInvitationNotifications) {
 		this.teamInvitationNotifications = teamInvitationNotifications;
 	}
 
 	public String getHeader() {
-		return header;
+		return this.header;
 	}
 
-	public void setHeader(String header) {
+	public void setHeader(final String header) {
 		this.header = header;
 	}
+
 }
