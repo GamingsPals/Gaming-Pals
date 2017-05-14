@@ -509,6 +509,7 @@
 
 			</list>
 		</property>
+        <property name="leader" ref="user2"/>
 		<property name="tournaments">
 			<list>
 				<ref bean="tournament2" />
@@ -520,7 +521,8 @@
 	<bean id="team2" class="domain.Team">
 		<property name="name" value="Fnatic" />
 		<property name="picture"
-			value="http://fnatic.com/filestorage/imagedb/full/8882.jpg" />
+			value="http://wallpaper-gallery.net/images/fnatic-wallpaper/fnatic-wallpaper-19.jpg" />
+        <property name="leader" ref="user3"/>
 		<property name="users">
 			<list>
 				<ref bean="user3" />
@@ -537,6 +539,7 @@
 		<property name="name" value="Nightmare" />
 		<property name="picture"
 			value="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSzeACD_XDmPvmtZSNltg348tf6-S9gExBLYnKqijfACNAZSg7E5Q" />
+        <property name="leader" ref="user4"/>
 		<property name="users">
 			<list>
 				<ref bean="user4" />
@@ -553,6 +556,7 @@
 
 	<bean id="team4" class="domain.Team">
 		<property name="name" value="Los Croqueta" />
+        <property name="leader" ref="user1"/>
 		<property name="picture"
 			value="http://t12.deviantart.net/K3hJm1WkWDrPaii3AzgL9Up-4rc=/fit-in/700x350/filters:fixed_height(100,100):origin()/pre09/09da/th/pre/i/2015/107/4/c/croqueta_logo_by_tresancoras-d7l0j1v.jpg" />
 		<property name="users">
@@ -570,6 +574,7 @@
 	 
 	<bean id="team5" class="domain.Team">
 		<property name="name" value="Wizards" />
+        <property name="leader" ref="user6"/>
 		<property name="picture"
 			value="http://images.eldiario.es/hojaderouter/Equipo-femenino-League-Legends-Wizards_EDIIMA20140715_0112_13.jpg" />
 		<property name="users">
@@ -591,6 +596,7 @@
 	
 	<bean id="team6" class="domain.Team">
 		<property name="name" value="Curse" />
+        <property name="leader" ref="user5"/>
 		<property name="picture" 
 			value="https://hydra-media.cursecdn.com/lol.gamepedia.com/thumb/6/63/Team_Curse_S3_LCS_Spring.jpg/400px-Team_Curse_S3_LCS_Spring.jpg?version=89ab02ac376299a0468697f86c5aac64" />
 		<property name="users">
@@ -608,11 +614,11 @@
 
 	<!-- Tournaments -->
 	<bean id="tournament1" class="domain.Tournament">
-		<property name="momentCreate" value="2017/04/10 10:20" />
+		<property name="momentCreate" value="2017/04/15 10:20" />
 		<property name="title" value="Spring Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
-		<property name="limitInscription" value="2017/04/19 10:20" />
+		<property name="limitInscription" value="2017/06/19 10:20" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="https://images4.alphacoders.com/600/thumb-1920-600528.png" />
@@ -1088,18 +1094,34 @@
 		<property name="name" value="League Of Legends" />
 		<property name="tag" value="lol" />
 		<property name="gameid" value="1243423234" />
+		<property name="picture" value="assets/images/games/icons/lolicon.png"/>
+		<property name="header"
+				  value="http://euw.leagueoflegends.com/sites/default/files/styles/scale_large/public/upload/art/teambuilder-wallpaper.jpg?itok=-H7_WlsZ" />
 	</bean>
 
 	<bean id="game2" class="domain.Game">
 		<property name="name" value="Counter Strike: Global Offensive" />
 		<property name="tag" value="counter" />
 		<property name="gameid" value="730" />
+		<property name="picture" value="assets/images/games/icons/countericon.png"/>
+        <property name="header"
+                  value="http://dotageeks.com/wp-content/uploads/2015/10/Counter-Strike-Global-Offensive-Wallpaper-4.jpg" />
 	</bean>
+
+    <bean id="game4" class="domain.Game">
+        <property name="name" value="Dota 2" />
+        <property name="tag" value="dota2" />
+        <property name="gameid" value="570" />
+        <property name="picture" value="assets/images/games/icons/dota2icon.png"/>
+        <property name="header" value="http://cdn.gamer-network.net/2013/usgamer/dota2header.jpg" />
+    </bean>
 
 	<bean id="game3" class="domain.Game">
 		<property name="name" value="For Honor" />
 		<property name="tag" value="forhonor" />
 		<property name="gameid" value="304390" />
+		<property name="picture" value="assets/images/games/icons/forhonor.png"/>
+        <property name="header" value="http://cdn-press-start.scadigital.io/wp-content/uploads/2017/02/ForHonor-Header.jpg" />
 	</bean>
 
 	<!-- Summoners -->

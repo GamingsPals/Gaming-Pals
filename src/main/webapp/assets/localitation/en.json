@@ -1,8 +1,25 @@
 {
   "home" : "Home",
   "pals" : "Pals",
+  "yes": "Yes",
+  "cancel": "Cancel",
   "tournaments" :"Tournaments",
+  "deleted": "Deleted",
   "profile": "Profile",
+  "admin":{
+    "reports":{
+      "suretodelete": "Are you sure you want to delete this report?",
+      "deleted": "The report has been deleted"
+    },
+    "bans":{
+      "banned": "Banned",
+      "unbanned": "Unbanned",
+      "ban": "Ban",
+      "unban": "Unban",
+      "suretoban": "Are you sure you want to ${args['toban']} ${args['user']}?",
+      "hasbeenbanned": "${args['user']} has been ${args['banned']}"
+    }
+  },
   "profileview": {
     "editprofile": "Edit Profile",
     "follow" : "Follow",
@@ -129,7 +146,7 @@
  	 "notFound":"Tournament not found",
      "createAward": "Create Award",
      "reportMatch": "Report Match",
-     "delete": ""
+     "delete": "Delete"
   },
   "lol":{
  	 "recentMatches":"Recent Matches"

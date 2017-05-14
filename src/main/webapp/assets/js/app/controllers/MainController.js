@@ -1,13 +1,16 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService,
+GameInfoService,SweetAlert){
+    localization.init($scope);
     $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
-    localization.init($scope);
+    $scope.alert = SweetAlert;
     $scope.TournamentService = TournamentService;
     $rootScope.loc = localization;
     $scope.auth = auth;
     $scope.ActorService = ActorService;
     $scope.notifications = NotificationService;
+    $scope.GameInfoService = GameInfoService;
     $scope.auth.load();
 
     $scope.auth.addListener((data)=>{
@@ -48,9 +51,9 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         dialog.open("aboutUs",$scope);
     };
     $scope.checkProtocol = function(){
-        console.log($location.protocol());
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
-            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
+            window.location = 'https://' + window.location.hostname +
+                ":"+window.location.port+window.location.pathname + window.location.hash;
         }
     };
     $scope.checkProtocol();

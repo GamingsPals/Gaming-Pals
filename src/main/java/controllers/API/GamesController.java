@@ -39,4 +39,6 @@ public class GamesController extends ApiAbstractController {
 			return internalservererror(response, null);
 		}
 	}
+
+
 }

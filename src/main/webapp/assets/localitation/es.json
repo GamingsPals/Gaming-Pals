@@ -2,6 +2,9 @@
   "home" : "Inicio",
   "pals" : "Amigos",
   "tournaments" :"Torneos",
+  "yes": "Si",
+  "cancel": "Cancelar",
+  "deleted": "Borrado",
   "profile": "Perfil",
   "profileview": {
     "editprofile": "Editar Perfil",
@@ -25,6 +28,20 @@
     "addSteamAccount":"Añadir juego de Steam",
     "steam":{
       "help": "Haz click aquí para averiguar tu ID de Steam"
+    }
+  },
+  "admin":{
+    "reports":{
+      "suretodelete": "Estás seguro de querer borrar este reporte?",
+      "deleted": "El reporte ha sido borrado"
+    },
+    "bans":{
+      "banned": "Baneado",
+      "unbanned": "Desbaneado",
+      "ban": "Banear",
+      "unban": "Desbanear",
+      "suretoban": "Estás seguro de querer ${args['toban']} a ${args['user']}?",
+      "hasbeenbanned": "${args['user']} ha sido ${args['banned']}"
     }
   },
   "send" :"Enviar",
@@ -112,6 +129,7 @@
  	 "title": "Título",
  	 "description":"Descripción",
  	 "rules":"Reglas",
+     "delete": "Borrar",
  	 "numberTeams":"Número de equipos ",
  	 "selectValue":"Seleccionar un valor",
  	 "teams":"Equipos",

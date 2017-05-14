@@ -1,6 +1,7 @@
 package services;
 
 import com.google.gson.JsonElement;
+import domain.GameInfo;
 import domain.League;
 import domain.Summoner;
 import domain.User;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import org.springframework.util.Assert;
 import repositories.LeagueRepository;
 import repositories.SummonerRepository;
 import services.apis.lol.Builder.*;
@@ -118,5 +120,11 @@ public class LoLApiService {
         matchDetailsBuilder.load();
 
         return matchDetailsBuilder.getMatch();
+    }
+
+    public void delete(Summoner gameInfo) {
+        Assert.notNull(gameInfo);
+
+        summonerRepository.delete(gameInfo);
     }
 }

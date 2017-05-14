@@ -16,6 +16,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
             }
         }
     };
+
+    $scope.GameInfoService.addCallbackOnDelete((a)=>{
+        $scope.As.filter($location.search());
+    });
+
     GameService.all((a)=>{
         $scope.games = a.data;
     });

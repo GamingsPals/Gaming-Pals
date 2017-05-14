@@ -3,7 +3,6 @@ app.controller('PaypalController', function($scope, middleware, xhr, $location) 
 	console.log("ey");
 	$scope.ejecutaPaypal = function() {
 		xhr.get("api/user/updatepaypal");
-		$location.path("/");
-	}
+	};
 	$scope.ejecutaPaypal();
 });

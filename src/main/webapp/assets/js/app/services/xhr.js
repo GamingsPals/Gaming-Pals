@@ -2,24 +2,27 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
 
 
     this.get = function (url, sucess,error) {
-        $(".loader").show();
         $http.get(url).then(function (data) {
-                if (typeof sucess !== "undefined") {
+                if (typeof sucess !== "undefined" && data.status===200) {
                     sucess(data);
+                }else{
+                    if (typeof error !== "undefined") {
+                        error(data);
+                    }
                 }
-                $(".loader").hide();
+
             },
             function(data) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                $(".loader").hide();
+
                 SystemMessages.errormessage("Something wrong has happened!");
             });
     };
 
     this.post = function (url, data, sucess,error) {
-        $(".loader").show();
+
         data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
         $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
         $http({
@@ -43,14 +46,12 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                 if(typeof sucess !== "undefined"){
                     sucess(data);
                 }
-                $(".loader").hide();
             },
             function(data) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
                 SystemMessages.errormessage("Something wrong has happened!");
-                $(".loader").hide();
             }
         );
     };

@@ -64,7 +64,9 @@
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
         <h1>{{loc.tournament.adminZone}}</h1>
         <li><a href="#" class="button" ng-click="advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
-        <li><a href="#" ng-click="TournamentService.delete(loc.tournament)"><i class="fa fa-close"></i> {{loc.tournament.delete}}</a></li>
+        <li  ng-if="TournamentService.canBeDeleted(tournament)">
+            <a href="#" class="button bg-red3" ng-click="delete(tournament)">
+                <i class="fa fa-close"></i> {{loc.tournament.delete}}</a></li>
     </ul>
     <ul ng-if="auth.hasRole('USER')">
         <h1>{{loc.tournament.inscribe}}</h1>

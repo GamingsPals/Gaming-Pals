@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -32,8 +33,11 @@ public class TournamentService {
 	@Autowired
 	private TeamService				teamService;
 
+	@Autowired
+    private ConfrontationService confrontationService;
 
-	public TournamentService() {
+
+    public TournamentService() {
 		super();
 	}
 
@@ -58,8 +62,16 @@ public class TournamentService {
 	public void delete(Tournament tournament) {
 
 		Assert.notNull(tournament);
-		Assert.isTrue(tournament.getLimitInscription().after(new Date()));
-		tournamentRepository.delete(tournament);
+        Assert.isTrue(tournament.getLimitInscription().after(new Date()));
+        for(Team t: tournament.getTeams()){
+            List<Tournament> tournaments = new ArrayList<>(t.getTournaments());
+            tournaments.remove(tournament);
+            t.setTournaments(tournaments);
+
+            teamService.save(t);
+        }
+        tournamentRepository.delete(tournament);
+
 
 	}
 
@@ -67,7 +79,6 @@ public class TournamentService {
 
 		Tournament result = tournamentRepository.findOne(tournamentId);
 
-		Assert.notNull(result);
 
 		return result;
 

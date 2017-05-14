@@ -56,14 +56,13 @@ public class SteamService {
                     is = false;
                 }
             }
-            System.out.println(is);
             if(is){
                 gamesFiltered.add(gp);
             }
         }
         for(domain.Game e: gamesFiltered){
             for(Game p: games){
-                if(p.getAppid().equals(e.getGameid())){
+                if(p.getAppid().equals(e.getGameid()) || p.getName().equals(e.getName())){
                     games1.add(e);
                 }
             }
@@ -82,5 +81,11 @@ public class SteamService {
             steamAccount.setUser(userService.findByPrincipal());
             steamAccountRepository.save(steamAccount);
         }
+    }
+
+    public void delete(SteamAccount gameInfo) {
+        Assert.notNull(gameInfo);
+
+        steamAccountRepository.delete(gameInfo);
     }
 }

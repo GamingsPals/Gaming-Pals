@@ -193,7 +193,6 @@
 
 
 	<div class="beta"></div>
-	<div class="loader"></div>
 	<script>
 		let
 		csrf = {};

@@ -15,6 +15,10 @@ app.service("localization",function(xhr,$cookies){
         });
     };
 
+    this.eval = function(text,args){
+        return eval('`'+text+'`');
+    };
+
     this.getLanguage = function(){
         return (typeof $cookies.get("language")!== 'undefined') ? $cookies.get("language") : "en";
     };

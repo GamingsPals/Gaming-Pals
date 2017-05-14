@@ -18,13 +18,12 @@ app.controller('AdminPanelController',function($scope,ActorService,middleware,Ad
     $scope.deleteReport = function(report){
         AdminService.deleteReport(report,(a)=>{
             $scope.getReportedUsers();
-        })
+        });
     };
 
     $scope.getBannedUsers();
     $scope.getReportedUsers();
     $scope.mode = $routeParams.menu;
-    console.log($scope.mode);
     if(typeof $scope.mode ==="undefined"){
         $location.path("adminpanel/usersbanned");
     }

@@ -1,13 +1,17 @@
 
 package domain;
 
-import javax.persistence.*;
+
+
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import javax.persistence.*;
+
+
 @Entity
 @Access(AccessType.PROPERTY)
-public class GameInfo extends DomainEntity {
+public abstract class GameInfo extends DomainEntity {
 
 	private User		user;
 	protected String	username;
@@ -15,7 +19,7 @@ public class GameInfo extends DomainEntity {
 
 
 	@ManyToOne
-	@JsonIgnore
+    @JsonIgnore
 	public User getUser() {
 		return user;
 	}
@@ -41,12 +45,4 @@ public class GameInfo extends DomainEntity {
 		this.game = game;
 	}
 
-	@Override
-	public String toString() {
-		return "GameInfo{" +
-				"user=" + user +
-				", username='" + username + '\'' +
-				", game=" + game +
-				'}';
-	}
 }

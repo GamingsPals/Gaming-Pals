@@ -30,9 +30,8 @@ public class Award extends DomainEntity{
     //Relationships
     private Tournament tournament;
 
-    @Valid
     @JsonIgnore
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Tournament getTournament(){return tournament;}
     public void setTournament(Tournament tournament){this.tournament=tournament;}
 }
