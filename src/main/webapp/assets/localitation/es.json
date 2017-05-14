@@ -32,7 +32,7 @@
   },
   "admin":{
     "reports":{
-      "suretodelete": "Estás seguro de querer borrar este reporte?",
+      "suretodelete": "¿Estás seguro de querer borrar este reporte?",
       "deleted": "El reporte ha sido borrado"
     },
     "bans":{
@@ -40,7 +40,7 @@
       "unbanned": "Desbaneado",
       "ban": "Banear",
       "unban": "Desbanear",
-      "suretoban": "Estás seguro de querer ${args['toban']} a ${args['user']}?",
+      "suretoban": "¿Estás seguro de querer ${args['toban']} a ${args['user']}?",
       "hasbeenbanned": "${args['user']} ha sido ${args['banned']}"
     }
   },
