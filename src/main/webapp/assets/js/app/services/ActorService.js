@@ -10,6 +10,7 @@ app.service("ActorService",function(xhr,auth){
         if(typeof name === "undefined"){
             name = this.actor.actor.userAccount.username;
         }
+        if(typeof name==="undefined") return false;
         xhr.get("api/user/"+name,function(data){
             object.actor = data.data;
             object.processActors();
@@ -29,6 +30,7 @@ app.service("ActorService",function(xhr,auth){
         if(typeof this.allactors==="undefined"){
         xhr.get("api/actor/all", function(response){
             object.allactors = response.data;
+            object.removePrincipal(object.allactors);
             if(typeof callback!=="undefined"){
                 callback(response.data);
 
@@ -39,6 +41,16 @@ app.service("ActorService",function(xhr,auth){
                 callback(this.allactors);
 
             }
+        }
+    };
+
+    this.removePrincipal = function(a){
+        let principal = a.find((b)=>{
+            return auth.isPrincipal(b);
+        });
+        if(typeof principal!=="undefined"){
+            let key = this.allactors.indexOf(principal);
+            this.allactors.splice(key,1);
         }
     };
 

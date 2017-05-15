@@ -23,11 +23,8 @@ public class TournamentServiceTest extends AbstractTest {
 
     @Test
     public void samplePositiveTest() {
-        authenticate("admin");
-        Tournament tournament = tournamentService.findOne(26);
-        Assert.notNull(tournament);
-        tournamentService.delete(tournament);
-        Assert.isNull(tournamentService.findOne(26));
+        authenticate("Faker");
+        tournamentService.tournamentsAvailablePrincipal(tournamentService.findOne(31));
 
     }
 }

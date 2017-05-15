@@ -184,6 +184,7 @@
 			value="http://vignette4.wikia.nocookie.net/jimmyneutron/images/5/57/Jimmy_Neutron.png/revision/latest?cb=20160731160701" />
 		<property name="userAccount" ref="userAccount3" />
 		<property name="age" value="18" />
+		<property name="ratingAvg" value="3.5"/>
 		<property name="header" value="http://i.imgur.com/rOWlDyp.jpg" />
 		<property name="languages">
 			<list>
@@ -217,6 +218,7 @@
 		<property name="picture"
 			value="https://riot-web-static.s3.amazonaws.com/lolesports/2015Top20/01/player-plasdidfnxlcs.png" />
 		<property name="userAccount" ref="userAccount4" />
+        <property name="ratingAvg" value="4"/>
 		<property name="age" value="18" />
 		<property name="languages">
 			<list>
@@ -347,6 +349,7 @@
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="age" value="45" />
+        <property name="ratingAvg" value="3"/>
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -646,7 +649,7 @@
 		<property name="title" value="Special Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
-		<property name="limitInscription" value="2017/04/25 10:20" />
+		<property name="limitInscription" value="2017/06/25 10:20" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://las.leagueoflegends.com/sites/default/files/styles/scale_large/public/upload/art/bg_champion_missfortune_1920x1080.jpg?itok=YQComS4A" />
@@ -677,7 +680,7 @@
 		<property name="title" value="Summer Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
-		<property name="limitInscription" value="2017/05/20 14:30" />
+		<property name="limitInscription" value="2017/06/27 14:30" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />
@@ -1241,6 +1244,8 @@
 	<bean id="configuration" class="domain.Configuration">
 		<property name="defaultHeader" value="assets/images/wallpapers/default.jpg" />
 		<property name="defaultAvatar" value="assets/images/avatars/default.png" />
+		<property name="defaultTeamHeader" value="assets/images/default/team.png"/>
+		<property name="defaultTournamentHeader" value="assets/images/default/tournament.jpg"/>
 	</bean>
 
 </beans>

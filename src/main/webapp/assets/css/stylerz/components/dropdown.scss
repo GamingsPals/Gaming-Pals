@@ -18,12 +18,19 @@
     border:1px solid $color-base-black-6;
     padding: 0;
     min-width: 250px;
+    @include om(){
+      min-width:150px;
+      max-width: 150px;
+    }
     position:absolute;
     top: 0;
     li{
       display: list-item;
       a{
         padding:15px;
+        @include om(){
+          padding:6px;
+        }
         color:$color-base-black-1;
         display: block;
         border-bottom: 1px solid $color-base-black-7;

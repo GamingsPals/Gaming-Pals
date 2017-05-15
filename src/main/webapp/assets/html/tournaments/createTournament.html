@@ -1,20 +1,19 @@
-<form name="Tournamentform" ng-controller="CreateTournamentController" ng-submit="enviarTournamentForm()">
+<form name="Tournamentform" ng-submit="enviarTournamentForm(tournamentform)">
 
 	<h2>{{loc.tournament.create}}</h2>
     <div class="col s6">
-        <label>{{loc.tournament.title}}</label>
+        <label>{{loc.tournament.title}} *</label>
         <input type="text" placeholder="{{loc.tournament.title}}" name="title" ng-model="tournamentform.title" required />
 
-        <label>{{loc.tournament.description}}</label>
-        <input type="text" placeholder="{{loc.tournament.description}}" name="description" ng-model="tournamentform.description" />
+        <label>{{loc.tournament.description}} *</label>
+        <input type="text" placeholder="{{loc.tournament.description}}" required name="description" ng-model="tournamentform.description" />
 
-        <label> {{loc.tournament.rules}} </label>
-        <input type="text" placeholder="{{loc.tournament.rules}}" name="rules" ng-model="tournamentform.rules" />
+        <label> {{loc.tournament.rules}} *</label>
+        <input type="text" placeholder="{{loc.tournament.rules}}" required name="rules" ng-model="tournamentform.rules" />
     </div>
     <div class="col s6">
-		<label>{{loc.tournament.numberTeams}}</label>
+		<label>{{loc.tournament.numberTeams}} *</label>
 		<select ng-model="tournamentform.numberTeams" name="numberTeams" tabindex="0" required>
-            <option value="">{{loc.tournament.selectValue}}</option>
             <option value="4" selected>4 {{loc.tournament.teams}}</option>
             <option value="8">8 {{loc.tournament.teams}}</option>
             <option value="16">16 {{loc.tournament.teams}}</option>
@@ -23,10 +22,21 @@
 		<label>{{loc.signupform.picture}}</label>
 		<input type="url" placeholder="http://" ng-model="tournamentform.picture" />
 
-		<label> {{loc.tournament.inscriptionLimit}} </label>
-		<input type="datetime-local" placeholder="{{loc.tournament.inscriptionLimit}}" ng-model="tournamentform.limitInscription" />
+		<label> {{loc.tournament.inscriptionLimit}} *</label>
+		<input required type="datetime-local"
+               min="{{date | date: 'yyyy-MM-ddTHH:mm:ss'}}"
+               placeholder="{{loc.tournament.inscriptionLimit}}"
+               ng-model="tournamentform.limitInscription"
+                value="{{date | date: 'yyyy-MM-ddTHH:mm:ss'}}" />
+    </div>
+
+    <div class="form-error" ng-if="error">
+        {{error}}
     </div>
 
 	<input type="submit" value="{{loc.send}}" />
+
+    <br>
+    <div>* {{loc.signupform.required}}</div>
 
 </form>

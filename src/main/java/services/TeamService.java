@@ -3,13 +3,11 @@ package services;
 import domain.Team;
 import domain.Tournament;
 import domain.User;
-import domain.notifications.TeamInvitationNotification;
 import forms.TeamForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.TeamRepository;
@@ -40,6 +38,9 @@ public class TeamService {
     @Autowired
     private TeamInvitationNotificationService teamInvitationNotificationService;
 
+    @Autowired
+    private UserService userService;
+
 
     //Constructor
     public TeamService(){super();}
@@ -63,6 +64,9 @@ public class TeamService {
     public void delete(Team team) {
 
         Assert.notNull(team);
+        team.setUsers(null);
+        team.setTournaments(null);
+        team = save(team);
         teamRepository.delete(team);
 
     }
@@ -94,8 +98,20 @@ public class TeamService {
         Team saved = new Team();
         saved.setName(team.getName());
         saved.setPicture(team.getPicture());
+        saved.setLeader(principal);
         if(team.getPicture()==null){
-            saved.setPicture(configurationService.getConfiguration().getDefaultHeader());
+            saved.setPicture(configurationService.getConfiguration().getDefaultTeamHeader());
+        }else{
+            if(team.getPicture().equals("") || team.getPicture().equals(" ")){
+                saved.setPicture(configurationService.getConfiguration().getDefaultTeamHeader());
+            }
+        }
+        System.out.println(team.getPassword());
+        saved.setPassword(team.getPassword());
+        if(team.getPassword()!=null){
+            if (team.getPassword().equals("") || team.getPassword().equals(" ")) {
+                saved.setPassword(null);
+            }
         }
         List<User> members = new ArrayList<>();
         members.add(principal);
@@ -103,15 +119,12 @@ public class TeamService {
         saved = save(saved);
         for(User e:team.getMembers()){
             if(!teamInvitationNotificationService.isNotification(saved,e) && e.getId()!=principal.getId()) {
-                TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
-                teamInvitationNotification.setTeam(saved);
-                teamInvitationNotification.setUser(e);
-                teamInvitationNotification.setActor(e);
-                teamInvitationNotificationService.save(teamInvitationNotification);
+                teamInvitationNotificationService.newInvitation(e,saved);
             }
         }
         return saved;
     }
+
 
     public Boolean isUserInTeam(Team teamId, User principal) {
         boolean result = false;
@@ -129,5 +142,80 @@ public class TeamService {
         Assert.notNull(name);
 
         return teamRepository.findByName(name);
+    }
+
+    public void edit(TeamForm teamForm, Team team) {
+        User principal = userService.findByPrincipal();
+        Assert.notNull(principal);
+        Assert.notNull(teamForm);
+        Assert.notNull(team);
+        Assert.isTrue(team.getLeader().equals(principal));
+        if(teamForm.getPassword()!=null){
+            team.setPassword(teamForm.getPassword());
+        }
+        if(teamForm.getPicture()!=null){
+            team.setPicture(teamForm.getPicture());
+        }
+        if(teamForm.getName()!=null){
+            team.setName(teamForm.getName());
+        }
+
+        save(team);
+    }
+
+    public void leaveTeam(Team team){
+        User user = userService.findByPrincipal();
+        Assert.notNull(team);
+        Assert.notNull(user);
+        Assert.isTrue(!(team.getLeader().equals(user)));
+        Assert.isTrue(team.getUsers().contains(user));
+
+        Collection<User> users = new ArrayList<>(team.getUsers());
+        users.remove(user);
+        team.setUsers(users);
+
+        save(team);
+    }
+
+    public void promoteLeader(Team team, User user) {
+        Assert.notNull(team);
+        Assert.notNull(user);
+        User principal = userService.findByPrincipal();
+        Assert.isTrue(team.getLeader().equals(principal));
+        Assert.isTrue(team.getUsers().contains(user));
+        Assert.isTrue(!(user.equals(principal)));
+
+        team.setLeader(user);
+
+        save(team);
+    }
+
+    public void enterByPassword(Team team, String password) {
+        User principal = userService.findByPrincipal();
+        Assert.notNull(principal);
+        Assert.isTrue(!(team.getUsers().contains(principal)));
+        Assert.notNull(password);
+
+        if(team.getPassword().equals(password)){
+            List<User> users = new ArrayList<>(team.getUsers());
+            users.add(principal);
+            team.setUsers(users);
+
+            save(team);
+        }
+    }
+
+    public void kickMemberTeam(Team team, User user) {
+        User principal = userService.findByPrincipal();
+        Assert.notNull(team);
+        Assert.notNull(principal);
+        Assert.isTrue(!(user.equals(principal)));
+        Assert.isTrue((team.getLeader().equals(principal)));
+        Assert.isTrue(team.getUsers().contains(user));
+        List<Team> teams = new ArrayList<>(user.getTeams());
+        teams.remove(team);
+        user.setTeams(teams);
+
+        userService.save(user);
     }
 }

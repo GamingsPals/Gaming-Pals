@@ -9,6 +9,8 @@ GameInfoService,SweetAlert){
     $rootScope.loc = localization;
     $scope.auth = auth;
     $scope.ActorService = ActorService;
+    $scope.date = new Date();
+    $scope.tomorrow = new Date();
     $scope.notifications = NotificationService;
     $scope.GameInfoService = GameInfoService;
     $scope.auth.load();

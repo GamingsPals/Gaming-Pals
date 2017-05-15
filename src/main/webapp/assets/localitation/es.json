@@ -5,6 +5,7 @@
   "yes": "Si",
   "cancel": "Cancelar",
   "deleted": "Borrado",
+  "error": "Ha habido un error, por favor inténtalo de nuevo",
   "profile": "Perfil",
   "profileview": {
     "editprofile": "Editar Perfil",
@@ -115,15 +116,18 @@
   	"inscribe":"Inscribir",
     "dontTeam": "No tienes ningún equipo disponible para inscribirte en el torneo.",
     "started": "El torneo ya ha comenzado.",
-    "full": "La inscripción está llena."
+    "full": "La inscripción está llena.",
+    "noteams": "No tienes ningún equipo disponible para entrar al torneo."
   },
   "team":{
   "searchMember":"Buscar un miembro:",
   "members":"Miembros seleccionados",
   "create":"Crear equipo",
   "teamName": "Nombre del equipo",
-  "membs":"Miembros"
+  "membs":"Miembros",
+    "jointournaments": "Torneos jugados"
   },
+  "whatispassword": "Con esta contraseña otros usuarios podrán entrar en el equipo sin invitarlos, es útil cuando aun no sabes los miembro del equipo. Compártela con los futuros miembros del equipo para que entren. No es obligatorio.",
   "tournament":{
  	 "create":"Crear un torneo",
  	 "title": "Título",
@@ -134,6 +138,7 @@
  	 "selectValue":"Seleccionar un valor",
  	 "teams":"Equipos",
  	 "inscriptionLimit":"Límite de inscripción",
+    "match": "Enfrentamiento",
  	 "tournaments":"Torneos",
  	 "started":"¡EN MARCHA!",
  	 "inscriptionClosed":"¡Inscripción cerrada!",
@@ -146,7 +151,11 @@
  	 "information":"Information",
  	 "notFound":"Torneo no encontrado",
      "createAward": "Crear premio",
-     "reportMatch": "Reportar partido"
+     "reportMatch": "Reportar partido",
+    "admin":{
+      "suretodelete": "Estás seguro de borrar el torneo ${args['tournament']}?",
+      "deleted" :"${args['tournament']} ha sido borrado!"
+    }
   },
   "lol":{
  	 "recentMatches":"Partidas recientes"

@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,7 +29,7 @@ import domain.notifications.TeamInvitationNotification;
 public class User extends Actor {
 
 	// Attributes
-	private int		age;
+	private Integer		age;
 	private boolean	verify;
 	private Date	lastpaid;
 	private String	header;
@@ -46,11 +46,12 @@ public class User extends Actor {
 	}
 
 	//Getters and Setters
-	public int getAge() {
+	@NotNull
+	public Integer getAge() {
 		return this.age;
 	}
 
-	public void setAge(final int age) {
+	public void setAge(final Integer age) {
 		this.age = age;
 	}
 
@@ -82,7 +83,7 @@ public class User extends Actor {
 
 
 	@Valid
-	@ManyToMany(mappedBy = "users")
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
 	@JsonIgnore
 	public Collection<Team> getTeams() {
 		return this.teams;
@@ -175,9 +176,9 @@ public class User extends Actor {
 		this.ratingAvg = 0.;
 	}
 
-	@Override
 	@PreUpdate
-	protected void onUpdate() {
+	public void onUpdate() {
+		if(getRatingsReceived().size()!=0){
 		Double avgSkill = 0.;
 		Double avgKnowledge = 0.;
 		Double avgAttitude = 0.;
@@ -186,11 +187,14 @@ public class User extends Actor {
 			avgKnowledge += e.getKnowledge();
 			avgAttitude += e.getAttitude();
 		}
-
+		avgSkill =avgSkill / getRatingsReceived().size();
+		avgKnowledge = avgKnowledge / getRatingsReceived().size();
+		avgAttitude=avgAttitude / getRatingsReceived().size();
 		this.ratingAvg = (avgSkill + avgKnowledge + avgAttitude) / 3;
 		this.attitudeAvg = avgAttitude;
 		this.skillAvg = avgSkill;
 		this.knowledgeAvg = avgKnowledge;
+		}
 	}
 
 	@JsonIgnore

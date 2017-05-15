@@ -66,7 +66,7 @@ public class MessageController extends ApiAbstractController{
             Assert.notNull(receiver);
             return  messageService.messagesByReceiverAndSender(receiver,sender);
         } catch (Exception e){
-            return badrequest(response,null);
+            return internalservererror(response,e.getMessage());
         }
     }
 

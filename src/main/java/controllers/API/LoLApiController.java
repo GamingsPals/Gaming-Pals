@@ -90,7 +90,6 @@ public class LoLApiController extends ApiAbstractController{
 
             return result;
         } catch (Exception e){
-            System.out.println(e);
             return internalservererror(response,"Interal server error");
         }
     }

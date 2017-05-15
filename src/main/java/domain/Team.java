@@ -8,6 +8,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -19,6 +20,8 @@ public class Team extends DomainEntity {
 	private String	picture;
 	private Collection<Participes> participes;
 	private User leader;
+	private String password;
+	private Collection<ReportMatch> reportMatches;
 
 	// Constructor
 	public Team() {
@@ -65,7 +68,7 @@ public class Team extends DomainEntity {
 	public void setTournaments(Collection<Tournament> tournaments){this.tournaments=tournaments;}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL,orphanRemoval = true)
 	public Collection<Participes> getParticipes() {
 		return participes;
 	}
@@ -75,12 +78,47 @@ public class Team extends DomainEntity {
 	}
 
 	@ManyToOne
-	@JsonIgnoreProperties(value = {"teams"})
+    @JsonIgnore
 	public User getLeader() {
 		return leader;
 	}
 
 	public void setLeader(User leader) {
 		this.leader = leader;
+	}
+
+	@JsonIgnore
+    @Length(min = 6, max = 28)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Transients
+
+	private Integer idLeader;
+
+	@Transient
+	public Integer getIdLeader() {
+        if(getLeader()==null) return 0;
+	    return getLeader().getId();
+	}
+
+	public void setIdLeader(Integer idLeader) {
+		this.idLeader = idLeader;
+	}
+
+
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+	public Collection<ReportMatch> getReportMatches() {
+		return reportMatches;
+	}
+
+	public void setReportMatches(Collection<ReportMatch> reportMatches) {
+		this.reportMatches = reportMatches;
 	}
 }

@@ -31,6 +31,5 @@ public class Test {
         Builder builder = new Builder("76561197960434622");
         builder.load();
 
-        System.out.println(builder.getGames());
     }
 }

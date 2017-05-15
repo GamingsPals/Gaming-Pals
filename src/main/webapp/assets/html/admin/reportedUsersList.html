@@ -5,19 +5,26 @@
 <div class="blocktext s12" ng-repeat="item in reportedusers|paginate:'reportedusers'">
     <div>
 
-    <h2><a href="profile/{{item.reportedUser.userAccount.username}}">
+    <h2>
+        <span tooltip>
+        <a class="open-tooltip" href="profile/{{item.reportedUser.userAccount.username}}">
         <img ng-src="{{item.reportedUser.picture}}" class="profile-image"/>
-        {{item.reportedUser.userAccount.username}} <span class="float-right" admin-tools="item.reportedUser"></span>
+        {{item.reportedUser.userAccount.username}}
     </a>
+              <div class="tooltip" user-card="item.reportedUser"></div>
+              </span>
     </h2>
     <p>{{item.comment}}</p>
     </div>
     <div>
         <div class="col s7 x2 float-left">
-           <b>{{loc.reportview.by}}</b> <a href="profile/{{item.reporterUser.userAccount.username}}">
-                <img ng-src="{{item.reporterUser.picture}}" class="profile-image"/>
-                {{item.reporterUser.userAccount.username}}
-            </a>
+           <b>{{loc.reportview.by}}</b>  <span tooltip>
+        <a class="open-tooltip" href="profile/{{item.reporterUser.userAccount.username}}">
+        <img ng-src="{{item.reporterUser.picture}}" class="profile-image"/>
+        {{item.reporterUser.userAccount.username}}
+    </a>
+              <div class="tooltip" user-card="item.reporterUser"></div>
+              </span>
         </div>
         <div class="col s3 x1 float-right">
             <a  class="button bg-red3" style="position: relative;" ng-click="deleteReport(item)">

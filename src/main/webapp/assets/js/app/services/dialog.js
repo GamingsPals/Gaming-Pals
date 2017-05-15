@@ -17,8 +17,13 @@ app.service("dialog", function(ngDialog,$rootScope){
         ngDialog.closeAll();
     };
 
-    this.close = function(dialog){
+    this.close = function(dialog,callback){
         ngDialog.close(dialog);
+        if(typeof callback!=="undefined"){
+            dialog.closePromise.then((a)=>{
+                callback();
+            })
+        }
     };
 
     this.redirect = function(dialog,callback){

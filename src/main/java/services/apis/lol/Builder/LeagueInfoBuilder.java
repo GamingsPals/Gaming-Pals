@@ -29,8 +29,6 @@ public class LeagueInfoBuilder extends EntityBuilder {
     }
 
     public List<League> getSummonerLeagueInfo(){
-        System.out.println( this.data.getAsJsonObject().get("status"));
-        System.out.println(uri);
         if(this.data != null && this.data.getAsJsonObject().get("status")==null){
         JsonArray array = this.data.getAsJsonObject().get(this.id)
                 .getAsJsonArray();

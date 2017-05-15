@@ -78,12 +78,10 @@ public class ParticipesService {
         User principal = userService.findByPrincipal();
         Assert.notNull(principal);
         for (Confrontation c : tournamentId.getConfrontations()) {
-            //Compruebo que no sea la última ronda
             boolean nonStop = (tournamentId.getNumberTeams() / (Math.pow(2, c.getRound()))) != 1;
             if(!nonStop){
                 break;
             }
-            //Preparo el número de enfrentamiento en la siguiente ronda (Depende de si es par o impar)
             int nexMatch = 1;
             if (c.getNumberMatch() % 2 != 0) {
                 double aux = (c.getNumberMatch() / 2) + 1;
@@ -92,11 +90,9 @@ public class ParticipesService {
                 double aux = c.getNumberMatch() / 2;
                 nexMatch = (int) aux;
             }
-            //Con el numberMatch y la round busco la confrontation a la que avanzará el equipo
             Confrontation nextRound = tournamentRepository.findByRoundAndMatch(c.getRound() + 1, nexMatch, tournamentId.getId());
             boolean canAdvance = true;
-            //Comprobamos que el limite de jugar ya haya pasado y que el de la siguiente ronda aun no
-                //Recorremos los Participes del Confrontation, y viendo el ganador lo metemos en la siguiente ronda. O si solo hay un equipo en esa ronda.
+
                 Boolean result = false;
                 for (Participes p : c.getParticipes()) {
                     if (p.getIsWinner()) {
@@ -109,16 +105,18 @@ public class ParticipesService {
             Team selected = null;
                 if(!result){
                     Collection<Team> teams = principal.getTeams();
-                    for(Participes p: c.getParticipes()){
-                       for(Team t: teams){
-                           if(t.getId()==p.getTeam().getId()){
-                               selected = p.getTeam();
-                               break;
-                           }
-                       }
-                       if(selected!=null){
-                           break;
-                       }
+                    if(c.getParticipes().size()==2) {
+                        for (Participes p : c.getParticipes()) {
+                            for (Team t : teams) {
+                                if (t.getId() == p.getTeam().getId()) {
+                                    selected = p.getTeam();
+                                    break;
+                                }
+                            }
+                            if (selected != null) {
+                                break;
+                            }
+                        }
                     }
                 }
             if(selected!=null){

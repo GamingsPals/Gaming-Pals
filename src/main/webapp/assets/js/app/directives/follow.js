@@ -24,7 +24,7 @@ app.directive("follow",function($compile,auth,$rootScope,ActorService){
                     };
                     scope.followOrUnfollow = function(a){
                         ActorService.followOrUnfollow(a.id,(b)=>{
-                            ActorService.UserProfile(a.userAccount.username);
+                            ActorService.UserProfile();
                         })
                     };
                     scope.auth = auth;

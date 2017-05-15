@@ -1,4 +1,4 @@
-app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
+app.controller("AssignTeamToTournamentController", function($scope,xhr,$location){
     $scope.assignForm = {};
     $scope.added = false;
 
@@ -11,7 +11,7 @@ app.controller("AssignTeamToTournamentController", function($scope,xhr,$location
         if($scope.assignForm.team !==""){
             xhr.get(`api/tournament/assign/${$scope.tournament.id}/${$scope.assignForm.team}`,function(data){
                 $scope.added = true;
-                $scope.loadTournament();
+                $location.path("tournament/"+$scope.tournament.id+"/bracket");
             })
         }
     }

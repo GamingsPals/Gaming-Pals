@@ -20,11 +20,12 @@
 
     </div>
 </form>
-    <div ng-if="userteams.length==0 && (TournamentService.isInscriptionOver(tournament)==false || TournamentService.fullInscription(tournament)==false)">
+    <div ng-if="userteams.length==0">
         {{loc.assignTeam.dontTeam}}
     </div>
     </div>
-    <div ng-if="TournamentService.isInscriptionOver(tournament)==true || TournamentService.fullInscription(tournament)==true">
+    <div ng-if="TournamentService.isInscriptionOver(tournament)==true
+                || TournamentService.fullInscription(tournament)==true">
         <div ng-if="TournamentService.isInscriptionOver(tournament)==true">
             {{loc.assignTeam.started}}
         </div>

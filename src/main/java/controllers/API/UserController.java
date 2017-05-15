@@ -134,24 +134,18 @@ public class UserController extends ApiAbstractController {
 		}
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/user/teams")
-	public Object teams(final HttpServletRequest request, final HttpServletResponse response) {
-		Actor user;
-		try {
-			user = this.actorService.findActorByPrincipal();
-			if (user instanceof User)
-				return ((User) user).getTeams();
-			return new ArrayList<>();
-		} catch (final Exception e) {
-			return this.internalservererror(response, null);
-		}
-	}
+
 
 	@ResponseBody
 	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
 	public Object editProfile(final EditProfileForm signupForm, final HttpServletRequest request, final HttpServletResponse response) {
 		final User user;
+		try{
+			user = userService.findByPrincipal();
+			Assert.notNull(user);
+		} catch (Exception e){
+			return unauthorized(response,null);
+		}
 		try {
 			Assert.notNull(signupForm);
 		} catch (final Exception e) {

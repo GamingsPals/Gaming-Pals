@@ -8,7 +8,7 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
         TournamentService.getTournament(id, function(data){
             $scope.tournament = data.data;
             $scope.notFound = true;
-            xhr.get("api/user/teams",function(response){
+            xhr.get("api/user/teams/"+data.data.id,function(response){
                 $scope.userteams = response.data;
                 $scope.userteams = $scope.userteams.filter((a)=>{
                     let result = true;
@@ -36,10 +36,40 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
     $scope.loadTournament();
     $scope.url = "tournament/"+id;
     $scope.mode = $routeParams.menu;
+    $scope.getTeamToPlay = function(){
+        let team = null;
+        $scope.matchtoreport.confrontation.participes.forEach((a)=>{
+            if(a.team.id!==$scope.matchtoreport.team.id){
+                team = a.team;
+                return false;
+            }
+        });
+        return team;
+    };
    if(typeof $scope.mode ==="undefined"){
        $scope.mode = "resume";
    }
     $scope.tabs=$scope.mode;
+
+
+   $scope.getTeamByPrincipal = function(){
+       let principal = auth.principal.actor;
+       let result = false;
+       if(typeof $scope.tournament==="undefined") return false;
+       $scope.tournament.teams.forEach((a)=>{
+           a.users.forEach((u)=>{
+               if(u.id===principal.id){
+                   result = a;
+                   return false;
+               }
+           });
+           if(result===true){
+               return false;
+           }
+       });
+
+       return result;
+   };
 
    $scope.advanceRound = function(tournament){
        TournamentService.advanceRound(tournament,(a)=>{

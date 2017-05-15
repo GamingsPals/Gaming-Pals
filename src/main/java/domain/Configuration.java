@@ -10,9 +10,21 @@ import javax.persistence.Entity;
 @Access(AccessType.PROPERTY)
 public class Configuration extends DomainEntity {
 
-    String defaultAvatar;
+    private String defaultAvatar;
 
-    String defaultHeader;
+    private String defaultHeader;
+
+    private String defaultTeamHeader;
+
+    private String defaultTournamentHeader;
+
+    public String getDefaultTournamentHeader() {
+        return defaultTournamentHeader;
+    }
+
+    public void setDefaultTournamentHeader(String defaultTournamentHeader) {
+        this.defaultTournamentHeader = defaultTournamentHeader;
+    }
 
     public String getDefaultAvatar() {
         return defaultAvatar;
@@ -28,6 +40,14 @@ public class Configuration extends DomainEntity {
 
     public void setDefaultHeader(String defaultHeader) {
         this.defaultHeader = defaultHeader;
+    }
+
+    public String getDefaultTeamHeader() {
+        return defaultTeamHeader;
+    }
+
+    public void setDefaultTeamHeader(String defaultTeamHeader) {
+        this.defaultTeamHeader = defaultTeamHeader;
     }
 }
 

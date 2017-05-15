@@ -8,12 +8,12 @@ app.directive('passwordVerify', function() {
                             if( typeof attrs.passwordVerify !=="string"){
                                 return true;
                             }
-                            if(attrs.passwordVerify===""){
-                                console.log("here2");
+                            if(attrs.passwordVerify==="" || attrs.passwordVerify.length<4){
+
                                 return true;
                             }
                         }
-                        console.log("here3");
+                        console.log("ey");
                         return viewValue === attrs.passwordVerify;
                     };
 

@@ -3,8 +3,6 @@
 @import url(../js/flexslider/flexslider.css);
 @import url(../js/angular/ng-dialog/css/ngDialog.min.css);
 @import url(../js/angular/ng-dialog/css/ngDialog-theme-default.min.css);
-@import url(../js/datatable/datatables.css);
-@import url(../js/datatable/responsive.dataTables.min.css);
 @import url(hover-min.css);
 @font-face {
   font-family: Roboto-Light;
@@ -283,6 +281,9 @@ div[contenteditable=true] {
   border-radius: 50%;
   vertical-align: middle; }
 
+.team-leader {
+  border: 3px double rgba(203, 67, 135, 0.78); }
+
 .relative {
   position: relative; }
 
@@ -406,6 +407,7 @@ div[contenteditable=true] {
     background-color: white;
     padding: 10px; }
     .blockcard .card-body h1 {
+      background-color: transparent;
       text-transform: none;
       font-family: Roboto-Regular, sans-serif;
       color: black;
@@ -624,6 +626,10 @@ input {
   background-color: white; }
   input:focus {
     border: 1px solid #73afc9; }
+  input[type=submit]:disabled {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.18);
+    cursor: default; }
 
 select {
   max-width: 100%; }
@@ -720,9 +726,11 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.38); }
 
 main h1 {
-  font-size: 1.7em; }
+  font-size: 1.7em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
 main h2 {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
 
 table {
   width: 100% !important;
@@ -970,15 +978,20 @@ table {
           float: right;
           padding: 7px;
           margin-bottom: 3px;
+          min-width: 20%;
           border-radius: 5px;
           background-color: rgba(0, 0, 0, 0.08); }
         .chat .chat-body .chat-body-chat .chat-body-chat-messages .chat-body-chat-messages-user {
           clear: both;
           padding: 7px;
           margin-bottom: 3px;
+          min-width: 20%;
           border-radius: 5px;
           float: left;
           background-color: rgba(115, 175, 201, 0.8); }
+        .chat .chat-body .chat-body-chat .chat-body-chat-messages .chat-body-chat-messages-time {
+          font-size: 0.7em;
+          color: rgba(0, 0, 0, 0.58); }
       .chat .chat-body .chat-body-chat .chat-body-chat-inputbox {
         position: relative;
         border-top: 2px solid rgba(0, 0, 0, 0.18);
@@ -1031,11 +1044,17 @@ table {
       margin-bottom: 5px;
       color: rgba(0, 0, 0, 0.88) !important;
       display: block;
-      transition: all 0.15s ease-out; }
+      transition: all 0.10s ease-out; }
       .notifications-newmessages li a:hover {
-        padding: 20px;
-        color: black !important;
-        background-color: rgba(0, 0, 0, 0.18); }
+        padding-left: 50px;
+        color: white !important;
+        background-color: #5c8b97; }
+        .notifications-newmessages li a:hover .notifications-newmessages-lastmessages {
+          color: inherit; }
+      .notifications-newmessages li a .notifications-newmessages-lastmessages {
+        padding-left: 50px;
+        font-size: 0.9em;
+        color: rgba(0, 0, 0, 0.38); }
 
 .notifications-follower {
   margin-top: 20px; }
@@ -1124,6 +1143,10 @@ table {
     min-width: 250px;
     position: absolute;
     top: 0; }
+    @media only screen and (min-width: 0px) and (max-width: 1024px) {
+      .dropdown ul {
+        min-width: 150px;
+        max-width: 150px; } }
     .dropdown ul li {
       display: list-item; }
       .dropdown ul li a {
@@ -1131,6 +1154,9 @@ table {
         color: black;
         display: block;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+        @media only screen and (min-width: 0px) and (max-width: 1024px) {
+          .dropdown ul li a {
+            padding: 6px; } }
         .dropdown ul li a:hover {
           background-color: rgba(0, 0, 0, 0.04) !important; }
 
@@ -1143,6 +1169,15 @@ table {
     .blocktext {
       margin-left: 0;
       margin-right: 0; } }
+
+.section {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.04);
+  margin: 20px;
+  font-size: 0.85em; }
+  @media only screen and (min-width: 0px) and (max-width: 1024px) {
+    .section {
+      margin: 20px 0; } }
 
 .center-container {
   margin-left: 4%;
@@ -2242,8 +2277,8 @@ main {
   color: black !important;
   min-height: 500px;
   padding-bottom: 45px;
-  padding-left: 8%;
-  padding-right: 8%;
+  padding-left: 5%;
+  padding-right: 5%;
   text-decoration: none; }
   @media only screen and (min-width: 0px) and (max-width: 1024px) {
     main {

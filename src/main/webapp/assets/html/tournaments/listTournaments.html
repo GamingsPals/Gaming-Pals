@@ -1,44 +1,13 @@
 <h1>{{loc.tournament.tournaments}}</h1>
 <div style="margin:30px;">
-<a href="#" dialog="tournaments/createTournament" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">
+<a href="tournament/create" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">
     {{loc.tournament.create}}</a>
 </div>
 
 
-<div class="blockcard" ng-repeat="i in Ts.tournaments|paginate:'tournaments'">
-    <a href="tournament/{{i.id}}">
-    <div class="card-header">
-        <div class="card-header-right">
-            <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
-        </div>
-        <a href="tournament/{{i.id}}"><img class="card-header-header" ng-src="{{i.picture}}" /></a>
+<div class="blockcard" ng-repeat="i in Ts.tournaments|paginate:'tournaments'" tournament-card="i">
     </div>
-    </a>
-    <div class="card-body"> <a href="tournament/{{i.id}}">
-        <span class="float-right" tournament-tools="i"></span>
-        <h1>{{i.title}}</h1>
-        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} {{loc.tournament.teams}}</p>
-    </a>
-    </div>
-    <div class="card-footer">
-        <div class="col s6 x2">
-            <span ng-if="startedTournament(i)">
-                {{loc.tournament.started}}
-            </span>
-            <span ng-if="!startedTournament(i)">
-                 {{i.limitInscription | date:"dd MMM h:mm'h'"}}
-            </span>
-        </div>
-        <div class="col s6 x2">
-            <span ng-if="closedTournament(i)">
-                {{loc.tournament.inscriptionClosed}} <i class="fa fa-lock small"></i>
-            </span>
-            <span ng-if="!closedTournament(i) && auth.hasRole('USER')">
-                <a href="tournament/{{i.id}}" class="button"> {{loc.tournament.inscribe}}</a>
-            </span>
-        </div>
-    </div>
-</div>
+
 <ul class="pagination"
     gp-paginate-url="true"
     gp-paginate

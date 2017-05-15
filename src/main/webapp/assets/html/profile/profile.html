@@ -1,9 +1,9 @@
 <div ng-if="!ActorService.notFound">
 <div class="profile-header" style="background-image: url({{ActorService.actor.actor.header}})">
     <div class="profile-header-editprofile">
-        <div class="button bg-white2 cursor-pointer"  ng-if="auth.isPrincipal(ActorService.actor.actor)" dialogcontroller="EditProfileController" dialog="profile/editProfile" >
+        <a href="profile/edit" class="button bg-white2 cursor-pointer"  ng-if="auth.isPrincipal(ActorService.actor.actor)" >
             {{loc.profileview.editprofile}}
-        </div>
+        </a>
     </div>
     <div class="profile-left-panel">
         <div class="profile-avatar">
@@ -125,7 +125,7 @@
     <div id="profile-teams" class="profile-cards" ng-show="tabs.teams">
         <h1><i class="fa fa-shield" aria-hidden="true"></i> {{loc.tournament.teams}}</h1>
         <div style="margin: 30px;">
-            <a href="#" class="button" dialog="createTeam" ng-if="auth.isPrincipal(ActorService.actor.actor)">{{loc.team.create}}</a>
+            <a href="team/create" class="button" ng-if="auth.isPrincipal(ActorService.actor.actor)">{{loc.team.create}}</a>
         </div>
         <div ng-if="ActorService.actor.teams.length==0">
             {{loc.profileview.noTeam}}

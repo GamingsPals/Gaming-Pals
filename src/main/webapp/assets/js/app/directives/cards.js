@@ -82,7 +82,7 @@ app.directive("teamCard",function($compile){
                    <h2>Members</h2>
                      <span tooltip="" ng-repeat="a in i.users" >
                     <a class="open-tooltip" href="profile/{{a.userAccount.username}}">
-                    <img class="profile-image" ng-src="{{a.picture}}">
+                    <img class="profile-image" ng-class="(a.id==i.idLeader) ? 'team-leader' : ''" ng-src="{{a.picture}}">
                     </a>
                      <div class="card tooltip" user-card="a">
                     </div>
@@ -109,7 +109,7 @@ app.directive("teamCard",function($compile){
         }
     }
 });
-app.directive("gameCard",function($compile){
+app.directive("gameCard",function($compile,localization){
     return{
         restrict: "A",
         scope: {
@@ -145,18 +145,75 @@ app.directive("gameCard",function($compile){
         }
     }
 });
-/*
 
- <div class="card-header">
- <h1>{{i.game.name}}</h1>
- <img class="card-header-header" ng-src="{{i.game.header}}">
- </div>
- <div class="card-body">
- <h1>{{i.username}}</h1>
- </div>
- <div class="card-footer">
- <div class="s12 x4">
- <img ng-src="{{i.game.picture}}" class="game-icon" />
- </div>
- </div>
- */
+app.directive("tournamentCard",function($compile,localization,auth){
+    return{
+        restrict: "A",
+        scope: {
+            "tournamentCard": "="
+        },
+        link: function(scope,element,attrs){
+            $(element).addClass("blockcard");
+            let updated = true;
+            scope.$watch('tournamentCard',()=>{
+                scope.loc = localization;
+                scope.auth = auth;
+                if(typeof scope.tournamentCard!=="undefined"){
+                    scope.i = scope.tournamentCard;
+                    let template = `
+    <div class="card-header">
+        <div class="card-header-right">
+            <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
+        </div>
+        <a href="tournament/{{i.id}}"><img class="card-header-header" ng-src="{{i.picture}}" /></a>
+    </div>
+    <div class="card-body"> <a href="tournament/{{i.id}}">
+        <span class="float-right" tournament-tools="i"></span>
+        <h1><a href="tournament/{{i.id}}"> {{i.title}}</a></h1>
+        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} {{loc.tournament.teams}}</p>
+        <div>
+        <span tooltip ng-repeat="u in i.teams">
+        <img ng-src="{{u.picture}}" class="open-tooltip profile-image"/>
+            <div class="tooltip card" team-card="u"></div>
+            </span>
+           </div>
+           
+    </a>
+    </div>
+    <div class="card-footer">
+        <div class="col s6 x2">
+            <span ng-if="startedTournament(i)">
+                {{loc.tournament.started}}
+            </span>
+            <span ng-if="!startedTournament(i)">
+                 {{i.limitInscription | date:"dd MMM h:mm'h'"}}
+            </span>
+        </div>
+        <div class="col s6 x2">
+            <span ng-if="closedTournament(i)">
+                {{loc.tournament.inscriptionClosed}} <i class="fa fa-lock small"></i>
+            </span>
+            <span ng-if="!closedTournament(i) && auth.hasRole('USER')">
+                <a href="tournament/{{i.id}}" class="button"> {{loc.tournament.inscribe}}</a>
+            </span>
+        </div>
+    </div>
+                
+            `;
+                    scope.startedTournament = function (tournament) {
+                        let now = new Date();
+                        let limit = new Date(tournament.limitInscription);
+
+                        return limit < now;
+                    };
+                    scope.closedTournament = function (tournament) {
+                        return tournament.teams.length===+tournament.numberTeams || scope.startedTournament(tournament);
+                    };
+
+                    $(element).html(template);
+                    $compile(element.contents())(scope);
+                }
+            })
+        }
+    }
+});

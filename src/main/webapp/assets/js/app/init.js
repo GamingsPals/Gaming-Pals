@@ -1,6 +1,6 @@
 let app =
     angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog','ngMessages','angular-loading-bar',
-        'oitozero.ngSweetAlert']);
+        'oitozero.ngSweetAlert','luegg.directives']);
 
 
 app.run(function($rootScope,$location,dialog,$anchorScroll) {

@@ -4,11 +4,9 @@ import domain.Actor;
 import domain.Team;
 import domain.User;
 import domain.notifications.TeamInvitationNotification;
-import forms.TeamForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import repositories.ActorRepository;
 import repositories.notifications.TeamInvitationNotificationRepository;
 import services.ActorService;
 
@@ -73,5 +71,13 @@ public class TeamInvitationNotificationService {
 
     public Object findByActorNews(Actor actor) {
         return teamInvitationNotificationRepository.findByActorNews(actor);
+    }
+
+    public void newInvitation(User e, Team team) {
+        TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
+        teamInvitationNotification.setTeam(team);
+        teamInvitationNotification.setUser(e);
+        teamInvitationNotification.setActor(e);
+        save(teamInvitationNotification);
     }
 }

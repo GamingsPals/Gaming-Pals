@@ -63,7 +63,6 @@ public class ReportMatchController extends ApiAbstractController{
             Assert.isTrue(t1.getUsers().contains(user)
                     || t2.getUsers().contains(user));
         } catch (Exception e) {
-            System.out.println("aquí p");
             return unauthorized(response,null);
         }try{
             for(ReportMatch rp:confrontation.getReportMatches()){
@@ -108,7 +107,7 @@ public class ReportMatchController extends ApiAbstractController{
 
             return result;
         } catch (Exception e){
-            return internalservererror(response,null);
+            return internalservererror(response,e.getMessage());
         }
 
     }

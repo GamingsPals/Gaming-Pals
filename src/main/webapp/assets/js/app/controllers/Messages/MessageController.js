@@ -7,7 +7,9 @@ app.controller('MessageController',function($scope, socket,chat,auth,ActorServic
     $scope.showAutoComplete = false;
     chat.userselected = undefined;
     $scope.auth = auth;
-    $scope.chat.getRecents();
+    $scope.chat.getRecents((a)=>{
+        console.log(chat.recents);
+    });
     ActorService.findAll(function(data){
         $scope.all = data;
     });

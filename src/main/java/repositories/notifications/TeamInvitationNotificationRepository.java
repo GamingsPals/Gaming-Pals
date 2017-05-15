@@ -6,7 +6,6 @@ import domain.Actor;
 import domain.Team;
 import domain.User;
 import domain.notifications.TeamInvitationNotification;
-import forms.TeamForm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

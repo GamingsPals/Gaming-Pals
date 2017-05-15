@@ -5,6 +5,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 
     let dialog2 = dialog.open("auth/login",$scope);
      dialog.redirect(dialog2,(a)=>{
+
      });
 
 });

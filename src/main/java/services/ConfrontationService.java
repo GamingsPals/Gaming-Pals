@@ -80,7 +80,7 @@ public class ConfrontationService {
 	public Tournament calculateConfrontations(Tournament tournament) {
 		int ronda = 1;
 		int confrontations = 0;
-
+		int test = 0;
 		while (confrontations != 1) {
 			confrontations = (int) (tournament.getNumberTeams() / (Math.pow(2, ronda)));
 			for (int i = 1; i <= confrontations; i++) {
@@ -93,11 +93,10 @@ public class ConfrontationService {
 				c.setLimitPlay(cal.getTime());
 				tournament.getConfrontations().add(c);
 				c.setTournament(tournament);
-				save(c);
 			}
 			ronda++;
-
 		}
+		System.out.println(test);
 
 		return tournament;
 	}

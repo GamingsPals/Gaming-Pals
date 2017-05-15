@@ -1,4 +1,4 @@
-app.directive("adminTools",function($compile,localization){
+app.directive("adminTools",function($compile,localization,ActorService){
     return {
         restrict: "AEC",
         scope: {
@@ -57,7 +57,7 @@ app.directive("tournamentTools",function($compile){
 
 });
 
-app.directive("gamesTools",function($compile,auth,GameInfoService){
+app.directive("gamesTools",function($compile,auth,GameInfoService,ActorService){
     return {
         restrict: "AEC",
         scope: {
@@ -70,6 +70,9 @@ app.directive("gamesTools",function($compile,auth,GameInfoService){
             scope.$parent.auth = auth;
             scope.$parent.user = scope.user;
             scope.$parent.GameInfoService = GameInfoService;
+            scope.$parent.GameInfoService.addCallbackOnDelete((a)=>{
+                ActorService.UserProfile();
+            });
             scope.$watch('gamesTools',()=>{
                 let template = ` <div class="dropdown" 
                     ng-if="auth.hasRole('USER') && auth.isPrincipal(user)" dropdown>

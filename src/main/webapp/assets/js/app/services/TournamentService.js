@@ -1,4 +1,4 @@
-app.service("TournamentService", function(xhr){
+app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization){
 	this.tournaments =[];
 	this.confrontations = [];
 	this.confrontation = [];
@@ -63,7 +63,7 @@ app.service("TournamentService", function(xhr){
 	this.canBeDeleted = function(tournament){
 	    if(typeof tournament==="undefined") return false;
 
-	    return tournament.limitInscription>new Date();
+	    return new Date(tournament.limitInscription)>new Date();
     };
 
 	this.getAwards = function(tournamentId){
@@ -73,13 +73,22 @@ app.service("TournamentService", function(xhr){
 		});
 	};
 
-	this.delete = function(tournament){
+	this.delete = function(tournament,callback){
 	    if(this.canBeDeleted(tournament)===false) return false;
-	    let object = this;
-        xhr.get("api/tournament/"+tournament.id+"/delete" ,function(response){
-            object.getTournament(tournament.id);
-            object.getTournaments();
-        });
+        let data = {};
+        let args = {"tournament": tournament.title};
+        data.title = localization.eval(localization.tournament.admin.suretodelete,args);
+        data.confirmtitle = localization.deleted+"!";
+        data.confirmtext = localization.eval(localization.tournament.admin.deleted,args);
+        let object = this;
+        data.callback = ()=>{
+            xhr.get("api/tournament/"+tournament.id+"/delete" ,function(response){
+                object.getTournaments();
+                SystemMessages.okmessage(data.confirmtext);
+                if(typeof callback !=="undefined") callback();
+            });
+        };
+        Alerts.confirm(data);
     };
 
 	this.reportMatch = function(confrontation,data,sucess,error){

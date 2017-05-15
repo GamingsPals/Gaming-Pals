@@ -36,7 +36,15 @@ routes = [
 				templateUrl : "admin/panel",
 				controller : "AdminPanel",
 			}
-		}, {
+		},
+    {
+        route : "/profile/edit",
+        options : {
+            template: " ",
+            controller : "EditProfile",
+        }
+    },
+	{
 			route : "/profile/:username",
 			options : {
 				templateUrl : "profile/profile",
@@ -48,10 +56,11 @@ routes = [
 				templateUrl : "profile/profile",
 				controller : "Profile",
 			}
-		}, {
-			route : "/createTournament",
+		},
+	{
+			route : "/tournament/create",
 			options : {
-				templateUrl : "tournaments/createTournament",
+				template : " ",
 				controller : "CreateTournament"
 			}
 		}, {
@@ -60,7 +69,15 @@ routes = [
 				templateUrl : "tournaments/listTournaments",
 				controller : "TournamentList"
 			}
-		}, {
+		},
+    {
+        route : "/team/create",
+        options : {
+            template : " ",
+            controller : "CreateTeam"
+        }
+    },
+    {
 			route : "/tournament/:id",
 			options : {
 				templateUrl : "tournaments/tournament",
@@ -69,10 +86,17 @@ routes = [
 		}, {
 			route : "/team/:name",
 			options : {
-				templateUrl : "team",
+				templateUrl : "team/team",
 				controller : "Team"
 			}
-		}, {
+		},
+    {
+        route : "/team/:name/:menu",
+        options : {
+            templateUrl : "team/team",
+            controller : "Team"
+        }
+    }, {
 			route : "/tournament/:id/:menu",
 			options : {
 				templateUrl : "tournaments/tournament",

@@ -193,6 +193,10 @@ div[contenteditable=true] {
   vertical-align: middle;
 }
 
+.team-leader{
+  border:3px double $color-base-magenta-3;
+}
+
 .relative{
   position: relative;
 }

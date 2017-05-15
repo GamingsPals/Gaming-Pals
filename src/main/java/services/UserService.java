@@ -130,16 +130,6 @@ public class UserService {
 
 		return user;
 	}
-	public Boolean isUser() {
-		Boolean res = true;
-		try {
-			LoginService.getPrincipal().getAuthorities().contains(Authority.USER);
-		} catch (final Exception e) {
-			res = false;
-		}
-
-		return res;
-	}
 
 	//Follow & Unfollow.
 
@@ -191,9 +181,19 @@ public class UserService {
 	}
 
 	public List<User> findBestRanked() {
+		updateRatingsAvg();
 		final List<User> userList = this.userRepository.findBestRanked();
+		return userList.subList(0, Math.min(userList.size(), 3));
+	}
 
-		return userList.subList(0, Math.min(userList.size(), 5));
+	private void updateRatingsAvg() {
+		List<User>users = userRepository.findAll();
+		for(User e:users){
+			if(e.getRatingAvg()==0){
+				e.onUpdate();
+				save(e);
+			}
+		}
 	}
 
 	public void followOrUnfollowUser(final User user) {
@@ -212,41 +212,6 @@ public class UserService {
 		return u;
 	}
 
-	public Collection<User> usersForGameTag(final String tag) {
-		final Collection<User> users = this.userRepository.usersForGameTag(tag);
-		Assert.notNull(users);
-		return users;
-	}
-
-	public Collection<User> usersForGameTag() {
-		final Collection<User> users = this.userRepository.usersForGameTag();
-		Assert.notNull(users);
-		return users;
-	}
-
-	public Collection<User> usersFromGameAndTier(final String gameTag, final String tier) {
-		final Collection<User> users = this.userRepository.usersFromGameAndTier(gameTag, tier);
-		Assert.notNull(users);
-		return users;
-	}
-
-	public Collection<User> usersForLanguage() {
-		final Collection<User> users = this.userRepository.usersForLanguage();
-		Assert.notNull(users);
-		return users;
-	}
-
-	public Collection<User> usersForLanguage(final String language) {
-		final Collection<User> users = this.userRepository.usersForLanguage(language);
-		Assert.notNull(users);
-		return users;
-	}
-
-	public Collection<User> userFromUsernameAndTagGame() {
-		final Collection<User> users = this.userRepository.userFromUsernameAndTagGame();
-		Assert.notNull(users);
-		return users;
-	}
 
 	public Collection<User> search(final SearchForm searchForm) {
 		try {
@@ -298,7 +263,8 @@ public class UserService {
 		final User user = this.findByPrincipal();
 		Assert.notNull(user);
 		user.setAge(signupForm.getAge());
-		if (!signupForm.getPassword().equals("") || signupForm.getPassword() != null) {
+		System.out.println(signupForm.getPassword());
+		if (signupForm.getPassword() != null) {
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
 		}

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import forms.TeamForm;
 import services.ActorService;
@@ -26,7 +23,7 @@ import services.UserService;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class TeamController extends ApiAbstractController{
 	
@@ -42,12 +39,10 @@ public class TeamController extends ApiAbstractController{
 	@Autowired
     private TeamInvitationNotificationService teamInvitationNotificationService;
 
-    @ResponseBody
 	@RequestMapping(value = "/team/create", method = RequestMethod.POST)
 	public Object create(TeamForm team, HttpServletRequest request, HttpServletResponse response, BindingResult binding) {
         User principal;
 		try {
-			System.out.println("null");
 			Assert.notNull(team);
 		} catch (Exception e) {
 			return badrequest(response, null);
@@ -61,11 +56,171 @@ public class TeamController extends ApiAbstractController{
 		try {
 			return teamService.createTeamForm(team);
 		} catch (Throwable e) {
-			return internalservererror(response, null);
+			return internalservererror(response, e.getMessage());
 		}
 	}
 
-	@ResponseBody
+
+	@RequestMapping(value= "/team/{team}/edit",method = RequestMethod.POST)
+	public Object editTeam(@PathVariable("team") Team team, TeamForm teamForm, HttpServletResponse response){
+        User principal;
+        try{
+            Assert.notNull(teamForm);
+            Assert.notNull(team);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(team.getLeader().equals(principal));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.edit(teamForm,team);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
+    @RequestMapping(value= "/team/{team}/leader/{user}")
+    public Object promoteLeader(@PathVariable("team") Team team, @PathVariable("user") User user, HttpServletResponse response){
+        User principal;
+        try{;
+            Assert.notNull(team);
+            Assert.notNull(user);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            Assert.isTrue(team.getLeader().equals(principal));
+            Assert.isTrue(team.getUsers().contains(user));
+            Assert.isTrue(!(user.equals(principal)));
+        }catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            teamService.promoteLeader(team,user);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
+
+    @RequestMapping(value= "/team/{team}/delete")
+    public Object deleteTeam(@PathVariable("team") Team team, HttpServletResponse response){
+        User principal;
+        try{;
+            Assert.notNull(team);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(team.getLeader().equals(principal));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.delete(team);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,e.getMessage());
+        }
+    }
+
+    @RequestMapping(value= "/team/{team}/join")
+    public Object enterTeamByPassword(@PathVariable("team") Team team,
+                                      @RequestParam(value = "password", required = true) String password,
+                                      HttpServletResponse response){
+        User principal;
+        try{;
+            Assert.notNull(team);
+            Assert.notNull(password);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(!(team.getUsers().contains(principal)));
+            Assert.isTrue(team.getPassword().equals(password));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.enterByPassword(team,password);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+    @RequestMapping(value= "/team/{team}/kick/{user}")
+    public Object kickMember(@PathVariable("team") Team team, @PathVariable("user") User user,
+                             HttpServletResponse response){
+        User principal;
+        try{
+            Assert.notNull(team);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(!(user.equals(principal)));
+            Assert.isTrue((team.getLeader().equals(principal)));
+            Assert.isTrue(team.getUsers().contains(user));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.kickMemberTeam(team, user);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
+    @RequestMapping(value= "/team/{team}/leave")
+    public Object leaveTeam(@PathVariable("team") Team team, HttpServletResponse response){
+        User principal;
+        try{
+            Assert.notNull(team);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(!(team.getLeader().equals(principal)));
+            Assert.isTrue(team.getUsers().contains(principal));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.leaveTeam(team);
+
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
 	@RequestMapping(value = "/team/{name}")
 	public Object get(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
 		try {

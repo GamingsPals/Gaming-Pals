@@ -1,22 +1,16 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Award;
-import domain.Confrontation;
-import domain.Participes;
-import domain.Team;
-import domain.Tournament;
 import forms.TournamentForm;
 import repositories.TournamentRepository;
 
@@ -35,6 +29,12 @@ public class TournamentService {
 
 	@Autowired
     private ConfrontationService confrontationService;
+
+	@Autowired
+    private UserService userService;
+
+	@Autowired
+    private ConfigurationService configurationService;
 
 
     public TournamentService() {
@@ -102,12 +102,16 @@ public class TournamentService {
 		t.setRules(tournamentForm.getRules());
 		t.setNumberTeams(tournamentForm.getNumberTeams());
 		t.setLimitInscription(tournamentForm.getLimitInscription());
-		t.setPicture(tournamentForm.getPicture());
+        t.setPicture(tournamentForm.getPicture());
+        if(tournamentForm.getPicture()==null){
+            t.setPicture(configurationService.getConfiguration().getDefaultTournamentHeader());
+        }
 		return t;
 	}
 
 	public void assign(Team team, Tournament t) {
 		Assert.isTrue(t.getTeams().size() < t.getNumberTeams());
+		Assert.isTrue(!userIsJoinedAlready(team,t));
 		t.getTeams().add(team);
 		team.getTournaments().add(t);
 		Participes p = participesService.create();
@@ -124,7 +128,8 @@ public class TournamentService {
 		save(t);
 	}
 
-    public void advanceRound(Tournament tournamentId) {
+
+	public void advanceRound(Tournament tournamentId) {
         //Recorro todas las confrontation del torneo
 			for (Confrontation c : tournamentId.getConfrontations()) {
 				//Compruebo que no sea la última ronda
@@ -172,4 +177,44 @@ public class TournamentService {
 			}
     }
 
+
+    private boolean userIsJoinedAlready(Team team, Tournament t) {
+        Boolean result = false;
+        Set<Team> set = new HashSet<>();
+        set.add(team);
+        for(User u: team.getUsers()){
+            Collection<Team> teams = new ArrayList<>(u.getTeams());
+            teams.remove(team);
+            set.addAll(teams);
+        }
+        for(Team team1: set){
+            if(team1.getTournaments().contains(t)){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public Set<Team> tournamentsAvailablePrincipal(Tournament tournament) {
+        Set<Team> result = new HashSet<>();
+        User user = userService.findByPrincipal();
+        Assert.notNull(user);
+        for (Team t : user.getTeams()) {
+            if (!userIsJoinedAlready(t, tournament)) {
+                result.add(t);
+               }
+            }
+        return result;
+    }
+
+    public List<Tournament> findLatest(int i) {
+    	List<Tournament> result = new ArrayList<>(tournamentRepository.findAll());
+    	result.sort((o1,o2)->{
+    		if(o1.getCreated().getTime()== o2.getCreated().getTime()) return 0;
+    		return (o1.getCreated().after(o2.getCreated())) ? -1 : 1;
+		});
+        int length = result.size();
+        return result.subList(0,Math.min(length,i));
+
+    }
 }

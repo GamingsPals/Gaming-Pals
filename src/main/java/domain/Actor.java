@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -87,4 +88,14 @@ public abstract class Actor extends DomainEntity {
 	}
 
 
+	private Map<String,Object> lastMessageSended;
+
+	@Transient
+	public Map<String, Object> getLastMessageSended() {
+		return lastMessageSended;
+	}
+
+	public void setLastMessageSended(Map<String, Object> lastMessageSended) {
+		this.lastMessageSended = lastMessageSended;
+	}
 }

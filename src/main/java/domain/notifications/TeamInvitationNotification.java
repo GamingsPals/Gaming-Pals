@@ -2,6 +2,7 @@ package domain.notifications;
 
 import domain.Team;
 import domain.User;
+import domain.notifications.Notification;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;

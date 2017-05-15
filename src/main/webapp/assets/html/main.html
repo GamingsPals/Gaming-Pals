@@ -1,48 +1,29 @@
-<article class="s12 landpage">
-	<h1 class="text-center">
-		<b>{{loc.main.slogan}}</b>
-	</h1>
-	<img class="center-image no-border" width="250"
-		src="assets/images/landpage/logo.png" />
-	<ul class="cols">
-		<li><img src="assets/images/landpage/friendly.png" />
-			{{loc.main.friendly}}</li>
-		<li><img src="assets/images/landpage/tournaments.png" />
-			{{loc.main.competition}}</li>
-		<li><img src="assets/images/landpage/star.png" />
-			{{loc.main.community}} <span class="label bg-green3">{{loc.main.attitude}}</span>
-			<span class="label bg-red3" title="Skill">{{loc.main.skill}}</span> <span
-			class="label bg-magenta3" title="Knowledge">{{loc.main.knowledge}}</span>
-		</li>
-	</ul>
 
-	<h2 class="text-center">{{loc.main.join}}</h2>
-	<img class="center-image no-border"
-		src="assets/images/landpage/lol.png" />
-	<h2 class="text-center">{{loc.main.and}}...</h2>
-	<ul class="cols2">
-		<li><img class="center-image"
-			src="assets/images/landpage/dota2.png" /></li>
-		<li><img class="center-image"
-			src="assets/images/landpage/smite.png" /></li>
-	</ul>
-	<h2 class="text-center">{{loc.main.comingSoon}}!</h2>
+<article class="s12 landpage" ng-if="!auth.isAuthenticated()" ng-include="'assets/html/main/welcome.html'">
 
-	<h1 class="text-center">{{loc.main.join2}}</h1>
-	<div class="text-center">
-		<a href="signup" ng-if="!auth.isAuthenticated()"  class="button text-center"><i
-			class="fa fa-user-plus"></i>{{loc.main.singup}}</a>
-	</div>
+</article>
 
-		<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="payment@gamingpals.com">
-            <input type="hidden" name="item_name" value="One month payment">
-            <input type="hidden" name="currency_code" value="EUR">
-			<input type="hidden" name="custom" value="thisismytest"/>
-            <input type="hidden" name="amount" value="5.00">
-            <input type="image" src="http://www.paypal.com/es_XC/i/btn/x-click-but01.gif"
-                   name="submit"
-                   alt="Make payments with PayPal - it's fast, free and secure!">
-        </form>
+<article ng-if="auth.isAuthenticated()" ng-controller="DashBoardController">
+    <section class="s12">
+    <section class="s12 col">
+    <section class="s8 col">
+        <h1>Lastest Tournaments</h1>
+        <div class="card s5" tournament-card="i" ng-repeat="i in lastTournaments"></div>
+    </section>
+    <section class="col s4">
+        <h1>Our Supported Games</h1>
+        <div class="card blockcard s12"  ng-repeat="g in games">
+            <div class="card-header">
+                <h1><a href="search?games={{g.id}}"> {{g.name}}</a></h1>
+                <img class="card-header-header" ng-src="{{g.header}}">
+            </div>
+        </div>
+    </section>
+    </section>
+    </section>
+        <section class="s12 col">
+            <h1>Best Rated Users</h1>
+            <div class="card s4" user-card="i" ng-repeat="i in bestRatedUsers"></div>
+        </section>
+
 </article>

@@ -1,0 +1,37 @@
+<div>
+    <form name="createTeamForm" ng-submit="createTeam(teamform) && createTeamForm.$valid">
+        <label>{{loc.signupform.name}} *</label>
+        <input type="text" name="name" ng-model="teamform.name" placeholder="{{loc.team.teamName}}" required />
+        <div class="form-error" ng-messages="createTeamForm.name.$error" role="alert"
+             ng-show="createTeamForm.name.$invalid && createTeamForm.name.$dirty">
+            <div ng-message="required">{{loc.signupform.error1}}</div>
+        </div>
+        <label>{{loc.signupform.picture}}</label>
+        <input type="url" name="picture" ng-model="teamform.picture" placeholder="http://" />
+        <label>{{loc.signupform.password}} <a href="#" ng-click="passwordInfo()">
+            <i class="fa fa-question-circle"></i> </a> </label>
+        <input type="password" name="passwordteam" ng-model="teamform.password" min="6" max="20" />
+        <h3>{{loc.team.searchMember}}</h3>
+        <div class="autocomplete">
+        <input type="search" ng-autocomplete="" ng-model="searchmember" ng-focus="showAutoComplete=true"/>
+            <ul class="autocomplete-results" ng-show="showAutoComplete==true">
+                <li ng-repeat="a in allusers | filter:searchmember">
+                   <a href="#" ng-click="addMember(a)"> <img class="profile-image" ng-src="{{a.picture}}"/> {{a.userAccount.username}}</a>
+                </li>
+            </ul>
+        </div>
+        <h2>{{loc.team.members}}</h2>
+        <div class="s5 col" ng-repeat="i in selectedmembers">
+           <div style="margin:15px;font-size:0.7em;"><a class="button" ng-click="removeMember(i)">Remove</a>
+           </div>
+            <div class="card s12" user-card="i" >
+            </div>
+              </div>
+        <div>
+
+            <input type="submit" value="{{loc.team.create}}" />
+            <br>
+            <div>* {{loc.signupform.required}}</div>
+        </div>
+    </form>
+</div>

@@ -76,8 +76,43 @@ public class MessageService {
 	public Collection<Actor> messagesByUsers(){
 		Actor actor = actorService.findActorByPrincipal();
         Assert.notNull(actor);
-        List<Actor> received = messageRepository.messagesSended(actor);
-        return received;
+        Set<Actor> actors = new HashSet<>();
+        for(Message m: actor.getSended()){
+            actors.add(m.getReceiver());
+		}
+		for(Message m:actor.getReceived()){
+            actors.add(m.getSender());
+		}
+		actors.remove(actor);
+        for(Actor a: actors){
+		    List<Message> messages = new ArrayList<>(a.getSended());
+		    messages.addAll(a.getReceived());
+            List<Message> messagesSendedAndReceivedByActor = new ArrayList<>();
+		    for(Message m:messages){
+		        if(m.getSender().equals(actor) || m.getReceiver().equals(actor)){
+		            messagesSendedAndReceivedByActor.add(m);
+                }
+            }
+            messagesSendedAndReceivedByActor.sort((o1, o2) -> {
+                if (o1.getMoment().getTime() == o2.getMoment().getTime()) return 0;
+                    return (o1.getMoment().after(o2.getMoment())) ? -1 : 1;
+            });
+            Map<String,Object> map = new HashMap<>();
+            Message lastMessageSended = messagesSendedAndReceivedByActor.get(0);
+            map.put("message",lastMessageSended.getText());
+            map.put("moment",lastMessageSended.getMoment());
+            map.put("reply",!lastMessageSended.getSender().equals(actor));
+            a.setLastMessageSended(map);
+        }
+
+        List<Actor> result = new ArrayList<>(actors);
+        result.sort((o1, o2)->{
+            Date o1Date = (Date) o1.getLastMessageSended().get("moment");
+            Date o2Date = (Date) o2.getLastMessageSended().get("moment");
+           if(o1Date.getTime() == o2Date.getTime()) return 0;
+           return (o1Date.after(o2Date)) ? 1 : -1;
+        });
+        return result;
 	}
 
 

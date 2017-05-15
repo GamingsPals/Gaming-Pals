@@ -65,9 +65,9 @@
             <div ng-message="url">{{loc.signupform.error6}}</div>
         </div>
 	<label>
-        {{loc.signupform.age}}
+        {{loc.signupform.age}} *
     </label>
-    <input type="text" placeholder="{{loc.signupform.age}}" name="age" title="Age" ng-model="form.age" pattern="[0-9]{1,3}"/>
+    <input type="text" placeholder="{{loc.signupform.age}}" name="age" title="Age" ng-model="form.age" required pattern="[0-9]{1,3}"/>
         <div class="form-error" ng-messages="signupform.age.$error" role="alert"
              ng-show="signupform.age.$dirty && signupform.age.$invalid">
             <div ng-message="pattern">{{loc.signupform.error7}}</div>
@@ -88,7 +88,8 @@
     <div>
     <input type="submit" value="{{loc.send}}"/>
     </div>
-
+    <br>
+    <div>* {{loc.signupform.required}}</div>
 </form>
     </div>
 <div ng-show="success">
@@ -96,5 +97,5 @@
    <a href="login">Login</a>
 </div>
 <div>
-   <div>* {{loc.signupform.required}}</div>
+
 </div>

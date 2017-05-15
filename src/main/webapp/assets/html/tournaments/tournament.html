@@ -36,7 +36,13 @@
     </div>
     <div ng-if="mode=='teams'">
         <h1> {{loc.tournament.teams}}</h1>
-        <div class="col s3" team-card="i" ng-repeat="i in tournament.teams"></div>
+        <div class="col s3" team-card="i" ng-repeat="i in tournament.teams|paginate:'teams'"></div>
+        <ul class="pagination"
+            gp-paginate-items="turnament.teams"
+            gp-paginate
+            gp-paginate-limit="6"
+            gp-paginate-id="teams">
+        </ul>
     </div>
     <div ng-if="mode=='bracket'">
         <h1>{{loc.tournament.bracket}}</h1>
@@ -44,11 +50,17 @@
     </div>
     <div ng-if="mode=='awards'">
         <h1>{{loc.tournament.awards}}</h1>
-        <div  class="blockcard col s3" ng-repeat="i in tournament.awards">
+        <div  class="blockcard col s3" ng-repeat="i in tournament.awards|paginate:'awards'">
             <div class="card-body">
                 <img style="width:80px;vertical-align: text-top" ng-src="{{i.image}}" /> {{i.description}}
             </div>
         </div>
+        <ul class="pagination"
+            gp-paginate-items="tournament.awards"
+            gp-paginate
+            gp-paginate-limit="6"
+            gp-paginate-id="awards">
+        </ul>
         <div ng-if="auth.hasRole('ADMIN')">
             <a href="#" class="button" dialog="tournaments/createAward">{{loc.tournament.createAward}}</a>
         </div>
@@ -56,9 +68,28 @@
 </div>
 <div class="col s4 float-right lateral-menu">
     <ul ng-if="matchtoreport!=false">
-        <h1>{{loc.tournament.reportMatch}}</h1>
         <li>
-            <a href="#" class="button" dialog="tournaments/reportMatch">{{loc.tournament.reportMatch}}</a>
+        <h1>{{loc.tournament.match}}</h1>
+            <div><b>You have to play vs:</b>
+                <span tooltip="">
+                <a class="open-tooltip" href="team/{{getTeamToPlay().name}}">
+                <img class="profile-image" ng-src="{{getTeamToPlay().picture}}"/>
+                {{getTeamToPlay().name}}</a>
+                    <div class="card tooltip" team-card="getTeamToPlay()"></div>
+            </span>
+            </div>
+            <div><b>Limit time to play:</b> {{matchtoreport.confrontation.limitPlay | date:"dd MMM h:mm'h'"}}</div>
+            <div>
+            <a href="#" class="button"
+               dialog="tournaments/reportMatch">{{loc.tournament.reportMatch}}</a></div>
+        </li>
+    </ul>
+    <ul ng-if="getTeamByPrincipal()!==false">
+        <h1>Your team
+        </h1>
+        <li><b>You are joined in this team with:</b>
+            <br>
+            <div class="card block s12" team-card="getTeamByPrincipal()"></div>
         </li>
     </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">

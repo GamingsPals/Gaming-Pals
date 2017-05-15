@@ -33,11 +33,19 @@
       margin-bottom:5px;
       color:$color-base-black-2!important;
       display: block;
-      transition: all 0.15s ease-out;
+      transition: all 0.10s ease-out;
       &:hover{
-        padding:20px;
-        color:$color-base-black-1!important;
-        background-color: $color-base-black-6;
+        padding-left:50px;
+        color:$color-base-white-1!important;
+        background-color: $color-base-blue-2;
+        .notifications-newmessages-lastmessages{
+          color:inherit;
+        }
+      }
+      .notifications-newmessages-lastmessages{
+        padding-left:50px;
+        font-size:0.9em;
+        color:$color-base-black-5;
       }
     }
   }

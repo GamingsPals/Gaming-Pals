@@ -3,8 +3,6 @@
 @import "../js/flexslider/flexslider.css";
 @import "../js/angular/ng-dialog/css/ngDialog.min.css";
 @import "../js/angular/ng-dialog/css/ngDialog-theme-default.min.css";
-@import "../js/datatable/datatables.css";
-@import "../js/datatable/responsive.dataTables.min.css";
 @import "stylerz/stylerz.scss";
 @import "../js/angular/ng-loading/loading-bar.min.scss";
 @import "hover-min.css";
@@ -36,8 +34,8 @@ main{
   color:$color-base-black-1!important;
   min-height:500px;
   padding-bottom:45px;
-  padding-left:8%;
-  padding-right:8%;
+  padding-left:5%;
+  padding-right:5%;
   @include om(){
     padding-left:15px;
     padding-right:15px;

@@ -20,6 +20,9 @@ import domain.Tournament;
 import forms.TournamentForm;
 import services.*;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api")
 public class TournamentController extends ApiAbstractController {
@@ -147,6 +150,34 @@ public class TournamentController extends ApiAbstractController {
 			return ok(response, null);
 		}catch(Exception e){
 			return internalservererror(response,e.getMessage());
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/user/teams/{tournament}")
+	public Object teams(@PathVariable("tournament") Tournament tournament, HttpServletRequest request,HttpServletResponse response) {
+		Actor user;
+		try{
+			Assert.notNull(tournament);
+		} catch (Exception e){
+			return notFoundError(response,null);
+		}
+		try{
+			user = this.actorService.findActorByPrincipal();
+		} catch (Exception e){
+			return unauthorized(response,null);
+		}
+		try {
+			user = this.actorService.findActorByPrincipal();
+			if (user instanceof User){
+				Set<Team> teamSet = tournamentService.tournamentsAvailablePrincipal(tournament);
+
+				return new ArrayList<>(teamSet);
+			}
+
+			return new ArrayList<>();
+		} catch (final Exception e) {
+			return this.internalservererror(response, e.getMessage());
 		}
 	}
 }

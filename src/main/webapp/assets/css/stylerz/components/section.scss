@@ -1,0 +1,9 @@
+.section{
+  padding:20px;
+  background-color: $color-base-black-8;
+  margin:20px;
+  font-size:0.85em;
+  @include om(){
+    margin: 20px 0;
+  }
+}

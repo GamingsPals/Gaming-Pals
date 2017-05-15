@@ -19,13 +19,14 @@
             </div>
 
         </div>
-        <div class="chat-body-chat-messages">
+        <div class="chat-body-chat-messages" scroll-glue-bottom>
             <div ng-repeat="m in chat.chatMessages[chat.userselected.id].messages | orderBy: 'moment'"
                ng-class="(m.sender.id==auth.principal.actor.id) ? 'chat-body-chat-messages-author' :
-            'chat-body-chat-messages-user' ">{{m.text}}</div>
+            'chat-body-chat-messages-user' ">{{m.text}}
+                <span class="float-right chat-body-chat-messages-time">{{m.moment| date: 'HH:mm'}}</span></div>
         </div>
         <div class="chat-body-chat-inputbox">
-        <div class="chat-body-chat-inputbox-input" resizable-input="" ng-keyup="updateTyping()" ng-keypress="sendMessage($event)" contenteditable="true" ng-model="inputmessage" placeholder="Escribe un mensaje...">
+        <div class="chat-body-chat-inputbox-input" resizable-input="" ng-keyup="updateTyping()" ng-keypress="sendMessage($event)" autofocus contenteditable="true" ng-model="inputmessage" placeholder="Escribe un mensaje...">
         </div>
             <a href="#" class="chat-body-input-key" ng-click="enterMessage()"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
         </div>
@@ -36,9 +37,3 @@
 </div>
 </div>
 
-<script>
-   $(document).on("load",function(e){
-       $(".chat-body-chat-input").focus();
-
-   })
-</script>

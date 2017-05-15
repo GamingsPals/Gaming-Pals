@@ -1,0 +1,63 @@
+<article ng-show="notFound==true" ng-cloak>
+    <div  class="tournament-header" >
+        <h1>{{team.name}}</h1>
+        <img ng-src="{{team.picture}}"/>
+    </div>
+    <div class="profile-nav" menu="">
+        <div class="profile-nav-mbutton om">
+            <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
+        <ul>
+            <li ng-class="(mode=='members') ? 'active' : ''">
+                <a class="profile-tabs" href="{{url}}/members">
+                    {{loc.team.membs}}</a></li>
+            <li  ng-class="(mode=='tournaments') ? 'active' : ''">
+                <a  href="{{url}}/tournaments" class="profile-tabs">
+                    {{loc.team.jointournaments}}</a></li>
+            <li  ng-if="isInTeam(auth.principal.actor)==false"  ng-class="(mode=='join') ? 'active' : ''">
+                <a  href="{{url}}/join" class="profile-tabs">
+                    {{loc.team.entertournament}} Join</a></li>
+            <li ng-if="isInTeam(auth.principal.actor)"  ng-class="(mode=='manage') ? 'active' : ''">
+                <a  href="{{url}}/manage" class="profile-tabs">
+                    {{loc.team.manage}} Manage</a></li>
+        </ul>
+    </div>
+<div ng-if="mode=='members'">
+    <h1>{{loc.team.membs}}</h1>
+    <div ng-repeat="a in team.users|paginate:'users'" user-card="a"></div>
+    <ul class="pagination"
+        gp-paginate-items="team.users"
+        gp-paginate
+        gp-paginate-limit="6"
+        gp-paginate-id="users">
+    </ul>
+</div>
+    <div ng-if="mode=='join' && isInTeam(auth.principal.actor)==false">
+        <h1>{{loc.team.jointournaments}} Join</h1>
+        <form name="joinform" ng-submit="join(joinForm)">
+            <b>{{loc.team.needpassword}} You need the password of the team to join it, please write it down if you know it</b>
+            <label>{{loc.team.password}} Password</label>
+            <input class="s12" name="password" type="password" ng-model="joinForm.password" required />
+            <div>
+                <input type="submit" value="Join" />
+            </div>
+        </form>
+    </div>
+
+    <div ng-if="mode=='tournaments'">
+        <h1>{{loc.team.jointournaments}}</h1>
+        <div ng-repeat="a in tournaments|paginate:'tournaments'" tournament-card="a"></div>
+        <ul class="pagination"
+            gp-paginate-items="tournament"
+            gp-paginate
+            gp-paginate-limit="6"
+            gp-paginate-id="tournaments">
+        </ul>
+    </div>
+    <div ng-if="isInTeam(auth.principal.actor)==true && mode=='manage'" ng-include="'assets/html/team/manage.html'">
+
+    </div>
+
+</article>
+<article ng-show="notFound==false" ng-cloak>
+    <giant>{{loc.teamForm.teamNotFound}}</giant>
+</article>

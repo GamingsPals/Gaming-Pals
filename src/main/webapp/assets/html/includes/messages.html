@@ -19,11 +19,14 @@
 
         <ul class="notifications-newmessages">
                 <li>
-                    <a href="messages/{{m.userAccount.username}}" ng-repeat="m in chat.recents"
+                    <a href="messages/{{m.userAccount.username}}" ng-repeat="m in chat.recents|orderBy:'-lastMessageSended.moment'"
                     ng-class="(notifications.findMessageNotification(m.id,auth.principal.actor).numMessages>0) ? 'bg-green2' : ''">
+                        <span class="float-right" ng-show="notifications.findMessageNotification(m.id,auth.principal.actor).numMessages>0">
+                        {{notifications.findMessageNotification(m.id,auth.principal.actor).numMessages}} </span>
                         <img class="profile-image" ng-src="{{m.picture}}" /> {{m.userAccount.username}}
-                    <span class="float-right" ng-show="notifications.findMessageNotification(m.id,auth.principal.actor).numMessages>0">
-                        {{notifications.findMessageNotification(m.id,auth.principal.actor).numMessages}}</span> </a></li>
+                        <div class="notifications-newmessages-lastmessages">
+                           <i ng-show="m.lastMessageSended.reply==false" class="fa fa-reply"></i> {{m.lastMessageSended.message}}
+                        </div></a></li>
 
         </ul>
     </div>
