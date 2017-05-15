@@ -71,7 +71,7 @@ public class Confrontation extends DomainEntity {
 	}
 
 	@Valid
-	@OneToMany(mappedBy = "confrontation",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "confrontation",cascade = CascadeType.REMOVE)
 	public Collection<ReportMatch> getReportMatches() {
 		return reportMatches;
 	}
@@ -79,10 +79,8 @@ public class Confrontation extends DomainEntity {
 		this.reportMatches = reportMatches;
 	}
 
-	@Valid
 	@JsonIgnore
-	@ManyToOne(optional = false)
-	@NotNull
+	@ManyToOne
 	public Tournament getTournament() {
 		return tournament;
 	}

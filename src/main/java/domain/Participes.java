@@ -1,8 +1,11 @@
 
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -28,9 +31,9 @@ public class Participes extends DomainEntity {
 
 	//Relationships
 	private Team team;
+	private Collection<Confrontation> confrontations;
 
 
-	@Valid
 	@ManyToOne
 	public Team getTeam() {
 		return team;
@@ -38,4 +41,23 @@ public class Participes extends DomainEntity {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "participes",cascade = CascadeType.ALL)
+    public Collection<Confrontation> getConfrontations() {
+        return confrontations;
+    }
+
+    public void setConfrontations(Collection<Confrontation> confrontations) {
+        this.confrontations = confrontations;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
+    }
+
 }

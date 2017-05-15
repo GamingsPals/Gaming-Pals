@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -77,6 +78,7 @@ public class User extends Actor {
 	private Collection<Report>						reportsDone;
 	private Collection<Report>						reportsReceived;
 	private Collection<TeamInvitationNotification>	teamInvitationNotifications;
+	private Collection<Team>                        teamsLeaded;
 
 
 	@Valid
@@ -143,7 +145,7 @@ public class User extends Actor {
 		this.languages = languages;
 	}
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
 	public Collection<GameInfo> getGameInfo() {
 		return this.gameInfo;
 	}
@@ -253,4 +255,13 @@ public class User extends Actor {
 		this.header = header;
 	}
 
+	@OneToMany(mappedBy = "leader")
+    @JsonIgnore
+    public Collection<Team> getTeamsLeaded() {
+        return teamsLeaded;
+    }
+
+    public void setTeamsLeaded(Collection<Team> teamsLeaded) {
+        this.teamsLeaded = teamsLeaded;
+    }
 }

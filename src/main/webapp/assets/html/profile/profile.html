@@ -17,14 +17,7 @@
                 <span dialog="profile/writeReport"  ng-if="auth.hasRole('USER')" report not-principal="ActorService.actor.actor" title="Report"
                       dialogcontroller="WriteReportController"><i class="fa fa-exclamation-triangle"></i> </span>
 
-                <span class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
-                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
-                    <ul>
-                        <li ng-if="ActorService.actor.actor.userAccount.locked==false">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ban}}</a></li>
-                        <li ng-if="ActorService.actor.actor.userAccount.locked==true">
-                            <a href="#" ng-click="AdminService.ban(ActorService.actor.actor)">{{loc.profileview.ubnan}}</a></li>
-                    </ul>
+                <span class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown admin-tools="ActorService.actor.actor">
                 </span></h1>
             <div class="profile-info-follow"  ng-if="auth.hasRole('USER')"><div follow="ActorService.actor.actor"></div> </div>
 
@@ -73,32 +66,29 @@
 <div class="profile-main">
     <div class="profile-cards" ng-show="tabs.gameprofiles">
         <h1><i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</h1>
-        <div class="col s5" style="margin:15px" ng-if="(ActorService.actor.actor.gameInfo | filter: lol).length !=1 ">
+        <div class="col s5" ng-if="auth.isPrincipal(ActorService.actor.actor)"  style="margin:15px">
         <a href="#" dialogcontroller="AddSummonerController" class="button"
-           dialog="addSummoner" ng-if="auth.isPrincipal(ActorService.actor.actor)" >
+           dialog="addSummoner" >
             {{loc.addSummoner.addSummoner}}</a>
         </div>
-        <div class="col s5" style="margin: 15px;">
+        <div class="col s5" style="margin: 15px;"  ng-if="auth.isPrincipal(ActorService.actor.actor)">
             <a href="#" dialogcontroller="AddSteamAccountController" class="button"
                dialog="profile/AddSteamAccount"
-               ng-if="auth.isPrincipal(ActorService.actor.actor)">
+              >
                 <i class="fa fa-steam-square" aria-hidden="true"></i> {{loc.profileview.addSteamAccount}}</a>
 
         </div>
         <div ng-if="ActorService.actor.actor.gameInfo.length==0">
-            {{loc.profileview.gameProfiles}}
+            {{loc.profileview.noGames}}
         </div>
-        <div class="card bg-black7" ng-repeat="i in ActorService.actor.actor.gameInfo">
-                <img class="right game-icon" ng-src="assets/images/games/icons/{{i.game.tag}}icon.png"/>
-            <div class="card-buttons">
-                    <span ng-if="i.game.tag=='lol'" loltier="i.leagues[0].tier"></span>
-                     <div class="col">
-                         {{i.username}}
-                             <div class="small">{{tier}}</div>
-                         <a ng-if="i.game.tag=='lol'"  dialog="lolstats" href="#" dialogcontroller="LolstatsController">{{loc.lol.recentMatches}}</a>
-                    </div>
-            </div>
+        <div class="card" game-card="i" user="ActorService.actor.actor" ng-repeat="i in ActorService.actor.actor.gameInfo|paginate:'gameInfos'">
         </div>
+        <ul class="pagination"
+            gp-paginate
+            gp-paginate-items="ActorService.actor.actor.gameInfo"
+            gp-paginate-id="gameInfos"
+            gp-paginate-limit="6">
+        </ul>
     </div>
     <div class="profile-cards" ng-show="tabs.followers">
         <h1><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> {{loc.profileview.followers}}</h1>

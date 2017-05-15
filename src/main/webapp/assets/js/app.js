@@ -8556,6 +8556,13 @@ function z(a){var b=!0;if(a.route!==q.current)b=!1;else if(a.hasRedirection){var
 function(a,d){if(0===d)c.push(a);else{var e=a.match(/(\w+)(?:[?*])?(.*)/),f=e[1];c.push(b[f]);c.push(e[2]||"");delete b[f]}});return c.join("")}var D=!1,s,y,q={routes:g,reload:function(){D=!0;var b={defaultPrevented:!1,preventDefault:function(){this.defaultPrevented=!0;D=!1}};a.$evalAsync(function(){p(b);b.defaultPrevented||l()})},updateParams:function(a){if(this.current&&this.current.$$route)a=d.extend({},this.current.params,a),f.path(x(this.current.$$route.originalPath,a)),f.search(a);else throw I("norout");
 }};a.$on("$locationChangeStart",p);a.$on("$locationChangeSuccess",l);return q}]}).run(A),I=d.$$minErr("ngRoute"),k;A.$inject=["$injector"];z.provider("$routeParams",function(){this.$get=function(){return{}}});z.directive("ngView",B);z.directive("ngView",C);B.$inject=["$route","$anchorScroll","$animate"];C.$inject=["$compile","$controller","$route"]})(window,window.angular);
 //# sourceMappingURL=angular-route.min.js.map
+;/*! 
+ * angular-loading-bar v0.9.0
+ * https://chieffancypants.github.io/angular-loading-bar
+ * Copyright (c) 2016 Wes Cruver
+ * License: MIT
+ */
+!function(){"use strict";angular.module("angular-loading-bar",["cfp.loadingBarInterceptor"]),angular.module("chieffancypants.loadingBar",["cfp.loadingBarInterceptor"]),angular.module("cfp.loadingBarInterceptor",["cfp.loadingBar"]).config(["$httpProvider",function(a){var b=["$q","$cacheFactory","$timeout","$rootScope","$log","cfpLoadingBar",function(b,c,d,e,f,g){function h(){d.cancel(j),g.complete(),l=0,k=0}function i(b){var d,e=c.get("$http"),f=a.defaults;!b.cache&&!f.cache||b.cache===!1||"GET"!==b.method&&"JSONP"!==b.method||(d=angular.isObject(b.cache)?b.cache:angular.isObject(f.cache)?f.cache:e);var g=void 0!==d?void 0!==d.get(b.url):!1;return void 0!==b.cached&&g!==b.cached?b.cached:(b.cached=g,g)}var j,k=0,l=0,m=g.latencyThreshold;return{request:function(a){return a.ignoreLoadingBar||i(a)||(e.$broadcast("cfpLoadingBar:loading",{url:a.url}),0===k&&(j=d(function(){g.start()},m)),k++,g.set(l/k)),a},response:function(a){return a&&a.config?(a.config.ignoreLoadingBar||i(a.config)||(l++,l>=k?(e.$broadcast("cfpLoadingBar:loaded",{url:a.config.url,result:a}),h()):g.set(l/k)),a):(f.error("Broken interceptor detected: Config object not supplied in response:\n https://github.com/chieffancypants/angular-loading-bar/pull/50"),a)},responseError:function(a){return a&&a.config?(a.config.ignoreLoadingBar||i(a.config)||(l++,l>=k?(e.$broadcast("cfpLoadingBar:loaded",{url:a.config.url,result:a}),h()):g.set(l/k)),b.reject(a)):(f.error("Broken interceptor detected: Config object not supplied in rejection:\n https://github.com/chieffancypants/angular-loading-bar/pull/50"),b.reject(a))}}}];a.interceptors.push(b)}]),angular.module("cfp.loadingBar",[]).provider("cfpLoadingBar",function(){this.autoIncrement=!0,this.includeSpinner=!0,this.includeBar=!0,this.latencyThreshold=100,this.startSize=.02,this.parentSelector="body",this.spinnerTemplate='<div id="loading-bar-spinner"><div class="spinner-icon"></div></div>',this.loadingBarTemplate='<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div>',this.$get=["$injector","$document","$timeout","$rootScope",function(a,b,c,d){function e(){if(k||(k=a.get("$animate")),c.cancel(m),!r){var e=b[0],g=e.querySelector?e.querySelector(n):b.find(n)[0];g||(g=e.getElementsByTagName("body")[0]);var h=angular.element(g),i=g.lastChild&&angular.element(g.lastChild);d.$broadcast("cfpLoadingBar:started"),r=!0,v&&k.enter(o,h,i),u&&k.enter(q,h,o),f(w)}}function f(a){if(r){var b=100*a+"%";p.css("width",b),s=a,t&&(c.cancel(l),l=c(function(){g()},250))}}function g(){if(!(h()>=1)){var a=0,b=h();a=b>=0&&.25>b?(3*Math.random()+3)/100:b>=.25&&.65>b?3*Math.random()/100:b>=.65&&.9>b?2*Math.random()/100:b>=.9&&.99>b?.005:0;var c=h()+a;f(c)}}function h(){return s}function i(){s=0,r=!1}function j(){k||(k=a.get("$animate")),f(1),c.cancel(m),m=c(function(){var a=k.leave(o,i);a&&a.then&&a.then(i),k.leave(q),d.$broadcast("cfpLoadingBar:completed")},500)}var k,l,m,n=this.parentSelector,o=angular.element(this.loadingBarTemplate),p=o.find("div").eq(0),q=angular.element(this.spinnerTemplate),r=!1,s=0,t=this.autoIncrement,u=this.includeSpinner,v=this.includeBar,w=this.startSize;return{start:e,set:f,status:h,inc:g,complete:j,autoIncrement:this.autoIncrement,includeSpinner:this.includeSpinner,latencyThreshold:this.latencyThreshold,parentSelector:this.parentSelector,startSize:this.startSize}}]})}();;!function(e,t,n){"use strict";!function o(e,t,n){function a(s,l){if(!t[s]){if(!e[s]){var i="function"==typeof require&&require;if(!l&&i)return i(s,!0);if(r)return r(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var c=t[s]={exports:{}};e[s][0].call(c.exports,function(t){var n=e[s][1][t];return a(n?n:t)},c,c.exports,o,e,t,n)}return t[s].exports}for(var r="function"==typeof require&&require,s=0;s<n.length;s++)a(n[s]);return a}({1:[function(o,a,r){function s(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(r,"__esModule",{value:!0});var l,i,u,c,d=o("./modules/handle-dom"),f=o("./modules/utils"),p=o("./modules/handle-swal-dom"),m=o("./modules/handle-click"),v=o("./modules/handle-key"),y=s(v),b=o("./modules/default-params"),h=s(b),g=o("./modules/set-params"),w=s(g);r["default"]=u=c=function(){function o(e){var t=a;return t[e]===n?h["default"][e]:t[e]}var a=arguments[0];if((0,d.addClass)(t.body,"stop-scrolling"),(0,p.resetInput)(),a===n)return(0,f.logStr)("SweetAlert expects at least 1 attribute!"),!1;var r=(0,f.extend)({},h["default"]);switch(typeof a){case"string":r.title=a,r.text=arguments[1]||"",r.type=arguments[2]||"";break;case"object":if(a.title===n)return(0,f.logStr)('Missing "title" argument!'),!1;r.title=a.title;for(var s in h["default"])r[s]=o(s);r.confirmButtonText=r.showCancelButton?"Confirm":h["default"].confirmButtonText,r.confirmButtonText=o("confirmButtonText"),r.doneFunction=arguments[1]||null;break;default:return(0,f.logStr)('Unexpected type of argument! Expected "string" or "object", got '+typeof a),!1}(0,w["default"])(r),(0,p.fixVerticalPosition)(),(0,p.openModal)(arguments[1]);for(var u=(0,p.getModal)(),v=u.querySelectorAll("button"),b=["onclick","onmouseover","onmouseout","onmousedown","onmouseup","onfocus"],g=function(e){return(0,m.handleButton)(e,r,u)},C=0;C<v.length;C++)for(var S=0;S<b.length;S++){var x=b[S];v[C][x]=g}(0,p.getOverlay)().onclick=g,l=e.onkeydown;var k=function(e){return(0,y["default"])(e,r,u)};e.onkeydown=k,e.onfocus=function(){setTimeout(function(){i!==n&&(i.focus(),i=n)},0)},c.enableButtons()},u.setDefaults=c.setDefaults=function(e){if(!e)throw new Error("userParams is required");if("object"!=typeof e)throw new Error("userParams has to be a object");(0,f.extend)(h["default"],e)},u.close=c.close=function(){var o=(0,p.getModal)();(0,d.fadeOut)((0,p.getOverlay)(),5),(0,d.fadeOut)(o,5),(0,d.removeClass)(o,"showSweetAlert"),(0,d.addClass)(o,"hideSweetAlert"),(0,d.removeClass)(o,"visible");var a=o.querySelector(".sa-icon.sa-success");(0,d.removeClass)(a,"animate"),(0,d.removeClass)(a.querySelector(".sa-tip"),"animateSuccessTip"),(0,d.removeClass)(a.querySelector(".sa-long"),"animateSuccessLong");var r=o.querySelector(".sa-icon.sa-error");(0,d.removeClass)(r,"animateErrorIcon"),(0,d.removeClass)(r.querySelector(".sa-x-mark"),"animateXMark");var s=o.querySelector(".sa-icon.sa-warning");return(0,d.removeClass)(s,"pulseWarning"),(0,d.removeClass)(s.querySelector(".sa-body"),"pulseWarningIns"),(0,d.removeClass)(s.querySelector(".sa-dot"),"pulseWarningIns"),setTimeout(function(){var e=o.getAttribute("data-custom-class");(0,d.removeClass)(o,e)},300),(0,d.removeClass)(t.body,"stop-scrolling"),e.onkeydown=l,e.previousActiveElement&&e.previousActiveElement.focus(),i=n,clearTimeout(o.timeout),!0},u.showInputError=c.showInputError=function(e){var t=(0,p.getModal)(),n=t.querySelector(".sa-input-error");(0,d.addClass)(n,"show");var o=t.querySelector(".sa-error-container");(0,d.addClass)(o,"show"),o.querySelector("p").innerHTML=e,setTimeout(function(){u.enableButtons()},1),t.querySelector("input").focus()},u.resetInputError=c.resetInputError=function(e){if(e&&13===e.keyCode)return!1;var t=(0,p.getModal)(),n=t.querySelector(".sa-input-error");(0,d.removeClass)(n,"show");var o=t.querySelector(".sa-error-container");(0,d.removeClass)(o,"show")},u.disableButtons=c.disableButtons=function(e){var t=(0,p.getModal)(),n=t.querySelector("button.confirm"),o=t.querySelector("button.cancel");n.disabled=!0,o.disabled=!0},u.enableButtons=c.enableButtons=function(e){var t=(0,p.getModal)(),n=t.querySelector("button.confirm"),o=t.querySelector("button.cancel");n.disabled=!1,o.disabled=!1},"undefined"!=typeof e?e.sweetAlert=e.swal=u:(0,f.logStr)("SweetAlert is a frontend module!"),a.exports=r["default"]},{"./modules/default-params":2,"./modules/handle-click":3,"./modules/handle-dom":4,"./modules/handle-key":5,"./modules/handle-swal-dom":6,"./modules/set-params":8,"./modules/utils":9}],2:[function(e,t,n){Object.defineProperty(n,"__esModule",{value:!0});var o={title:"",text:"",type:null,allowOutsideClick:!1,showConfirmButton:!0,showCancelButton:!1,closeOnConfirm:!0,closeOnCancel:!0,confirmButtonText:"OK",confirmButtonColor:"#8CD4F5",cancelButtonText:"Cancel",imageUrl:null,imageSize:null,timer:null,customClass:"",html:!1,animation:!0,allowEscapeKey:!0,inputType:"text",inputPlaceholder:"",inputValue:"",showLoaderOnConfirm:!1};n["default"]=o,t.exports=n["default"]},{}],3:[function(t,n,o){Object.defineProperty(o,"__esModule",{value:!0});var a=t("./utils"),r=(t("./handle-swal-dom"),t("./handle-dom")),s=function(t,n,o){function s(e){m&&n.confirmButtonColor&&(p.style.backgroundColor=e)}var u,c,d,f=t||e.event,p=f.target||f.srcElement,m=-1!==p.className.indexOf("confirm"),v=-1!==p.className.indexOf("sweet-overlay"),y=(0,r.hasClass)(o,"visible"),b=n.doneFunction&&"true"===o.getAttribute("data-has-done-function");switch(m&&n.confirmButtonColor&&(u=n.confirmButtonColor,c=(0,a.colorLuminance)(u,-.04),d=(0,a.colorLuminance)(u,-.14)),f.type){case"mouseover":s(c);break;case"mouseout":s(u);break;case"mousedown":s(d);break;case"mouseup":s(c);break;case"focus":var h=o.querySelector("button.confirm"),g=o.querySelector("button.cancel");m?g.style.boxShadow="none":h.style.boxShadow="none";break;case"click":var w=o===p,C=(0,r.isDescendant)(o,p);if(!w&&!C&&y&&!n.allowOutsideClick)break;m&&b&&y?l(o,n):b&&y||v?i(o,n):(0,r.isDescendant)(o,p)&&"BUTTON"===p.tagName&&sweetAlert.close()}},l=function(e,t){var n=!0;(0,r.hasClass)(e,"show-input")&&(n=e.querySelector("input").value,n||(n="")),t.doneFunction(n),t.closeOnConfirm&&sweetAlert.close(),t.showLoaderOnConfirm&&sweetAlert.disableButtons()},i=function(e,t){var n=String(t.doneFunction).replace(/\s/g,""),o="function("===n.substring(0,9)&&")"!==n.substring(9,10);o&&t.doneFunction(!1),t.closeOnCancel&&sweetAlert.close()};o["default"]={handleButton:s,handleConfirm:l,handleCancel:i},n.exports=o["default"]},{"./handle-dom":4,"./handle-swal-dom":6,"./utils":9}],4:[function(n,o,a){Object.defineProperty(a,"__esModule",{value:!0});var r=function(e,t){return new RegExp(" "+t+" ").test(" "+e.className+" ")},s=function(e,t){r(e,t)||(e.className+=" "+t)},l=function(e,t){var n=" "+e.className.replace(/[\t\r\n]/g," ")+" ";if(r(e,t)){for(;n.indexOf(" "+t+" ")>=0;)n=n.replace(" "+t+" "," ");e.className=n.replace(/^\s+|\s+$/g,"")}},i=function(e){var n=t.createElement("div");return n.appendChild(t.createTextNode(e)),n.innerHTML},u=function(e){e.style.opacity="",e.style.display="block"},c=function(e){if(e&&!e.length)return u(e);for(var t=0;t<e.length;++t)u(e[t])},d=function(e){e.style.opacity="",e.style.display="none"},f=function(e){if(e&&!e.length)return d(e);for(var t=0;t<e.length;++t)d(e[t])},p=function(e,t){for(var n=t.parentNode;null!==n;){if(n===e)return!0;n=n.parentNode}return!1},m=function(e){e.style.left="-9999px",e.style.display="block";var t,n=e.clientHeight;return t="undefined"!=typeof getComputedStyle?parseInt(getComputedStyle(e).getPropertyValue("padding-top"),10):parseInt(e.currentStyle.padding),e.style.left="",e.style.display="none","-"+parseInt((n+t)/2)+"px"},v=function(e,t){if(+e.style.opacity<1){t=t||16,e.style.opacity=0,e.style.display="block";var n=+new Date,o=function a(){e.style.opacity=+e.style.opacity+(new Date-n)/100,n=+new Date,+e.style.opacity<1&&setTimeout(a,t)};o()}e.style.display="block"},y=function(e,t){t=t||16,e.style.opacity=1;var n=+new Date,o=function a(){e.style.opacity=+e.style.opacity-(new Date-n)/100,n=+new Date,+e.style.opacity>0?setTimeout(a,t):e.style.display="none"};o()},b=function(n){if("function"==typeof MouseEvent){var o=new MouseEvent("click",{view:e,bubbles:!1,cancelable:!0});n.dispatchEvent(o)}else if(t.createEvent){var a=t.createEvent("MouseEvents");a.initEvent("click",!1,!1),n.dispatchEvent(a)}else t.createEventObject?n.fireEvent("onclick"):"function"==typeof n.onclick&&n.onclick()},h=function(t){"function"==typeof t.stopPropagation?(t.stopPropagation(),t.preventDefault()):e.event&&e.event.hasOwnProperty("cancelBubble")&&(e.event.cancelBubble=!0)};a.hasClass=r,a.addClass=s,a.removeClass=l,a.escapeHtml=i,a._show=u,a.show=c,a._hide=d,a.hide=f,a.isDescendant=p,a.getTopMargin=m,a.fadeIn=v,a.fadeOut=y,a.fireClick=b,a.stopEventPropagation=h},{}],5:[function(t,o,a){Object.defineProperty(a,"__esModule",{value:!0});var r=t("./handle-dom"),s=t("./handle-swal-dom"),l=function(t,o,a){var l=t||e.event,i=l.keyCode||l.which,u=a.querySelector("button.confirm"),c=a.querySelector("button.cancel"),d=a.querySelectorAll("button[tabindex]");if(-1!==[9,13,32,27].indexOf(i)){for(var f=l.target||l.srcElement,p=-1,m=0;m<d.length;m++)if(f===d[m]){p=m;break}9===i?(f=-1===p?u:p===d.length-1?d[0]:d[p+1],(0,r.stopEventPropagation)(l),f.focus(),o.confirmButtonColor&&(0,s.setFocusStyle)(f,o.confirmButtonColor)):13===i?("INPUT"===f.tagName&&(f=u,u.focus()),f=-1===p?u:n):27===i&&o.allowEscapeKey===!0?(f=c,(0,r.fireClick)(f,l)):f=n}};a["default"]=l,o.exports=a["default"]},{"./handle-dom":4,"./handle-swal-dom":6}],6:[function(n,o,a){function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(a,"__esModule",{value:!0});var s=n("./utils"),l=n("./handle-dom"),i=n("./default-params"),u=r(i),c=n("./injected-html"),d=r(c),f=".sweet-alert",p=".sweet-overlay",m=function(){var e=t.createElement("div");for(e.innerHTML=d["default"];e.firstChild;)t.body.appendChild(e.firstChild)},v=function x(){var e=t.querySelector(f);return e||(m(),e=x()),e},y=function(){var e=v();return e?e.querySelector("input"):void 0},b=function(){return t.querySelector(p)},h=function(e,t){var n=(0,s.hexToRgb)(t);e.style.boxShadow="0 0 2px rgba("+n+", 0.8), inset 0 0 0 1px rgba(0, 0, 0, 0.05)"},g=function(n){var o=v();(0,l.fadeIn)(b(),10),(0,l.show)(o),(0,l.addClass)(o,"showSweetAlert"),(0,l.removeClass)(o,"hideSweetAlert"),e.previousActiveElement=t.activeElement;var a=o.querySelector("button.confirm");a.focus(),setTimeout(function(){(0,l.addClass)(o,"visible")},500);var r=o.getAttribute("data-timer");if("null"!==r&&""!==r){var s=n;o.timeout=setTimeout(function(){var e=(s||null)&&"true"===o.getAttribute("data-has-done-function");e?s(null):sweetAlert.close()},r)}},w=function(){var e=v(),t=y();(0,l.removeClass)(e,"show-input"),t.value=u["default"].inputValue,t.setAttribute("type",u["default"].inputType),t.setAttribute("placeholder",u["default"].inputPlaceholder),C()},C=function(e){if(e&&13===e.keyCode)return!1;var t=v(),n=t.querySelector(".sa-input-error");(0,l.removeClass)(n,"show");var o=t.querySelector(".sa-error-container");(0,l.removeClass)(o,"show")},S=function(){var e=v();e.style.marginTop=(0,l.getTopMargin)(v())};a.sweetAlertInitialize=m,a.getModal=v,a.getOverlay=b,a.getInput=y,a.setFocusStyle=h,a.openModal=g,a.resetInput=w,a.resetInputError=C,a.fixVerticalPosition=S},{"./default-params":2,"./handle-dom":4,"./injected-html":7,"./utils":9}],7:[function(e,t,n){Object.defineProperty(n,"__esModule",{value:!0});var o='<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert"><div class="sa-icon sa-error">\n      <span class="sa-x-mark">\n        <span class="sa-line sa-left"></span>\n        <span class="sa-line sa-right"></span>\n      </span>\n    </div><div class="sa-icon sa-warning">\n      <span class="sa-body"></span>\n      <span class="sa-dot"></span>\n    </div><div class="sa-icon sa-info"></div><div class="sa-icon sa-success">\n      <span class="sa-line sa-tip"></span>\n      <span class="sa-line sa-long"></span>\n\n      <div class="sa-placeholder"></div>\n      <div class="sa-fix"></div>\n    </div><div class="sa-icon sa-custom"></div><h2>Title</h2>\n    <p>Text</p>\n    <fieldset>\n      <input type="text" tabIndex="3" />\n      <div class="sa-input-error"></div>\n    </fieldset><div class="sa-error-container">\n      <div class="icon">!</div>\n      <p>Not valid!</p>\n    </div><div class="sa-button-container">\n      <button class="cancel" tabIndex="2">Cancel</button>\n      <div class="sa-confirm-button-container">\n        <button class="confirm" tabIndex="1">OK</button><div class="la-ball-fall">\n          <div></div>\n          <div></div>\n          <div></div>\n        </div>\n      </div>\n    </div></div>';n["default"]=o,t.exports=n["default"]},{}],8:[function(e,t,o){Object.defineProperty(o,"__esModule",{value:!0});var a=e("./utils"),r=e("./handle-swal-dom"),s=e("./handle-dom"),l=["error","warning","info","success","input","prompt"],i=function(e){var t=(0,r.getModal)(),o=t.querySelector("h2"),i=t.querySelector("p"),u=t.querySelector("button.cancel"),c=t.querySelector("button.confirm");if(o.innerHTML=e.html?e.title:(0,s.escapeHtml)(e.title).split("\n").join("<br>"),i.innerHTML=e.html?e.text:(0,s.escapeHtml)(e.text||"").split("\n").join("<br>"),e.text&&(0,s.show)(i),e.customClass)(0,s.addClass)(t,e.customClass),t.setAttribute("data-custom-class",e.customClass);else{var d=t.getAttribute("data-custom-class");(0,s.removeClass)(t,d),t.setAttribute("data-custom-class","")}if((0,s.hide)(t.querySelectorAll(".sa-icon")),e.type&&!(0,a.isIE8)()){var f=function(){for(var o=!1,a=0;a<l.length;a++)if(e.type===l[a]){o=!0;break}if(!o)return logStr("Unknown alert type: "+e.type),{v:!1};var i=["success","error","warning","info"],u=n;-1!==i.indexOf(e.type)&&(u=t.querySelector(".sa-icon.sa-"+e.type),(0,s.show)(u));var c=(0,r.getInput)();switch(e.type){case"success":(0,s.addClass)(u,"animate"),(0,s.addClass)(u.querySelector(".sa-tip"),"animateSuccessTip"),(0,s.addClass)(u.querySelector(".sa-long"),"animateSuccessLong");break;case"error":(0,s.addClass)(u,"animateErrorIcon"),(0,s.addClass)(u.querySelector(".sa-x-mark"),"animateXMark");break;case"warning":(0,s.addClass)(u,"pulseWarning"),(0,s.addClass)(u.querySelector(".sa-body"),"pulseWarningIns"),(0,s.addClass)(u.querySelector(".sa-dot"),"pulseWarningIns");break;case"input":case"prompt":c.setAttribute("type",e.inputType),c.value=e.inputValue,c.setAttribute("placeholder",e.inputPlaceholder),(0,s.addClass)(t,"show-input"),setTimeout(function(){c.focus(),c.addEventListener("keyup",swal.resetInputError)},400)}}();if("object"==typeof f)return f.v}if(e.imageUrl){var p=t.querySelector(".sa-icon.sa-custom");p.style.backgroundImage="url("+e.imageUrl+")",(0,s.show)(p);var m=80,v=80;if(e.imageSize){var y=e.imageSize.toString().split("x"),b=y[0],h=y[1];b&&h?(m=b,v=h):logStr("Parameter imageSize expects value with format WIDTHxHEIGHT, got "+e.imageSize)}p.setAttribute("style",p.getAttribute("style")+"width:"+m+"px; height:"+v+"px")}t.setAttribute("data-has-cancel-button",e.showCancelButton),e.showCancelButton?u.style.display="inline-block":(0,s.hide)(u),t.setAttribute("data-has-confirm-button",e.showConfirmButton),e.showConfirmButton?c.style.display="inline-block":(0,s.hide)(c),e.cancelButtonText&&(u.innerHTML=(0,s.escapeHtml)(e.cancelButtonText)),e.confirmButtonText&&(c.innerHTML=(0,s.escapeHtml)(e.confirmButtonText)),e.confirmButtonColor&&(c.style.backgroundColor=e.confirmButtonColor,c.style.borderLeftColor=e.confirmLoadingButtonColor,c.style.borderRightColor=e.confirmLoadingButtonColor,(0,r.setFocusStyle)(c,e.confirmButtonColor)),t.setAttribute("data-allow-outside-click",e.allowOutsideClick);var g=!!e.doneFunction;t.setAttribute("data-has-done-function",g),e.animation?"string"==typeof e.animation?t.setAttribute("data-animation",e.animation):t.setAttribute("data-animation","pop"):t.setAttribute("data-animation","none"),t.setAttribute("data-timer",e.timer)};o["default"]=i,t.exports=o["default"]},{"./handle-dom":4,"./handle-swal-dom":6,"./utils":9}],9:[function(t,n,o){Object.defineProperty(o,"__esModule",{value:!0});var a=function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);return e},r=function(e){var t=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(e);return t?parseInt(t[1],16)+", "+parseInt(t[2],16)+", "+parseInt(t[3],16):null},s=function(){return e.attachEvent&&!e.addEventListener},l=function(t){"undefined"!=typeof e&&e.console&&e.console.log("SweetAlert: "+t)},i=function(e,t){e=String(e).replace(/[^0-9a-f]/gi,""),e.length<6&&(e=e[0]+e[0]+e[1]+e[1]+e[2]+e[2]),t=t||0;var n,o,a="#";for(o=0;3>o;o++)n=parseInt(e.substr(2*o,2),16),n=Math.round(Math.min(Math.max(0,n+n*t),255)).toString(16),a+=("00"+n).substr(n.length);return a};o.extend=a,o.hexToRgb=r,o.isIE8=s,o.logStr=l,o.colorLuminance=i},{}]},{},[1]),"function"==typeof define&&define.amd?define(function(){return sweetAlert}):"undefined"!=typeof module&&module.exports&&(module.exports=sweetAlert)}(window,document);;"use strict";angular.module("oitozero.ngSweetAlert",[]).factory("SweetAlert",["$rootScope",function($rootScope){var swal=window.swal,self={swal:function(arg1,arg2,arg3){$rootScope.$evalAsync(function(){"function"==typeof arg2?swal(arg1,function(isConfirm){$rootScope.$evalAsync(function(){arg2(isConfirm)})},arg3):swal(arg1,arg2,arg3)})},success:function(title,message){$rootScope.$evalAsync(function(){swal(title,message,"success")})},error:function(title,message){$rootScope.$evalAsync(function(){swal(title,message,"error")})},warning:function(title,message){$rootScope.$evalAsync(function(){swal(title,message,"warning")})},info:function(title,message){$rootScope.$evalAsync(function(){swal(title,message,"info")})},showInputError:function(message){$rootScope.$evalAsync(function(){swal.showInputError(message)})},close:function(){$rootScope.$evalAsync(function(){swal.close()})}};return self}]);
 ;/*
  AngularJS v1.6.3
  (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -8880,10 +8887,11 @@ $.fn.dataTable['enum'] = function ( arr ) {
 
 })(jQuery);
 ;let app =
-    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog','ngMessages']);
+    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog','ngMessages','angular-loading-bar',
+        'oitozero.ngSweetAlert']);
 
 
-app.run(function($rootScope,$location,dialog) {
+app.run(function($rootScope,$location,dialog,$anchorScroll) {
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         closeMenu();
     });
@@ -8892,9 +8900,9 @@ app.run(function($rootScope,$location,dialog) {
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
         let top = $("#top");
-        if(typeof top !=="undefined"){
-            $("html, body").animate({ scrollTop: top.offsetTop }, "medium");
-        }
+        $location.hash('top');
+        $anchorScroll();
+        $location.hash('');
     });
 
     $rootScope.back = function () {
@@ -9072,13 +9080,12 @@ routes = [
     $scope.deleteReport = function(report){
         AdminService.deleteReport(report,(a)=>{
             $scope.getReportedUsers();
-        })
+        });
     };
 
     $scope.getBannedUsers();
     $scope.getReportedUsers();
     $scope.mode = $routeParams.menu;
-    console.log($scope.mode);
     if(typeof $scope.mode ==="undefined"){
         $location.path("adminpanel/usersbanned");
     }
@@ -9168,15 +9175,18 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });
 ;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService,
+GameInfoService,SweetAlert){
+    localization.init($scope);
     $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
-    localization.init($scope);
+    $scope.alert = SweetAlert;
     $scope.TournamentService = TournamentService;
     $rootScope.loc = localization;
     $scope.auth = auth;
     $scope.ActorService = ActorService;
     $scope.notifications = NotificationService;
+    $scope.GameInfoService = GameInfoService;
     $scope.auth.load();
 
     $scope.auth.addListener((data)=>{
@@ -9217,9 +9227,9 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         dialog.open("aboutUs",$scope);
     };
     $scope.checkProtocol = function(){
-        console.log($location.protocol());
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
-            window.location = 'https://' + window.location.hostname + ":"+window.location.port+window.location.pathname + window.location.hash;
+            window.location = 'https://' + window.location.hostname +
+                ":"+window.location.port+window.location.pathname + window.location.hash;
         }
     };
     $scope.checkProtocol();
@@ -9349,8 +9359,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 	console.log("ey");
 	$scope.ejecutaPaypal = function() {
 		xhr.get("api/user/updatepaypal");
-		$location.path("/");
-	}
+	};
 	$scope.ejecutaPaypal();
 });
 ;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
@@ -9435,6 +9444,35 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 
 	};
 });
+;app.controller('ProfileController', function($scope, middleware, ActorService, $routeParams, dialog,GameInfoService,SystemMessages) {
+    middleware.needRol("ANY");
+	$scope.ActorService = ActorService;
+	$scope.ActorService.UserProfile($routeParams.username);
+
+	$scope.viewUsersByTeam = function(teamId) {
+		$scope.teamId = teamId;
+		dialog.open("viewUsersByTeam", $scope);
+	};
+
+	$scope.deleteGameInfo = function(gameInfo){
+		GameInfoService.delete(gameInfo,(a)=>{
+            SystemMessages.okmessage("Game Identity deleted successfully!");
+            $scope.ActorService.UserProfile($routeParams.username);
+        })
+	};
+
+	$scope.GameInfoService.addCallbackOnDelete((a)=>{
+        $scope.ActorService.UserProfile($routeParams.username);
+    });
+
+	$scope.url = "profile/"+$routeParams.username;
+	$scope.tabs = {};
+	if(typeof $routeParams.tabs !=="undefined"){
+        $scope.tabs[$routeParams.tabs] = true;
+    }else {
+        $scope.tabs.gameprofiles = true;
+    }
+});
 ;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
                                                 SystemMessages, dialog){
     middleware.needRol("ANY");
@@ -9491,6 +9529,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
             }
         }
     };
+
+    $scope.GameInfoService.addCallbackOnDelete((a)=>{
+        $scope.As.filter($location.search());
+    });
+
     GameService.all((a)=>{
         $scope.games = a.data;
     });
@@ -9500,11 +9543,13 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
     $location.search("_csrf",null);
 });
-;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr){
+;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService){
     middleware.needRol("ANY");
     $scope.notFound = true;
-    xhr.get("api/team/"+$routeParams.name,(a)=>{
-        $scope.team = a.data;
+    TeamService.get($routeParams.name,(a)=>{
+        console.log(a);
+        $scope.team = a.data.team;
+        $scope.tournaments = a.data.tournaments;
         $scope.notFound = true;
     });
 });;;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location,dialog){
@@ -9623,7 +9668,7 @@ app.controller("BracketsController",function($scope,TournamentService){
 		});
 	}
 });
-;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
+;app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService,$location){
     middleware.needRol("USER,ADMIN");
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
@@ -9655,12 +9700,11 @@ app.controller("BracketsController",function($scope,TournamentService){
 
             })
         },(a)=>{
-            $scope.notfound = true;
+            $scope.notFound = false;
         });
     };
     $scope.loadTournament();
     $scope.url = "tournament/"+id;
-   $scope.notFound = false;
     $scope.mode = $routeParams.menu;
    if(typeof $scope.mode ==="undefined"){
        $scope.mode = "resume";
@@ -9672,6 +9716,12 @@ app.controller("BracketsController",function($scope,TournamentService){
            $scope.loadTournament();
        });
     };
+
+   $scope.delete = function(tournament){
+       TournamentService.delete(tournament,(a)=>{
+           $location.path("tournament/list");
+       })
+   };
 
     $scope.getStyleFromResult = function(tournament,id){
        let result = false;
@@ -9790,7 +9840,8 @@ app.controller("BracketsController",function($scope,TournamentService){
             auth.load(()=>{},true);
         })
     };
-    
+
+
     this.team = function(data,sucess,error){
         let object = this;
         xhr.post("team/user/create",data,sucess,error);
@@ -9847,7 +9898,7 @@ app.controller("BracketsController",function($scope,TournamentService){
         });
     };
 
-});;app.service("AdminService",function(xhr,SystemMessages){
+});;app.service("AdminService",function(xhr,Alerts,SystemMessages,localization){
     this.hooksBannedUsers = [];
 
     this.addHookBannedUser = function(callback){
@@ -9857,37 +9908,48 @@ app.controller("BracketsController",function($scope,TournamentService){
     };
 
     this.ban = function(user){
+        let data = {};
+        let toban = (user.userAccount.locked==true) ? localization.admin.bans.unban : localization.admin.bans.ban;
+        let banned = (user.userAccount.locked==true) ? localization.admin.bans.unbanned : localization.admin.bans.banned;
+        let args = {"user": user.userAccount.username,"toban":toban,"banned":banned};
+        data.title = localization.eval(localization.admin.bans.suretoban,args);
+        data.confirmtitle = banned;
+        data.confirmtext = localization.eval(localization.admin.bans.hasbeenbanned,args);
         let object = this;
-        xhr.get("api/admin/ban/"+user.id,(a)=>{
-            let banned = (user.userAccount.locked==true) ? "Unbanned" : "Banned";
-            SystemMessages.okmessage("User "+banned);
-            object.closeDropdowns();
-            user.userAccount.locked = !user.userAccount.locked;
-            object.hooksBannedUsers.forEach((i)=>{
-                if(typeof i==="function"){
-                    i(user);
-                }
+        data.callback = ()=>{
+            xhr.get("api/admin/ban/"+user.id,()=>{
+                SystemMessages.okmessage( data.confirmtext);
+                closeDropdowns();
+                user.userAccount.locked = !user.userAccount.locked;
+                object.hooksBannedUsers.forEach((i)=>{
+                    if(typeof i==="function"){
+                        i(user);
+                    }
+                });
             });
-        });
+        };
+        Alerts.confirm(data)
+
     };
 
     this.deleteReport = function(report,callback){
         let object = this;
-        xhr.get("api/admin/report/"+report.id+"/delete",(a)=>{
-            SystemMessages.okmessage("Report removed");
-            if(typeof callback!=="undefined"){
-                callback(a.response);
-            }
-        });
+        let data = {};
+        data.title = localization.admin.reports.suretodelete;
+        data.confirmtitle = localization.deleted+"!";
+        data.confirmtext = localization.admin.reports.deleted;
+        data.callback = (a)=>{
+            xhr.get("api/admin/report/"+report.id+"/delete",(a)=>{
+                SystemMessages.okmessage(localization.admin.reports.deleted);
+                if(typeof callback!=="undefined"){
+                    callback(a.response);
+                }
+            });
+        };
+        Alerts.confirm(data);
+
     };
 
-    this.closeDropdowns = function(){
-        let list = $(".dropdown");
-        list.each((a)=>{
-            $($(list[a]).children("ul")[0]).hide();
-            $(".toverlay").remove();
-        })
-    };
 
     this.getBannedUsers = function (callback) {
         xhr.get("api/admin/ban/list",(a)=> {
@@ -9904,6 +9966,37 @@ app.controller("BracketsController",function($scope,TournamentService){
             }
         });
     }
+});
+
+function closeDropdowns (){
+    let list = $(".dropdown");
+    list.each((a)=>{
+        $($(list[a]).children("ul")[0]).hide();
+        $(".toverlay").remove();
+    })
+};app.service("Alerts",function(SweetAlert,localization){
+
+
+    this.confirm = function (object) {
+        SweetAlert.swal({
+            title: object.title,
+            text : object.text,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: localization.yes,
+            cancelButtonText: localization.cancel,
+            closeOnConfirm: false
+        },function(isConfirm){
+            if(isConfirm){
+                if(typeof object.callback !=="undefined"){
+                    object.callback();
+                }
+                swal(object.confirmtitle, object.confirmtext, "success");
+            }
+        });
+    }
+
 });;
 app.service("auth", function(xhr){
 
@@ -10205,6 +10298,32 @@ app.service("dialog", function(ngDialog,$rootScope){
             }
         })
     }
+});;app.service("GameInfoService", function(xhr,SystemMessages){
+
+    this.callbacksDelete = [];
+
+    this.addCallbackOnDelete = function(callback){
+        if(typeof callback!=="undefined"){
+            this.callbacksDelete.push(callback);
+        }
+    };
+
+    this.delete = function(gameInfo,callback){
+        console.log(gameInfo);
+        let object = this;
+        xhr.get("/api/gameinfo/"+gameInfo.id+"/delete",(a)=>{
+            if(typeof callback!=="undefined"){
+                callback(a);
+            }
+                closeDropdowns();
+                object.callbacksDelete.forEach((i)=>{
+                    if(typeof i==="function") {
+                        i(a);
+                    }
+                });
+        });
+    }
+    
 });;app.service("GameService",function(xhr){
     this.main = {};
 
@@ -10246,6 +10365,10 @@ app.service("dialog", function(ngDialog,$rootScope){
                 });
             }
         });
+    };
+
+    this.eval = function(text,args){
+        return eval('`'+text+'`');
     };
 
     this.getLanguage = function(){
@@ -10603,6 +10726,16 @@ app.service("SystemMessages", function($timeout){
         },3000);
     }
 
+});;app.service("TeamService", function(xhr){
+
+   this.get = function(name,callback){
+       xhr.get("api/team/"+name,(a)=>{
+            if(typeof callback!=="undefined"){
+                callback(a);
+            }
+       });
+   }
+
 });;app.service("TournamentService", function(xhr){
 	this.tournaments =[];
 	this.confrontations = [];
@@ -10774,24 +10907,27 @@ app.service("SystemMessages", function($timeout){
 
 
     this.get = function (url, sucess,error) {
-        $(".loader").show();
         $http.get(url).then(function (data) {
-                if (typeof sucess !== "undefined") {
+                if (typeof sucess !== "undefined" && data.status===200) {
                     sucess(data);
+                }else{
+                    if (typeof error !== "undefined") {
+                        error(data);
+                    }
                 }
-                $(".loader").hide();
+
             },
             function(data) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                $(".loader").hide();
+
                 SystemMessages.errormessage("Something wrong has happened!");
             });
     };
 
     this.post = function (url, data, sucess,error) {
-        $(".loader").show();
+
         data[$rootScope.csrf.parameterName] = $rootScope.csrf.token;
         $http.defaults.headers.post['X-CSRF-TOKEN'] = data._csrf;
         $http({
@@ -10815,69 +10951,16 @@ app.service("SystemMessages", function($timeout){
                 if(typeof sucess !== "undefined"){
                     sucess(data);
                 }
-                $(".loader").hide();
             },
             function(data) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
                 SystemMessages.errormessage("Something wrong has happened!");
-                $(".loader").hide();
             }
         );
     };
-});;;app.directive("adminTools",function($compile){
-    return {
-        restrict: "AEC",
-        scope: {
-            "adminTools": "="
-        },
-
-        link: function(scope,element,attrs){
-            scope.$parent.adminTools = scope.adminTools;
-            scope.$watch('adminTools',()=>{
-            let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
-                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
-                      <ul>
-                    <li ng-if="adminTools.userAccount.locked==false"><a href="#" ng-click="AdminService.ban(adminTools)">Ban User</a></li>
-                    <li ng-if="adminTools.userAccount.locked==true"><a href="#" ng-click="AdminService.ban(adminTools)">Unban User</a></li>
-                        </ul>
-                    </div>`;
-            $(element).html(template);
-            $compile(element.contents())(scope.$parent);
-            });
-        }
-    }
-
-
-
-});
-
-app.directive("tournamentTools",function($compile){
-    return {
-        restrict: "AEC",
-        scope: {
-            "tournamentTools": "="
-        },
-
-        link: function(scope,element,attrs){
-            scope.$parent.tournamentTools = scope.tournamentTools;
-            scope.$watch('tournamentTools',()=>{
-                let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
-                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
-                      <ul>
-                    <li><a href="#" ng-if="TournamentService.canBeDeleted(tournamentTools)" ng-click="TournamentService.delete(tournamentTools)">Delete</a></li>
-                        </ul>
-                    </div>`;
-                $(element).html(template);
-                $compile(element.contents())(scope.$parent);
-            });
-        }
-    }
-
-
-
-});;app.directive("userCard",function($compile,auth,AdminService){
+});;;;app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {
@@ -10904,7 +10987,12 @@ app.directive("tournamentTools",function($compile){
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
-                   <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>
+                   <span tooltip="" ng-repeat="g in i.gameInfo">
+                   <img class="game-icon open-tooltip" ng-src="{{g.game.picture}}"/>
+                   <div class="card tooltip" game-card="g" user="i">
+                    </div>
+                        </span>
+                   
                             </div>
                   <div class="flags col s3 x1">
                   <h2>Languages</h2>
@@ -10914,9 +11002,11 @@ app.directive("tournamentTools",function($compile){
                   </div>
                   <div class="card-footer">
                   <div class="col s7 x2">
-                  <a class="button" ng-if="auth.principal.actor.id!=i.id" href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
+                  <a class="button" 
+                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
                     </div>
                   <div class="col s3 x1 float-right">
+               
                            <div follow="i"></div>
                     </div>
                     <div class="clear-both"></div>
@@ -10952,9 +11042,14 @@ app.directive("teamCard",function($compile){
                   <a href="team/{{i.name}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Members</h2>
-                    <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">
+                     <span tooltip="" ng-repeat="a in i.users" >
+                    <a class="open-tooltip" href="profile/{{a.userAccount.username}}">
                     <img class="profile-image" ng-src="{{a.picture}}">
-                </a>
+                    </a>
+                     <div class="card tooltip" user-card="a">
+                    </div>
+                </span>
+
                             </div>
               
                   </div>
@@ -10975,7 +11070,58 @@ app.directive("teamCard",function($compile){
             })
         }
     }
-});;app.directive("button",function(){
+});
+app.directive("gameCard",function($compile){
+    return{
+        restrict: "A",
+        scope: {
+            "gameCard": "=",
+            "user": "="
+        },
+        link: function(scope,element,attrs){
+            $(element).addClass("blockcard");
+            let updated = true;
+            scope.$watch('gameCard',()=>{
+                if(typeof scope.gameCard!=="undefined"){
+                    scope.i = scope.gameCard;
+                    let template = `
+                <div class="card-header">
+                     <h1>{{i.game.name}}</h1>
+                     <img class="card-header-header" ng-src="{{i.game.header}}">
+                     </div>
+                     <div class="card-body">
+                            <span class="float-right" games-tools="i" user="user"></span>
+                     <h1>{{i.username}}</h1>
+                     </div>
+                     <div class="card-footer">
+                     <div class="s12 x4">
+                     <img ng-src="{{i.game.picture}}" class="game-icon" />
+                     </div>
+                </div>
+                
+            `;
+                    $(element).html(template);
+                    $compile(element.contents())(scope);
+                }
+            })
+        }
+    }
+});
+/*
+
+ <div class="card-header">
+ <h1>{{i.game.name}}</h1>
+ <img class="card-header-header" ng-src="{{i.game.header}}">
+ </div>
+ <div class="card-body">
+ <h1>{{i.username}}</h1>
+ </div>
+ <div class="card-footer">
+ <div class="s12 x4">
+ <img ng-src="{{i.game.picture}}" class="game-icon" />
+ </div>
+ </div>
+ */;app.directive("button",function(){
    return{
        restrict:"C",
        link: function(scope,element,attrs){
@@ -11039,42 +11185,41 @@ app.directive("dropdown",function(){
 });;app.directive("follow",function($compile,auth,$rootScope,ActorService){
     return {
         restrict:"A",
-        terminal: true,
-        priority: 1000,
         scope:{
             follow: "="
         },
         link: function(scope,element,attrs){
-            let changeButton = function(boolean,ele){
-                let greyClass = `grey-button`;
-                let Class = `button`;
-                let followOrFollowing = $rootScope.loc.profileview.following;
-                if (boolean){
-                    ele.addClass(greyClass);
-                    ele.removeClass(Class);
-                }else{
-                    ele.addClass(Class);
-                    ele.removeClass(greyClass);
-                    followOrFollowing = $rootScope.loc.profileview.follow;
-                }
-                ele.html(`${followOrFollowing}`);
-            };
-            scope.$watch("follow",function(a){
-                if (typeof a !== "undefined"){
-                    element.attr('is-auth','');
-                    element.removeAttr("follow");
-                    let following = auth.isPrincipalFollowing(a);
-                    changeButton(following,$(element));
-                    notPrincipal(element,scope.follow,auth);
-                    $(element).on("click",function(e){
-                        following = (following != true);
-                        changeButton(following,$(this));
-                        ActorService.followOrUnfollow(a.id);
-                    });
-                    $compile($(element))(scope);
-                }
+            scope.$watch("follow",(a)=>{
+            scope.ActorService = ActorService;
+                    scope.isFollowingText = function(a){
+                        let result = $rootScope.loc.profileview.follow;
+                        if (auth.isPrincipalFollowing(a)){
+                            result =  $rootScope.loc.profileview.following;
+                        }
+                        return result;
+                    };
+
+                    scope.isFollowing = function(){
+                        let result = false;
+                        if (auth.isPrincipalFollowing(a)){
+                            result =  true;
+                        }
+                        return result;
+                    };
+                    scope.followOrUnfollow = function(a){
+                        ActorService.followOrUnfollow(a.id,(b)=>{
+                            ActorService.UserProfile(a.userAccount.username);
+                        })
+                    };
+                    scope.auth = auth;
+                    let template =
+                        `<div ng-if="!auth.isPrincipal(follow) && auth.hasRole('USER')" ng-class="(isFollowing(follow)) ? 'grey-button' : 'button'" 
+                            ng-click="followOrUnfollow(follow)">{{isFollowingText(follow)}}</div>`;
+                    $(element).html(template);
+                    $compile(element.contents())(scope);
             })
-        }
+                }
+
     }
 });;app.directive("giant",function(){
     return {
@@ -11482,6 +11627,131 @@ app.directive("select",function(){
                }, 200);
        }
    }
+
+});;app.directive("adminTools",function($compile,localization){
+    return {
+        restrict: "AEC",
+        scope: {
+            "adminTools": "="
+        },
+
+        link: function(scope,element,attrs){
+            scope.$parent.adminTools = scope.adminTools;
+            scope.$watch('adminTools',(a)=>{
+                if(typeof a!=="undefined"){
+                    scope.$parent.adminTools = scope.adminTools;
+                    console.log(a.userAccount.locked);
+            let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li ng-if="adminTools.userAccount.locked==false">
+                    <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.ban}</a></li>
+                    <li ng-if="adminTools.userAccount.locked==true">
+                    <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.unban}</a></li>
+                        </ul>
+                    </div>`;
+            $(element).html(template);
+            $compile(element.contents())(scope.$parent);
+                }
+            });
+        }
+    }
+
+
+
+});
+
+app.directive("tournamentTools",function($compile){
+    return {
+        restrict: "AEC",
+        scope: {
+            "tournamentTools": "="
+        },
+
+        link: function(scope,element,attrs){
+            scope.$parent.tournamentTools = scope.tournamentTools;
+            scope.$watch('tournamentTools',()=>{
+                let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li><a href="#" ng-if="TournamentService.canBeDeleted(tournamentTools)" ng-click="TournamentService.delete(tournamentTools)">Delete</a></li>
+                        </ul>
+                    </div>`;
+                $(element).html(template);
+                $compile(element.contents())(scope.$parent);
+            });
+        }
+    }
+
+
+
+});
+
+app.directive("gamesTools",function($compile,auth,GameInfoService){
+    return {
+        restrict: "AEC",
+        scope: {
+            "gamesTools": "=",
+            "user": "="
+        },
+
+        link: function(scope,element,attrs){
+            scope.$parent.gamesTools = scope.gamesTools;
+            scope.$parent.auth = auth;
+            scope.$parent.user = scope.user;
+            scope.$parent.GameInfoService = GameInfoService;
+            scope.$watch('gamesTools',()=>{
+                let template = ` <div class="dropdown" 
+                    ng-if="auth.hasRole('USER') && auth.isPrincipal(user)" dropdown>
+                    <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
+                      <ul>
+                    <li><a href="#"
+                    ng-click="GameInfoService.delete(gamesTools)">Delete</a></li>
+                        </ul>
+                    </div>`;
+                $(element).html(template);
+                $compile(element.contents())(scope.$parent);
+            });
+        }
+    }
+
+
+
+});;app.directive("tooltip",function(){
+    return {
+        scope: {
+            "tooltip": "@"
+        },
+        restrict:"A",
+        link: function(scope,element,attrs){
+
+                let tooltip = $($(element).children(".tooltip")[0]);
+                let link = $($(element).children(".open-tooltip")[0]);
+                $(element).css({"position":"relative"});
+                let id = Math.floor(Math.random()*(100));
+                $(tooltip).attr("data-tooltip",id);
+                let showTooltip = function(){
+                    tooltip.show();
+                };
+                let hideTooltip = function(){
+                    tooltip.hide();
+                };
+                $(link).on("mousemove",(a)=>{
+                    tooltip.css({"top":0,"left":0,"z-index":"15","background-color":"white"});
+                    showTooltip();
+                });
+                $(element).on("mouseleave",(a)=>{
+                    hideTooltip();
+                });
+                $(tooltip).on("mouseleave",(a)=>{
+                    hideTooltip();
+                });
+
+
+
+
+        }
+    }
 
 });;String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);

@@ -24,7 +24,7 @@
 		<input type="url" placeholder="http://" ng-model="tournamentform.picture" />
 
 		<label> {{loc.tournament.inscriptionLimit}} </label>
-		<input type="date" placeholder="{{loc.tournament.inscriptionLimit}}" ng-model="tournamentform.limitInscription" />
+		<input type="datetime-local" placeholder="{{loc.tournament.inscriptionLimit}}" ng-model="tournamentform.limitInscription" />
     </div>
 
 	<input type="submit" value="{{loc.send}}" />

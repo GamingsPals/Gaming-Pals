@@ -16,6 +16,24 @@ public class Game extends DomainEntity {
     private Integer gameid;
     private String tag; // Este tag es un acronimo del nombre para ayudar con los assets (example: League of legends => lol => assets/images/lolicono.png)
     private Collection<GameInfo> gameInfos;
+    private String header;
+    private String picture;
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getName() {
         return name;

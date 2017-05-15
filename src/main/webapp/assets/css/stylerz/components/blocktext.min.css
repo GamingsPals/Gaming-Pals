@@ -1,0 +1,1 @@
+body:before{white-space:pre;font-family:monospace;content:"Error: Undefined variable: \"$color-base-black-8\".\A         on line 2 of blocktext.scss\A \A 1: .blocktext{\A 2:   background-color: $color-base-black-8;\A 3:   border-radius: 4pt;\A 4: }"}

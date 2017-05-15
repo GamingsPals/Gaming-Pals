@@ -1,4 +1,4 @@
-app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService){
+app.controller("TournamentController",function($scope,auth,middleware,$routeParams,xhr, TournamentService,$location){
     middleware.needRol("USER,ADMIN");
     $scope.auth = auth;
     $scope.TournamentService = TournamentService;
@@ -30,12 +30,11 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
 
             })
         },(a)=>{
-            $scope.notfound = true;
+            $scope.notFound = false;
         });
     };
     $scope.loadTournament();
     $scope.url = "tournament/"+id;
-   $scope.notFound = false;
     $scope.mode = $routeParams.menu;
    if(typeof $scope.mode ==="undefined"){
        $scope.mode = "resume";
@@ -47,6 +46,12 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
            $scope.loadTournament();
        });
     };
+
+   $scope.delete = function(tournament){
+       TournamentService.delete(tournament,(a)=>{
+           $location.path("tournament/list");
+       })
+   };
 
     $scope.getStyleFromResult = function(tournament,id){
        let result = false;

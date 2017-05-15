@@ -101,7 +101,7 @@ public class Tournament extends DomainEntity {
 
 
 	@Valid
-	@OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL,orphanRemoval=true)
 	public Collection<Confrontation> getConfrontations() {
 		return confrontations;
 	}
@@ -110,11 +110,10 @@ public class Tournament extends DomainEntity {
 	}
 
 	@Valid
-	@OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL,orphanRemoval=true)
 	public Collection<Award> getAwards(){return awards;}
 	public void setAwards(Collection<Award> awards){this.awards=awards;}
 
-	@Valid
 	@ManyToMany(mappedBy = "tournaments")
 	public Collection<Team> getTeams(){return teams;}
 	public void setTeams(Collection<Team> teams){this.teams=teams;}

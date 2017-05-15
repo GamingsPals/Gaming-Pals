@@ -6,7 +6,9 @@
 @import "../js/datatable/datatables.css";
 @import "../js/datatable/responsive.dataTables.min.css";
 @import "stylerz/stylerz.scss";
+@import "../js/angular/ng-loading/loading-bar.min.scss";
 @import "hover-min.css";
+@import "../js/sweetalert/sweetalert.scss";
 
 body{
   font-size:14pt;
@@ -61,8 +63,11 @@ main{
 }
 
 .game-icon{
-  width:70px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .small{

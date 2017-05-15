@@ -25,7 +25,12 @@ app.directive("userCard",function($compile,auth,AdminService){
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
-                   <img ng-repeat="g in i.gameInfo" style="width:80px" ng-src="assets/images/games/icons/{{g.game.tag}}icon.png"/>
+                   <span tooltip="" ng-repeat="g in i.gameInfo">
+                   <img class="game-icon open-tooltip" ng-src="{{g.game.picture}}"/>
+                   <div class="card tooltip" game-card="g" user="i">
+                    </div>
+                        </span>
+                   
                             </div>
                   <div class="flags col s3 x1">
                   <h2>Languages</h2>
@@ -35,9 +40,11 @@ app.directive("userCard",function($compile,auth,AdminService){
                   </div>
                   <div class="card-footer">
                   <div class="col s7 x2">
-                  <a class="button" ng-if="auth.principal.actor.id!=i.id" href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
+                  <a class="button" 
+                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
                     </div>
                   <div class="col s3 x1 float-right">
+               
                            <div follow="i"></div>
                     </div>
                     <div class="clear-both"></div>
@@ -73,9 +80,14 @@ app.directive("teamCard",function($compile){
                   <a href="team/{{i.name}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
                    <h2>Members</h2>
-                    <a ng-repeat="a in i.users" href="profile/{{a.userAccount.username}}">
+                     <span tooltip="" ng-repeat="a in i.users" >
+                    <a class="open-tooltip" href="profile/{{a.userAccount.username}}">
                     <img class="profile-image" ng-src="{{a.picture}}">
-                </a>
+                    </a>
+                     <div class="card tooltip" user-card="a">
+                    </div>
+                </span>
+
                             </div>
               
                   </div>
@@ -97,3 +109,54 @@ app.directive("teamCard",function($compile){
         }
     }
 });
+app.directive("gameCard",function($compile){
+    return{
+        restrict: "A",
+        scope: {
+            "gameCard": "=",
+            "user": "="
+        },
+        link: function(scope,element,attrs){
+            $(element).addClass("blockcard");
+            let updated = true;
+            scope.$watch('gameCard',()=>{
+                if(typeof scope.gameCard!=="undefined"){
+                    scope.i = scope.gameCard;
+                    let template = `
+                <div class="card-header">
+                     <h1>{{i.game.name}}</h1>
+                     <img class="card-header-header" ng-src="{{i.game.header}}">
+                     </div>
+                     <div class="card-body">
+                            <span class="float-right" games-tools="i" user="user"></span>
+                     <h1>{{i.username}}</h1>
+                     </div>
+                     <div class="card-footer">
+                     <div class="s12 x4">
+                     <img ng-src="{{i.game.picture}}" class="game-icon" />
+                     </div>
+                </div>
+                
+            `;
+                    $(element).html(template);
+                    $compile(element.contents())(scope);
+                }
+            })
+        }
+    }
+});
+/*
+
+ <div class="card-header">
+ <h1>{{i.game.name}}</h1>
+ <img class="card-header-header" ng-src="{{i.game.header}}">
+ </div>
+ <div class="card-body">
+ <h1>{{i.username}}</h1>
+ </div>
+ <div class="card-footer">
+ <div class="s12 x4">
+ <img ng-src="{{i.game.picture}}" class="game-icon" />
+ </div>
+ </div>
+ */

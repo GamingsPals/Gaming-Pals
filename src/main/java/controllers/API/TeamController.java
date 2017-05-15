@@ -23,6 +23,9 @@ import services.notifications.TeamInvitationNotificationService;
 import services.TeamService;
 import services.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api")
 public class TeamController extends ApiAbstractController{
@@ -58,7 +61,6 @@ public class TeamController extends ApiAbstractController{
 		try {
 			return teamService.createTeamForm(team);
 		} catch (Throwable e) {
-			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}
@@ -73,12 +75,14 @@ public class TeamController extends ApiAbstractController{
 		}
 
 		try {
+			Map<String,Object> map = new HashMap<>();
 			Team t = teamService.findByName(name);
 			Assert.notNull(t);
+			map.put("team",t);
+			map.put("tournaments",t.getTournaments());
 
-			return t;
+			return map;
 		} catch (Throwable e) {
-			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}

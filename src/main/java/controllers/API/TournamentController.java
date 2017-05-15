@@ -47,6 +47,7 @@ public class TournamentController extends ApiAbstractController {
 		}
 		try{
 			Assert.notNull(tournament);
+			Assert.isTrue(tournament.getId()!=0);
 		} catch (Exception e){
 			return notFoundError(response,null);
 		}
@@ -73,7 +74,6 @@ public class TournamentController extends ApiAbstractController {
 			tournamentService.assign(teamId, tournamentId);
 			return ok(response, null);
 		} catch (Throwable e) {
-			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}
@@ -89,13 +89,11 @@ public class TournamentController extends ApiAbstractController {
 		try {
 
 			Tournament t = tournamentService.reconstruct(tournamentForm);
-			System.out.println(t);
 			t = tournamentService.save(t);
 			t = confrontationService.calculateConfrontations(t);
 
 			return ok(response, null);
 		} catch (Throwable e) {
-			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}

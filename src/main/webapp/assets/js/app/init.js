@@ -1,8 +1,9 @@
 let app =
-    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog','ngMessages']);
+    angular.module('App',['ngRoute','ngSanitize','ngRoute','ngCookies','ngDialog','ngMessages','angular-loading-bar',
+        'oitozero.ngSweetAlert']);
 
 
-app.run(function($rootScope,$location,dialog) {
+app.run(function($rootScope,$location,dialog,$anchorScroll) {
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         closeMenu();
     });
@@ -11,9 +12,9 @@ app.run(function($rootScope,$location,dialog) {
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
         let top = $("#top");
-        if(typeof top !=="undefined"){
-            $("html, body").animate({ scrollTop: top.offsetTop }, "medium");
-        }
+        $location.hash('top');
+        $anchorScroll();
+        $location.hash('');
     });
 
     $rootScope.back = function () {
