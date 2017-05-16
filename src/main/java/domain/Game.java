@@ -4,11 +4,12 @@ package domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Game extends DomainEntity {
+public class Game extends DomainEntity implements Serializable {
 
 
 

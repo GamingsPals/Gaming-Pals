@@ -1,9 +1,9 @@
-app.controller("DashBoardController", function($scope,xhr){
+app.controller("DashBoardController", function($scope,xhr,DashBoardService){
     $scope.stats = ()=>{
-        xhr.get("api/main",(a)=>{
-            $scope.lastTournaments = a.data.lastTournaments;
-            $scope.bestRatedUsers = a.data.bestRatedUsers;
-            $scope.games = a.data.games;
+        DashBoardService.getDashboardData((a)=>{
+            $scope.lastTournaments = a.lastTournaments;
+            $scope.bestRatedUsers = a.bestRatedUsers;
+            $scope.games = a.games;
         })
     };
 

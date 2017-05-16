@@ -44,7 +44,7 @@
 
 	<nav class="header" ng-cloak>
 		<div class="header-nav">
-			<a href="home"> <img src="assets/images/testlogo.png" />
+			<a href=""> <img src="assets/images/testlogo.png" />
 			</a>
 		</div>
 		<nav class="nav-horizontal" ng-cloak>

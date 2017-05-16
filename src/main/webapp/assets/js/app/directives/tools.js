@@ -10,7 +10,6 @@ app.directive("adminTools",function($compile,localization,ActorService){
             scope.$watch('adminTools',(a)=>{
                 if(typeof a!=="undefined"){
                     scope.$parent.adminTools = scope.adminTools;
-                    console.log(a.userAccount.locked);
             let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>

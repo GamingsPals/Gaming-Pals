@@ -1,4 +1,4 @@
-app.service("socket", function(auth,$rootScope){
+app.service("socket", function(auth,$rootScope,$location){
 
     this.socket = null;
     this.messages = [];
@@ -7,7 +7,8 @@ app.service("socket", function(auth,$rootScope){
     this.listeners = [];
 
     this.init = function(scope){
-        if (auth.isAuthenticated()){
+        let host = $location.host();
+        if (auth.isAuthenticated() && host!=="localhost"){
         this.scope = scope;
         this.socket = io.connect('//gaming-pals.com:8081', { 'secure':true, 'forceNew': true,
         query: `id=${auth.principal.actor.id}&picture=${auth.principal.actor.picture}&username=${auth.principal.actor.userAccount.username}`});
@@ -18,7 +19,7 @@ app.service("socket", function(auth,$rootScope){
 
     this.listen = function(){
         let o = this;
-
+        if(this.socket===null) return false;
         this.socket.on('users-connected',function(data){
             o.usersConnected = data;
             $rootScope.$apply();
@@ -38,20 +39,24 @@ app.service("socket", function(auth,$rootScope){
     };
 
     this.on = function(route,callback){
+        if(this.socket===null) return false;
         let o = {"route": route, "callback":callback};
         this.listeners.push(o);
     };
 
     this.emit = function(route,data){
+        if(this.socket===null) return false;
         this.socket.emit(route,data);
     };
 
     this.isUserConnected = function(id){
+        if(this.socket===null) return false;
         return this.usersConnected.find((a)=>{
             return a.id == id;
         })
     };
     this.disconnect = function(){
+        if(this.socket===null) return false;
         this.connected = false;
         if(this.socket!==null){
             this.socket.disconnect();

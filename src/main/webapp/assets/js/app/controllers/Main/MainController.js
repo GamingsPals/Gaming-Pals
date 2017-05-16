@@ -1,4 +1,4 @@
-app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize,LoLStaticData
+app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
 ,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService,
 GameInfoService,SweetAlert){
     localization.init($scope);
@@ -34,11 +34,6 @@ GameInfoService,SweetAlert){
     $rootScope.csrf = csrf;
     $scope.SystemMessages = SystemMessages;
     $scope.sanitize = $sanitize;
-    $scope.lolsd = LoLStaticData;
-    $scope.lolsd.loadVersion(()=>{
-        $scope.lolsd.loadChampions();
-        $scope.lolsd.loadItems();
-    });
     $scope.Math = Math;
 
     $scope.searchUsername = function(name){

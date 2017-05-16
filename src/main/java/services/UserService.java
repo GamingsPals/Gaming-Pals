@@ -1,22 +1,19 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
+import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 
-import domain.Game;
-import domain.GameInfo;
-import domain.Language;
-import domain.User;
 import domain.notifications.FollowNotification;
 import forms.EditProfileForm;
 import forms.SearchForm;
@@ -49,6 +46,9 @@ public class UserService {
 
 	@Autowired
 	FollowNotificationService		followNotificationService;
+
+	@Autowired
+    TournamentService tournamentService;
 
 
 	public UserService() {
@@ -94,6 +94,8 @@ public class UserService {
 	public User findOne(final int userId) {
 		return this.userRepository.findOne(userId);
 	}
+
+	@Cacheable("allusers")
 	public Collection<User> findAll() {
 		return this.userRepository.findAll();
 	}
@@ -183,7 +185,7 @@ public class UserService {
 	public List<User> findBestRanked() {
 		updateRatingsAvg();
 		final List<User> userList = this.userRepository.findBestRanked();
-		return userList.subList(0, Math.min(userList.size(), 3));
+		return new ArrayList<>(userList.subList(0, Math.min(userList.size(), 3)));
 	}
 
 	private void updateRatingsAvg() {
@@ -290,4 +292,16 @@ public class UserService {
 		user.setLastpaid(new Date(System.currentTimeMillis() - 1000));
 		this.save(user);
 	}
+
+    @Cacheable("maindata")
+    public Map<String,Object> mainStatData(){
+		List<User> users = findBestRanked();
+		List<Tournament> tournaments = tournamentService.findLatest(5);
+		Map<String, Object> result = new LinkedHashMap<>();
+		result.put("games", gameService.findAll());
+		result.put("bestRatedUsers", users);
+		result.put("lastTournaments",tournaments);
+
+		return result;
+    }
 }

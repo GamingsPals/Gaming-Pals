@@ -214,7 +214,7 @@ public class TournamentService {
     		return (o1.getCreated().after(o2.getCreated())) ? -1 : 1;
 		});
         int length = result.size();
-        return result.subList(0,Math.min(length,i));
+        return new ArrayList<>(result.subList(0,Math.min(length,i)));
 
     }
 }

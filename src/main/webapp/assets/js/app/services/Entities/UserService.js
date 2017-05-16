@@ -5,6 +5,14 @@ app.service("UserService",function(xhr,auth){
     this.findAll = function(callback){
         if(auth.isAuthenticated()){
         let object = this;
+        if(typeof this.alluser!=="undefined"){
+            object.callbacks.forEach((a)=>{
+                a(object.alluser);
+            });
+            if(typeof callback!=="undefined")
+                callback(this.alluser);
+            return false;
+        }
         xhr.get("api/user/all", function(response){
             object.alluser = response.data;
             object.removePrincipal(object.alluser);
@@ -12,7 +20,6 @@ app.service("UserService",function(xhr,auth){
                 callback(response.data);
             }
             object.callbacks.forEach((a)=>{
-                console.log("ey");
                 a(object.alluser);
             })
         })

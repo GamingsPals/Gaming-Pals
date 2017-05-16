@@ -26,7 +26,7 @@ import domain.notifications.TeamInvitationNotification;
 @Entity
 @Access(AccessType.PROPERTY)
 
-public class User extends Actor {
+public class User extends Actor  {
 
 	// Attributes
 	private Integer		age;
