@@ -1,0 +1,34 @@
+<section>
+    <form ng-submit="changeTime(confrontation,data.time) && data.time != null">
+        <h1>Change Confrontation play limit time</h1>
+
+        <div class="bracket">
+            <div class="bracket-round">
+                <div class="col s3 bracket-rounds">
+                    <div class="bracket-match">
+                        <div class="bracket-team">
+                            <a href="team/{{confrontation.participes[0].team.name}}"><span>
+                        {{confrontation.participes[0].team.name}}
+                  </span>
+                                <img style="width:100%" ng-src="{{confrontation.participes[0].team.picture}}"/>   </a>
+                        </div>
+                        <h3 style="text-align: center">VS</h3>
+                        <div class="bracket-team">
+                            <a href="team/{{confrontation.participes[1].team.name}}"><span>
+                        {{confrontation.participes[1].team.name}}
+                  </span>
+                                <img style="width:100%" ng-src="{{confrontation.participes[1].team.picture}}"/>   </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="datetime-local" ng-model="data.time" value="{{confrontation.limitPlay | date:'yyyy-MM-ddTHH:mm:ss'}}"/>
+        <span class="form-error" ng-if="data.time == null">Please change the time</span>
+        <div>
+            <input type="submit" value="Edit Time" />
+        </div>
+
+    </form>
+</section>

@@ -10273,6 +10273,7 @@ app.service("dialog", function(ngDialog,$rootScope){
         this.dialog = {};
         let path = "assets/html/"+template+".html";
         let options = {};
+        options.closeByDocument = false;
         options.template = path;
         if(typeof scope !== "undefined") {
             options.scope = scope;
