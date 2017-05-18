@@ -1,16 +1,12 @@
 
 package controllers.API;
 
-import domain.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.ActorService;
 import services.GameService;
-import services.TournamentService;
-import services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 

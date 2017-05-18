@@ -24,6 +24,12 @@
             z-index:5;
             bottom: 0;
             left: 5px;
+            a{
+              color:inherit;
+              &:hover{
+                color:inherit;
+            }
+            }
           }
         }
       }
@@ -39,4 +45,22 @@
 .looser{
   opacity:0.5;
   border:2px solid $color-base-black-7;
+}
+
+
+.clock{
+  top:3px;
+  z-index:2;
+  right:3px;
+  color:$color-base-white-1;
+  position: absolute;
+  background-color:$color-base-black-4;
+  padding:2px 6px;
+  border-radius:50%;
+  a{
+    color:inherit;
+    &:hover{
+      color:inherit;
+    }
+  }
 }

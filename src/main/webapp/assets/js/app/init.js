@@ -9,6 +9,7 @@ app.run(function($rootScope,$location,dialog,$anchorScroll) {
     });
     let history = [];
 
+    let dialogs = {};
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
         let top = $("#top");
@@ -17,10 +18,12 @@ app.run(function($rootScope,$location,dialog,$anchorScroll) {
         $location.hash('');
     });
 
+
+
     $rootScope.back = function () {
         let prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
         $location.path(prevUrl);
-        dialog.closeAll();
+
     };
 
 });

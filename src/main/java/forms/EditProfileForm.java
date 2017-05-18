@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,7 +18,7 @@ public class EditProfileForm {
 	private String username;
 	private String	email;
 	private String	picture;
-	private Integer	age;
+	private Date age;
 	private String languages;
 	private String header;
 	private String password;
@@ -54,12 +55,11 @@ public class EditProfileForm {
 		this.username = username;
 	}
 
-
-	public Integer getAge() {
+	public Date getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
+	public void setAge(Date age) {
 		this.age = age;
 	}
 

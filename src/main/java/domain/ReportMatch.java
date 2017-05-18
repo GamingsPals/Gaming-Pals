@@ -16,9 +16,23 @@ public class ReportMatch extends DomainEntity{
     private String image;
     private String result;
     private String description;
+    private Boolean revised;
+
+
 
     //Constructor
-    public ReportMatch(){super();}
+    public ReportMatch(){
+        super();
+        revised = false;
+    }
+
+    public Boolean getRevised() {
+        return revised;
+    }
+
+    public void setRevised(Boolean revised) {
+        this.revised = revised;
+    }
 
     //Getters and Setters
     @NotBlank
@@ -38,15 +52,13 @@ public class ReportMatch extends DomainEntity{
     private Team team;
 
     @Valid
-    @JsonIgnore
     @ManyToOne
     @NotNull
     public Confrontation getConfrontation(){return confrontation;}
     public void setConfrontation(Confrontation confrontation){this.confrontation= confrontation;}
 
-    @Valid
+
     @ManyToOne
-    @NotNull
     public Team getTeam(){return team;}
     public void setTeam(Team team){this.team=team;}
 

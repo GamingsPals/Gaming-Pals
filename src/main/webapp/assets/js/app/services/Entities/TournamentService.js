@@ -1,4 +1,4 @@
-app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization){
+app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization,auth,subscriber){
 	this.tournaments =[];
 	this.confrontations = [];
 	this.confrontation = [];
@@ -12,8 +12,10 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
 
 	this.getTournament = function(id,sucess,error){
 	    let o = this;
+
         xhr.get("api/tournament/"+id,function(data){
         	o.tournament = data;
+            subscriber.set("tournament",data.data);
             if(typeof sucess!=="undefined"){
                 sucess(data);
             }
@@ -40,6 +42,29 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
         return tournament.teams.length==tournament.numberTeams
     };
 
+    this.changeTimeConfrontation = function(confrontation,time,callback){
+        if(auth.hasRole('ADMIN')){
+        let timer = +new Date(time).getTime();
+        console.log(time);
+            xhr.get(`/api/admin/confrontation/${confrontation.id}?limitTime=${timer}`,callback);
+        }
+    };
+
+	this.getIncidences = function(tournament,callback){
+	    if(auth.hasRole("Admin")){
+	        xhr.get(`/api/admin/tournament/${tournament}/incidences`,(a)=>{
+	            subscriber.set("tournament:incidences",a.data);
+	            callback(a.data);
+            })
+        }
+    };
+
+
+    this.resolveConfrontation = function(confrontation,tournament,team){
+        xhr.get(`api/admin/tournament/${tournament.id}/confrontation/${confrontation.id}/winner/${team}`,(a)=>{
+            subscriber.set("tournament:resolve",a.data);
+        })
+    };
 
 	this.getConfrontations = function(tournamentId){
 		let object = this;

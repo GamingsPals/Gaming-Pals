@@ -221,20 +221,18 @@ public class TeamController extends ApiAbstractController{
         }
     }
 
-	@RequestMapping(value = "/team/{name}")
-	public Object get(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/team/{team}")
+	public Object get(@PathVariable Team team, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Assert.notNull(name);
+			Assert.notNull(team);
 		} catch (Exception e) {
 			return badrequest(response, null);
 		}
 
 		try {
 			Map<String,Object> map = new HashMap<>();
-			Team t = teamService.findByName(name);
-			Assert.notNull(t);
-			map.put("team",t);
-			map.put("tournaments",t.getTournaments());
+			map.put("team",team);
+			map.put("tournaments",team.getTournaments());
 
 			return map;
 		} catch (Throwable e) {

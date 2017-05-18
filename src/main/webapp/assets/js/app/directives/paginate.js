@@ -118,7 +118,6 @@ app.filter('paginate', function(PaginationService) {
     return function(input,pagination) {
         if(typeof input!=="undefined"){
         pagination = PaginationService.getById(pagination);
-
         if(typeof pagination==="undefined"){
             pagination = {};
             pagination.page = 1;

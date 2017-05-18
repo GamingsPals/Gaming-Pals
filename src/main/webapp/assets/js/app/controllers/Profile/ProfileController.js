@@ -1,4 +1,5 @@
-app.controller('ProfileController', function($scope, middleware, ActorService, $routeParams, dialog,GameInfoService,SystemMessages) {
+app.controller('ProfileController', function($scope, middleware, ActorService,
+											 $routeParams, dialog,GameInfoService,SystemMessages) {
     middleware.needRol("ANY");
 	$scope.ActorService = ActorService;
 	$scope.ActorService.UserProfile($routeParams.username);

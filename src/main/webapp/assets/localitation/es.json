@@ -84,6 +84,7 @@
     "error6": "Introduzca una URL válido.",
     "error7": "Introduzca un número.",
     "error8": "Seleccione un valor para este campo.",
+    "error9": "Tienes que aceptar nuestros términos y condiciones para poder regitrarte",
     "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals",
     "required": "Obligatorio"
 

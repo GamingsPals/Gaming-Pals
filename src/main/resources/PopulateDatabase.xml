@@ -183,7 +183,7 @@
 		<property name="picture"
 			value="http://vignette4.wikia.nocookie.net/jimmyneutron/images/5/57/Jimmy_Neutron.png/revision/latest?cb=20160731160701" />
 		<property name="userAccount" ref="userAccount3" />
-		<property name="age" value="18" />
+		<property name="age" value="1990/08/23" />
 		<property name="ratingAvg" value="3.5"/>
 		<property name="header" value="http://i.imgur.com/rOWlDyp.jpg" />
 		<property name="languages">
@@ -219,7 +219,7 @@
 			value="https://riot-web-static.s3.amazonaws.com/lolesports/2015Top20/01/player-plasdidfnxlcs.png" />
 		<property name="userAccount" ref="userAccount4" />
         <property name="ratingAvg" value="4"/>
-		<property name="age" value="18" />
+		<property name="age" value="1992/03/12" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -253,7 +253,7 @@
 		<property name="picture"
 			value="https://lolstatic-a.akamaihd.net/esports-assets/production/player/xpeke-8f3dmcvw.png" />
 		<property name="userAccount" ref="userAccount2" />
-		<property name="age" value="24" />
+		<property name="age" value="1996/01/15" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -285,7 +285,7 @@
 		<property name="picture" value="https://steamuserimages-a.akamaihd.net/ugc/505823901766078996/D99E8F90D5A694351EFF8E2094F78F47D60CA66D/" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount5" />
-		<property name="age" value="56" />
+		<property name="age" value="1995/05/27" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -316,7 +316,7 @@
 		<property name="picture" value="http://i.imgur.com/RHfEu.png" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount6" />
-		<property name="age" value="19" />
+		<property name="age" value="1993/04/12" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -348,7 +348,7 @@
 		<property name="picture" value="http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/3c/Nidalee_Poro_Icon.png/revision/latest?cb=20150214174101" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount7" />
-		<property name="age" value="45" />
+		<property name="age" value="1986/07/21" />
         <property name="ratingAvg" value="3"/>
 		<property name="languages">
 			<list>
@@ -380,7 +380,7 @@
 		<property name="picture" value="http://icons.iconarchive.com/icons/fazie69/league-of-legends-gold-border/512/Gnar-icon.png" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount8" />
-		<property name="age" value="27" />
+		<property name="age" value="1990/02/11" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -412,7 +412,7 @@
 		<property name="picture" value="http://orig05.deviantart.net/3039/f/2012/306/d/6/league_of_legends_baleful_grasp_icon_by_ponponmonster-d5jpnnf.png" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount9" />
-		<property name="age" value="30" />
+		<property name="age" value="1999/11/30" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -443,7 +443,7 @@
 		<property name="picture" value="http://www.freeiconspng.com/uploads/league-of-legends-icon-9.jpg" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount10" />
-		<property name="age" value="26" />
+		<property name="age" value="1985/08/01" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -475,7 +475,7 @@
 		<property name="picture" value="http://i.imgur.com/hlHuLjI.jpg" />
 		<property name="header" value="http://euw.leagueoflegends.com/sites/default/files/upload/art/wp_alistar_vs_olaf_1920x1080.jpg" />
 		<property name="userAccount" ref="userAccount11" />
-		<property name="age" value="23" />
+		<property name="age" value="1994/12/05" />
 		<property name="languages">
 			<list>
 				<ref bean="language1" />
@@ -712,7 +712,7 @@
 	<bean id="confrontation1" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="1" />
-		<property name="limitPlay" value="2017/04/20 10:20" />
+		<property name="limitPlay" value="2017/05/20 10:20" />
 		<property name="reportMatches">
 			<list>
 
@@ -730,7 +730,7 @@
 	<bean id="confrontation2" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="2" />
-		<property name="limitPlay" value="2017/04/20 10:20" />
+		<property name="limitPlay" value="2017/05/20 10:20" />
 		<property name="reportMatches">
 			<list>
 				<ref bean="reportMatch1"/>
@@ -861,79 +861,93 @@
 			<list>
 			</list>
 		</property>
-		<property name="participes">
-			<list>
-
-			</list>
-		</property>
 		<property name="tournament" ref="tournament3" />
 	</bean> 
 	<!-- Participes -->
 	<bean id="participes1" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team3" />
+        <property name="confrontation" ref="confrontation1"/>
 	</bean>
 
 	<bean id="participes2" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team4" />
+        <property name="confrontation" ref="confrontation1"/>
 	</bean> 
 
 	<bean id="participes3" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team5" />
+		<property name="confrontation" ref="confrontation2"/>
 	</bean>
 	
 	<bean id="participes4" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="winner" value="true" />
+		<property name="played" value="true" />
 		<property name="team" ref="team6" />
+        <property name="confrontation" ref="confrontation2"/>
 	</bean> 
 
 
 	<bean id="participes5" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="winner" value="true" />
+		<property name="played" value="true" />
 		<property name="team" ref="team1" />
+        <property name="confrontation" ref="confrontation4"/>
 	</bean>
 
 	<bean id="participes6" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team2" />
-	</bean>
+        <property name="confrontation" ref="confrontation4"/>
+ 	</bean>
 
 	<bean id="participes7" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team3" />
+        <property name="confrontation" ref="confrontation5" />
 	</bean>
 	
 	<bean id="participes8" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="winner" value="true" />
+		<property name="played" value="true" />
 		<property name="team" ref="team4" />
+        <property name="confrontation" ref="confrontation5" />
 	</bean> 
 	
 	<bean id="participes9" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="winner" value="true" />
+		<property name="played" value="true" />
 		<property name="team" ref="team1" />
+        <property name="confrontation" ref="confrontation7"/>
 	</bean>
 
 
 	<bean id="participes11" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
+		<property name="played" value="true" />
 		<property name="team" ref="team3" />
+        <property name="confrontation" ref="confrontation8" />
 	</bean>
 
 	<bean id="participes12" class="domain.Participes">
-		<property name="isWinner" value="true" />
+		<property name="winner" value="true" />
+		<property name="played" value="true" />
 		<property name="team" ref="team5" />
+        <property name="confrontation" ref="confrontation8" />
 	</bean>
 
 	<bean id="participes13" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team1" />
+        <property name="confrontation" ref="confrontation6" />
 	</bean>
 
 	<bean id="participes14" class="domain.Participes">
-		<property name="isWinner" value="false" />
+		<property name="winner" value="false" />
 		<property name="team" ref="team4" />
+        <property name="confrontation" ref="confrontation6" />
 	</bean>
 
 

@@ -6,6 +6,18 @@ app.service("TeamService", function(xhr){
                 callback(a);
             }
        });
+   };
+
+   this.getLeader = function(team){
+       if(typeof team!=="undefined"){
+           let id = team.idLeader;
+           if(id===null) return undefined;
+           return team.users.find((a) => {
+               return a.id === id;
+           });
+       }else{
+           return undefined;
+       }
    }
 
 });

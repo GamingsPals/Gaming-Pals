@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import domain.Tournament;
 import services.AdministratorService;
 import services.AwardService;
-import services.TournamentService;
+import services.tournaments.TournamentService;
 
 @RestController
 @RequestMapping("/api")

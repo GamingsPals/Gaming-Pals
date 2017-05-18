@@ -16,10 +16,13 @@
 @import "specific/chat.scss";
 @import "notifications.scss";
 @import "specific/tournament.scss";
-@import "pagination.scss";
+@import "components/pagination";
 @import "components/dropdown.scss";
 @import "components/blocktext.scss";
 @import "components/section.scss";
+@import "specific/feedback";
+@import "components/markdown";
+
 .center-container{
   margin-left:4%;
   margin-right:4%;

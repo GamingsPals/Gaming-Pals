@@ -9,7 +9,7 @@
 @import "../js/sweetalert/sweetalert.scss";
 
 body{
-  font-size:14pt;
+  font-size:1.2em;
   margin:0;
   line-height: 1.45;
   padding:0;
@@ -183,6 +183,7 @@ footer{
   }
 }
 
+
 .beta{
   position: fixed;
   left: 0;
@@ -192,4 +193,22 @@ footer{
   background-image: url(../images/beta.png);
   z-index: 2;
   background-size: 100% 100%;
+}
+.ngdialog-content{
+  .link{
+    color:$color-base-blue-1;
+    transition: 0.2s all ease-in-out;
+    &:hover{
+      color:$color-base-blue-2;
+    }
+  }
+}
+
+a{
+  color:inherit;
+  text-decoration: none;
+  transition: 0.4s all ease-out;
+  &:hover{
+    color:inherit;
+  }
 }

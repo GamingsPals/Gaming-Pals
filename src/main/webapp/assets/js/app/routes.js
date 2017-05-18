@@ -18,7 +18,22 @@ routes = [
 				templateUrl : "main",
 				controller : "Login",
 			}
-		}, {
+		},
+    {
+        route : "/legal",
+        options : {
+            templateUrl : "main",
+            controller : "Legal",
+        }
+    },
+    {
+        route : "/feedback",
+        options : {
+            templateUrl : "feedback/feedback",
+            controller : "Feedback",
+        }
+    },
+	{
 			route : "/passwordRecovery",
 			options : {
 				templateUrl : "main",

@@ -1,4 +1,5 @@
-app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,$location,NotificationService){
+app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,
+                                         $location,NotificationService){
     middleware.needRol("USER,MODERATOR,ADMIN");
     $scope.As = ActorService;
     $scope.soc = socket;

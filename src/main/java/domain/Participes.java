@@ -12,26 +12,20 @@ import java.util.Collection;
 public class Participes extends DomainEntity {
 
 	//Attributes
-	private boolean isWinner;
+	private boolean winner;
+	private boolean played;
 
 
 	//Constructor
 	public Participes() {
 		super();
+		winner = false;
+		played = false;
 	}
-
-	//Getters and Setters
-	public boolean getIsWinner() {
-		return isWinner;
-	}
-	public void setIsWinner(boolean isWinner) {
-		this.isWinner = isWinner;
-	}
-
 
 	//Relationships
 	private Team team;
-	private Collection<Confrontation> confrontations;
+	private Confrontation confrontation;
 
 
 	@ManyToOne
@@ -43,21 +37,28 @@ public class Participes extends DomainEntity {
 	}
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "participes",cascade = CascadeType.ALL)
-    public Collection<Confrontation> getConfrontations() {
-        return confrontations;
+	@ManyToOne
+    public Confrontation getConfrontation() {
+        return confrontation;
     }
 
-    public void setConfrontations(Collection<Confrontation> confrontations) {
-        this.confrontations = confrontations;
+    public void setConfrontation(Confrontation confrontation) {
+        this.confrontation = confrontation;
     }
 
     public boolean isWinner() {
-        return isWinner;
-    }
+		return winner;
+	}
 
-    public void setWinner(boolean winner) {
-        isWinner = winner;
-    }
+	public void setWinner(boolean winner) {
+		this.winner = winner;
+	}
 
+	public boolean isPlayed() {
+		return played;
+	}
+
+	public void setPlayed(boolean played) {
+		this.played = played;
+	}
 }

@@ -8,6 +8,12 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
         TournamentService.getTournament(id, function(data){
             $scope.tournament = data.data;
             $scope.notFound = true;
+            if(auth.hasRole('ADMIN')){
+
+            TournamentService.getIncidences($scope.tournament.id,(a)=>{
+                $scope.incidences = a;
+            });
+            }
             xhr.get("api/user/teams/"+data.data.id,function(response){
                 $scope.userteams = response.data;
                 $scope.userteams = $scope.userteams.filter((a)=>{
@@ -86,9 +92,9 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
     $scope.getStyleFromResult = function(tournament,id){
        let result = false;
        for(let i of tournament.participes){
-           if(i.isWinner === true) result = true;
+           if(i.winner === true) result = true;
        }
        if(!result) return '';
-        return (tournament.participes[id].isWinner===true) ? 'winner' : 'looser';
+        return (tournament.participes[id].winner===true) ? 'winner' : 'looser';
     }
 });

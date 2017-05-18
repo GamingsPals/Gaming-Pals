@@ -1,5 +1,5 @@
 app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService,UserService,SweetAlert,$location){
-    middleware.needRol("USER");
+    middleware.needRol("USER,ADMIN");
     $scope.notFound = true;
     $scope.url = "team/"+$routeParams.name;
     $scope.mode = $routeParams.menu;

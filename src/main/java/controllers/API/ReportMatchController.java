@@ -2,7 +2,6 @@ package controllers.API;
 
 import domain.*;
 import forms.ReportMatchForm;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import services.ActorService;
-import services.ParticipesService;
-import services.ReportMatchService;
+import services.tournaments.ParticipesService;
+import services.tournaments.ReportMatchService;
 import services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -81,7 +80,7 @@ public class ReportMatchController extends ApiAbstractController{
                 return ok(response, null);
             }
         } catch (Exception e){
-            return internalservererror(response,null);
+            return internalservererror(response,e.getMessage());
         }
     }
 

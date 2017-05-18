@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import domain.feedback.Feedback;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,7 +51,17 @@ public abstract class Actor extends DomainEntity {
 	private UserAccount			userAccount;
 	private Collection<Message>	sended;
 	private Collection<Message>	received;
+	private Collection<Feedback> feedbacks;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "author")
+	public Collection<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Collection<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
 
 	@Valid
 	@NotNull

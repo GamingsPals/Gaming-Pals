@@ -23,6 +23,12 @@
         <li  ng-class="(mode == 'awards') ? 'active' : ''">
             <a  href="{{url}}/awards" class="profile-tabs">
                 {{loc.tournament.awards}}</a></li>
+        <li  ng-class="(mode == 'incidences') ? 'active' : ''">
+            <a  href="{{url}}/incidences" class="profile-tabs">
+                Incidences</a></li>
+        <li  ng-class="(mode == 'reports') ? 'active' : ''">
+            <a  href="{{url}}/reports" class="profile-tabs">
+               Reports</a></li>
     </ul>
 </div>
 <div class="col s8" style="min-height: 500px">
@@ -65,14 +71,16 @@
             <a href="#" class="button" dialog="tournaments/createAward">{{loc.tournament.createAward}}</a>
         </div>
     </div>
+    <div ng-if="mode=='incidences' && auth.hasRole('ADMIN')" ng-include="'assets/html/tournaments/incidences.html'">
+    </div>
 </div>
 <div class="col s4 float-right lateral-menu">
     <ul ng-if="matchtoreport!=false">
         <li>
         <h1>{{loc.tournament.match}}</h1>
-            <div><b>You have to play vs:</b>
+            <div><b>You have to play vs: </b>
                 <span tooltip="">
-                <a class="open-tooltip" href="team/{{getTeamToPlay().name}}">
+                <a class="open-tooltip" href="team/{{getTeamToPlay().id}}">
                 <img class="profile-image" ng-src="{{getTeamToPlay().picture}}"/>
                 {{getTeamToPlay().name}}</a>
                     <div class="card tooltip" team-card="getTeamToPlay()"></div>
@@ -94,7 +102,9 @@
     </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
         <h1>{{loc.tournament.adminZone}}</h1>
-        <li><a href="#" class="button" ng-click="advanceRound(tournament)">{{loc.tournament.advanceRounds}}</a> </li>
+        <li ng-if="incidences.length>0">Round can't be advanced if there is any incidence open, click the "Incidences" tab
+        and resolve them</li>
+        <li><input type="submit" href="#" ng-disabled="incidences.length>0" class="button" ng-click="advanceRound(tournament)" value="{{loc.tournament.advanceRounds}}"> </li>
         <li  ng-if="TournamentService.canBeDeleted(tournament)">
             <a href="#" class="button bg-red3" ng-click="delete(tournament)">
                 <i class="fa fa-close"></i> {{loc.tournament.delete}}</a></li>

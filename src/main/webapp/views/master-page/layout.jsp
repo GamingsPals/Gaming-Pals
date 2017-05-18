@@ -44,7 +44,7 @@
 
 	<nav class="header" ng-cloak>
 		<div class="header-nav">
-			<a href=""> <img src="assets/images/testlogo.png" />
+			<a href="/"> <img src="assets/images/testlogo.png" />
 			</a>
 		</div>
 		<nav class="nav-horizontal" ng-cloak>
@@ -177,7 +177,7 @@
 			<ul>
 				<li><a href="about" ng-click="aboutUs()"> {{loc.layout.aboutUs}}</a> </li>
 				<li><a href="contact">{{loc.layout.contact}}</a></li>
-				<li><a href="legalIssues" ng-click="legalIssues()">
+				<li><a href="legal">
 						{{loc.layout.legalNote}}</a></li>
 				<li><a class="cursor-pointer" href="#"
 					ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a> <a
@@ -190,7 +190,9 @@
 	<div class="message-system {{SystemMessages.color}}"
 		ng-show="SystemMessages.show" ng-bind-html="SystemMessages.message">
 	</div>
-
+	<div ng-if="auth.isAuthenticated()" class="feedbackButton">
+		<a href="feedback">Feedback</a>
+	</div>
 
 	<div class="beta"></div>
 	<script>

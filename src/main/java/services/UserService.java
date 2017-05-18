@@ -2,12 +2,10 @@
 package services;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +20,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import services.notifications.FollowNotificationService;
+import services.tournaments.TournamentService;
 import utilities.RelatedUsers;
 
 @Service

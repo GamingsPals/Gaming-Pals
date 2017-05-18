@@ -1,6 +1,7 @@
 
-package controllers.API;
+package controllers.API.admin;
 
+import controllers.API.ApiAbstractController;
 import domain.Administrator;
 import domain.Game;
 import domain.User;

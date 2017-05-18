@@ -28,6 +28,8 @@
 		<bean class="converters.TeamToStringConverter" /> 
 		<bean class="converters.TournamentToStringConverter" />
 		<bean class="converters.NotificationToStringConverter" />
+		<bean class="converters.FeedbackToStringConverter"/>
+		<bean class="converters.StringToFeedbackConverter" />
 
 		<bean class="converters.GameInfoToStringConverter" />
 		<bean class="converters.StringToGameInfoConverter" />

@@ -39,7 +39,7 @@ app.controller('CreateTeamController',function($scope,UserService,xhr,$location,
         xhr.post("api/team/create",data,(data2)=>{
             $location.path(`team/${data2.data.name}`);
             dialog.close(dialog2,()=>{
-                $location.path(`team/${data2.data.name}`);
+                $location.path(`team/${data2.data.id}`);
             });
 
         })

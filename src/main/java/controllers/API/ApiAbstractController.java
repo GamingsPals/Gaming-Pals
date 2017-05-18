@@ -8,6 +8,36 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ApiAbstractController {
 
+    public Error notFoundError(HttpServletResponse response){
+        String message = "Not Found: Resource not found";
+        return notFoundError(response,message);
+    }
+
+
+    protected Error unauthorized(HttpServletResponse response){
+        String message = "Unauthorized: You don't have access to this resource";
+        return unauthorized(response,message);
+    }
+
+    protected Error badrequest(HttpServletResponse response){
+        String message = "Bad Request: There is something wrong with the request";
+
+        return badrequest(response,message);
+    }
+
+    protected Error internalservererror(HttpServletResponse response){
+        String  message = "Internal Server Error: There is something wrong with our servers";
+
+        return internalservererror(response,message);
+    }
+
+    protected Error ok(HttpServletResponse response){
+        String message = "OK: The request has done sucerfully";
+
+        return ok(response,message);
+    }
+
+
 
     protected Error notFoundError(HttpServletResponse response, String message){
         Error error = new Error();

@@ -1,4 +1,9 @@
 .pagination{
+  margin:20px;
+  @include om(){
+    margin-right:0;
+    margin-left:0;
+  }
   li{
     @extend .box;
     display: inline-block;

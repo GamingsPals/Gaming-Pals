@@ -9,6 +9,7 @@ import domain.Language;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import java.util.Date;
 import java.util.List;
 
 public class SignupForm {
@@ -17,7 +18,7 @@ public class SignupForm {
 	private String	email;
 	private String	picture;
 	private String	password;
-	private Integer	age;
+	private Date age;
 	private String languages;
 	private String header;
 
@@ -62,17 +63,15 @@ public class SignupForm {
 		this.password = password;
 	}
 
-
-	@NotNull
-	public Integer getAge() {
+	public Date getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
+	public void setAge(Date age) {
 		this.age = age;
 	}
 
-    public String getLanguages() {
+	public String getLanguages() {
         return languages;
     }
 

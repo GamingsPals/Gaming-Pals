@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.Tournament;
-import services.TournamentService;
+import services.tournaments.TournamentService;
 
 @RestController
 @RequestMapping("/api")

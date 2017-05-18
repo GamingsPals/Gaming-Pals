@@ -32,16 +32,20 @@ select{
   vertical-align: middle;
 }
 textarea{
-  min-width:80%;
+  border:0;
+  min-width:50%;
   padding:15px;
   display: block;
   min-height: 100px;
   transition: none!important;
   max-width:100%;
-  background-color: $color-base-white-1;
+  background-color: $color-base-black-7;
   color:$color-base-black-1;
   font-family: Roboto-Regular, sans-serif!important;
   font-size:0.9em;
+  &:focus{
+    border:1px solid $color-base-black-6;
+  }
 }
 
 .not-resizable{
@@ -67,6 +71,17 @@ form{
   margin-bottom:15px;
 }
 
+.normal_form{
+  padding:8px;
+  background-color: transparent;
+  border-radius: 0;
+  margin:0 auto;
+  border:0;
+  textarea{
+    background-color: $color-base-white-1;
+    min-width: 90%;
+  }
+}
 .search-filter{
   padding:10px;
   margin:20px;
@@ -75,8 +90,13 @@ form{
 
 .form-error{
   color:$color-base-red-3;
-  font-size:0.6em;
+  font-size:0.8em;
   padding:4px;
+  margin:10px;
+  @include om(){
+    margin-right:0;
+    margin-left:0;
+  }
   border-radius:4pt;
   background-color: $color-base-black-7;
 }

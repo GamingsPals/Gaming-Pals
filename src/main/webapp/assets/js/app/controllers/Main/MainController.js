@@ -1,7 +1,8 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
-,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,TournamentService,
-GameInfoService,SweetAlert){
+,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,
+                                         TournamentService, TeamService, GameInfoService,SweetAlert){
     localization.init($scope);
+    $scope.TeamService = TeamService;
     $scope.AdminService = AdminService;
     $scope.pagination = PaginationService;
     $scope.alert = SweetAlert;
@@ -40,9 +41,6 @@ GameInfoService,SweetAlert){
         $location.path("search").search("username",name);
     };
 
-    $scope.legalIssues = function () {
-        dialog.open("legalIssues",$scope);
-    };
 
     $scope.aboutUs = function () {
         dialog.open("aboutUs",$scope);

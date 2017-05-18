@@ -1,0 +1,86 @@
+<h1>Feedback</h1>
+<p>Leave us your feedback about our website, things we can improve, things we can implement, things you don't like
+    or whatever you want to tell us!.</p>
+<p>Read others users's feedback,  like or dislike other's feedbacks or comment them.</p>
+<p>Thank you for your time, we really really appreciate it</p>
+
+<form name="formFeedback" ng-submit="submitFeedback(feedbackForm,-1) && !formFeedback">
+    <label for="body">Your feedback here <i class="fa fa-arrow-down"></i> </label>
+    <textarea id="body" name="body" required ng-model="feedbackForm.body" title="Feedback"></textarea>
+    <div class="form-error" ng-messages="feedbackForm.body.$error" role="alert"
+         ng-show="signupform.age.$dirty && signupform.age.$invalid">
+        <div ng-message="pattern">{{loc.signupform.error1}}</div>
+    </div>
+    <div class="form-error" ng-if="error[-1]!=null">
+        {{error[-1]}}
+    </div>
+    <div>
+    <input type="submit" value="Submit" ng-disabled="!formFeedback.$valid" />
+    </div>
+</form>
+<h1>List of Feedback</h1>
+<div class="s9" style="margin:0 auto">
+
+
+<div class="feedback blocktext" style="opacity:{{getOpacity(item)}}"
+     ng-repeat="item in FeedbackService._all| orderByLikes| paginate:'feedbacks'  track by $index">
+    <div class="float-right feedback-footer">
+        <img class="profile-image" ng-src="{{item.author.picture}}" />
+        <a href="profile/{{item.author.userAccount.username}}">{{item.author.userAccount.username}}</a>
+        <div class="time">{{item.created | date:"dd MMM h:mm'h'"}}</div>
+    </div>
+    <div class="feedback-likes">
+        <div><i class="fa fa-thumbs-up" ng-class="getLikedClass(item,true)" ng-click="like(item)" aria-hidden="true"></i></div>
+        <span class="time">{{getLikePuntuation(item)}}</span>
+        <div><i class="fa fa-thumbs-down" ng-class="getLikedClass(item,false)" ng-click="dislike(item)" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="feedback-content" markdown="item.body"></div>
+    <div class="feedback-footer">
+        <div class="col s12">
+            <a class="feedback-comment" href="#" ng-click="comments[$i]=!comments[$i]">Comment</a> |
+            <a href="" ng-click="answers[$i]=!answers[$i]" class="feedback-comment">See Answers({{item.feedbacks.length}})</a>
+            <form class="normal_form" ng-show="comments[$i]==true" ng-submit="submitFeedback(repyform[$index],$index,item.id) && feedBackForm.body.length>0">
+                <textarea  name="body" required ng-model="repyform[$index].body" title="Feedback"></textarea>
+                <div class="form-error" ng-if="error[$index]!=null">
+                    {{error[$index]}}
+                </div>
+                <div>
+                    <input type="submit" value="Submit"
+                           ng-disabled="repyform[$index].body==null || repyform[$index].body.length==0" />
+                </div>
+            </form>
+        </div>
+        <div class="feedback-answers col s9" style="opacity:{{getOpacity(child)}}"  ng-show="answers[$i]==true"  ng-repeat="child in item.feedbacks  | orderByLikes">
+            <div class="float-right feedback-footer">
+                <img class="profile-image" ng-src="{{child.author.picture}}" />
+                <a href="profile/{{child.author.userAccount.username}}">{{child.author.userAccount.username}}</a>
+                <div class="time">{{child.created | date:"dd MMM h:mm'h'"}}</div>
+            </div>
+            <div class="feedback-likes">
+                <div><i class="fa fa-thumbs-up" ng-class="getLikedClass(child,true)" ng-click="like(child)" aria-hidden="true"></i></div>
+                <span class="time">{{getLikePuntuation(child)}}</span>
+                <div><i class="fa fa-thumbs-down" ng-class="getLikedClass(child,false)" ng-click="dislike(child)" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="feedback-content" markdown="child.body"></div>
+
+                <div class="clear-both"></div>
+        </div>
+
+        <div class="clear-both"></div>
+    </div>
+</div>
+
+<ul class="pagination"
+    gp-paginate
+    gp-paginate-url="true"
+    gp-paginate-items="FeedbackService._all"
+    gp-paginate-id="feedbacks"
+    gp-paginate-limit="6">
+</ul>
+
+<p ng-if="FeedbackService._all.length==0">
+    There isn't feedback yet, be the first!
+</p>
+</div>

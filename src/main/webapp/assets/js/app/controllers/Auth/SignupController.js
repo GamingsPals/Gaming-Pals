@@ -1,4 +1,5 @@
-app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog) {
+app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog,storage) {
+
     middleware.needRol("NONE");
     $scope.success = false;
     $scope.languagesForn = [];
@@ -8,6 +9,11 @@ app.controller('SignupController', function($scope, middleware, xhr, $location,L
     LanguageService.getAll(function(data){
 		$scope.languagesForn = data;
 	});
+    let cDate = new Date();
+    cDate.setFullYear(cDate.getFullYear()-10);
+
+    $scope.mindate = cDate;
+
 
 	$scope.enviarForm = function(data) {
 		xhr.post("api/signup", data,function(){

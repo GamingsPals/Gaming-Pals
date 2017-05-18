@@ -47,16 +47,13 @@ app.service("chat", function(xhr,socket,auth,MessageService,NotificationService,
         data.receiver = this.userselected.userAccount.username;
         data.message = message;
         data.notification = false;
-        if(typeof socket.isUserConnected(this.userselected.id)==="undefined"){
-            data.sender = auth.principal.actor;
-            data.text = message;
-            data.moment = + new Date();
-            data.notification = true;
-            this.chatMessages[this.userselected.id].messages.push(data);
-            this.updateRecents(this.userselected.id);
-        }else{
-            socket.emit("new-message",data);
-        }
+        data.sender = auth.principal.actor;
+        data.text = message;
+        data.moment = + new Date();
+        data.notification = true;
+        this.updateRecents(this.userselected.id);
+        this.chatMessages[this.userselected.id].messages.push(data);
+        socket.emit("new-message",data);
         $(".chat-body-chat-messages").animate({ scrollTop:$(document).height() }, "fast");
         MessageService.createMessage(data);
     };

@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,7 +30,7 @@ import domain.notifications.TeamInvitationNotification;
 public class User extends Actor  {
 
 	// Attributes
-	private Integer		age;
+	private Date	age;
 	private boolean	verify;
 	private Date	lastpaid;
 	private String	header;
@@ -45,13 +46,12 @@ public class User extends Actor  {
 
 	}
 
-	//Getters and Setters
-	@NotNull
-	public Integer getAge() {
-		return this.age;
+	@Past
+	public Date getAge() {
+		return age;
 	}
 
-	public void setAge(final Integer age) {
+	public void setAge(Date age) {
 		this.age = age;
 	}
 

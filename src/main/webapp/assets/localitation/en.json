@@ -85,6 +85,7 @@
     "error6": "Please enter a valid url.",
     "error7": "Please enter a number.",
     "error8": "Please select a value for this field.",
+    "error9": "You have to accept our Terms and Conditions in order to sign up",
     "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals",
     "required": "Required"
   },
@@ -98,7 +99,7 @@
  	 "skill":"Skill",
  	 "join":"Join us in our League of Legends community",
  	 "join2":"So, what are you waiting for? Join us immediately!",
- 	 "singup":"Sing up",
+ 	 "singup":"Sign up",
  	 "comingSoon":"Coming soon",
  	 "and":"And"
  },

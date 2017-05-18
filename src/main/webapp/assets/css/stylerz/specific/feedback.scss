@@ -1,0 +1,92 @@
+.feedbackButton{
+  position: fixed;
+  bottom:0;
+  z-index:5;
+  right:10%;
+
+  a{
+    padding:5px 10px;
+    background-color: $color-base-blue-2;
+    color:$color-base-white-1;
+    opacity: 0.8;
+    display: block;
+    transition: 0.3s all ease-out;
+    &:hover{
+      padding:8px 14px;
+      opacity: 1;
+    }
+  }
+}
+
+.feedback{
+  transition: all 0.5s ease-out;
+  &:hover{
+    opacity: 1!important;
+  }
+  .feedback-likes{
+    @extend .col;
+    width:5%;
+    color:$color-base-black-5;
+    i{
+      cursor: pointer;
+      transition: 0.3s all ease-out;
+      opacity:0.6;
+      &:hover{
+        color:$color-base-blue-2;
+        opacity: 1;
+      }
+    }
+    .liked{
+      color:$color-base-blue-2;
+      opacity: 1;
+      &:hover{
+        color:$color-base-black-5;
+        opacity:0.3;
+      }
+    }
+    .disliked{
+      opacity: 0.3;
+      &:hover{
+        color:$color-base-blue-2;
+        opacity: 1;
+      }
+    }
+  }
+  .feedback-content{
+    @extend .col;
+    width:80%;
+  }
+  .feedback-footer{
+    a{
+      color:inherit;
+      &:hover{
+        color:$color-base-black-5;
+      }
+    }
+    .feedback-comment{
+      cursor: pointer;
+      font-size:0.8em;
+      color:$color-base-black-4;
+    }
+  }
+  .feedback-answers{
+    border-left:6px solid $color-base-black-6;
+    margin-bottom:15px;
+    margin-left:5%;
+    font-size:0.8em;
+    padding: 20px 20px 20px 20px;
+    background-color: $color-base-white-3;
+    &:hover{
+      opacity: 1!important;
+    }
+  }
+  p:first-child{
+    margin-top:0;
+    padding-top:0;
+  }
+}
+
+.time{
+  font-size:0.7em;
+  color:$color-base-black-4;
+}

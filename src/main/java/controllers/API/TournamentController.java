@@ -19,6 +19,8 @@ import domain.Team;
 import domain.Tournament;
 import forms.TournamentForm;
 import services.*;
+import services.tournaments.ConfrontationService;
+import services.tournaments.TournamentService;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -28,9 +30,9 @@ import java.util.Set;
 public class TournamentController extends ApiAbstractController {
 
 	@Autowired
-	private TournamentService		tournamentService;
+	private TournamentService tournamentService;
 	@Autowired
-	private ConfrontationService	confrontationService;
+	private ConfrontationService confrontationService;
 	@Autowired
 	private ActorService			actorService;
 	@Autowired

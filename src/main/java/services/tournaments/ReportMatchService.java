@@ -1,4 +1,4 @@
-package services;
+package services.tournaments;
 
 import domain.*;
 import forms.ReportMatchForm;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ReportMatchRepository;
+import services.AdministratorService;
+import services.UserService;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -25,6 +27,9 @@ public class ReportMatchService {    //Repositories
 
     @Autowired
     private ParticipesService participesService;
+
+    @Autowired
+    private AdministratorService administratorService;
     //Services
 
     //Constructor
@@ -86,7 +91,6 @@ public class ReportMatchService {    //Repositories
         Assert.notNull(team);
         Assert.notNull(confrontation);
         Assert.isTrue(team.getUsers().contains(userService.findByPrincipal()));
-
         confrontation.getReportMatches().add(reportMatch);
         Confrontation c = confrontationService.save(confrontation);
         reportMatch.setConfrontation(c);
@@ -98,21 +102,57 @@ public class ReportMatchService {    //Repositories
             case "Winner":
                 report = true;
                 break;
+            case "Incidence":
+                report = null;
+                break;
             case "Looser":
                 report = false;
                 break;
         }
-        p.setIsWinner(report);
-        Participes enemy;
-        for(Participes par: c.getParticipes()){
-            if(par.getId()!=p.getId()){
-                par.setIsWinner(!report);
+        //Comprobamos si los dos equipos han seleccionado el mismo resultado
+        if(report!=null) {
+            if (checkTwoParticipesSameResult(reportMatch,report,p)){
+                twoWinnerIncidence(c);
+            }else{
+            p.setWinner(report);
+            for (Participes par : c.getParticipes()) {
+                if (par.getId() != p.getId()) {
+                    par.setWinner(!report);
+                }
             }
-        }
-
+        }}
         ReportMatch r = save(reportMatch);
 
     }
 
+    private Boolean checkTwoParticipesSameResult(ReportMatch reportMatch, Boolean currentResult, Participes p) {
+        Assert.notNull(reportMatch);
+        Boolean result = false;
+        for(ReportMatch rp: reportMatch.getConfrontation().getReportMatches()){
+            if(reportMatch.getResult().equals(rp.getResult())
+                    && !reportMatch.getResult().equals("Incidence") && !rp.getTeam().equals(p.getTeam())){
+                result = true;
+            }
+        }
 
+        return result;
+    }
+
+
+
+    public void twoWinnerIncidence(Confrontation c) {
+        Assert.notNull(c);
+        ReportMatch reportMatch = new ReportMatch();
+        reportMatch.setConfrontation(c);
+        reportMatch.setImage("http://www.hbc333.com/data/out/228/46719779-tumblr-pictures.gif");
+        reportMatch.setDescription("There are two teams that set the result of the same match with the same result");
+        reportMatch.setResult("Incidence");
+        save(reportMatch);
+    }
+
+    public Collection<ReportMatch> activeIncidencesByTournament(Tournament tournament) {
+        Assert.notNull(tournament);
+
+        return reportMatchRepository.activeIncidencesByTournament(tournament);
+    }
 }

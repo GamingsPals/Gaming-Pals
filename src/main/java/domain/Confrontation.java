@@ -20,14 +20,26 @@ public class Confrontation extends DomainEntity {
 	private int		round;
 	private int		numberMatch;
 	private Date	limitPlay;
+	private Boolean played;
+
+
 
 
 	//Constructor
 	public Confrontation() {
 		super();
+		played = false;
 	}
 
-	//// Getters and Setters
+    public Boolean getPlayed() {
+        return played;
+    }
+
+    public void setPlayed(Boolean played) {
+        this.played = played;
+    }
+
+    //// Getters and Setters
 	@Min(1)
 	public int getRound() {
 		return round;
@@ -62,7 +74,7 @@ public class Confrontation extends DomainEntity {
 
 
 	@Valid
-	@ManyToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "confrontation",cascade = CascadeType.ALL)
 	public Collection<Participes> getParticipes() {
 		return participes;
 	}
@@ -71,6 +83,7 @@ public class Confrontation extends DomainEntity {
 	}
 
 	@Valid
+	@JsonIgnore
 	@OneToMany(mappedBy = "confrontation",cascade = CascadeType.REMOVE)
 	public Collection<ReportMatch> getReportMatches() {
 		return reportMatches;

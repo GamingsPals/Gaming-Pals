@@ -8,6 +8,7 @@ module.exports = function(grunt) {
             },
             dist1: {
                 src: [
+                    'src/main/webapp/assets/js/showdown/showdown.min.js',
                     'src/main/webapp/assets/js/socket.io.js',
                     'src/main/webapp/assets/js/jquery/jquery.js',
                     'src/main/webapp/assets/js/flexslider/flexslider.js',
@@ -39,7 +40,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
-
 
     grunt.registerTask('default', ['concat:dist1']);
 

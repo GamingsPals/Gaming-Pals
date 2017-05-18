@@ -8,3 +8,20 @@ app.directive("dialog", function(dialog){
         }
     }
 });
+
+app.directive("image", function(dialog){
+    return {
+        scope: {
+            "image": "="
+        },
+        restrict: "A",
+        link: function(scope,element,attrs){
+            scope.$watch("image",(a)=>{
+                $(element).on('click',function(e) {
+                    dialog.open("showImage", scope);
+                });
+            })
+        }
+    }
+
+});
