@@ -53,6 +53,8 @@
 					<li><a href="home"><i class="fa fa-home"></i> {{loc.home}}</a></li>
 					<li><a href="search"><i class="fa fa-users"></i>
 							{{loc.pals}}</a></li>
+                    <li><a href="games"><i class="fa fa-gamepad"></i>
+							Games</a></li>
 					<li><a href="tournament/list"><i class="fa fa-trophy"></i>
 							{{loc.tournaments}}</a></li>
 					<li>
@@ -127,30 +129,28 @@
 				<li><a href="#" class="relative" ng-if="auth.hasRole('USER')">
 						<div class="notification-globe"
 							ng-show="notifications.numberOfNotifications()>0">
-							{{notifications.numberOfNotifications()}}</div> <i
-						class="fa fa-bell op"></i> <span class="om"> <i
+							{{notifications.numberOfNotifications()}}</div>  <i
 							class="fa fa-bell"></i>{{loc.layout.notifications}}
 					</span>
 				</a>
 					<ul>
-						<li ng-if="auth.hasRole('USER')"><a
-							href="notifications/teaminvitations"><i class="fa fa-shield"></i>
+						<li ng-if="auth.hasRole('USER')"><a href="notifications/teaminvitations"><i class="fa fa-shield"></i>
 								{{loc.layout.teamNotifications}}</a>
 							<div class="notification-globe float-right"
 								ng-show="notifications.notifications.TeamInvitations.length>0">
 								{{notifications.notifications.TeamInvitations.length}}</div></li>
 						<li ng-if="auth.hasRole('USER')"><a
-							href="notifications/followers"><i
-								class="fa fa-arrow-circle-o-left"></i>
+							href="notifications/followers">
+							<i class="fa fa-arrow-circle-o-left"></i>
 								{{loc.layout.newFollowers}}</a>
 							<div class="notification-globe float-right"
 								ng-show="notifications.notifications.Follower.length>0">
 								{{notifications.notifications.Follower.length}}</div></li>
 					</ul></li>
 				<li><a href="messages" class="relative"
-					ng-if="auth.isAuthenticated()"> <i class="fa fa-envelope op"></i>
-						<span class="om"><i class="fa fa-envelope"></i>
-							{{loc.layout.messages}}</span>
+					ng-if="auth.isAuthenticated()">
+						<i class="fa fa-envelope"></i>
+							{{loc.layout.messages}}
 						<div class="notification-globe"
 							ng-show="notifications.getNumNewMessages()>0">
 							{{notifications.getNumNewMessages()}}</div>
@@ -160,19 +160,8 @@
 	</nav>
 
 	<div class="container" ng-cloak>
-		<div class="main-slider">
-			<div class="flexslider op">
-				<ul class="slides">
-					<li class="lolslider"><img
-						src="assets/images/games/icons/lolicon.png" class="game-icon" />
-						<div class="letter">{{loc.lolslider}}</div></li>
-					<li class="dotaslider"><img
-						src="assets/images/games/icons/dota2icon.png" class="game-icon" />
-						<div class="letter">{{loc.dotaslider}}</div></li>
-				</ul>
-			</div>
-		</div>
-		<main ng-view id="top"> </main>
+
+		<main ng-view> </main>
 		<footer>
 			<ul>
 				<li><a href="about" ng-click="aboutUs()"> {{loc.layout.aboutUs}}</a> </li>

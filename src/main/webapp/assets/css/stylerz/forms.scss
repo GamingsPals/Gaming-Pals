@@ -12,11 +12,6 @@ input{
   }
   &[type=submit]{
     @extend .button;
-    &:disabled{
-      box-shadow: none;
-      background-color: $color-base-black-6;
-      cursor: default;
-    }
   }
 }
 

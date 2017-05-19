@@ -5,11 +5,10 @@ import controllers.API.ApiAbstractController;
 import domain.Administrator;
 import domain.Game;
 import domain.User;
+import forms.SteamGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +29,9 @@ public class AdminPanelController extends ApiAbstractController {
 
 	@Autowired
 	private ReportService reportService;
+
+	@Autowired
+    private SteamService steamService;
 
 	@ResponseBody
 	@RequestMapping(value = "/admin/ban/{user}")
@@ -89,6 +91,43 @@ public class AdminPanelController extends ApiAbstractController {
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 			return internalservererror(response,null);
+		}
+	}
+
+	@RequestMapping("/admin/games/steam/all")
+	public Object getGamesSteam(@RequestParam("search") String search, HttpServletResponse response){
+		try{
+			Administrator administrator = administratorService.findByPrincipal();
+			Assert.notNull(administrator);
+		} catch (Exception e) {
+			return unauthorized(response,null);
+		}
+		try{
+			return steamService.filteredGamesSteam(search);
+		} catch (Exception e){
+			return internalservererror(response);
+		}
+	}
+
+	@RequestMapping(value = "/admin/games/steam/add",method = RequestMethod.POST)
+	public Object addGameSteam(SteamGame steamGame, HttpServletResponse response){
+		try{
+			Administrator administrator = administratorService.findByPrincipal();
+			Assert.notNull(administrator);
+		} catch (Exception e) {
+			return unauthorized(response,null);
+		}
+		try{
+			Assert.notNull(steamGame);
+		} catch (Exception e){
+			return badrequest(response);
+		}
+		try{
+			gameService.addGame(steamGame);
+
+			return  ok(response);
+		} catch (Exception e){
+			return internalservererror(response);
 		}
 	}
 }

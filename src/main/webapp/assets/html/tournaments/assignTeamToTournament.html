@@ -5,7 +5,7 @@
     <label>
         {{loc.assignTeam.select}}
     </label>
-    <select ng-model="assignForm.team" tabindex="0" ng-change="setTeamSelected()">
+    <select ng-model="assignForm.team" tabindex="0" required ng-change="setTeamSelected()">
         <option value=""> {{loc.assignTeam.select}}</option>
         <option ng-repeat="t in userteams" value="{{t.id}}">{{t.name}}</option>
     </select>
@@ -14,9 +14,13 @@
 
     <div class="card s12" team-card="teamselected" ng-show="teamselected">
     </div>
+    <div class="form-error" ng-if="teamAllowed==false">
+        Your team cannot join the tournament: the team size (number of members) must be between {{tournament.players}}
+        and {{tournament.players +2}}
+    </div>
     <div style="margin:15px;">
 
-    <input type="submit" value="{{loc.assignTeam.inscribe}}" />
+    <input type="submit" value="{{loc.assignTeam.inscribe}}" ng-disabled="AssignForm.$invalid || !teamAllowed"/>
 
     </div>
 </form>

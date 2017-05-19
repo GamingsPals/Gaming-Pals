@@ -3,7 +3,7 @@
 <div ng-show="!success">
 <h2 class="text-center ng-binding">{{loc.singup}}</h2>
 <form name="signupform" ng-submit="signupform.$valid && enviarForm(form)">
-
+    <span ng-init="savedValues(form,$scope)"></span>
     <div class="col s6">
 
    <h2>{{loc.signupform.userAccount}}</h2>

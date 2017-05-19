@@ -1,10 +1,10 @@
 <div not-principal="ActorService.actor.actor">
     <h2 class="text-center">{{loc.reportform.report}} {{ActorService.actor.actor.userAccount.username}}</h2>
-    <form class="forms-center" ng-submit="reportUser()">
+    <form name="formReport" class="forms-center" ng-submit="reportU ser() && formReport.$valid">
         <label for="picture">
             {{loc.signupform.picture}} / {{loc.reportform.proof}}
         </label>
-        <input type="url" required id="picture" name="picture" ng-model="reportform.picture" placeholder="http://" />
+        <input class="s12" type="url" required id="picture" name="picture" ng-model="reportform.picture" placeholder="http://" />
         <label for="comment">
             {{loc.reportform.comment}}
         </label>
@@ -12,6 +12,6 @@
 
         </textarea>
 
-        <input type="submit" value="{{loc.reportform.report}}" />
+        <input type="submit" value="{{loc.reportform.report}}" ng-disabled="formReport.$invalid" />
     </form>
 </div>

@@ -1,11 +1,10 @@
-app.service("DashBoardService",function($location,xhr){
+app.service("DashBoardService",function(xhr){
 
     this.data = {};
 
     this.getDashboardData  = (callback)=>{
         let object = this;
-        console.log(Object.keys(this.data).length>0);
-        if(Object.keys(this.data).length>0 && $location.path()!=="/"){
+        if(Object.keys(this.data).length>0){
             if(typeof callback!=="undefined") callback(this.data);
             return false;
         }

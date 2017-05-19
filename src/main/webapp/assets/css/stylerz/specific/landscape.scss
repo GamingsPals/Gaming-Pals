@@ -1,0 +1,53 @@
+.landscape{
+  font-family: Roboto-Light, sans-serif;
+  text-align: justify;
+  color:$color-base-black-4;
+  text-justify: inter-word;
+  h1,h2,h3,h4,h5,h6{
+    color:$color-base-black-1;
+    border:0;
+  }
+  .cols{
+    margin-top:100px;
+    margin-bottom: 100px;
+    margin-left:10%;
+    li{
+      @extend .s3, .col;
+      margin-right:8%;
+    }
+    li:last-child{
+      margin-right: 0;
+    }
+    img{
+      margin: 0 auto;
+      display: block;
+      width:80px;
+    }
+  }
+}
+
+.welcome-header{
+  background-image: url(../images/wallpapers/landpage.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-bottom: 30%;
+  background-attachment: fixed;
+  width:100%;
+  position: relative;
+  @include om(){
+    padding-bottom: 45%;
+  }
+  h1{
+    position: absolute;
+    left:40%;
+    top:25%;
+    margin:0;
+    font-size:3em;
+    @include stroke(2,$color-base-black-7);
+    color:$color-base-white-1;
+    img{
+      width:40%;
+    }
+  }
+}

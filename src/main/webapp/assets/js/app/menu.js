@@ -21,10 +21,10 @@ $(document).ready(function(){
         closeMenu();
     });
     $(window).on("scroll",function(){
-        changeNavMenuToFixed()
+        //changeNavMenuToFixed()
     });
 
-    changeNavMenuToFixed();
+    //changeNavMenuToFixed();
 
     loadSlider();
 

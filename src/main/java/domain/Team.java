@@ -63,7 +63,7 @@ public class Team extends DomainEntity {
 	}
 
 	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(mappedBy = "teams")
 	public Collection<Tournament> getTournaments(){return tournaments;}
 	public void setTournaments(Collection<Tournament> tournaments){this.tournaments=tournaments;}
 

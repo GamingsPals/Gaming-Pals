@@ -1,18 +1,19 @@
-<form ng-submit="validateSUmmoner()">
+<form name="summoner" ng-submit="validateSUmmoner()">
     <label for="name">
         {{loc.signupform.name}}
     </label>
-    <input name="name" id="name" type="text" placeholder={{loc.signupform.name}} ng-model="search.summoner" class="s9"/>
+    <input name="name" id="name" required type="text" placeholder={{loc.signupform.name}} ng-model="search.summoner" class="s9"/>
     <label for="region">
         {{loc.addSummoner.region}}
     </label>
 
-    <select name="region" id="region" ng-model="search.region" class="s9">
+    <select name="region" id="region" required ng-model="search.region" class="s9">
         <option value="">{{loc.addSummoner.select}}</option>
         <option value="euw">EUW</option>
     </select>
 
-    <input type="submit" value="{{loc.addSummoner.addSummoner}}" ng-click="validateSummoner()"/>
+    <input type="submit" value="{{loc.addSummoner.addSummoner}}"
+           ng-disabled="!summoner.$valid" ng-click="validateSummoner()"/>
 
     <div ng-show="check">
         <p>{{loc.addSummoner.validateLOL}}</p>

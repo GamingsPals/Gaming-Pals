@@ -1,3 +1,5 @@
+<div ng-controller="EditProfileController">
+
 
 <h2 class="text-center ng-binding">{{loc.profileView.editprofile}}</h2>
 <form name="signupform" ng-submit="signupform.$valid && enviarForm(form)">
@@ -6,7 +8,7 @@
     <label>
         {{loc.signupform.username}} *
     </label>
-    <input type="text" name="username" ng-model="form.username" placeholder="Username" required ng-minlength="5" ng-maxlength="32"
+    <input  class="s10"  type="text" name="username" ng-model="form.username" placeholder="Username" required ng-minlength="5" ng-maxlength="32"
   minlength="5" maxlength="32"  />
         <div class="form-error" ng-messages="signupform.username.$error" role="alert"
              ng-show="signupform.username.$invalid && signupform.username.$dirty">
@@ -17,7 +19,7 @@
         <label>
             {{loc.signupform.email}} *
         </label>
-        <input type="email"  name="email" placeholder=" {{loc.signupform.email}}" ng-model="form.email" title="Email" required=""/>
+        <input   class="s10"  type="email"  name="email" placeholder=" {{loc.signupform.email}}" ng-model="form.email" title="Email" required=""/>
         <div class="form-error" ng-messages="signupform.email.$error" role="alert"
              ng-show="signupform.email.$dirty && signupform.email.$invalid">
             <div ng-message="required">{{loc.signupform.error1}}</div>
@@ -26,7 +28,7 @@
         <label>
             {{loc.signupform.password}}
         </label>
-        <input type="password" name="password"  title="Password"  ng-model="form.password" ng-minlength="0" ng-maxlength="32"
+        <input  class="s10"  type="password" name="password"  title="Password"  ng-model="form.password" ng-minlength="0" ng-maxlength="32"
                minlength="5" maxlength="32" />
         <div class="form-error" ng-messages="signupform.password.$error" role="alert"
              ng-show="signupform.password.$dirty && signupform.password.$invalid">
@@ -36,7 +38,7 @@
         <label>
             {{loc.signupform.rPassword}}
         </label>
-        <input type="password"  name="confirmpassword" title="Confirm Password"  ng-model="confirmpassword"
+        <input  class="s10"  type="password"  name="confirmpassword" title="Confirm Password"  ng-model="confirmpassword"
                password-verify="{{signupform.password.$modelValue}}"/>
         <div class="form-error" ng-messages="signupform.confirmpassword.$error" role="alert"
              ng-show="signupform.confirmpassword.$dirty && signupform.confirmpassword.$invalid">
@@ -49,7 +51,7 @@
      <label>
         {{loc.signupform.picture}}
     </label>
-    <input type="url" placeholder=" {{loc.signupform.picture}}" name="picture" ng-model="form.picture" title="Picture"/>
+    <input  class="s10"  type="url" placeholder=" {{loc.signupform.picture}}" name="picture" ng-model="form.picture" title="Picture"/>
         <div class="form-error" ng-messages="signupform.picture.$error" role="alert"
              ng-show="signupform.picture.$dirty && signupform.picture.$invalid">
             <div ng-message="url">{{loc.signupform.error6}}</div>
@@ -57,7 +59,7 @@
         <label>
             {{loc.signupform.headerImage}}
         </label>
-        <input type="url" placeholder=" {{loc.signupform.headerImage}}" name="header" ng-model="form.header" title="Header"/>
+        <input  class="s10"  type="url" placeholder=" {{loc.signupform.headerImage}}" name="header" ng-model="form.header" title="Header"/>
         <div class="form-error" ng-messages="signupform.header.$error" role="alert"
              ng-show="signupform.header.$dirty && signupform.header.$invalid">
             <div ng-message="url">{{loc.signupform.error6}}</div>
@@ -65,24 +67,34 @@
 	<label>
         {{loc.signupform.age}} *
     </label>
-    <input type="text" placeholder="{{loc.signupform.age}}" name="age" title="Age" ng-model="form.age" pattern="[0-9]{1,3}"/>
+        <input  type="date"  class="s10" placeholder="{{loc.signupform.age}}" name="age" title="Age" ng-model="form.age"
+               required min="1900-01-01" max="{{mindate | date:'yyyy-MM-dd'}}"/>
         <div class="form-error" ng-messages="signupform.age.$error" role="alert"
              ng-show="signupform.age.$dirty && signupform.age.$invalid">
             <div ng-message="pattern">{{loc.signupform.error7}}</div>
+            <div ng-message="min">You are probably not that older</div>
+            <div ng-message="max">You have to have more than 10 years to join Gaming Pals</div>
         </div>
         <label>
             {{loc.signupform.languages}}
         </label>
-       <select name="languages" multiple title="Languages" ng-model="form.languages"
+       <select name="languages" multiple title="Languages" required ng-model="form.languages"
                ng-options="option.longName for option in languagesForm track by option.id"
        >
+           <option value="">Select your languages</option>
        </select>
+
+        <div class="form-error" ng-messages="signupform.languages.$error" role="alert"
+             ng-show="signupform.languages.$dirty && signupform.languages.$invalid">
+            <div ng-message="required">{{loc.signupform.error8}}</div>
+        </div>
 </div>
     <div class="red3">{{error}}</div>
     <div>
-    <input type="submit" value="{{loc.send}}"/>
+    <input type="submit" value="{{loc.send}}" ng-disabled="!signupform.$valid" />
         <br>
         <div>* {{loc.signupform.required}}</div>
     </div>
 
 </form>
+</div>

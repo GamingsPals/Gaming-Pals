@@ -1,5 +1,12 @@
-<form class="search-filter" method="get" ng-submit="filter(search)">
+<div  class="tournament-header" >
     <h1>{{loc.search.pals}}</h1>
+    <img ng-src="assets/images/wallpapers/search.jpg"/>
+</div>
+<div class="content">
+
+
+<form class="search-filter" method="get" ng-submit="filter(search)">
+    <h1>Filter</h1>
     <div class="col s6">
         <label for="username">
             {{loc.signupform.name}}
@@ -39,3 +46,4 @@
     gp-paginate-limit="6"
     gp-paginate-id="search">
 </ul>
+</div>

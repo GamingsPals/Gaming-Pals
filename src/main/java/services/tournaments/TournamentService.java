@@ -111,20 +111,24 @@ public class TournamentService {
         if(tournamentForm.getPicture()==null){
             t.setPicture(configurationService.getConfiguration().getDefaultTournamentHeader());
         }
+        t.setGame(tournamentForm.getGame());
+        t.setPlayers(tournamentForm.getPlayers());
+
 		return t;
 	}
 
 	public void assign(Team team, Tournament t) {
 		Assert.isTrue(t.getTeams().size() < t.getNumberTeams());
 		Assert.isTrue(!userIsJoinedAlready(team,t));
+		Assert.isTrue(team.getUsers().size()>= t.getPlayers() && team.getUsers().size()<=t.getMaxplayers());
 		t.getTeams().add(team);
 		team.getTournaments().add(t);
 		Participes p = participesService.create();
 		p.setTeam(team);
-		p = participesService.save(p);
 		for (Confrontation c : t.getConfrontations()) {
 			if (c.getRound() == 1 && !c.getParticipes().contains(p) && c.getParticipes().size() < 2) {
-				c.getParticipes().add(p);
+				p.setConfrontation(c);
+                p = participesService.save(p);
 				break;
 			}
 		}

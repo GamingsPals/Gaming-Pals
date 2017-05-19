@@ -23,22 +23,24 @@
         <li  ng-class="(mode == 'awards') ? 'active' : ''">
             <a  href="{{url}}/awards" class="profile-tabs">
                 {{loc.tournament.awards}}</a></li>
-        <li  ng-class="(mode == 'incidences') ? 'active' : ''">
+        <li ng-if="auth.hasRole('ADMIN')"  ng-class="(mode == 'incidences') ? 'active' : ''">
             <a  href="{{url}}/incidences" class="profile-tabs">
                 Incidences</a></li>
-        <li  ng-class="(mode == 'reports') ? 'active' : ''">
+        <li  ng-if="auth.hasRole('ADMIN')"   ng-class="(mode == 'reports') ? 'active' : ''">
             <a  href="{{url}}/reports" class="profile-tabs">
                Reports</a></li>
     </ul>
 </div>
-<div class="col s8" style="min-height: 500px">
+    <div class="content-margin">
+
+<div class="col s8 content-color" style="min-height: 500px">
     <div ng-if="mode=='resume'">
         <h1>{{loc.tournament.description}}</h1>
-        <p>{{tournament.description}}</p>
+        <div contenteditable="true" markdown="tournament.description"></div>
     </div>
     <div ng-if="mode=='rules'">
         <h1> {{loc.tournament.rules}}</h1>
-        <p>{{tournament.rules}}</p>
+        <div markdown="tournament.rules"></div>
     </div>
     <div ng-if="mode=='teams'">
         <h1> {{loc.tournament.teams}}</h1>
@@ -104,7 +106,9 @@
         <h1>{{loc.tournament.adminZone}}</h1>
         <li ng-if="incidences.length>0">Round can't be advanced if there is any incidence open, click the "Incidences" tab
         and resolve them</li>
-        <li><input type="submit" href="#" ng-disabled="incidences.length>0" class="button" ng-click="advanceRound(tournament)" value="{{loc.tournament.advanceRounds}}"> </li>
+        <li><input type="submit" href="#" ng-disabled="incidences.length>0 ||
+        TournamentService.canBeAdvanced(tournament)===false" class="button"
+                   ng-click="advanceRound(tournament)" value="{{loc.tournament.advanceRounds}}"> </li>
         <li  ng-if="TournamentService.canBeDeleted(tournament)">
             <a href="#" class="button bg-red3" ng-click="delete(tournament)">
                 <i class="fa fa-close"></i> {{loc.tournament.delete}}</a></li>
@@ -117,7 +121,10 @@
             <h1>{{loc.tournament.information}}</h1>
             <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
             <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
+            <li>Teams size
+                : {{tournament.players}} (+2)</li>
         </ul>
+    </div>
     </div>
 </article>
 <article ng-show="notFound==false" ng-cloak>

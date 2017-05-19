@@ -4,7 +4,8 @@
     </label>
     <input name="id" id="id" type="text" placeholder="Steam Id..." ng-model="steam.id" class="s9" required/>
     <p>{{loc.steam.clickCheck}}</p>
-    <a class="button cursor-pointer" ng-click="checkGames()">{{loc.steam.check}}</a>
+    <input type="button" class="button cursor-pointer" ng-disabled="steamaccountform.id.$invalid"
+           ng-click="checkGames()" value="{{loc.steam.check}}" />
     <div ng-if="searched==true && games.length>0">
 
        {{loc.steam.availablesGames}}
@@ -21,7 +22,7 @@
     <div ng-show="steam.games.length>0">
 
 
-        <input type="submit" value="{{loc.profileview.addSteamAccount}}"/>
+        <input type="submit" value="{{loc.profileview.addSteamAccount}}" ng-disabled="steamaccountform.$invalid"/>
 
 
     </div>

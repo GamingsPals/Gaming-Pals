@@ -4,6 +4,7 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
         xhr.post("api/steam/add",$scope.steam,(a)=>{
             dialog.closeAll();
             $scope.ActorService.UserProfile();
+            $scope.error = "";
         },(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })
@@ -13,6 +14,7 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
         xhr.get("api/steam/"+$scope.steam.id,((a)=>{
             $scope.games = a.data;
             $scope.searched = true;
+            $scope.error = "";
         }),(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })

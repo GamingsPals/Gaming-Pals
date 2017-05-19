@@ -1,17 +1,19 @@
 .header {
-  position: relative;
-  padding:5px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top:0;
   z-index:2;
-  padding-left: 2%;
+  padding: 4px 4px 4px 1%;
   @include om(){
     padding-left:10%;
   }
   background-color: $color-base-blue-42;
-  font-size:0.95em;
+  font-size:0.85em;
   transition: all 0.2s ease-out;
   .header-nav {
     vertical-align: middle;
-    @extend .col, .s3;
+    @extend .col, .s2;
     img {
       vertical-align: middle;
       width: 85%;
@@ -138,7 +140,13 @@
         color: inherit;
         display: block;
         padding: 15px;
+        font-size:0.8em;
         text-decoration: none;
+        i{
+          display: block;
+          font-size:1.2em;
+          text-align: center;
+        }
 
       }
       &:hover {
@@ -169,6 +177,11 @@
           display: list-item;
           list-style: none;
           a{
+            i{
+              display: inline-block;
+              text-align: left;
+              font-size:1.2em;
+            }
             &:hover {
               background-color: $color-base-blue-42;
             }
@@ -191,12 +204,17 @@
   top:0;
 }
 
+
+
 .lateral-menu{
   ul{
     margin-top:40px;
-    background-color: $color-base-black-8;
+    background-color: $color-base-white-1;
     border:1px solid $color-base-black-7;
     font-size:0.8em;
+    a{
+      transition: 0.3s all ease-in-out;
+    }
     h1{
       margin:0;
       background-color: $color-base-blue-42;
@@ -215,12 +233,13 @@
         padding:15px;
         color:$color-base-black-1;
         &:hover{
-          background-color: $color-base-black-7;
+          background-color: $color-base-black-8;
         }
       }
     }
     .active{
-      background-color: $color-base-black-7;
+      background-color: $color-base-black-8;
+      color:$color-base-white-1;
       a{
         &:hover{
           background-color: $color-base-black-8;
@@ -233,7 +252,7 @@
 .tournament-header{
   @include stroke(2,$color-base-black-7);
   position: relative;
-  max-height: 200px;
+  max-height: 250px;
   overflow: hidden;
   h1{
     border:0;

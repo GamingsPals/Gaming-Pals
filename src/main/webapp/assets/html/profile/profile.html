@@ -1,7 +1,10 @@
+
+
+
 <div ng-if="!ActorService.notFound">
 <div class="profile-header" style="background-image: url({{ActorService.actor.actor.header}})">
     <div class="profile-header-editprofile">
-        <a href="profile/edit" class="button bg-white2 cursor-pointer"  ng-if="auth.isPrincipal(ActorService.actor.actor)" >
+        <a href="{{url}}/edit" class="button bg-white2 cursor-pointer"  ng-if="auth.isPrincipal(ActorService.actor.actor)" >
             {{loc.profileview.editprofile}}
         </a>
     </div>
@@ -61,14 +64,17 @@
         <li  ng-class="(tabs.ratings) ? 'active' : ''">
             <a  href="{{url}}/ratings" class="profile-tabs">
                 <i class="fa fa-star" aria-hidden="true"></i> {{loc.profileview.ratings}}</a></li>
+        <li  ng-class="(tabs.edit) ? 'active' : ''"  ng-if="auth.isPrincipal(ActorService.actor.actor)">
+            <a href="{{url}}/edit"><i class="fa fa-user-circle-o"></i> {{loc.profileview.editprofile}}</a>
+        </li>
     </ul>
 </div>
-<div class="profile-main">
+<div class="profile-main content">
     <div class="profile-cards" ng-show="tabs.gameprofiles">
         <h1><i class="fa fa-gamepad"></i> {{loc.profileview.gameProfiles}}</h1>
         <div class="col s5" ng-if="auth.isPrincipal(ActorService.actor.actor)"  style="margin:15px">
         <a href="#" dialogcontroller="AddSummonerController" class="button"
-           dialog="addSummoner" >
+           dialog="profile/addSummoner" >
             {{loc.addSummoner.addSummoner}}</a>
         </div>
         <div class="col s5" style="margin: 15px;"  ng-if="auth.isPrincipal(ActorService.actor.actor)">
@@ -174,10 +180,13 @@
                gp-paginate-limit="6">
     </ul>
     </div>
+    <div id="profile-edit"  ng-if="auth.isPrincipal(ActorService.actor.actor) && tabs.edit" class="profile-cards"
+         ng-include="'assets/html/profile/editProfile.html'">
+
+    </div>
 </div>
 </div>
 
 <div ng-if="ActorService.notFound">
     <giant>404 {{loc.notFounduser}}</giant>
 </div>
-

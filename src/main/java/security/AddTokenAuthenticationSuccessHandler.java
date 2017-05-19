@@ -26,27 +26,9 @@ public class AddTokenAuthenticationSuccessHandler implements AuthenticationSucce
         //do some logic here if you want something to be done whenever
         //the user successfully logs in.
 
-        HttpSession session = request.getSession();
-        UserAccount userAccount = ( UserAccount) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userAccount.getId()!=0) {
-            try {
-                String token = Hash.hashUserPassword(userAccount.getUsername(), userAccount.getPassword());
-                Cookie cookie2 = new Cookie("username", userAccount.getUsername());
-                cookie2.setPath("/");
-            Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            response.addCookie(cookie2);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            //set our response to OK status
             response.setStatus(HttpServletResponse.SC_OK);
 
-            //since we have created our custom success handler, its up to us to where
-            //we will redirect the user after successfully login
             response.sendRedirect( "/");
-        }
     }
 
 

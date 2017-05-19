@@ -177,6 +177,42 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
                 callback(a.data);
             }
         })
-    }
+    };
+
+    this.getCurrentRound = function(tournament){
+        let confrontations = tournament.confrontations;
+        let round = 0;
+        confrontations.forEach((a)=>{
+            if(a.played===true && a.round>round) round = a.round+1;
+        });
+
+        return round;
+    };
+
+    this.getConfrontationByRound = function(tournament,round){
+        let confrontations = tournament.confrontations;
+        return confrontations.filter((a)=>{
+            return a.round ===round;
+        });
+    };
+
+   this.canBeAdvanced = function(tournament){
+       if(typeof tournament==="undefined") return false;
+        let result = false;
+        let confrontations = tournament.confrontations;
+        let round = this.getCurrentRound(tournament);
+        let confrontationsRound = this.getConfrontationByRound(tournament,round);
+        if(confrontationsRound.length===0) return false;
+        result = confrontationsRound.every((a)=>{
+            if(new Date(a.limitPlay)>new Date()) return false;
+           if(a.participes.length===1) return true;
+            return a.participes.some((b) => {
+                return b.winner === true;
+            });
+        });
+
+       return result;
+    };
+
 
 });

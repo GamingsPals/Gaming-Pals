@@ -26,7 +26,31 @@ public class Tournament extends DomainEntity {
 	private Integer	numberTeams;
 	private Date	limitInscription;
 	private String picture;
+	private Game game;
+	private Integer players;
 
+	@Transient
+	public Integer getMaxplayers() {
+		return players+2;
+	}
+
+	@Range(min = 1,max=10)
+	public Integer getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Integer players) {
+		this.players = players;
+	}
+
+	@ManyToOne
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 
 	// Constructor
 	public Tournament() {
@@ -113,7 +137,7 @@ public class Tournament extends DomainEntity {
 	public Collection<Award> getAwards(){return awards;}
 	public void setAwards(Collection<Award> awards){this.awards=awards;}
 
-	@ManyToMany(mappedBy = "tournaments")
+	@ManyToMany
 	public Collection<Team> getTeams(){return teams;}
 	public void setTeams(Collection<Team> teams){this.teams=teams;}
 

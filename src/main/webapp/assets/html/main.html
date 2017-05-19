@@ -1,9 +1,14 @@
 
-<article class="s12 landpage" ng-if="!auth.isAuthenticated()" ng-include="'assets/html/main/welcome.html'">
-
+<article  ng-if="!auth.isAuthenticated()">
+    <div class="welcome-header"  >
+        <h1><img
+                 src="assets/images/landpage/logo.png" /></h1>
+    </div>
+    <section class="landscape content" ng-include="'assets/html/main/welcome.html'">
+    </section>
 </article>
 
-<article ng-if="auth.isAuthenticated()" ng-controller="DashBoardController">
+<article ng-if="auth.isAuthenticated()" class="content" ng-controller="DashBoardController">
     <section class="s12">
     <section class="s12 col">
     <section class="s8 col">

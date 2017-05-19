@@ -1,0 +1,32 @@
+<h1>Games</h1>
+
+<form name="gamesForm" ng-submit="gamesForm.$valid && addGame(form)">
+    Input a string to search for a game, then look for the game you desire in the select bellow
+    <input type="search" class="col" placeholder="Search a game" ng-model="search" ng-keydown="getGames(search)" />
+    <i class="fa fa-search cursor-pointer" ng-click="getGames(search)"></i>
+  <select name="games" ng-model="games" ng-change="tojson(games)">
+      <option value="" ng-show="SteamService._all.length===0">Select a Game</option>
+      <option ng-repeat="item in SteamService._all|filter:search" value="{{item}}">{{item.name}}</option>
+  </select>
+    <div ng-if="selectedgame">
+        <h2>Add Game</h2>
+        <div class="col 5">
+            <label>Name *</label>
+            <input name="name" type="text" ng-model="form.name"  required />
+        <label>Steam ID *</label>
+        <input name="gameid" type="text" ng-model="form.gameid" disabled  required/>
+        </div>
+        <div class="col s5">
+            <label>Header Image *</label>
+            <input name="header" type="url" ng-model="form.header" required />
+            <label>Avatar Image *</label>
+            <input name="picture" type="url" ng-model="form.picture"  required />
+            <label>Tag * (short name of the game)</label>
+            <input name="tag" type="text" ng-model="form.tag"  required />
+        </div>
+
+        <div>
+            <input type="submit" value="Add Game" ng-disabled="gamesForm.$invalid"/>
+        </div>
+    </div>
+</form>

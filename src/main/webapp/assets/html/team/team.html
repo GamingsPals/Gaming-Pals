@@ -21,6 +21,9 @@
                     {{loc.team.manage}} Manage</a></li>
         </ul>
     </div>
+    <article class="content">
+
+
 <div ng-if="mode=='members'">
     <h1>{{loc.team.membs}}</h1>
     <div ng-repeat="a in team.users|paginate:'users'" user-card="a"></div>
@@ -60,4 +63,5 @@
 </article>
 <article ng-show="notFound==false" ng-cloak>
     <giant>{{loc.teamForm.teamNotFound}}</giant>
+</article>
 </article>

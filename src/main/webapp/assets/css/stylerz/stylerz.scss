@@ -4,12 +4,12 @@
 @import "cols.scss";
 @import "util.scss";
 @import "components/card.scss";
-@import "components/menu.scss";
+@import "components/menu";
 @import "forms.scss";
 @import "headers.scss";
 @import "tables.scss";
 @import "components/sldr.scss";
-@import "specific/profile.scss";
+@import "specific/profile";
 @import "components/tooltip.scss";
 @import "animations.scss";
 @import "specific/summonerProfile.scss";
@@ -22,6 +22,8 @@
 @import "components/section.scss";
 @import "specific/feedback";
 @import "components/markdown";
+@import "angular.scss";
+@import "specific/landscape";
 
 .center-container{
   margin-left:4%;
@@ -32,9 +34,6 @@
   }
 }
 
-.container{
-  transition: all 0.5s ease-out;
-}
 
 
 ul{

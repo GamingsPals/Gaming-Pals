@@ -8,13 +8,13 @@
 @import "hover-min.css";
 @import "../js/sweetalert/sweetalert.scss";
 
+
 body{
   font-size:1.2em;
   margin:0;
   line-height: 1.45;
   padding:0;
-  background: $color-base-blue-5;
-  background-image: url("../images/background.jpg");
+  background-color: $color-base-black-1;
   background-size: 100%;
   background-attachment: fixed;
   font-family: Roboto-Regular, sans-serif;
@@ -30,15 +30,14 @@ body{
 }
 
 main{
-  background-color: $color-base-white-1;
   color:$color-base-black-1!important;
-  min-height:500px;
-  padding-bottom:45px;
-  padding-left:5%;
-  padding-right:5%;
+  min-height:600px;
+  background-color: $color-base-black-7;
+  border-radius: 8pt;
+  padding-bottom:40px;
   @include om(){
-    padding-left:15px;
-    padding-right:15px;
+    padding-left:0;
+    padding-right:0;
   };
   text-decoration: none;
   a{
@@ -135,12 +134,14 @@ main{
 
 
 footer{
+  font-size:0.9em;
   color:$color-base-white-1;
-  margin-top:4%;
+  background-color: $color-base-blue-5;
   font-family: Roboto-Light, sans-serif;
-  margin-bottom:4%;
-  margin-left:8%;
-  margin-right:8%;
+  padding:2%;
+  @include om(){
+    padding:20px;
+  }
   ul{
     @extend .text-center;
     margin-bottom:20px;
@@ -183,7 +184,37 @@ footer{
   }
 }
 
+.content-color{
+  background-color: white;
+  padding:20px;
+}
 
+.content-margin{
+  margin-left:10%;
+  margin-right:10%;
+  @include om(){
+    padding: 20px 0;
+    margin:0;
+  }
+}
+
+.top-separator{
+  min-height: 30px;
+}
+
+.content{
+  padding:15px;
+  @extend .content-margin, .content-color;
+
+}
+.container{
+  transition: all 0.5s ease-out;
+  margin-top:75px;
+  @include om(){
+    margin-top: 12%;
+  }
+  background-color: white;
+}
 .beta{
   position: fixed;
   left: 0;
@@ -212,3 +243,4 @@ a{
     color:inherit;
   }
 }
+

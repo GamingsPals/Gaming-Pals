@@ -504,6 +504,7 @@
 	<!-- Teams -->
 	<bean id="team1" class="domain.Team">
 		<property name="name" value="Skt Gaming " />
+        <property name="password" value="sktgaming" />
 		<property name="picture"
 			value="http://orig13.deviantart.net/79ab/f/2014/126/3/c/skt_t1_k_wallpaper_by_nervyzombie-d7hd095.png" />
 		<property name="users">
@@ -616,7 +617,9 @@
 	<bean id="tournament1" class="domain.Tournament">
 		<property name="momentCreate" value="2017/04/15 10:20" />
 		<property name="title" value="Spring Tournament" />
-		<property name="description" value="Face the best and win!" />
+        <property name="players" value="1"/>
+        <property name="game" ref="game1" />
+ 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
 		<property name="limitInscription" value="2017/05/14 10:20" />
 		<property name="rules" value="You can't flame others" />
@@ -651,7 +654,9 @@
 		<property name="numberTeams" value="4" />
 		<property name="limitInscription" value="2017/06/25 10:20" />
 		<property name="rules" value="You can't flame others" />
-		<property name="picture"
+        <property name="game" ref="game1" />
+        <property name="players" value="1"/>
+ 		<property name="picture"
 			value="http://las.leagueoflegends.com/sites/default/files/styles/scale_large/public/upload/art/bg_champion_missfortune_1920x1080.jpg?itok=YQComS4A" />
 		<property name="awards">
 			<list>
@@ -680,10 +685,19 @@
 		<property name="title" value="Summer Tournament" />
 		<property name="description" value="Face the best and win!" />
 		<property name="numberTeams" value="4" />
+        <property name="players" value="1"/>
+        <property name="game" ref="game1" />
 		<property name="limitInscription" value="2017/06/27 14:30" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />
+		<property name="teams">
+			<list>
+				<ref bean="team1" />
+				<ref bean="team3" />
+				<ref bean="team5" />
+			</list>
+		</property>
 		<property name="awards">
 			<list>
 				<ref bean="award3" />
@@ -695,13 +709,6 @@
 				<ref bean="confrontation7" />
 				<ref bean="confrontation8" />
 				<ref bean="confrontation9" />
-			</list>
-		</property>
-		<property name="teams">
-			<list>
-				<ref bean="team1" />
-				<ref bean="team3" />
-				<ref bean="team5" />
 			</list>
 		</property>
 	</bean> 
@@ -917,8 +924,8 @@
 	</bean> 
 	
 	<bean id="participes9" class="domain.Participes">
-		<property name="winner" value="true" />
-		<property name="played" value="true" />
+		<property name="winner" value="false" />
+		<property name="played" value="false" />
 		<property name="team" ref="team1" />
         <property name="confrontation" ref="confrontation7"/>
 	</bean>
@@ -1131,11 +1138,19 @@
     </bean>
 
 	<bean id="game3" class="domain.Game">
+		<property name="name" value="Brawlhalla" />
+		<property name="tag" value="brawl" />
+		<property name="gameid" value="291550" />
+		<property name="picture" value="https://pbs.twimg.com/profile_images/616745802304749568/sYAxn2Oc_400x400.png"/>
+        <property name="header" value="https://i.ytimg.com/vi/hwXPeMPp1Ag/maxresdefault.jpg" />
+	</bean>
+
+	<bean id="game5" class="domain.Game">
 		<property name="name" value="For Honor" />
 		<property name="tag" value="forhonor" />
 		<property name="gameid" value="304390" />
 		<property name="picture" value="assets/images/games/icons/forhonor.png"/>
-        <property name="header" value="http://cdn-press-start.scadigital.io/wp-content/uploads/2017/02/ForHonor-Header.jpg" />
+		<property name="header" value="http://cdn-press-start.scadigital.io/wp-content/uploads/2017/02/ForHonor-Header.jpg" />
 	</bean>
 
 	<!-- Summoners -->

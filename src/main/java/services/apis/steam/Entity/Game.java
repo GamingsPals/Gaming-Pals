@@ -4,9 +4,11 @@ package services.apis.steam.Entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Game {
+public class Game  implements Serializable {
 
     private Integer appid;
     private String name;

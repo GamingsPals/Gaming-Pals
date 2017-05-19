@@ -2,10 +2,12 @@ package domain;
 
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -14,12 +16,24 @@ public class Game extends DomainEntity implements Serializable {
 
 
     private String name;
-    private Integer gameid;
+    private String gameid;
     private String tag; // Este tag es un acronimo del nombre para ayudar con los assets (example: League of legends => lol => assets/images/lolicono.png)
     private Collection<GameInfo> gameInfos;
     private String header;
     private String picture;
+    private Collection<Tournament> tournaments;
 
+    @OneToMany(mappedBy = "game")
+    @JsonIgnore
+    public Collection<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(Collection<Tournament> tournaments) {
+        this.tournaments = tournaments;
+    }
+
+    @NotBlank
     public String getHeader() {
         return header;
     }
@@ -27,7 +41,7 @@ public class Game extends DomainEntity implements Serializable {
     public void setHeader(String header) {
         this.header = header;
     }
-
+    @NotBlank
     public String getPicture() {
         return picture;
     }
@@ -35,7 +49,7 @@ public class Game extends DomainEntity implements Serializable {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-
+    @NotBlank
     public String getName() {
         return name;
     }
@@ -43,7 +57,7 @@ public class Game extends DomainEntity implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    @NotBlank
     public String getTag() {
         return tag;
     }
@@ -62,11 +76,12 @@ public class Game extends DomainEntity implements Serializable {
         this.gameInfos = gameInfos;
     }
 
-    public Integer getGameid() {
+    @NotBlank
+    public String getGameid() {
         return gameid;
     }
 
-    public void setGameid(Integer gameid) {
+    public void setGameid(String gameid) {
         this.gameid = gameid;
     }
 }

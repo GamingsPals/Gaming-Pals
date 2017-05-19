@@ -2,6 +2,7 @@ app.controller('SignupController', function($scope, middleware, xhr, $location,L
 
     middleware.needRol("NONE");
     $scope.success = false;
+    $scope.form = storage.add($scope,"form");
     $scope.languagesForn = [];
     let dialog2 = dialog.open("auth/signup",$scope);
     dialog.redirect(dialog2,(a)=>{
@@ -18,6 +19,7 @@ app.controller('SignupController', function($scope, middleware, xhr, $location,L
 	$scope.enviarForm = function(data) {
 		xhr.post("api/signup", data,function(){
             $scope.success = true;
+            storage.unwatch('form');
         },function(){
 		    $scope.error = "There was something wrong with your form, try again!";
             dialog.closeAll();

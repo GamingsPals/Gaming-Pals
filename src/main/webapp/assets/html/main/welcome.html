@@ -1,8 +1,8 @@
+
 <h1 class="text-center">
     <b>{{loc.main.slogan}}</b>
 </h1>
-<img class="center-image no-border" width="250"
-     src="assets/images/landpage/logo.png" />
+
 <ul class="cols">
     <li><img src="assets/images/landpage/friendly.png" />
         {{loc.main.friendly}}</li>
@@ -15,17 +15,15 @@
     </li>
 </ul>
 
-<h2 class="text-center">{{loc.main.join}}</h2>
-<img class="center-image no-border"
-     src="assets/images/landpage/lol.png" />
-<h2 class="text-center">{{loc.main.and}}...</h2>
-<ul class="cols2">
-    <li><img class="center-image"
-             src="assets/images/landpage/dota2.png" /></li>
-    <li><img class="center-image"
-             src="assets/images/landpage/smite.png" /></li>
-</ul>
-<h2 class="text-center">{{loc.main.comingSoon}}!</h2>
+<section class="col s12 text-center">
+    <h1 class="text-center">Our Supported Games</h1>
+    <div class="card blockcard s4"  ng-repeat="g in games">
+        <div class="card-header">
+            <h1>{{g.name}}</h1>
+            <img class="card-header-header" ng-src="{{g.header}}">
+        </div>
+    </div>
+</section>
 
 <h1 class="text-center">{{loc.main.join2}}</h1>
 <div class="text-center">
@@ -44,3 +42,4 @@
            name="submit"
            alt="Make payments with PayPal - it's fast, free and secure!">
 </form>
+

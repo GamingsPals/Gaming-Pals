@@ -1,6 +1,9 @@
 
 package forms;
 
+import domain.Game;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class TournamentForm {
@@ -11,7 +14,26 @@ public class TournamentForm {
 	private Integer	numberTeams;
 	private Date	limitInscription;
 	private String	picture;
+	private Game game;
+	private Integer players;
 
+	@NotNull
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	@NotNull
+	public Integer getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Integer players) {
+		this.players = players;
+	}
 
 	public String getTitle() {
 		return title;

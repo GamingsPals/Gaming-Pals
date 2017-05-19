@@ -94,7 +94,7 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
        for(let i of tournament.participes){
            if(i.winner === true) result = true;
        }
-       if(!result) return '';
+       if(!result || typeof tournament.participes[id] === "undefined") return '';
         return (tournament.participes[id].winner===true) ? 'winner' : 'looser';
     }
 });

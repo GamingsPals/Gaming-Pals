@@ -32,14 +32,14 @@ app.directive("rating",function(){
                 avgskill = scope.actor.skillAvg;
                 avgknowledge = scope.actor.knowledgeAvg;
             }
-            let html = `<ul class="list-horizontal">
-                        <li class="col">
+            let html = `<ul>
+                        <li style="display:inline-table">
                             <div class="label bg-green3" title="Attitude">A ${avgattitude}</div>
                         </li>
-                        <li class="col">
+                        <li style="display:inline-table">
                             <div class="label bg-red3" title="Skill">S ${avgskill}</div>
                         </li>
-                        <li class="col">
+                        <li style="display:inline-table">
                             <div class="label bg-magenta3" title="Knowledge">K ${avgknowledge}</div>
                         </li>
                     </ul>`;

@@ -2,16 +2,30 @@
 <h2 class="text-center">{{loc.reportform.reportMatch}}</h2>
 <form name="reportMatchForm" ng-submit="sendReportMatchForm()">
     <label>{{loc.signupform.picture}}</label>
-    <input type="url" ng-model="reportMatch.image" placeholder="http://" />
+    <input type="url" ng-model="reportMatch.image" name="image" placeholder="http://" />
+    <div class="form-error" ng-show="reportMatchForm.image.$invalid && reportMatchForm.image.$dirty">
+        <ul>
+            <li>Cannot be empty</li>
+            <li>It must be an url</li>
+        </ul>
+    </div>
     <label>{{loc.reportform.result}}</label>
-    <select id="result" name="result" ng-model="reportMatch.result">
+    <select id="result" name="result" ng-model="reportMatch.result" required>
         <option value="Losser">{{loc.reportform.looser}}</option>
+        <option value="Incidence">{{loc.reportform.incidence}}</option>
         <option value="Winner">{{loc.reportform.winner}}</option>
     </select>
+    <div class="form-error" ng-show="reportMatchForm.result.$invalid && reportMatchForm.result.$dirty">
+        - Select an option
+    </div>
     <label>{{loc.tournament.description}}</label>
-    <input type="text" placeholder="{{loc.tournament.description}}" ng-model="reportMatch.description" />
+    <textarea name="description" class="s12" title="{{loc.tournament.description}}"
+              required ng-model="reportMatch.description"></textarea>
 
+    <div class="form-error" ng-show="reportMatchForm.description.$invalid && reportMatchForm.description.$touched">
+        - Cannot be empty
+    </div>
 
-    <input type="submit" value="{{loc.reportform.report}}" />
+    <input type="submit" value="{{loc.reportform.report}}" ng-disabled="reportMatchForm.$invalid" />
 </form>
 </div>

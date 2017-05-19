@@ -22,6 +22,11 @@
     cursor: pointer;
     color:$color-base-white-2;
   }
+  &:disabled{
+    box-shadow: none;
+    background-color: $color-base-black-6;
+    cursor: default;
+  }
 }
 
 .icon-button{

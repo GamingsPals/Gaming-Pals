@@ -71,6 +71,8 @@ public class TournamentController extends ApiAbstractController {
 			principal = (User) actorService.findActorByPrincipal();
 			Assert.notNull(principal);
 			Assert.isTrue(teamService.isUserInTeam(teamId,principal));
+			Assert.isTrue(tournamentId.getPlayers()<= teamId.getUsers().size()
+                    && tournamentId.getMaxplayers()>= teamId.getUsers().size());
 		} catch (Exception e) {
 			return unauthorized(response, null);
 		}
@@ -99,6 +101,7 @@ public class TournamentController extends ApiAbstractController {
 
 			return ok(response, null);
 		} catch (Throwable e) {
+			System.out.println(e.getMessage());
 			return internalservererror(response, null);
 		}
 	}

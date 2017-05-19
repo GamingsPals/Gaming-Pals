@@ -163,22 +163,26 @@ app.directive("tournamentCard",function($compile,localization,auth){
                     let template = `
     <div class="card-header">
         <div class="card-header-right">
-            <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
+            <a class="" href="tournament/{{i.id}}/awards"><i class="yellow3 fa fa-trophy"></i> </a>
         </div>
         <a href="tournament/{{i.id}}"><img class="card-header-header" ng-src="{{i.picture}}" /></a>
     </div>
-    <div class="card-body"> <a href="tournament/{{i.id}}">
-        <span class="float-right" tournament-tools="i"></span>
+    <div class="card-body"> 
         <h1><a href="tournament/{{i.id}}"> {{i.title}}</a></h1>
-        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} {{loc.tournament.teams}}</p>
+             <span class="float-right"
+             ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
+             <div style="font-size:0.8em;">{{i.game.name}}</div></span>
+        <p>{{i.description}}</p>
+        <div><b>Joined {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>Players:</b> {{i.players}} (+2)</div>
         <div>
+        <h2>Teams</h2>
         <span tooltip ng-repeat="u in i.teams">
         <img ng-src="{{u.picture}}" class="open-tooltip profile-image"/>
             <div class="tooltip card" team-card="u"></div>
             </span>
            </div>
            
-    </a>
     </div>
     <div class="card-footer">
         <div class="col s6 x2">

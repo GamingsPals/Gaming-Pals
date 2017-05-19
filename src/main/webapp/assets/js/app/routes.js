@@ -75,7 +75,7 @@ routes = [
 	{
 			route : "/tournament/create",
 			options : {
-				template : " ",
+				templateUrl : "tournaments/createTournament",
 				controller : "CreateTournament"
 			}
 		}, {

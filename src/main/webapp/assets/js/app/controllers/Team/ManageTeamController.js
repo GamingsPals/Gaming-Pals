@@ -34,7 +34,7 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
     $scope.edit = function(form){
         let data = form;
         xhr.post(`api/team/${$scope.team.id}/edit`,data,(data2)=>{
-            $location.path("team/"+form.name);
+            $location.path("team/"+$scope.team.id);
             SystemMessages.okmessage("Team edited!");
         })
     };
@@ -43,7 +43,7 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
         confirmtext: ""};
         data.callback =(a)=>{
             xhr.get(`api/team/${$scope.team.id}/leave`,(data2)=>{
-                $location.path("team/"+$scope.team.name);
+                $location.path("team/"+$scope.team.id);
                 SystemMessages.okmessage("You have left the Team!");
             })
         };

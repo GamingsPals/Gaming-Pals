@@ -12,10 +12,6 @@ app.run(function($rootScope,$location,dialog,$anchorScroll) {
     let dialogs = {};
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
-        let top = $("#top");
-        $location.hash('top');
-        $anchorScroll();
-        $location.hash('');
     });
 
 

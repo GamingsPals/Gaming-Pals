@@ -1,34 +1,34 @@
 <div>
     <h2 class="text-center">{{loc.profileview.writeRating}}</h2>
-    <form class="forms-center" ng-submit="rateUser()">
+    <form  name="rateForm" class="forms-center" ng-submit="rateUser()">
         <input type="hidden" ng-model="rateform.csrf"
                name="{{csrf.parameterName}}"
                value="{{csrf.token}}"/>
-        <div>
-            <div class="col s1">
+        <div><h2>Metrics <small>(Beetween 1 and 5)</small></h2>
+            <div class="col s3">
                 <label for="attitude">
-                    {{loc.main.attitude}}
+                    {{loc.main.attitude}} *
                 </label>
-                <input id="attitude" ng-model="rateform.attitude" name="attitude" placeholder="1-5" type="number" min="1" max="5" />
+                <input id="attitude" required ng-model="rateform.attitude" name="attitude" placeholder="1-5" type="number" min="1" max="5" />
             </div>
-            <div class="col s1">
+            <div class="col s3">
                 <label for="knowledge">
-                    {{loc.main.knowledge}}
+                    {{loc.main.knowledge}} *
                 </label>
-                <input id="knowledge" name="knowledge" ng-model="rateform.knowledge" placeholder="1-5" type="number" min="1" max="5" />
+                <input id="knowledge" required name="knowledge" ng-model="rateform.knowledge" placeholder="1-5" type="number" min="1" max="5" />
             </div>
-            <div class="col s1">
+            <div class="col s3">
                 <label for="skill">
-                    {{loc.main.skill}}
+                    {{loc.main.skill}} *
                 </label>
-                <input id="skill" name="skill" ng-model="rateform.skill" placeholder="1-5" type="number" min="1" max="5" />
+                <input id="skill" required name="skill" ng-model="rateform.skill" placeholder="1-5" type="number" min="1" max="5" />
             </div>
         </div>
         <label for="comment">
-            {{loc.reportform.comment}}
+            {{loc.reportform.comment}} *
         </label>
-        <textarea class="not-resizable"  ng-model="rateform.comment" id="comment" name="comment"></textarea>
-
-        <input type="submit" value="{{loc.rate}}" />
+        <textarea class="not-resizable" required ng-model="rateform.comment" id="comment" name="comment"></textarea>
+        <input type="submit" ng-disabled="!rateForm.$valid" value="{{loc.rate}}" />
     </form>
+    <div>* {{loc.signupform.required}}</div>
 </div>

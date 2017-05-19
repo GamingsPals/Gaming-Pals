@@ -1,4 +1,4 @@
-app.service("middleware",function(auth,$location){
+app.service("middleware",function(auth,$location,SystemMessages){
 
     this.needRol = function(rol){
         let object = this;
@@ -21,6 +21,7 @@ app.service("middleware",function(auth,$location){
                 });
             }
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
+                SystemMessages.errormessage("You don't have permission to access this section");
                 return object.goTo('');
             }
         });

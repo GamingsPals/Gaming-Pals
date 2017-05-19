@@ -8783,10 +8783,6 @@ app.run(function($rootScope,$location,dialog,$anchorScroll) {
     let dialogs = {};
     $rootScope.$on('$routeChangeSuccess', function() {
         history.push($location.$$path);
-        let top = $("#top");
-        $location.hash('top');
-        $anchorScroll();
-        $location.hash('');
     });
 
 
@@ -8874,7 +8870,7 @@ routes = [
 	{
 			route : "/tournament/create",
 			options : {
-				template : " ",
+				templateUrl : "tournaments/createTournament",
 				controller : "CreateTournament"
 			}
 		}, {
@@ -8985,16 +8981,40 @@ routes = [
     }, {reloadOnSearch: false});
 
     $locationProvider.html5Mode(true);
-});;;;app.controller('AdminPanelController',function($scope,ActorService,middleware,AdminService,$routeParams,$location){
+});;;;app.controller('AdminPanelController',function($scope,ActorService,middleware,
+                                               AdminService,$routeParams,$location, SteamService,SweetAlert){
     middleware.needRol("ADMIN,MODERATOR");
     $scope.getBannedUsers = ()=>{
         AdminService.getBannedUsers((a)=>{
             $scope.bannedusers = a;
         });
     };
+    $scope.SteamService = SteamService;
     AdminService.addHookBannedUser((actor)=>{
         $scope.getBannedUsers();
     });
+
+    $scope.getGames = function(value){
+        if(typeof value==="undefined") return false;
+      if(value.length>3){
+          SteamService.all(value);
+      }
+    };
+
+    $scope.tojson = function(value){
+        $scope.selectedgame = JSON.parse(value);
+        $scope.form = $scope.selectedgame;
+        $scope.form.gameid = $scope.form.appid;
+    };
+
+    $scope.addGame =function(game){
+        SteamService.addGame(game,((a)=>{
+            SweetAlert.swal("Game Added Succesfuly",`You have added ${game.name}succesfully`,"succes");
+            $scope.search = '';
+            delete $scope.selectedgame;
+            delete $scope.form;
+        }));
+    };
 
     $scope.getReportedUsers =  function(){
         AdminService.getReportedUsers((a)=>{
@@ -9055,6 +9075,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 
     middleware.needRol("NONE");
     $scope.success = false;
+    $scope.form = storage.add($scope,"form");
     $scope.languagesForn = [];
     let dialog2 = dialog.open("auth/signup",$scope);
     dialog.redirect(dialog2,(a)=>{
@@ -9071,6 +9092,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 	$scope.enviarForm = function(data) {
 		xhr.post("api/signup", data,function(){
             $scope.success = true;
+            storage.unwatch('form');
         },function(){
 		    $scope.error = "There was something wrong with your form, try again!";
             dialog.closeAll();
@@ -9173,15 +9195,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });
 ;;app.controller("DashBoardController", function($scope,xhr,DashBoardService){
-    $scope.stats = ()=>{
-        DashBoardService.getDashboardData((a)=>{
-            $scope.lastTournaments = a.lastTournaments;
-            $scope.bestRatedUsers = a.bestRatedUsers;
-            $scope.games = a.games;
-        })
-    };
 
-    $scope.stats();
 
 
 });;app.controller("LegalController", function($scope,dialog){
@@ -9191,7 +9205,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     });
 });;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
 ,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,
-                                         TournamentService, TeamService, GameInfoService,SweetAlert){
+                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService){
     localization.init($scope);
     $scope.TeamService = TeamService;
     $scope.AdminService = AdminService;
@@ -9244,6 +9258,24 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     };
     $scope.checkProtocol();
 
+
+    $scope.savedValues = function(scope,test){
+        console.log(test);
+    };
+
+    $scope.isHome = function(){
+        return $location.path()==="/";
+    };
+
+    $scope.stats = ()=>{
+        DashBoardService.getDashboardData((a)=>{
+            $scope.lastTournaments = a.lastTournaments;
+            $scope.bestRatedUsers = a.bestRatedUsers;
+            $scope.games = a.games;
+        })
+    };
+
+    $scope.stats();
 
 });;;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,
                                          $location,NotificationService){
@@ -9381,6 +9413,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         xhr.post("api/steam/add",$scope.steam,(a)=>{
             dialog.closeAll();
             $scope.ActorService.UserProfile();
+            $scope.error = "";
         },(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })
@@ -9390,6 +9423,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         xhr.get("api/steam/"+$scope.steam.id,((a)=>{
             $scope.games = a.data;
             $scope.searched = true;
+            $scope.error = "";
         }),(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })
@@ -9414,27 +9448,33 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.error = data.data.message;
         });
     }
-});;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth) {
+});;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth,
+                                                 SweetAlert,$route) {
     middleware.needRol("USER");
     $scope.languagesForm = [];
     LanguageService.getAll(function(data){
 		$scope.languagesForm = data;
 	});
-    let dialog2 = dialog.open("profile/editProfile",$scope);
-    dialog.redirect(dialog2,(a)=>{
+    $scope.chargeForms = function(){
+        if(auth.isAuthenticated()){
+            $scope.form = auth.principal.actor;
+            $scope.form.username = $scope.form.userAccount.username;
+            $scope.form.age = new Date($scope.form.age);
+            console.log($scope.form.languages);
+        }
+    };
+    $scope.chargeForms();
 
-    });
-    if(auth.isAuthenticated()){
-        $scope.form = auth.principal.actor;
-        $scope.form.username = $scope.form.userAccount.username;
-    }
 	$scope.enviarForm = function(data) {
-        data.languages.forEach((value,key,arr)=>{
-            data.languages[key] = value.id;
+	    let result = Object.assign({},data);
+        result.languages.forEach((value,key,arr)=>{
+            result.languages[key] = value.id;
         });
-	    xhr.post("api/user/edit", data,function(){
-		dialog.close(dialog2);
-		auth.load(()=>{},true);
+	    xhr.post("api/user/edit", result,function(){
+		auth.load(()=>{
+            SweetAlert.swal("Profile Edited", "Your profile has been edited successfully!", "success");
+            $scope.chargeForms();
+        },true);
         },function(){
 		    $scope.error = "There was something wrong with your form, try again!"
         });
@@ -9623,7 +9663,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     $scope.edit = function(form){
         let data = form;
         xhr.post(`api/team/${$scope.team.id}/edit`,data,(data2)=>{
-            $location.path("team/"+form.name);
+            $location.path("team/"+$scope.team.id);
             SystemMessages.okmessage("Team edited!");
         })
     };
@@ -9632,7 +9672,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         confirmtext: ""};
         data.callback =(a)=>{
             xhr.get(`api/team/${$scope.team.id}/leave`,(data2)=>{
-                $location.path("team/"+$scope.team.name);
+                $location.path("team/"+$scope.team.id);
                 SystemMessages.okmessage("You have left the Team!");
             })
         };
@@ -9708,11 +9748,13 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 });;;app.controller("AssignTeamToTournamentController", function($scope,xhr,$location){
     $scope.assignForm = {};
     $scope.added = false;
-
+    $scope.teamAllowed = true;
     $scope.setTeamSelected = function(){
         $scope.teamselected = $scope.userteams.find((a)=>{
             return a.id === +$scope.assignForm.team;
-        })
+        });
+        $scope.teamAllowed = $scope.teamselected.users.length>= $scope.tournament.players &&
+                $scope.teamselected.users.length<= ($scope.tournament.players+2);
     };
     $scope.assignTeamToTournament = function(){
         if($scope.assignForm.team !==""){
@@ -9821,12 +9863,8 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
     }
 });;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService,localization) {
     middleware.needRol("ADMIN");
-    let dialog2 = dialog.open("tournaments/createTournament",$scope);
-    dialog.redirect(dialog2,(a)=>{
-    });
 	$scope.enviarTournamentForm = function(data) {
 		xhr.post("api/createTournament",data, function(){
-            dialog.close(dialog2);
             $location.path("/tournament/list");
 		},(a)=>{
 			$scope.error = localization.error;
@@ -9949,7 +9987,7 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
        for(let i of tournament.participes){
            if(i.winner === true) result = true;
        }
-       if(!result) return '';
+       if(!result || typeof tournament.participes[id] === "undefined") return '';
         return (tournament.participes[id].winner===true) ? 'winner' : 'looser';
     }
 });;app.controller('TournamentListController',function($scope,TournamentService, dialog,middleware){
@@ -10238,34 +10276,7 @@ app.service("auth", function(xhr){
             this.handleMessages(callback);
     }
 
-});;class Dao{
-
-    constructor(array){
-        this.elements = array;
-    }
-
-    remove(id){
-        let element = this.find(id);
-        let index = this.elements.indexOf(element);
-        this.elements.splice(index,1);
-    }
-
-    save(entity){
-        let element = this.find(entity.id);
-        let index = this.elements.indexOf(element);
-        this.elements[index] = entity;
-    }
-
-    find(id){
-        return this.elements.find((a)=>{
-            return a.id == id;
-        })
-    }
-
-    get(){
-        return this.elements;
-    }
-};
+});;
 app.service("dialog", function(ngDialog,$rootScope){
 
     this.templates = [];
@@ -10273,7 +10284,6 @@ app.service("dialog", function(ngDialog,$rootScope){
         this.dialog = {};
         let path = "assets/html/"+template+".html";
         let options = {};
-        options.closeByDocument = false;
         options.template = path;
         if(typeof scope !== "undefined") {
             options.scope = scope;
@@ -10544,14 +10554,13 @@ function closeDropdowns (){
         $($(list[a]).children("ul")[0]).hide();
         $(".toverlay").remove();
     })
-};app.service("DashBoardService",function($location,xhr){
+};app.service("DashBoardService",function(xhr){
 
     this.data = {};
 
     this.getDashboardData  = (callback)=>{
         let object = this;
-        console.log(Object.keys(this.data).length>0);
-        if(Object.keys(this.data).length>0 && $location.path()!=="/"){
+        if(Object.keys(this.data).length>0){
             if(typeof callback!=="undefined") callback(this.data);
             return false;
         }
@@ -10795,36 +10804,20 @@ app.service("SearchService", function(xhr){
         })
     };
 
-});;
-app.service("SystemMessages", function($timeout){
+});;app.service("SteamService", function(xhr,auth,$rootScope){
+    this._all = [];
+    this.loaded = false;
 
-    this.color="";
-    this.message = "";
-    this.show = false;
-
-
-    this.okmessage = function(message){
-        this.color ="bg-green3";
-        this.message = `<i class="fa fa-check"></i> ${message}`;
-        this.show = true;
+    this.all = function(search){
         let object = this;
-        $timeout(function(){
-            object.show = false;
-        },2500);
+        xhr.get("/api/admin/games/steam/all?search="+search,(a)=>{
+            object._all = a.data;
+        })
     };
 
-    this.errormessage = function(message){
-        this.color ="bg-red3";
-        this.message = `<i class="fa fa-close"></i> ${message}`;
-        this.show = true;
-        let object = this;
-        $(".message-system").show();
-        $timeout(function(){
-            object.show = false;
-            $(".message-system").hide();
-        },3000);
+    this.addGame =function(game,success,error){
+        xhr.post("/api/admin/games/steam/add",game,success,error);
     }
-
 });;app.service("TeamService", function(xhr){
 
    this.get = function(name,callback){
@@ -11026,7 +11019,43 @@ app.service("SystemMessages", function($timeout){
                 callback(a.data);
             }
         })
-    }
+    };
+
+    this.getCurrentRound = function(tournament){
+        let confrontations = tournament.confrontations;
+        let round = 0;
+        confrontations.forEach((a)=>{
+            if(a.played===true && a.round>round) round = a.round+1;
+        });
+
+        return round;
+    };
+
+    this.getConfrontationByRound = function(tournament,round){
+        let confrontations = tournament.confrontations;
+        return confrontations.filter((a)=>{
+            return a.round ===round;
+        });
+    };
+
+   this.canBeAdvanced = function(tournament){
+       if(typeof tournament==="undefined") return false;
+        let result = false;
+        let confrontations = tournament.confrontations;
+        let round = this.getCurrentRound(tournament);
+        let confrontationsRound = this.getConfrontationByRound(tournament,round);
+        if(confrontationsRound.length===0) return false;
+        result = confrontationsRound.every((a)=>{
+            if(new Date(a.limitPlay)>new Date()) return false;
+           if(a.participes.length===1) return true;
+            return a.participes.some((b) => {
+                return b.winner === true;
+            });
+        });
+
+       return result;
+    };
+
 
 });;app.service("UserService",function(xhr,auth){
 
@@ -11120,7 +11149,7 @@ app.service("SystemMessages", function($timeout){
 
 
 
-});;app.service("middleware",function(auth,$location){
+});;app.service("middleware",function(auth,$location,SystemMessages){
 
     this.needRol = function(rol){
         let object = this;
@@ -11143,6 +11172,7 @@ app.service("SystemMessages", function($timeout){
                 });
             }
             if ((!auth.hasRole(rol) || rol.toLowerCase() == "NONE".toLowerCase()) && !result){
+                SystemMessages.errormessage("You don't have permission to access this section");
                 return object.goTo('');
             }
         });
@@ -11221,26 +11251,54 @@ app.service("SystemMessages", function($timeout){
     }
 });;app.service("storage",function(){
 
+    this.watchers = {};
+
     this.add = function(scope,name){
-        let result = sessionStorage.getItem("name");
-        if (!result){
-            this.addListener(name,scope);
+        let result = sessionStorage.getItem(name);
+        this.addListener(name,scope);
+        if (typeof result==="undefined" || result==="undefined" || !result || result==="null"){
             return {};
         }
-
+        result = JSON.parse(result);
+        result = this.parse(result);
         return result;
     };
 
+
     this.addListener = function(name,scope){
-      scope.$watch(function(a){
-          console.log(a);
-          if(typeof a!=="undefined"){
-              sessionStorage.setItem(name,scope[name]);
-              console.log(sessionStorage.getItem("name"));
-          }
-      })
+        let object = this;
+        this.watchers[name] = scope.$watch(function (a) {
+            if (typeof scope[name] !== "undefined") {
+                sessionStorage.setItem(name, JSON.stringify(scope[name]));
+            }
+        });
+    };
+
+
+
+    this.parse = function(result){
+        let res = {};
+        if(typeof result ==="object") {
+            for (let i in result) {
+                res[i] = result[i];
+                var patt = new RegExp(/(.*)-(.*)-(.*)(.*)T(.*)23(.*)/);
+                if(patt.test(res[i])){
+                    res[i] = new Date(res[i]);
+                }
+            }
+        return res;
+        }
+
+    };
+
+    this.unwatch = function(name){
+        this.watchers[name]();
+        sessionStorage.removeItem(name);
+        delete this.watchers[name];
     }
-});;app.service("subscriber",function(){
+});
+
+;app.service("subscriber",function(){
     this.subscribers = {};
 
     this.add = function (name,callback){
@@ -11280,6 +11338,36 @@ app.service("SystemMessages", function($timeout){
 
     }
 
+
+});;
+app.service("SystemMessages", function($timeout){
+
+    this.color="";
+    this.message = "";
+    this.show = false;
+
+
+    this.okmessage = function(message){
+        this.color ="bg-green3";
+        this.message = `<i class="fa fa-check"></i> ${message}`;
+        this.show = true;
+        let object = this;
+        $timeout(function(){
+            object.show = false;
+        },2500);
+    };
+
+    this.errormessage = function(message){
+        this.color ="bg-red3";
+        this.message = `<i class="fa fa-close"></i> ${message}`;
+        this.show = true;
+        let object = this;
+        $(".message-system").show();
+        $timeout(function(){
+            object.show = false;
+            $(".message-system").hide();
+        },3000);
+    }
 
 });;app.service("xhr",function($http, SystemMessages, $rootScope) {
 
@@ -11364,7 +11452,13 @@ app.service("SystemMessages", function($timeout){
 
         return obj;
     }
-});;;app.directive("userCard",function($compile,auth,AdminService){
+});;app.filter ('tojson', function(){
+
+
+        return function (obj) {
+            return JSON.parse(obj);
+        }
+    });;;app.directive("userCard",function($compile,auth,AdminService){
     return{
         restrict: "A",
         scope: {
@@ -11529,22 +11623,26 @@ app.directive("tournamentCard",function($compile,localization,auth){
                     let template = `
     <div class="card-header">
         <div class="card-header-right">
-            <a class="" href="#" ng-click="viewAwards(i.id)"><i class="yellow3 fa fa-trophy"></i> </a>
+            <a class="" href="tournament/{{i.id}}/awards"><i class="yellow3 fa fa-trophy"></i> </a>
         </div>
         <a href="tournament/{{i.id}}"><img class="card-header-header" ng-src="{{i.picture}}" /></a>
     </div>
-    <div class="card-body"> <a href="tournament/{{i.id}}">
-        <span class="float-right" tournament-tools="i"></span>
+    <div class="card-body"> 
         <h1><a href="tournament/{{i.id}}"> {{i.title}}</a></h1>
-        <p>{{i.description}} {{i.teams.length}}/{{i.numberTeams}} {{loc.tournament.teams}}</p>
+             <span class="float-right"
+             ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
+             <div style="font-size:0.8em;">{{i.game.name}}</div></span>
+        <p>{{i.description}}</p>
+        <div><b>Joined {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>Players:</b> {{i.players}} (+2)</div>
         <div>
+        <h2>Teams</h2>
         <span tooltip ng-repeat="u in i.teams">
         <img ng-src="{{u.picture}}" class="open-tooltip profile-image"/>
             <div class="tooltip card" team-card="u"></div>
             </span>
            </div>
            
-    </a>
     </div>
     <div class="card-footer">
         <div class="col s6 x2">
@@ -12035,14 +12133,14 @@ app.filter('paginate', function(PaginationService) {
                 avgskill = scope.actor.skillAvg;
                 avgknowledge = scope.actor.knowledgeAvg;
             }
-            let html = `<ul class="list-horizontal">
-                        <li class="col">
+            let html = `<ul>
+                        <li style="display:inline-table">
                             <div class="label bg-green3" title="Attitude">A ${avgattitude}</div>
                         </li>
-                        <li class="col">
+                        <li style="display:inline-table">
                             <div class="label bg-red3" title="Skill">S ${avgskill}</div>
                         </li>
-                        <li class="col">
+                        <li style="display:inline-table">
                             <div class="label bg-magenta3" title="Knowledge">K ${avgknowledge}</div>
                         </li>
                     </ul>`;
@@ -12071,6 +12169,22 @@ app.directive("select",function(){
             scope.$watch(function(){
                 $(element).data('selectric').refresh();
             })
+        }
+    }
+});;app.directive("stored", function(){
+    return{
+        scope: {
+            "stored": "="
+        },
+        restrict: "A",
+        link : function(scope,element,attrs){
+            let changed = false;
+            scope.$watch("stored",function(a){
+                if(!changed){
+                    console.log(scope);
+                }
+
+            });
         }
     }
 });;app.directive("table",function(){
@@ -12118,7 +12232,7 @@ app.directive("select",function(){
 
 });
 
-app.directive("tournamentTools",function($compile){
+app.directive("tournamentTools",function($compile,auth, TournamentService){
     return {
         restrict: "AEC",
         scope: {
@@ -12128,10 +12242,13 @@ app.directive("tournamentTools",function($compile){
         link: function(scope,element,attrs){
             scope.$parent.tournamentTools = scope.tournamentTools;
             scope.$watch('tournamentTools',()=>{
+                scope.auth = auth;
+                scope.TournamentService = TournamentService;
+                console.log(TournamentService.canBeDeleted(scope.tournamentTools));
                 let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li><a href="#" ng-if="TournamentService.canBeDeleted(tournamentTools)" ng-click="TournamentService.delete(tournamentTools)">Delete</a></li>
+                    <li><a href="#" ng-if="TournamentService.canBeDeleted(tournamentTools)===true" ng-click="TournamentService.delete(tournamentTools)">Delete</a></li>
                         </ul>
                     </div>`;
                 $(element).html(template);
@@ -12236,10 +12353,10 @@ $(document).ready(function(){
         closeMenu();
     });
     $(window).on("scroll",function(){
-        changeNavMenuToFixed()
+        //changeNavMenuToFixed()
     });
 
-    changeNavMenuToFixed();
+    //changeNavMenuToFixed();
 
     loadSlider();
 

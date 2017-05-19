@@ -1,4 +1,11 @@
-<h1>{{loc.tournament.tournaments}}</h1>
+
+<div  class="tournament-header" >
+    <h1>{{loc.tournament.tournaments}}</h1>
+    <img ng-src="assets/images/wallpapers/tournaments.jpg"/>
+</div>
+<div class="content">
+
+
 <div style="margin:30px;">
 <a href="tournament/create" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">
     {{loc.tournament.create}}</a>
@@ -14,3 +21,5 @@
     gp-paginate-items="Ts.tournaments"
     gp-paginate-id="tournaments"
     gp-paginate-limit="6"></ul>
+
+</div>

@@ -297,7 +297,9 @@ public class UserService {
 		List<User> users = findBestRanked();
 		List<Tournament> tournaments = tournamentService.findLatest(5);
 		Map<String, Object> result = new LinkedHashMap<>();
-		result.put("games", gameService.findAll());
+		List<Game> games = gameService.findAll();
+		Collections.reverse(games);
+		result.put("games", games);
 		result.put("bestRatedUsers", users);
 		result.put("lastTournaments",tournaments);
 

@@ -1,6 +1,6 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
 ,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,
-                                         TournamentService, TeamService, GameInfoService,SweetAlert){
+                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService){
     localization.init($scope);
     $scope.TeamService = TeamService;
     $scope.AdminService = AdminService;
@@ -53,5 +53,23 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
     };
     $scope.checkProtocol();
 
+
+    $scope.savedValues = function(scope,test){
+        console.log(test);
+    };
+
+    $scope.isHome = function(){
+        return $location.path()==="/";
+    };
+
+    $scope.stats = ()=>{
+        DashBoardService.getDashboardData((a)=>{
+            $scope.lastTournaments = a.lastTournaments;
+            $scope.bestRatedUsers = a.bestRatedUsers;
+            $scope.games = a.games;
+        })
+    };
+
+    $scope.stats();
 
 });
