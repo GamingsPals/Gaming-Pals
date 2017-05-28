@@ -1,4 +1,4 @@
-app.directive("userCard",function($compile,auth,AdminService){
+app.directive("userCard",function($compile,auth,AdminService,chat){
     return{
         restrict: "A",
         scope: {
@@ -11,6 +11,7 @@ app.directive("userCard",function($compile,auth,AdminService){
                 if(typeof scope.userCard!=="undefined"){
                 scope.i = scope.userCard;
                 scope.auth = auth;
+                scope.chat = chat;
                 scope.AdminService = AdminService;
                 let template = `
                 <div class="card-header">
@@ -22,7 +23,8 @@ app.directive("userCard",function($compile,auth,AdminService){
                  </div>
                  <div class="card-body">
                  <span class="float-right" admin-tools="i"></span>
-                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
+                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}} 
+                  <i class="green3 fa fa-circle" aria-hidden="true" ng-show="chat.isConnected(i.id)"></i></h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <span tooltip="" ng-repeat="g in i.gameInfo">

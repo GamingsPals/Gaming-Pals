@@ -8874,12 +8874,18 @@ routes = [
 				controller : "CreateTournament"
 			}
 		}, {
-			route : "/tournament/list",
+			route : "/tournaments",
 			options : {
 				templateUrl : "tournaments/listTournaments",
 				controller : "TournamentList"
 			}
 		},
+    {
+        route : "/games",
+        options : {
+            templateUrl : "games/games",
+        }
+    },
     {
         route : "/team/create",
         options : {
@@ -9647,6 +9653,19 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         $scope.showAutoComplete = false;
     };
 
+    $scope.inviteMembers = function(form){
+        let data = {"users": form.members};
+        let datamESSAGE = {title: "Are you sure you want to invite these users to the team?",text:"You won't be able to " +
+        "undone it!",
+            confirmtext:"Invitation are sended",confirmtitle:"Sended!"};
+        datamESSAGE.callback = (a)=>{
+            TeamService.invite($scope.team,data,(a)=>{
+                $scope.loadTeam($scope.team.id);
+            });
+        };
+        Alerts.confirm(datamESSAGE);
+    };
+
     $scope.delete = function(){
         let data = {title: "Are you sure you want to delete this team?",text:"You won't be able to recover it!",
         confirmtext:"The Team has been deleted!",confirmtitle:"Deleted!"};
@@ -9668,7 +9687,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         })
     };
     $scope.leaveTeam = function(actor){
-        data = {title: "Leave the Team",text: "Are you sure you want to leave this team?",confirmtitle:"You have left the Team",
+        let data = {title: "Leave the Team",text: "Are you sure you want to leave this team?",confirmtitle:"You have left the Team",
         confirmtext: ""};
         data.callback =(a)=>{
             xhr.get(`api/team/${$scope.team.id}/leave`,(data2)=>{
@@ -9678,6 +9697,17 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         };
         Alerts.confirm(data);
 
+    };
+
+    $scope.kickMember = function(form){
+        let data2 = {title: "Kick member",text: `Are you sure you want to kick this member out of the team?`,
+            confirmtext: "User kicked out!",confirmtitle:"Kicked out!!"};
+        data2.callback = (a)=>{
+            TeamService.kickMember($scope.team,form.member);
+            $scope.loadTeam($scope.team.id);
+        };
+
+        Alerts.confirm(data2);
     };
 
     $scope.passwordInfo = function(){
@@ -10838,6 +10868,14 @@ app.service("SearchService", function(xhr){
        }else{
            return undefined;
        }
+   };
+
+   this.invite = function(team,data,success,error){
+       xhr.post(`api/invitations/${team.id}/new`,data,success,error);
+   };
+
+   this.kickMember = function(team,user,succes,error){
+       xhr.get(`api/team/${team.id}/kick/${user}`,succes,error);
    }
 
 });;app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization,auth,subscriber){
@@ -11458,7 +11496,7 @@ app.service("SystemMessages", function($timeout){
         return function (obj) {
             return JSON.parse(obj);
         }
-    });;;app.directive("userCard",function($compile,auth,AdminService){
+    });;;app.directive("userCard",function($compile,auth,AdminService,chat){
     return{
         restrict: "A",
         scope: {
@@ -11471,6 +11509,7 @@ app.service("SystemMessages", function($timeout){
                 if(typeof scope.userCard!=="undefined"){
                 scope.i = scope.userCard;
                 scope.auth = auth;
+                scope.chat = chat;
                 scope.AdminService = AdminService;
                 let template = `
                 <div class="card-header">
@@ -11482,7 +11521,8 @@ app.service("SystemMessages", function($timeout){
                  </div>
                  <div class="card-body">
                  <span class="float-right" admin-tools="i"></span>
-                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}}</h1></a>
+                  <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}} 
+                  <i class="green3 fa fa-circle" aria-hidden="true" ng-show="chat.isConnected(i.id)"></i></h1></a>
                    <div class="col s8 x3" >
                    <h2>Games</h2>
                    <span tooltip="" ng-repeat="g in i.gameInfo">

@@ -1,0 +1,35 @@
+<article ng-show="notFound==true" ng-cloak>
+
+    <div  class="tournament-header" >
+        <h1>{{game.name}}</h1>
+        <img ng-src="{{game.header}}"/>
+    </div>
+<div class="profile-nav" menu="">
+    <div class="profile-nav-mbutton om">
+        <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
+    <ul>
+        <li ng-class="(mode=='pals') ? 'active' : ''">
+            <a class="profile-tabs" href="{{url}}/pals">
+             Pals</a></li>
+        <li  ng-class="(mode=='tournaments') ? 'active' : ''">
+            <a  href="{{url}}/tournaments" class="profile-tabs">
+                 Tournaments</a></li>
+    </ul>
+</div>
+    <div class="content-margin">
+
+<div class="col s12 content-color" style="min-height: 500px">
+    <div ng-if="mode=='pals'">
+        <h1>Pals</h1>
+        <div contenteditable="true" markdown="tournament.description"></div>
+    </div>
+    <div ng-if="mode=='rules'">
+        <h1> {{loc.tournament.rules}}</h1>
+        <div markdown="tournament.rules"></div>
+    </div>
+    </div>
+</article>
+<article ng-show="notFound==false" ng-cloak>
+    <giant>{{loc.tournament.notFound}}</giant>
+</article>
+<div class="clear-both s12"></div>

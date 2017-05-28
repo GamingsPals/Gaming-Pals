@@ -44,6 +44,9 @@
   background-color: rgba(217, 95, 58, 0.84) !important;
   color: white !important; }
 
+.green3 {
+  color: rgba(45, 185, 107, 0.84); }
+
 .bg-green2 {
   background-color: rgba(45, 185, 107, 0.64) !important;
   color: white !important; }

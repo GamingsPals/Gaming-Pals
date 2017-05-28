@@ -1,0 +1,22 @@
+
+<div  class="tournament-header" >
+    <h1>Games</h1>
+    <img ng-src="assets/images/wallpapers/games.jpg"/>
+</div>
+<div class="content">
+
+
+    <div class="card blockcard s4"  ng-repeat="g in games|paginate:'games'">
+        <div class="card-header">
+            <h1><a href="game/{{g.id}}"> {{g.name}}</a></h1>
+            <img class="card-header-header" ng-src="{{g.header}}">
+        </div>
+    </div>
+    <ul class="pagination"
+        gp-paginate-url="true"
+        gp-paginate
+        gp-paginate-items="games"
+        gp-paginate-id="games"
+        gp-paginate-limit="6"></ul>
+
+</div>

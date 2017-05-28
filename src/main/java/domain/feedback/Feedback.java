@@ -24,7 +24,8 @@ public class Feedback  extends DomainEntity{
         this.likes = new ArrayList<>();
         this.feedbacks = new ArrayList<>();
     }
-    
+
+    @Column(length = 2500)
     public String getBody() {
         return body;
     }

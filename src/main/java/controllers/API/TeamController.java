@@ -20,6 +20,7 @@ import services.notifications.TeamInvitationNotificationService;
 import services.TeamService;
 import services.UserService;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,8 +61,34 @@ public class TeamController extends ApiAbstractController{
 		}
 	}
 
+    @RequestMapping(value= "/team/{team}/invite",method = RequestMethod.POST)
+    public Object editTeam(@PathVariable("team") Team team, Collection<User> users, HttpServletResponse response){
+        User principal;
+        try{
+            Assert.notNull(users);
+            Assert.notNull(team);
+        } catch (Exception e){
+            return badrequest(response,null);
+        }
+        try{
+            principal = userService.findByPrincipal();
+            Assert.notNull(principal);
+            Assert.isTrue(team.getLeader().equals(principal));
+        } catch (Exception e){
+            return  unauthorized(response,null);
+        }
+        try{
+            teamService.invite(users,team);
 
-	@RequestMapping(value= "/team/{team}/edit",method = RequestMethod.POST)
+            return  ok(response,null);
+        }catch (Exception e){
+            return internalservererror(response,null);
+        }
+    }
+
+
+
+    @RequestMapping(value= "/team/{team}/edit",method = RequestMethod.POST)
 	public Object editTeam(@PathVariable("team") Team team, TeamForm teamForm, HttpServletResponse response){
         User principal;
         try{

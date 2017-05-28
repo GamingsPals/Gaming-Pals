@@ -55,7 +55,7 @@
 							{{loc.pals}}</a></li>
                     <li><a href="games"><i class="fa fa-gamepad"></i>
 							Games</a></li>
-					<li><a href="tournament/list"><i class="fa fa-trophy"></i>
+					<li><a href="tournaments"><i class="fa fa-trophy"></i>
 							{{loc.tournaments}}</a></li>
 					<li>
 						<form class="plainform" ng-submit="searchUsername(search.name)">

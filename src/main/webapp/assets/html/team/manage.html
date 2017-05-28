@@ -14,23 +14,23 @@
         This action only can be done by the leader of the team</p>
     <a class="button bg-red3" ng-click="delete()" ng-if="isLeader(auth.principal.actor)==true">Delete</a>
 </section>
-<!--<section class="col s5 section">-->
-    <!--<h2>Promote new Leader</h2>-->
-    <!--<p ng-if="isLeader(auth.principal.actor)==false">-->
-        <!--This action only can be done by the leader of the team</p>-->
-    <!--<p ng-if="getOtherMembers(auth.principal.actor).length==0">-->
-        <!--There isn't other members in the team to promote to leader-->
-    <!--</p>-->
-    <!--<form ng-submit="promoteNewLeader(formPromote)"-->
-          <!--ng-if="isLeader(auth.principal.actor)==true && getOtherMembers(auth.principal.actor).length>0">-->
-        <!--<label>Select a member</label>-->
+<section class="col s5 section">
+    <h2>Promote new Leader</h2>
+    <p ng-if="isLeader(auth.principal.actor)==false">
+        This action only can be done by the leader of the team</p>
+    <p ng-if="getOtherMembers(auth.principal.actor).length==0">
+        There isn't other members in the team to promote to leader
+    </p>
+    <form ng-submit="promoteNewLeader(formPromote)"
+          ng-if="isLeader(auth.principal.actor)==true && getOtherMembers(auth.principal.actor).length>0">
+        <label>Select a member</label>
 
-        <!--<select ng-model="formPromote.user">-->
-            <!--<option value="">Select a member</option>-->
-            <!--<option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>-->
-        <!--</select>-->
-    <!--</form>-->
-<!--</section>-->
+        <select ng-model="formPromote.user">
+            <option value="">Select a member</option>
+            <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
+        </select>
+    </form>
+</section>
 
 <section class="col s5 section">
     <h2>Edit Team</h2>
@@ -49,55 +49,55 @@
         <label>{{loc.signupform.password}} <a href="#" ng-click="passwordInfo()">
             <i class="fa fa-question-circle"></i> </a> </label>
         <input type="password" class="s12" name="passwordteam" ng-model="formEdit.password" min="6" max="20" />
-        <input type="submit" value="{{loc.team.edit}}" ng-disabled="editForm.$valid==false" />
+        <input type="submit" value="Edit" ng-disabled="editForm.$valid==false" />
     </form>
 </section>
 
-<!--<section class="col s5 section">-->
-    <!--<h2>Invite a member to the Team</h2>-->
-    <!--<p ng-if="isLeader(auth.principal.actor)==false">-->
-        <!--This action only can be done by the leader of the team</p>-->
-    <!--<form ng-if="isLeader(auth.principal.actor)==true"  ng-submit="inviteMember(formInvite) && inviteForm.members.length>0">-->
-        <!--<label>Select a member</label>-->
-        <!--<div class="autocomplete s12">-->
-            <!--<input class="s12" style="display: block!important" type="search" ng-autocomplete=""-->
-                   <!--ng-model="searchmember" ng-focus="showAutoComplete=true"/>-->
-            <!--<ul class="autocomplete-results" ng-show="showAutoComplete==true">-->
-                <!--<li ng-repeat="a in allusers | filter:searchmember">-->
-                    <!--<a href="#" ng-click="addMember(a)">-->
-                        <!--<img class="profile-image" ng-src="{{a.picture}}"/> {{a.userAccount.username}}</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-        <!--<h2>{{loc.team.members}}</h2>-->
-        <!--<div class="s3 col" ng-repeat="i in selectedmembers">-->
-            <!--<div style="margin:15px;font-size:0.7em;"><a class="button" ng-click="removeMember(i)">Remove</a>-->
-            <!--</div>-->
-            <!--<div class="card s12" user-card="i" >-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div ng-if="selectedmembers.length==0">-->
-            <!--There isn't any user selected yet-->
-        <!--</div>-->
-        <!--<div>-->
-            <!--<input type="submit" value="Invite" ng-disabled="inviteForm.members.length==0" />-->
-        <!--</div>-->
-    <!--</form>-->
-<!--</section>-->
-    <!--<section class="col s5 section">-->
-        <!--<h2>Kick out a member</h2>-->
-        <!--<p ng-if="isLeader(auth.principal.actor)==false">-->
-            <!--This action only can be done by the leader of the team</p>-->
-        <!--<form name="formKick"  ng-if="isLeader(auth.principal.actor)==true" ng-submit="kickMember(kickForm) && formKick.$valid">-->
-            <!--<label>Select a member</label>-->
+<section class="col s5 section">
+    <h2>Invite a member to the Team</h2>
+    <p ng-if="isLeader(auth.principal.actor)==false">
+        This action only can be done by the leader of the team</p>
+    <form ng-if="isLeader(auth.principal.actor)==true"  ng-submit="inviteMembers(inviteForm) && inviteForm.members.length>0">
+        <label>Select a member</label>
+        <div class="autocomplete s12">
+            <input class="s12" style="display: block!important" type="search" ng-autocomplete=""
+                   ng-model="searchmember" ng-focus="showAutoComplete=true"/>
+            <ul class="autocomplete-results" ng-show="showAutoComplete==true">
+                <li ng-repeat="a in allusers | filter:searchmember">
+                    <a href="#" ng-click="addMember(a)">
+                        <img class="profile-image" ng-src="{{a.picture}}"/> {{a.userAccount.username}}</a>
+                </li>
+            </ul>
+        </div>
+        <h2>{{loc.team.members}}</h2>
+        <div class="s12 col" ng-repeat="i in selectedmembers">
+            <div style="margin:15px;font-size:0.7em;"><a class="button" ng-click="removeMember(i)">Remove</a>
+            </div>
+            <div class="card s12" user-card="i" >
+            </div>
+        </div>
+        <div ng-if="selectedmembers.length==0">
+            There isn't any user selected yet
+        </div>
+        <div>
+            <input type="submit" value="Invite" ng-disabled="inviteForm.members.length==0" />
+        </div>
+    </form>
+</section>
+    <section class="col s5 section">
+        <h2>Kick out a member</h2>
+        <p ng-if="isLeader(auth.principal.actor)==false">
+            This action only can be done by the leader of the team</p>
+        <form name="formKick"  ng-if="isLeader(auth.principal.actor)==true" ng-submit="kickMember(kickForm) && formKick.$valid">
+            <label>Select a member</label>
 
-            <!--<select name="member" ng-model="kickForm.member" required>-->
-                <!--<option value="">Select a member</option>-->
-                <!--<option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>-->
-            <!--</select>-->
-            <!--<div>-->
-                <!--<input type="submit" value="Invite" ng-disabled="formKick.$valid==false" />-->
-            <!--</div>-->
-        <!--</form>-->
-    <!--</section>-->
+            <select name="member" ng-model="kickForm.member" required title="Members">
+                <option value="">Select a member</option>
+                <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
+            </select>
+            <div>
+                <input type="submit" value="Invite" ng-disabled="formKick.$valid==false" />
+            </div>
+        </form>
+    </section>
 </section>

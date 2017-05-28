@@ -74,10 +74,22 @@ public class TeamInvitationNotificationService {
     }
 
     public void newInvitation(User e, Team team) {
+        Assert.notNull(e);
+        Assert.notNull(team);
         TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
         teamInvitationNotification.setTeam(team);
         teamInvitationNotification.setUser(e);
         teamInvitationNotification.setActor(e);
         save(teamInvitationNotification);
+    }
+
+    public void newInvitations(Collection<User> users, Team team) {
+        Assert.notNull(users);
+        Assert.notNull(team);
+        for(User u: users){
+            Assert.notNull(u);
+            Assert.isTrue(!team.getUsers().contains(u));
+            newInvitation(u,team);
+        }
     }
 }

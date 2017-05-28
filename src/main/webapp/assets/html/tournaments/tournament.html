@@ -1,7 +1,7 @@
 <article ng-show="notFound==true" ng-cloak>
 
     <div  class="tournament-header" >
-        <h1>{{tournament.title}}</h1>
+        <h1>{{tournament.title}} <img style="width:30px!important;" class="game-icon" ng-src="{{tournament.game.picture}}" /> </h1>
         <img ng-src="{{tournament.picture}}"/>
     </div>
 <div class="profile-nav" menu="">
@@ -120,6 +120,8 @@
         <ul>
             <h1>{{loc.tournament.information}}</h1>
             <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
+            <li><b>Game: </b><img  class="game-icon" ng-src="{{tournament.game.picture}}" />
+             {{tournament.game.name}}</li>
             <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
             <li>Teams size
                 : {{tournament.players}} (+2)</li>

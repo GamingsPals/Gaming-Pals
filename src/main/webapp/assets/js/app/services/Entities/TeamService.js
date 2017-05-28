@@ -18,6 +18,14 @@ app.service("TeamService", function(xhr){
        }else{
            return undefined;
        }
+   };
+
+   this.invite = function(team,data,success,error){
+       xhr.post(`api/invitations/${team.id}/new`,data,success,error);
+   };
+
+   this.kickMember = function(team,user,succes,error){
+       xhr.get(`api/team/${team.id}/kick/${user}`,succes,error);
    }
 
 });

@@ -5,6 +5,20 @@
 </div>
 <div class="content">
 
+    <a href="#" class="button" ng-click="showFilter=!showFilter" ng-init="showFilter=false">Filter Tournaments</a>
+    <div class="search-filter" ng-show="showFilter==true">
+        <h1>Filter Tournament</h1>
+        <label>By Title</label>
+        <input class="s12" type="text" ng-model="search.title" placeholder="title"/>
+        <label for="games">
+            {{loc.search.game}}
+        </label>
+        <select class="s8" id="games" name="games" ng-model="search.game.id">
+            <option value="">{{loc.search.selectGame}}</option>
+            <option value="{{i.id}}" ng-repeat="i in games">{{i.name}}</option>
+        </select>
+        <a href="#" class="block" ng-click="search={}">Clear filter</a>
+    </div>
 
 <div style="margin:30px;">
 <a href="tournament/create" ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')" class="button">
@@ -12,7 +26,7 @@
 </div>
 
 
-<div class="blockcard" ng-repeat="i in Ts.tournaments|paginate:'tournaments'" tournament-card="i">
+<div class="blockcard" ng-repeat="i in Ts.tournaments|paginate:'tournaments'|filter:search" tournament-card="i">
     </div>
 
 <ul class="pagination"

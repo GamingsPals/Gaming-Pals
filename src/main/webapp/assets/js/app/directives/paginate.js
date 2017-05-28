@@ -21,6 +21,11 @@ app.service("PaginationService",function($location){
         this.paginations[id].numberPages = Math.ceil(this.paginations[id].records/limit);
         this.paginations[id].id = id;
         this.paginations[id].url =  Boolean(url);
+        this.setupUrlPages();
+        this.calculatePages(id);
+    };
+
+    this.setupUrlPages = function(){
         if (this.paginations[id].url === true) {
             if (typeof $location.search().page !== "undefined") {
                 this.paginations[id].page = parseInt($location.search().page);
@@ -32,7 +37,6 @@ app.service("PaginationService",function($location){
                 this.paginations[id].page = 1;
             }
         }
-        this.calculatePages(id);
     };
 
     this.calculatePages = function(id){

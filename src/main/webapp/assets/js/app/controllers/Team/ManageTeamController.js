@@ -18,6 +18,19 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
         $scope.showAutoComplete = false;
     };
 
+    $scope.inviteMembers = function(form){
+        let data = {"users": form.members};
+        let datamESSAGE = {title: "Are you sure you want to invite these users to the team?",text:"You won't be able to " +
+        "undone it!",
+            confirmtext:"Invitation are sended",confirmtitle:"Sended!"};
+        datamESSAGE.callback = (a)=>{
+            TeamService.invite($scope.team,data,(a)=>{
+                $scope.loadTeam($scope.team.id);
+            });
+        };
+        Alerts.confirm(datamESSAGE);
+    };
+
     $scope.delete = function(){
         let data = {title: "Are you sure you want to delete this team?",text:"You won't be able to recover it!",
         confirmtext:"The Team has been deleted!",confirmtitle:"Deleted!"};
@@ -39,7 +52,7 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
         })
     };
     $scope.leaveTeam = function(actor){
-        data = {title: "Leave the Team",text: "Are you sure you want to leave this team?",confirmtitle:"You have left the Team",
+        let data = {title: "Leave the Team",text: "Are you sure you want to leave this team?",confirmtitle:"You have left the Team",
         confirmtext: ""};
         data.callback =(a)=>{
             xhr.get(`api/team/${$scope.team.id}/leave`,(data2)=>{
@@ -49,6 +62,17 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
         };
         Alerts.confirm(data);
 
+    };
+
+    $scope.kickMember = function(form){
+        let data2 = {title: "Kick member",text: `Are you sure you want to kick this member out of the team?`,
+            confirmtext: "User kicked out!",confirmtitle:"Kicked out!!"};
+        data2.callback = (a)=>{
+            TeamService.kickMember($scope.team,form.member);
+            $scope.loadTeam($scope.team.id);
+        };
+
+        Alerts.confirm(data2);
     };
 
     $scope.passwordInfo = function(){

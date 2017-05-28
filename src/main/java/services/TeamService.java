@@ -212,10 +212,21 @@ public class TeamService {
         Assert.isTrue(!(user.equals(principal)));
         Assert.isTrue((team.getLeader().equals(principal)));
         Assert.isTrue(team.getUsers().contains(user));
-        List<Team> teams = new ArrayList<>(user.getTeams());
-        teams.remove(team);
-        user.setTeams(teams);
+        List<User> users = new ArrayList<>(team.getUsers());
+        users.remove(user);
+        team.setUsers(users);
 
-        userService.save(user);
+        save(team);
+    }
+
+    public void invite(Collection<User> users, Team team) {
+        Assert.notNull(users);
+        Assert.notNull(team);
+        for(User u: users){
+            Assert.isTrue(!team.getUsers().contains(u));
+            teamInvitationNotificationService.newInvitation(u,team);
+        }
+
+
     }
 }
