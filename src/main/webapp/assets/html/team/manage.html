@@ -1,41 +1,40 @@
 <section ng-controller="ManageTeamController">
 
 
-<h1>Manage</h1>
+<h1>{{loc.team.manage}}</h1>
 <section class="col s5 section">
-    <h2>Leave the team</h2>
-    <p ng-if="isLeader(auth.principal.actor)==true">You can't leave the team if you are the leader, promote
-        other team member in order to be able to leave the team</p>
+    <h2>{{loc.team.leave}}</h2>
+    <p ng-if="isLeader(auth.principal.actor)==true">{{loc.team.cantl}}</p>
     <a class="button bg-red3" ng-if="isLeader(auth.principal.actor)==false" ng-click="leaveTeam(auth.principal.actor)">Leave</a>
 </section>
 <section class="col s5 section">
-    <h2>Delete the team</h2>
+    <h2>{{loc.team.delete}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
-        This action only can be done by the leader of the team</p>
+        {{loc.team.actionl}}</p>
     <a class="button bg-red3" ng-click="delete()" ng-if="isLeader(auth.principal.actor)==true">Delete</a>
 </section>
 <section class="col s5 section">
-    <h2>Promote new Leader</h2>
+    <h2>{{loc.team.promote}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
-        This action only can be done by the leader of the team</p>
+        {{loc.team.actionl}}</p>
     <p ng-if="getOtherMembers(auth.principal.actor).length==0">
-        There isn't other members in the team to promote to leader
+        {{loc.team.isntP}}
     </p>
     <form ng-submit="promoteNewLeader(formPromote)"
           ng-if="isLeader(auth.principal.actor)==true && getOtherMembers(auth.principal.actor).length>0">
-        <label>Select a member</label>
+        <label>{{loc.team.isntP}}</label>
 
         <select ng-model="formPromote.user">
-            <option value="">Select a member</option>
+            <option value="">{{loc.team.isntP}}</option>
             <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
         </select>
     </form>
 </section>
 
 <section class="col s5 section">
-    <h2>Edit Team</h2>
+    <h2>{{loc.team.edit}}Edit Team</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
-        This action only can be done by the leader of the team</p>
+        {{loc.team.actionl}}</p>
     <form name="editForm" ng-submit="edit(formEdit)"
           ng-if="isLeader(auth.principal.actor)==true">
         <label>{{loc.signupform.name}} *</label>
@@ -54,11 +53,11 @@
 </section>
 
 <section class="col s5 section">
-    <h2>Invite a member to the Team</h2>
+    <h2>{{loc.team.invite}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
-        This action only can be done by the leader of the team</p>
+        {{loc.team.actionl}}</p>
     <form ng-if="isLeader(auth.principal.actor)==true"  ng-submit="inviteMembers(inviteForm) && inviteForm.members.length>0">
-        <label>Select a member</label>
+        <label>{{loc.team.select}}</label>
         <div class="autocomplete s12">
             <input class="s12" style="display: block!important" type="search" ng-autocomplete=""
                    ng-model="searchmember" ng-focus="showAutoComplete=true"/>
@@ -77,7 +76,7 @@
             </div>
         </div>
         <div ng-if="selectedmembers.length==0">
-            There isn't any user selected yet
+            {{loc.team.isntU}}
         </div>
         <div>
             <input type="submit" value="Invite" ng-disabled="inviteForm.members.length==0" />
@@ -85,14 +84,14 @@
     </form>
 </section>
     <section class="col s5 section">
-        <h2>Kick out a member</h2>
+        <h2>{{loc.team.kick}}</h2>
         <p ng-if="isLeader(auth.principal.actor)==false">
-            This action only can be done by the leader of the team</p>
+            {{loc.team.actionl}}</p>
         <form name="formKick"  ng-if="isLeader(auth.principal.actor)==true" ng-submit="kickMember(kickForm) && formKick.$valid">
-            <label>Select a member</label>
+            <label>{{loc.team.select}}</label>
 
             <select name="member" ng-model="kickForm.member" required title="Members">
-                <option value="">Select a member</option>
+                <option value="">{{loc.team.select}}</option>
                 <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
             </select>
             <div>

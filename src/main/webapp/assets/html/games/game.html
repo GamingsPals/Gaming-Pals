@@ -10,17 +10,17 @@
     <ul>
         <li ng-class="(mode=='pals') ? 'active' : ''">
             <a class="profile-tabs" href="{{url}}/pals">
-             Pals</a></li>
+                {{loc.pals}}</a></li>
         <li  ng-class="(mode=='tournaments') ? 'active' : ''">
             <a  href="{{url}}/tournaments" class="profile-tabs">
-                 Tournaments</a></li>
+                {{loc.tournaments}}</a></li>
     </ul>
 </div>
     <div class="content-margin">
 
 <div class="col s12 content-color" style="min-height: 500px">
     <div ng-if="mode=='pals'">
-        <h1>Pals</h1>
+        <h1>{{loc.pals}}</h1>
         <div contenteditable="true" markdown="tournament.description"></div>
     </div>
     <div ng-if="mode=='rules'">

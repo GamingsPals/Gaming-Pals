@@ -5,13 +5,12 @@
 <div class="content">
 
 
-<p>Leave us your feedback about our website, things we can improve, things we can implement, things you don't like
-    or whatever you want to tell us!.</p>
-<p>Read others users's feedback,  like or dislike other's feedbacks or comment them.</p>
-<p>Thank you for your time, we really really appreciate it</p>
+<p>{{loc.feedback.feedback1}}</p>
+<p>{{loc.feedback.feedback2}}</p>
+<p>{{loc.feedback.feedback3}}</p>
 
 <form name="formFeedback" ng-submit="submitFeedback(feedbackForm,-1) && !formFeedback">
-    <label for="body">Your feedback here <i class="fa fa-arrow-down"></i> </label>
+    <label for="body">{{loc.feedback.here}} <i class="fa fa-arrow-down"></i> </label>
     <textarea id="body" name="body" required ng-model="feedbackForm.body" title="Feedback"></textarea>
     <div class="form-error" ng-messages="feedbackForm.body.$error" role="alert"
          ng-show="signupform.age.$dirty && signupform.age.$invalid">
@@ -24,7 +23,7 @@
     <input type="submit" value="Submit" ng-disabled="!formFeedback.$valid" />
     </div>
 </form>
-<h1>List of Feedback</h1>
+<h1>{{loc.feedback.list}}</h1>
 <div class="s9" style="margin:0 auto">
 
 
@@ -44,8 +43,8 @@
     <div class="feedback-content" markdown="item.body"></div>
     <div class="feedback-footer">
         <div class="col s12">
-            <a class="feedback-comment" href="#" ng-click="comments[$i]=!comments[$i]">Comment</a> |
-            <a href="" ng-click="answers[$i]=!answers[$i]" class="feedback-comment">See Answers({{item.feedbacks.length}})</a>
+            <a class="feedback-comment" href="#" ng-click="comments[$i]=!comments[$i]">{{loc.feedback.comment}}</a> |
+            <a href="" ng-click="answers[$i]=!answers[$i]" class="feedback-comment">{{loc.feedback.answers}}({{item.feedbacks.length}})</a>
             <form class="normal_form" ng-show="comments[$i]==true" ng-submit="submitFeedback(repyform[$index],$index,item.id) && feedBackForm.body.length>0">
                 <textarea  name="body" required ng-model="repyform[$index].body" title="Feedback"></textarea>
                 <div class="form-error" ng-if="error[$index]!=null">
@@ -87,7 +86,7 @@
 </ul>
 
 <p ng-if="FeedbackService._all.length==0">
-    There isn't feedback yet, be the first!
+    {{loc.feedback.feedback4}}
 </p>
 </div>
 </div>

@@ -7,6 +7,7 @@
   "deleted": "Deleted",
   "profile": "Profile",
   "error": "There has been an error, please try again!",
+  "games": "Games",
   "admin":{
     "reports":{
       "suretodelete": "Are you sure you want to delete this report?",
@@ -105,7 +106,10 @@
  	 "join2":"So, what are you waiting for? Join us immediately!",
  	 "singup":"Sign up",
  	 "comingSoon":"Coming soon",
- 	 "and":"And"
+ 	 "and":"And",
+     "ourGames": "Our Supported Games",
+     "lTournament": "Latest Tournaments",
+     "bUser": "Best rated users"
  },
   "addSummoner":{
   	"region": "Region",
@@ -130,7 +134,22 @@
   "create":"Create Team",
   "teamName": "Team name",
   "membs":"Members",
-    "jointournaments": "Played Tournaments"
+    "entertournament": "Join",
+    "manage": "Manage",
+    "needpassword": "You need the password of the team to join it, please write it down if you know it",
+    "password": "Password",
+    "leave": "Leave the team",
+    "cantl": "You can't leave the team if you are the leader, promote other team member in order to be able to leave the team",
+    "jointournaments": "Played Tournaments",
+    "delete": "Delete the team",
+    "actionl": "This action only can be done by the leader of the team",
+    "promote": "Promote new Leader",
+    "isntP": "There isn't other members in the team to promote to leader",
+    "select": "Select a member",
+    "edit": "Edit team",
+    "invite": "Invite a member to the Team",
+    "isntU": "There isn't any user selected yet",
+    "kick": "Kick out a member"
   },
   "whatispassword": "With this password others users can enter the team without you inviting them is useful when you don't know yet the members of your team, share the pass with future members. It is not mandatory.",
   "tournament":{
@@ -157,6 +176,22 @@
      "createAward": "Create Award",
      "reportMatch": "Report Match",
      "delete": "Delete",
+     "filterT": "Filter tournaments",
+     "byt": "By Title",
+     "clear": "Clear filter",
+     "indicences": "Incidences",
+     "reports": "Reports",
+     "playvs": "You have to play vs: ",
+     "limit": "Limit time to play:",
+     "yout": "Your team",
+     "youj": "You are joined in this team with:",
+     "roundA": "Round can't be advanced if there is any incidence open, click the 'Incidences' tab and resolve them.",
+     "confrontation": "Confrontation:",
+     "round": "Round:",
+     "matchn": "Match nº: ",
+     "resolve": "Resolve",
+     "seeP": "See picture",
+     "anyI": "There isn't any incidences yet",
      "admin":{
        "suretodelete": "Are you sure to delete ${args['tournament']}  tournament?",
        "deleted" :"${args['tournament']} has been deleted!"
@@ -194,7 +229,10 @@
   "selectOption":"Select a option",
   "looser":"Losser",
   "winner":"Winner",
-  "incidence":"Incidence"
+  "incidence":"Incidence",
+    "empty": "Cannot be empty",
+    "url": "It must be an url",
+    "select": "- Select an option"
   },
   "search":{
     "languages": "Languages",
@@ -358,6 +396,16 @@
     "userreport": "User Report List",
     "users2": "Users Banned List",
     "adminpanel": "Admin Panel"
+  },
+  "feedback":{
+    "feedback1": "Leave us your feedback about our website, things we can improve, things we can implement, things you don't likeor whatever you want to tell us!.",
+    "feedback2": "Read others users's feedback,  like or dislike other's feedbacks or comment them.",
+    "feedback3": "Thank you for your time, we really really appreciate it",
+    "feedback4": "There isn't feedback yet, be the first!",
+    "here": "Your feedback here",
+    "list": "List of Feedback",
+    "comment": "Comment",
+    "answers": "See answers"
   }
 
 }

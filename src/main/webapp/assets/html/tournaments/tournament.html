@@ -25,10 +25,10 @@
                 {{loc.tournament.awards}}</a></li>
         <li ng-if="auth.hasRole('ADMIN')"  ng-class="(mode == 'incidences') ? 'active' : ''">
             <a  href="{{url}}/incidences" class="profile-tabs">
-                Incidences</a></li>
+                {{loc.tournament.incidences}}</a></li>
         <li  ng-if="auth.hasRole('ADMIN')"   ng-class="(mode == 'reports') ? 'active' : ''">
             <a  href="{{url}}/reports" class="profile-tabs">
-               Reports</a></li>
+                {{loc.tournament.reports}}</a></li>
     </ul>
 </div>
     <div class="content-margin">
@@ -80,7 +80,7 @@
     <ul ng-if="matchtoreport!=false">
         <li>
         <h1>{{loc.tournament.match}}</h1>
-            <div><b>You have to play vs: </b>
+            <div><b>{{loc.tournament.playvs}} </b>
                 <span tooltip="">
                 <a class="open-tooltip" href="team/{{getTeamToPlay().id}}">
                 <img class="profile-image" ng-src="{{getTeamToPlay().picture}}"/>
@@ -88,24 +88,24 @@
                     <div class="card tooltip" team-card="getTeamToPlay()"></div>
             </span>
             </div>
-            <div><b>Limit time to play:</b> {{matchtoreport.confrontation.limitPlay | date:"dd MMM h:mm'h'"}}</div>
+            <div><b>{{loc.tournament.limit}}</b> {{matchtoreport.confrontation.limitPlay | date:"dd MMM h:mm'h'"}}</div>
             <div>
             <a href="#" class="button"
                dialog="tournaments/reportMatch">{{loc.tournament.reportMatch}}</a></div>
         </li>
     </ul>
     <ul ng-if="getTeamByPrincipal()!==false">
-        <h1>Your team
+        <h1>{{loc.tournament.yout}}
         </h1>
-        <li><b>You are joined in this team with:</b>
+        <li><b>{{loc.tournament.youj}}</b>
             <br>
             <div class="card block s12" team-card="getTeamByPrincipal()"></div>
         </li>
     </ul>
     <ul ng-if="auth.hasRole('ADMIN') || auth.hasRole('MODERATOR')">
         <h1>{{loc.tournament.adminZone}}</h1>
-        <li ng-if="incidences.length>0">Round can't be advanced if there is any incidence open, click the "Incidences" tab
-        and resolve them</li>
+        <li ng-if="incidences.length>0">{{loc.tournament.roundA}}
+        </li>
         <li><input type="submit" href="#" ng-disabled="incidences.length>0 ||
         TournamentService.canBeAdvanced(tournament)===false" class="button"
                    ng-click="advanceRound(tournament)" value="{{loc.tournament.advanceRounds}}"> </li>

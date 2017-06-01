@@ -5,8 +5,8 @@
     <input type="url" ng-model="reportMatch.image" name="image" placeholder="http://" />
     <div class="form-error" ng-show="reportMatchForm.image.$invalid && reportMatchForm.image.$dirty">
         <ul>
-            <li>Cannot be empty</li>
-            <li>It must be an url</li>
+            <li>{{loc.reportform.empty}}</li>
+            <li>{{loc.reportform.url}}</li>
         </ul>
     </div>
     <label>{{loc.reportform.result}}</label>
@@ -16,14 +16,14 @@
         <option value="Winner">{{loc.reportform.winner}}</option>
     </select>
     <div class="form-error" ng-show="reportMatchForm.result.$invalid && reportMatchForm.result.$dirty">
-        - Select an option
+        {{loc.reportform.select}}
     </div>
     <label>{{loc.tournament.description}}</label>
     <textarea name="description" class="s12" title="{{loc.tournament.description}}"
               required ng-model="reportMatch.description"></textarea>
 
     <div class="form-error" ng-show="reportMatchForm.description.$invalid && reportMatchForm.description.$touched">
-        - Cannot be empty
+        - {{loc.reportform.empty}}
     </div>
 
     <input type="submit" value="{{loc.reportform.report}}" ng-disabled="reportMatchForm.$invalid" />

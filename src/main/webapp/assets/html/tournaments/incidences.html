@@ -1,31 +1,31 @@
 <section ng-controller="IncidencesController">
-<h1>Incidences</h1>
+<h1>{{loc.tournament.incidences}}</h1>
     <div class="blocktext s12" ng-repeat="item in incidences|paginate:'incidences'">
 
-        <div><b>Confrontation:</b>
+        <div><b>{{loc.tournament.confrontation}}</b>
         <a href="team/{{item.confrontation.participes[0].team.name}}">{{item.confrontation.participes[0].team.name}}</a>
         vs <a href="team/{{item.confrontation.participes[0].team.name}}">{{item.confrontation.participes[1].team.name}}</a>
         </div>
         <div>
-            <b>Round: </b>{{item.confrontation.round}}
+            <b>{{loc.tournament.round}} </b>{{item.confrontation.round}}
         </div>
         <div>
-            <b>Match nº: </b> {{item.confrontation.numberMatch}}
+            <b>{{loc.tournament.matchn}} </b> {{item.confrontation.numberMatch}}
         </div>
         <div>
             <p>{{item.description}}</p>
 
         </div>
         <div class="col s7 x2">
-          <a class="button" ng-click="resolveDialog(item)">Resolve</a>
+          <a class="button" ng-click="resolveDialog(item)">{{loc.tournament.resolve}}</a>
         </div>
         <div class="col s3 x1 float-right">
-            <a class="button" image="item.image">See picture</a>
+            <a class="button" image="item.image">{{loc.tournament.seeP}}</a>
         </div>
         <div class="clear-both"></div>
     </div>
     <div ng-if="incidences.length==0">
-        There isn't any incidences yet
+        {{loc.tournament.anyI}}
     </div>
     <ul class="pagination"
         gp-paginate-items="incidences"

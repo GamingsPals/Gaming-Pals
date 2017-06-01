@@ -7,6 +7,7 @@
   "deleted": "Borrado",
   "error": "Ha habido un error, por favor inténtalo de nuevo",
   "profile": "Perfil",
+  "games": "Juegos",
   "profileview": {
     "editprofile": "Editar Perfil",
     "follow" : "Seguir",
@@ -105,7 +106,10 @@
  	 "join2":"¿Entonces, a qué estás esperando? ¡Únete!",
  	 "singup":"Regístrate",
  	 "comingSoon":"Próximamente",
- 	 "and":"Y"
+ 	 "and":"Y",
+     "ourGames": "Nuestros juegos compatibles",
+     "lTournament": "Últimos torneos",
+     "bUser": "Usuarios mejor valorados"
   },
   "addSummoner":{
   	"region": "Región",
@@ -130,7 +134,22 @@
   "create":"Crear equipo",
   "teamName": "Nombre del equipo",
   "membs":"Miembros",
-    "jointournaments": "Torneos jugados"
+    "entertournament": "Entrar",
+    "manage": "Gestionar",
+    "needpassword": "Necesita la contraseña del equipo para unirse, por favor escriba al líder si lo conoce.",
+    "password": "Contraseña",
+    "leave": "Dejar el equipo",
+    "cantl": "No puede dejar el equipo si es el líder, promueva a otro miembro del equipo para poder hacerlo",
+    "jointournaments": "Torneos jugados",
+    "delete": "Eliminar equipo",
+    "actionl": "Esta acción solo puede ser realizado por el líder del equipo",
+    "promote": "Promover nuevo lider",
+    "isntP": "No hay otros miembros del equipo para promover como líder",
+    "select": "Seleccion a un miembro",
+    "edit": "Editar equipo",
+    "invite": "Invitar un usuario al equipo",
+    "isntU": "No hay ningún usuario seleccionado",
+    "kick": "Expulsar un miembro"
   },
   "whatispassword": "Con esta contraseña otros usuarios podrán entrar en el equipo sin invitarlos, es útil cuando aun no sabes los miembro del equipo. Compártela con los futuros miembros del equipo para que entren. No es obligatorio.",
   "tournament":{
@@ -157,7 +176,23 @@
  	 "notFound":"Torneo no encontrado",
      "createAward": "Crear premio",
      "reportMatch": "Reportar partido",
-    "admin":{
+     "filterT": "Filtrar torneos",
+     "byt": "Por título",
+     "clear": "Limpiar filtro",
+     "indicences": "Incidencias",
+     "reports": "Reportes",
+     "playvs": "Tienes que jugar vs: ",
+     "limit": "Tiempo límite para jugar:",
+     "yout": "Tu equipo",
+     "youj": "Estás unido a este equipo con:",
+     "roundA": "La ronda no puede avanzar si hay alguna incidencia abierta, haga clic en la pestaña 'Incidencias' y resuélvala.",
+     "confrontation": "Enfrentamiento:",
+     "round": "Ronda:",
+     "matchn": "Partido nº:",
+     "resolve": "Resolver",
+     "seeP": "Ver imagen",
+     "anyI": "No hay incidencias",
+     "admin":{
       "suretodelete": "Estás seguro de borrar el torneo ${args['tournament']}?",
       "deleted" :"${args['tournament']} ha sido borrado!"
     }
@@ -193,7 +228,10 @@
   "selectOption":"Selecciona una opción",
   "looser":"Perdedor",
   "winner":"Ganador",
-  "incidence":"Incidencia"
+  "incidence":"Incidencia",
+    "empty": "No puede estar vacío",
+    "url": "Debe ser una url",
+    "select": "- Selecciona una opción"
   },
   "search":{
     "languages": "Idiomas",
@@ -358,6 +396,16 @@
     "userreport": "Lista de usuarios reportados",
     "users2": "Lista de usuarios baneados",
     "adminpanel": "Panel de administrador"
+  },
+  "feedback":{
+    "feedback1": "¡Déjanos tus comentarios sobre nuestro sitio web, cosas que podemos mejorar o implementar, cosas que no te gustan o lo que quieras decirnos! ",
+    "feedback2": "Lee las opiniones de otros usuarios, dale like o dislike a su feedback o comentale.",
+    "feedback3": "Gracias por su tiempo, realmente lo apreciamos",
+    "feedback4": "Todavía no hay comentarios, ¡sé el primero!",
+    "here": "Tu feedback aquí",
+    "list": "Lista de feedback",
+    "comment": "Comentarios",
+    "answers": "Mira las respuestas"
   }
 
 

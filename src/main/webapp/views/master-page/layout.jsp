@@ -54,7 +54,7 @@
 					<li><a href="search"><i class="fa fa-users"></i>
 							{{loc.pals}}</a></li>
                     <li><a href="games"><i class="fa fa-gamepad"></i>
-							Games</a></li>
+							{{loc.games}}</a></li>
 					<li><a href="tournaments"><i class="fa fa-trophy"></i>
 							{{loc.tournaments}}</a></li>
 					<li>

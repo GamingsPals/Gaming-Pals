@@ -15,10 +15,10 @@
                     {{loc.team.jointournaments}}</a></li>
             <li  ng-if="isInTeam(auth.principal.actor)==false"  ng-class="(mode=='join') ? 'active' : ''">
                 <a  href="{{url}}/join" class="profile-tabs">
-                    {{loc.team.entertournament}} Join</a></li>
+                    {{loc.team.entertournament}}</a></li>
             <li ng-if="isInTeam(auth.principal.actor)"  ng-class="(mode=='manage') ? 'active' : ''">
                 <a  href="{{url}}/manage" class="profile-tabs">
-                    {{loc.team.manage}} Manage</a></li>
+                    {{loc.team.manage}}</a></li>
         </ul>
     </div>
     <article class="content">
@@ -35,10 +35,10 @@
     </ul>
 </div>
     <div ng-if="mode=='join' && isInTeam(auth.principal.actor)==false">
-        <h1>{{loc.team.jointournaments}} Join</h1>
+        <h1>{{loc.team.jointournaments}}</h1>
         <form name="joinform" ng-submit="join(joinForm)">
-            <b>{{loc.team.needpassword}} You need the password of the team to join it, please write it down if you know it</b>
-            <label>{{loc.team.password}} Password</label>
+            <b>{{loc.team.needpassword}}</b>
+            <label>{{loc.team.password}}</label>
             <input class="s12" name="password" type="password" ng-model="joinForm.password" required />
             <div>
                 <input type="submit" value="Join" />

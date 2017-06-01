@@ -12,11 +12,11 @@
     <section class="s12">
     <section class="s12 col">
     <section class="s8 col">
-        <h1>Lastest Tournaments</h1>
+        <h1>{{loc.main.lTournament}}</h1>
         <div class="card s5" tournament-card="i" ng-repeat="i in lastTournaments"></div>
     </section>
     <section class="col s4">
-        <h1>Our Supported Games</h1>
+        <h1>{{loc.main.ourGames}}</h1>
         <div class="card blockcard s12"  ng-repeat="g in games">
             <div class="card-header">
                 <h1><a href="search?games={{g.id}}"> {{g.name}}</a></h1>
@@ -27,7 +27,7 @@
     </section>
     </section>
         <section class="s12 col">
-            <h1>Best Rated Users</h1>
+            <h1>{{loc.main.bUser}}</h1>
             <div class="card s4" user-card="i" ng-repeat="i in bestRatedUsers"></div>
         </section>
 
