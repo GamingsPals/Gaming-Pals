@@ -52,7 +52,9 @@ app.service("chat", function(xhr,socket,auth,MessageService,NotificationService,
         data.moment = + new Date();
         data.notification = true;
         this.updateRecents(this.userselected.id);
-        this.chatMessages[this.userselected.id].messages.push(data);
+        if(typeof socket.socket==="undefined" || socket.socket===null){
+            this.chatMessages[this.userselected.id].messages.push(data);
+        }
         socket.emit("new-message",data);
         $(".chat-body-chat-messages").animate({ scrollTop:$(document).height() }, "fast");
         MessageService.createMessage(data);

@@ -21,11 +21,11 @@ app.service("PaginationService",function($location){
         this.paginations[id].numberPages = Math.ceil(this.paginations[id].records/limit);
         this.paginations[id].id = id;
         this.paginations[id].url =  Boolean(url);
-        this.setupUrlPages();
+        this.setupUrlPages(id);
         this.calculatePages(id);
     };
 
-    this.setupUrlPages = function(){
+    this.setupUrlPages = function(id){
         if (this.paginations[id].url === true) {
             if (typeof $location.search().page !== "undefined") {
                 this.paginations[id].page = parseInt($location.search().page);

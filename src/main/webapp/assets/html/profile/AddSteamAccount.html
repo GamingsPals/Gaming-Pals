@@ -1,6 +1,6 @@
 <form name="steamaccountform" ng-submit="validateSteam() && steamaccountform.$valid">
     <label for="id">
-        Steam ID <small>(<a href="http://steamidfinder.com/" target="_blank">{{loc.profileview.steam.help}})</a></small>
+        Steam ID <small>(<a href="#" ng-click="tutorialSteam()">{{loc.profileview.steam.help}})</a></small>
     </label>
     <input name="id" id="id" type="text" placeholder="Steam Id..." ng-model="steam.id" class="s9" required/>
     <p>{{loc.steam.clickCheck}}</p>

@@ -9433,6 +9433,10 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         }),(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })
+    };
+
+    $scope.tutorialSteam = function(){
+        dialog.open("profile/steamtutorial");
     }
 });;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
     middleware.needRol("ANY");
@@ -10190,7 +10194,9 @@ app.service("auth", function(xhr){
         data.moment = + new Date();
         data.notification = true;
         this.updateRecents(this.userselected.id);
-        this.chatMessages[this.userselected.id].messages.push(data);
+        if(typeof socket.socket==="undefined" || socket.socket===null){
+            this.chatMessages[this.userselected.id].messages.push(data);
+        }
         socket.emit("new-message",data);
         $(".chat-body-chat-messages").animate({ scrollTop:$(document).height() }, "fast");
         MessageService.createMessage(data);
@@ -11084,12 +11090,16 @@ app.service("SearchService", function(xhr){
         let confrontationsRound = this.getConfrontationByRound(tournament,round);
         if(confrontationsRound.length===0) return false;
         result = confrontationsRound.every((a)=>{
-            if(new Date(a.limitPlay)>new Date()) return false;
+            if(new Date(a.limitPlay)>new Date()){
+                return false;
+            }
            if(a.participes.length===1) return true;
+            console.log(a);
             return a.participes.some((b) => {
                 return b.winner === true;
             });
         });
+        console.log(result);
 
        return result;
     };
@@ -12004,6 +12014,11 @@ function notPrincipal(element,actor,auth){
         this.paginations[id].numberPages = Math.ceil(this.paginations[id].records/limit);
         this.paginations[id].id = id;
         this.paginations[id].url =  Boolean(url);
+        this.setupUrlPages(id);
+        this.calculatePages(id);
+    };
+
+    this.setupUrlPages = function(id){
         if (this.paginations[id].url === true) {
             if (typeof $location.search().page !== "undefined") {
                 this.paginations[id].page = parseInt($location.search().page);
@@ -12015,7 +12030,6 @@ function notPrincipal(element,actor,auth){
                 this.paginations[id].page = 1;
             }
         }
-        this.calculatePages(id);
     };
 
     this.calculatePages = function(id){

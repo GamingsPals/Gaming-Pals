@@ -97,7 +97,7 @@ app.directive("teamCard",function($compile){
                   <div class="col s7 x2">
                     </div>
                   <div class="col s3 x1 float-right">
-                           <a class="button" href="team/{{i.name}}">Visit</a>
+                           <a class="button" href="team/{{i.id}}">Visit</a>
                     </div>
                     <div class="clear-both"></div>
         

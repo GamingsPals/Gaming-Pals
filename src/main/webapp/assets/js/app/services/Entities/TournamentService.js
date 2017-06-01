@@ -204,12 +204,16 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
         let confrontationsRound = this.getConfrontationByRound(tournament,round);
         if(confrontationsRound.length===0) return false;
         result = confrontationsRound.every((a)=>{
-            if(new Date(a.limitPlay)>new Date()) return false;
+            if(new Date(a.limitPlay)>new Date()){
+                return false;
+            }
            if(a.participes.length===1) return true;
+            console.log(a);
             return a.participes.some((b) => {
                 return b.winner === true;
             });
         });
+        console.log(result);
 
        return result;
     };

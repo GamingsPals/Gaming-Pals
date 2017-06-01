@@ -1,14 +1,19 @@
+<div  class="tournament-header" >
+    <h1>{{tournament.title}} </h1>
+    <img ng-src="assets/images/wallpapers/notifications.jpg"/>
+</div>
+<div class="content-margin">
 
-<div style="padding:15px">
+<div class="col s4 float-right lateral-menu">
 
-
-<ul class="notifications-nav">
-    <li class="notifications-nav-header">{{loc.notification.notifications}}</li>
+<ul>
+    <h1>{{loc.notification.notifications}}</h1>
     <li><a href="notifications/teaminvitations">{{loc.notification.teamInvitations}}</a> </li>
     <li><a href="notifications/followers">{{loc.notification.newFollowers}}</a> </li>
 </ul>
+</div>
 
-<div class="notifications-main">
+<div class="notifications-main content-color">
     <div ng-if="mode=='teaminvitations'">
         <h2>{{loc.notification.teamInvitations}}</h2>
         <span ng-show="notifications.notifications.TeamInvitations.length==0">{{loc.notification.noTeamInvitations}}</span>

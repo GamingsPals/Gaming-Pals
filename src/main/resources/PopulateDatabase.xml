@@ -844,6 +844,7 @@
 	<bean id="confrontation8" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="2" />
+		<property name="played" value="true"/>
 		<property name="limitPlay" value="2017/04/27 15:00" />
 		<property name="reportMatches">
 			<list>

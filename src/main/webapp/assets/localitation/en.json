@@ -42,7 +42,11 @@
     "unban": "Unban user",
     "addSteamAccount":"Add Steam Game",
     "steam":{
-      "help": "Click here to find out your Steam ID"
+      "help": "Click here to find out your Steam ID",
+      "how": "How to get my Steam ID",
+      "first": "First, click on the next link and fill the box with your steam nickname and click on the 'Get SteamId' button.",
+      "thenyou": "Then, copy the number of the steamID64 and that number is what you need to add a Steam Account in the form.",
+      "also": "If you don't manage to find it you can also log in with your steam credentials on that website"
     }
   },
   "send" :"Send",

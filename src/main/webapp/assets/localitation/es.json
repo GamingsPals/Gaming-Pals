@@ -28,7 +28,11 @@
     "unban": "Desbanear usuario",
     "addSteamAccount":"Añadir juego de Steam",
     "steam":{
-      "help": "Haz click aquí para averiguar tu ID de Steam"
+      "help": "Haz click aquí para averiguar tu ID de Steam",
+      "how": "Como obtener mi Steam ID",
+      "first": "Primero, haz click en el siguiente enlace, rellena el formulario con tu nombre de Steam y haz click en 'Get SteamId'",
+      "thenyou": "Despues, copia el número de steamID64 y ese es el número que necesitaras para añadir tu cuenta de Steam aquí",
+      "also": "Si no logras encontrar tu cuenta en esa página, puedes hacer login con steam en la página y te dirá tu steamID64"
     }
   },
   "admin":{

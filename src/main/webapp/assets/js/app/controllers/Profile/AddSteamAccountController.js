@@ -18,5 +18,9 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
         }),(p)=>{
             $scope.error = "There were some errors, please try again or check your Steam ID";
         })
+    };
+
+    $scope.tutorialSteam = function(){
+        dialog.open("profile/steamtutorial");
     }
 });
