@@ -15,8 +15,8 @@
     <div class="card s12" team-card="teamselected" ng-show="teamselected">
     </div>
     <div class="form-error" ng-if="teamAllowed==false">
-        Your team cannot join the tournament: the team size (number of members) must be between {{tournament.players}}
-        and {{tournament.players +2}}
+        {{loc.assignTeam.cannottj}} {{tournament.players}}
+        & {{tournament.players +2}}
     </div>
     <div style="margin:15px;">
 

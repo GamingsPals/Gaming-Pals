@@ -1,6 +1,6 @@
 <section>
     <form ng-submit="changeTime(confrontation,data.time) && data.time != null">
-        <h1>Change Confrontation play limit time</h1>
+        <h1>{{loc.tournament.change}}</h1>
 
         <div class="bracket">
             <div class="bracket-round">
@@ -25,7 +25,7 @@
         </div>
 
         <input type="datetime-local" ng-model="data.time" value="{{confrontation.limitPlay | date:'yyyy-MM-ddTHH:mm:ss'}}"/>
-        <span class="form-error" ng-if="data.time == null">Please change the time</span>
+        <span class="form-error" ng-if="data.time == null">{{loc.tournament.pleasec}}</span>
         <div>
             <input type="submit" value="Edit Time" />
         </div>

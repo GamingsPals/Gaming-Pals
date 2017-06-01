@@ -81,7 +81,7 @@
             {{loc.signupform.languages}}
         </label>
        <select name="languages"  class="s10" multiple title="Languages" required ng-model="form.languages">
-           <option selected>Select a language</option>
+           <option selected>{{loc.signupform.selectl}}</option>
            <option ng-repeat="language in languagesForn" value="{{language.id}}">{{language.longName}}</option>
        </select>
 
