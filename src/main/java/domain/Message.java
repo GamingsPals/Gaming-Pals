@@ -11,6 +11,7 @@ import javax.validation.constraints.Past;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +29,7 @@ public class Message extends DomainEntity {
     }
 
 	@NotBlank
+	@SafeHtml
 	public String getText() {
 		return this.text;
 	}

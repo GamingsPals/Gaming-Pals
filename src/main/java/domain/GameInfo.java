@@ -5,6 +5,7 @@ package domain;
 
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 
@@ -28,6 +29,7 @@ public abstract class GameInfo extends DomainEntity {
 		this.user = user;
 	}
 
+	@SafeHtml
 	public String getUsername() {
 		return username;
 	}

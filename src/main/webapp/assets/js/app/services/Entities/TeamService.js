@@ -24,6 +24,11 @@ app.service("TeamService", function(xhr){
        xhr.post(`api/invitations/${team.id}/new`,data,success,error);
    };
 
+
+    this.promoteNewLeader = function(team,user,succes,error){
+        xhr.get(`api/team/${team.id}/leader/${user}`,succes,error);
+    };
+
    this.kickMember = function(team,user,succes,error){
        xhr.get(`api/team/${team.id}/kick/${user}`,succes,error);
    }

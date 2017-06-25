@@ -181,12 +181,15 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
 
     this.getCurrentRound = function(tournament){
         let confrontations = tournament.confrontations;
-        let round = 0;
+        let result = 1;
         confrontations.forEach((a)=>{
-            if(a.played===true && a.round>round) round = a.round+1;
+            if(a.participes.length>0 && a.round>result){
+                result = a.round;
+            }
         });
 
-        return round;
+        return result;
+
     };
 
     this.getConfrontationByRound = function(tournament,round){
@@ -202,18 +205,22 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
         let confrontations = tournament.confrontations;
         let round = this.getCurrentRound(tournament);
         let confrontationsRound = this.getConfrontationByRound(tournament,round);
+        let confrontationNextRound = this.getConfrontationByRound(tournament,round+1);
         if(confrontationsRound.length===0) return false;
         result = confrontationsRound.every((a)=>{
             if(new Date(a.limitPlay)>new Date()){
                 return false;
             }
+            if(typeof confrontationNextRound[0]!=="undefined"){
+                if(new Date(confrontationNextRound[0].limitPlay)< new Date()){
+                    return false;
+                }
+            }
            if(a.participes.length===1) return true;
-            console.log(a);
             return a.participes.some((b) => {
                 return b.winner === true;
             });
         });
-        console.log(result);
 
        return result;
     };

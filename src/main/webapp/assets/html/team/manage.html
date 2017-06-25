@@ -17,7 +17,7 @@
     <h2>{{loc.team.promote}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
         {{loc.team.actionl}}</p>
-    <p ng-if="getOtherMembers(auth.principal.actor).length==0">
+    <p ng-if="getOtherMembers(auth.principal.actor).length<1">
         {{loc.team.isntP}}
     </p>
     <form ng-submit="promoteNewLeader(formPromote)"
@@ -28,11 +28,12 @@
             <option value="">{{loc.team.isntP}}</option>
             <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
         </select>
+        <input type="submit" ng-disabled="formPromote.user==null" />
     </form>
 </section>
 
 <section class="col s5 section">
-    <h2>{{loc.team.edit}}Edit Team</h2>
+    <h2>{{loc.team.edit}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
         {{loc.team.actionl}}</p>
     <form name="editForm" ng-submit="edit(formEdit)"
@@ -95,7 +96,7 @@
                 <option ng-repeat="i in getOtherMembers(auth.principal.actor)" value="{{i.id}}">{{i.userAccount.username}}</option>
             </select>
             <div>
-                <input type="submit" value="Invite" ng-disabled="formKick.$valid==false" />
+                <input type="submit" value="{{loc.team.kick}}" ng-disabled="formKick.$valid==false" />
             </div>
         </form>
     </section>

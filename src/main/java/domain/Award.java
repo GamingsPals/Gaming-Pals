@@ -2,6 +2,7 @@ package domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Award extends DomainEntity{
     public void setImage(String image){this.image=image;}
 
     @NotBlank
+    @SafeHtml
     public String getDescription(){return description;}
     public void setDescription(String description){this.description=description;}
 

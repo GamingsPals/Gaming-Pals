@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -51,6 +52,7 @@ public class Rating extends DomainEntity {
 		this.attitude = attitude;
 	}
 
+	@SafeHtml
 	public String getComment() {
 		return comment;
 	}

@@ -264,7 +264,6 @@ public class UserService {
 		final User user = this.findByPrincipal();
 		Assert.notNull(user);
 		user.setAge(signupForm.getAge());
-		System.out.println(signupForm.getPassword());
 		if (signupForm.getPassword() != null) {
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
@@ -295,7 +294,7 @@ public class UserService {
     @Cacheable("maindata")
     public Map<String,Object> mainStatData(){
 		List<User> users = findBestRanked();
-		List<Tournament> tournaments = tournamentService.findLatest(5);
+		List<Tournament> tournaments = tournamentService.findLatest(3);
 		Map<String, Object> result = new LinkedHashMap<>();
 		List<Game> games = gameService.findAll();
 		Collections.reverse(games);

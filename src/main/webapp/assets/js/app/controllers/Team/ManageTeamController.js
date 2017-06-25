@@ -64,6 +64,17 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
 
     };
 
+    $scope.promoteNewLeader = function(form){
+        let data2 = {title: "Promote member",text: `Are you sure you want to promote this member to leader?`,
+            confirmtext: "User promoted to Leader!",confirmtitle:"New leader!!"};
+        data2.callback = (a)=>{
+            TeamService.promoteNewLeader($scope.team,form.user,()=>{
+                $scope.loadTeam($scope.team.id);
+            });
+        };
+        Alerts.confirm(data2);
+    };
+
     $scope.kickMember = function(form){
         let data2 = {title: "Kick member",text: `Are you sure you want to kick this member out of the team?`,
             confirmtext: "User kicked out!",confirmtitle:"Kicked out!!"};

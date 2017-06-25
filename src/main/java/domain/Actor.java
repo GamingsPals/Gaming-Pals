@@ -12,6 +12,7 @@ import domain.feedback.Feedback;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -38,6 +39,7 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
+	@SafeHtml
 	public String getPicture() {
 		return picture;
 	}

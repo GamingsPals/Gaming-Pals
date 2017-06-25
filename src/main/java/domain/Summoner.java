@@ -1,6 +1,8 @@
 package domain;
 
 
+import org.hibernate.validator.constraints.SafeHtml;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class Summoner extends GameInfo {
         this.leagues = leagues;
     }
 
+    @SafeHtml
     public String getRegion() {
         return region;
     }

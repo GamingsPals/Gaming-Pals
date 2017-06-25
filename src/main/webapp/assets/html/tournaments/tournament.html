@@ -25,7 +25,7 @@
                 {{loc.tournament.awards}}</a></li>
         <li ng-if="auth.hasRole('ADMIN')"  ng-class="(mode == 'incidences') ? 'active' : ''">
             <a  href="{{url}}/incidences" class="profile-tabs">
-                {{loc.tournament.incidences}}</a></li>
+                {{loc.tournament.indi}}</a></li>
         <li  ng-if="auth.hasRole('ADMIN')"   ng-class="(mode == 'reports') ? 'active' : ''">
             <a  href="{{url}}/reports" class="profile-tabs">
                 {{loc.tournament.reports}}</a></li>
@@ -120,10 +120,10 @@
         <ul>
             <h1>{{loc.tournament.information}}</h1>
             <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
-            <li><b>Game: </b><img  class="game-icon" ng-src="{{tournament.game.picture}}" />
+            <li><b>{{loc.game}}: </b><img  class="game-icon" ng-src="{{tournament.game.picture}}" />
              {{tournament.game.name}}</li>
             <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
-            <li>Teams size
+            <li>{{loc.tournament.teamsize}}
                 : {{tournament.players}} (+2)</li>
         </ul>
     </div>

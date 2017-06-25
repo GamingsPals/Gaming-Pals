@@ -9703,6 +9703,16 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
     };
 
+    $scope.promoteNewLeader = function(form){
+        let data2 = {title: "Promote member",text: `Are you sure you want to promote this member to leader?`,
+            confirmtext: "User promoted to Leader!",confirmtitle:"New leader!!"};
+        data2.callback = (a)=>{
+            TeamService.promoteNewLeader($scope.team,form.user);
+            $scope.loadTeam($scope.team.id);
+        };
+        Alerts.confirm(data2);
+    };
+
     $scope.kickMember = function(form){
         let data2 = {title: "Kick member",text: `Are you sure you want to kick this member out of the team?`,
             confirmtext: "User kicked out!",confirmtitle:"Kicked out!!"};
@@ -9899,7 +9909,7 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
     middleware.needRol("ADMIN");
 	$scope.enviarTournamentForm = function(data) {
 		xhr.post("api/createTournament",data, function(){
-            $location.path("/tournament/list");
+            $location.path("/tournaments");
 		},(a)=>{
 			$scope.error = localization.error;
 		});
@@ -10194,7 +10204,7 @@ app.service("auth", function(xhr){
         data.moment = + new Date();
         data.notification = true;
         this.updateRecents(this.userselected.id);
-        if(typeof socket.socket==="undefined" || socket.socket===null){
+        if(typeof socket.socket==="undefined" || socket.socket===null ||  !this.isConnected(this.userselected.id)){
             this.chatMessages[this.userselected.id].messages.push(data);
         }
         socket.emit("new-message",data);
@@ -10391,7 +10401,7 @@ app.service("dialog", function(ngDialog,$rootScope){
 
     this.UserProfile = function(name,callback){
         let object = this;
-        if(typeof name === "undefined"){
+        if(typeof name === "undefined" && typeof this.actor.actor!=="undefined"){
             name = this.actor.actor.userAccount.username;
         }
         if(typeof name==="undefined") return false;
@@ -10880,6 +10890,11 @@ app.service("SearchService", function(xhr){
        xhr.post(`api/invitations/${team.id}/new`,data,success,error);
    };
 
+
+    this.promoteNewLeader = function(team,user,succes,error){
+        xhr.get(`api/team/${team.id}/leader/${user}`,succes,error);
+    };
+
    this.kickMember = function(team,user,succes,error){
        xhr.get(`api/team/${team.id}/kick/${user}`,succes,error);
    }
@@ -11067,12 +11082,15 @@ app.service("SearchService", function(xhr){
 
     this.getCurrentRound = function(tournament){
         let confrontations = tournament.confrontations;
-        let round = 0;
+        let result = 1;
         confrontations.forEach((a)=>{
-            if(a.played===true && a.round>round) round = a.round+1;
+            if(a.participes.length>0 && a.round>result){
+                result = a.round;
+            }
         });
 
-        return round;
+        return result;
+
     };
 
     this.getConfrontationByRound = function(tournament,round){
@@ -11088,18 +11106,22 @@ app.service("SearchService", function(xhr){
         let confrontations = tournament.confrontations;
         let round = this.getCurrentRound(tournament);
         let confrontationsRound = this.getConfrontationByRound(tournament,round);
+        let confrontationNextRound = this.getConfrontationByRound(tournament,round+1);
         if(confrontationsRound.length===0) return false;
         result = confrontationsRound.every((a)=>{
             if(new Date(a.limitPlay)>new Date()){
                 return false;
             }
+            if(typeof confrontationNextRound[0]!=="undefined"){
+                if(new Date(confrontationNextRound[0].limitPlay)< new Date()){
+                    return false;
+                }
+            }
            if(a.participes.length===1) return true;
-            console.log(a);
             return a.participes.some((b) => {
                 return b.winner === true;
             });
         });
-        console.log(result);
 
        return result;
     };
@@ -11506,7 +11528,7 @@ app.service("SystemMessages", function($timeout){
         return function (obj) {
             return JSON.parse(obj);
         }
-    });;;app.directive("userCard",function($compile,auth,AdminService,chat){
+    });;;app.directive("userCard",function($compile,auth,AdminService,chat,localization){
     return{
         restrict: "A",
         scope: {
@@ -11517,6 +11539,7 @@ app.service("SystemMessages", function($timeout){
             let updated = true;
             scope.$watch('userCard',()=>{
                 if(typeof scope.userCard!=="undefined"){
+                    let loc = localization;
                 scope.i = scope.userCard;
                 scope.auth = auth;
                 scope.chat = chat;
@@ -11534,7 +11557,7 @@ app.service("SystemMessages", function($timeout){
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}} 
                   <i class="green3 fa fa-circle" aria-hidden="true" ng-show="chat.isConnected(i.id)"></i></h1></a>
                    <div class="col s8 x3" >
-                   <h2>Games</h2>
+                   <h2>${loc.games}</h2>
                    <span tooltip="" ng-repeat="g in i.gameInfo">
                    <img class="game-icon open-tooltip" ng-src="{{g.game.picture}}"/>
                    <div class="card tooltip" game-card="g" user="i">
@@ -11543,7 +11566,7 @@ app.service("SystemMessages", function($timeout){
                    
                             </div>
                   <div class="flags col s3 x1">
-                  <h2>Languages</h2>
+                  <h2>${loc.signupform.languages}</h2>
                     <img  ng-repeat="lan in i.languages"
                           ng-src="assets/images/flags/{{lan.language}}.png" />
                 </div>
@@ -11551,7 +11574,8 @@ app.service("SystemMessages", function($timeout){
                   <div class="card-footer">
                   <div class="col s7 x2">
                   <a class="button" 
-                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
+                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}">
+                  <i class="fa fa-envelope"></i> ${localization.sendmessage}</a>
                     </div>
                   <div class="col s3 x1 float-right">
                
@@ -11570,7 +11594,7 @@ app.service("SystemMessages", function($timeout){
     }
 });
 
-app.directive("teamCard",function($compile){
+app.directive("teamCard",function($compile,localization){
     return{
         restrict: "A",
         scope: {
@@ -11589,7 +11613,7 @@ app.directive("teamCard",function($compile){
                  <div class="card-body">
                   <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
-                   <h2>Members</h2>
+                   <h2>${localization.members}</h2>
                      <span tooltip="" ng-repeat="a in i.users" >
                     <a class="open-tooltip" href="profile/{{a.userAccount.username}}">
                     <img class="profile-image" ng-class="(a.id==i.idLeader) ? 'team-leader' : ''" ng-src="{{a.picture}}">
@@ -11605,7 +11629,7 @@ app.directive("teamCard",function($compile){
                   <div class="col s7 x2">
                     </div>
                   <div class="col s3 x1 float-right">
-                           <a class="button" href="team/{{i.id}}">Visit</a>
+                           <a class="button" href="team/{{i.id}}">${localization.visit}</a>
                     </div>
                     <div class="clear-both"></div>
         
@@ -11683,10 +11707,10 @@ app.directive("tournamentCard",function($compile,localization,auth){
              ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
              <div style="font-size:0.8em;">{{i.game.name}}</div></span>
         <p>{{i.description}}</p>
-        <div><b>Joined {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
-        <div><b>Players:</b> {{i.players}} (+2)</div>
+        <div><b>${localization.joined} {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>${localization.players}:</b> {{i.players}} (+2)</div>
         <div>
-        <h2>Teams</h2>
+        <h2>${localization.teams}</h2>
         <span tooltip ng-repeat="u in i.teams">
         <img ng-src="{{u.picture}}" class="open-tooltip profile-image"/>
             <div class="tooltip card" team-card="u"></div>

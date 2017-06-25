@@ -3,6 +3,7 @@ package domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class Game extends DomainEntity implements Serializable {
         this.tournaments = tournaments;
     }
 
+    @SafeHtml
     @NotBlank
     public String getHeader() {
         return header;
@@ -42,6 +44,7 @@ public class Game extends DomainEntity implements Serializable {
         this.header = header;
     }
     @NotBlank
+    @SafeHtml
     public String getPicture() {
         return picture;
     }
@@ -50,6 +53,7 @@ public class Game extends DomainEntity implements Serializable {
         this.picture = picture;
     }
     @NotBlank
+    @SafeHtml
     public String getName() {
         return name;
     }
@@ -58,6 +62,7 @@ public class Game extends DomainEntity implements Serializable {
         this.name = name;
     }
     @NotBlank
+    @SafeHtml
     public String getTag() {
         return tag;
     }
@@ -77,6 +82,7 @@ public class Game extends DomainEntity implements Serializable {
     }
 
     @NotBlank
+    @SafeHtml
     public String getGameid() {
         return gameid;
     }

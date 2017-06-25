@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Access(AccessType.PROPERTY)
@@ -30,6 +32,7 @@ public class Team extends DomainEntity {
 
 	// Getters and Setters
 	@NotBlank
+	@SafeHtml
 	public String getName() {
 		return name;
 	}
@@ -38,6 +41,7 @@ public class Team extends DomainEntity {
 		this.name = name;
 	}
 
+	@SafeHtml
 	public String getPicture() {
 		return picture;
 	}
@@ -89,6 +93,7 @@ public class Team extends DomainEntity {
 
 	@JsonIgnore
     @Length(min = 6, max = 28)
+	@SafeHtml
     public String getPassword() {
         return password;
     }

@@ -52,7 +52,7 @@ app.service("chat", function(xhr,socket,auth,MessageService,NotificationService,
         data.moment = + new Date();
         data.notification = true;
         this.updateRecents(this.userselected.id);
-        if(typeof socket.socket==="undefined" || socket.socket===null){
+        if(typeof socket.socket==="undefined" || socket.socket===null ||  !this.isConnected(this.userselected.id)){
             this.chatMessages[this.userselected.id].messages.push(data);
         }
         socket.emit("new-message",data);

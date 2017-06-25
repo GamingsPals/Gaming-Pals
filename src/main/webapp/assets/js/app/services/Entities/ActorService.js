@@ -7,7 +7,7 @@ app.service("ActorService",function(xhr,auth){
 
     this.UserProfile = function(name,callback){
         let object = this;
-        if(typeof name === "undefined"){
+        if(typeof name === "undefined" && typeof this.actor.actor!=="undefined"){
             name = this.actor.actor.userAccount.username;
         }
         if(typeof name==="undefined") return false;

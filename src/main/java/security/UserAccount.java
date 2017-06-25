@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -57,7 +58,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
-	@Override
+	@NotBlank
 	public String getUsername() {
 		return username;
 	}
@@ -68,7 +69,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	@JsonIgnore
 	@Size(min = 5, max = 32)
-	@Override
+	@NotBlank
 	public String getPassword() {
 		return password;
 	}

@@ -17,11 +17,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import domain.notifications.TeamInvitationNotification;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -251,6 +253,7 @@ public class User extends Actor  {
 		this.teamInvitationNotifications = teamInvitationNotifications;
 	}
 
+	@SafeHtml
 	public String getHeader() {
 		return this.header;
 	}

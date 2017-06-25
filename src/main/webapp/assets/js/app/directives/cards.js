@@ -1,4 +1,4 @@
-app.directive("userCard",function($compile,auth,AdminService,chat){
+app.directive("userCard",function($compile,auth,AdminService,chat,localization){
     return{
         restrict: "A",
         scope: {
@@ -9,6 +9,7 @@ app.directive("userCard",function($compile,auth,AdminService,chat){
             let updated = true;
             scope.$watch('userCard',()=>{
                 if(typeof scope.userCard!=="undefined"){
+                    let loc = localization;
                 scope.i = scope.userCard;
                 scope.auth = auth;
                 scope.chat = chat;
@@ -26,7 +27,7 @@ app.directive("userCard",function($compile,auth,AdminService,chat){
                   <a href="profile/{{i.userAccount.username}}"> <h1>{{i.userAccount.username}} 
                   <i class="green3 fa fa-circle" aria-hidden="true" ng-show="chat.isConnected(i.id)"></i></h1></a>
                    <div class="col s8 x3" >
-                   <h2>Games</h2>
+                   <h2>${loc.games}</h2>
                    <span tooltip="" ng-repeat="g in i.gameInfo">
                    <img class="game-icon open-tooltip" ng-src="{{g.game.picture}}"/>
                    <div class="card tooltip" game-card="g" user="i">
@@ -35,7 +36,7 @@ app.directive("userCard",function($compile,auth,AdminService,chat){
                    
                             </div>
                   <div class="flags col s3 x1">
-                  <h2>Languages</h2>
+                  <h2>${loc.signupform.languages}</h2>
                     <img  ng-repeat="lan in i.languages"
                           ng-src="assets/images/flags/{{lan.language}}.png" />
                 </div>
@@ -43,7 +44,8 @@ app.directive("userCard",function($compile,auth,AdminService,chat){
                   <div class="card-footer">
                   <div class="col s7 x2">
                   <a class="button" 
-                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}"><i class="fa fa-envelope"></i> Message</a>
+                  ng-if="auth.principal.actor.id!=i.id " href="messages/{{i.userAccount.username}}">
+                  <i class="fa fa-envelope"></i> ${localization.sendmessage}</a>
                     </div>
                   <div class="col s3 x1 float-right">
                
@@ -62,7 +64,7 @@ app.directive("userCard",function($compile,auth,AdminService,chat){
     }
 });
 
-app.directive("teamCard",function($compile){
+app.directive("teamCard",function($compile,localization){
     return{
         restrict: "A",
         scope: {
@@ -81,7 +83,7 @@ app.directive("teamCard",function($compile){
                  <div class="card-body">
                   <a href="team/{{i.id}}"> <h1>{{i.name}}</h1></a>
                    <div class="col s8 x3" >
-                   <h2>Members</h2>
+                   <h2>${localization.members}</h2>
                      <span tooltip="" ng-repeat="a in i.users" >
                     <a class="open-tooltip" href="profile/{{a.userAccount.username}}">
                     <img class="profile-image" ng-class="(a.id==i.idLeader) ? 'team-leader' : ''" ng-src="{{a.picture}}">
@@ -97,7 +99,7 @@ app.directive("teamCard",function($compile){
                   <div class="col s7 x2">
                     </div>
                   <div class="col s3 x1 float-right">
-                           <a class="button" href="team/{{i.id}}">Visit</a>
+                           <a class="button" href="team/{{i.id}}">${localization.visit}</a>
                     </div>
                     <div class="clear-both"></div>
         
@@ -175,10 +177,10 @@ app.directive("tournamentCard",function($compile,localization,auth){
              ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
              <div style="font-size:0.8em;">{{i.game.name}}</div></span>
         <p>{{i.description}}</p>
-        <div><b>Joined {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
-        <div><b>Players:</b> {{i.players}} (+2)</div>
+        <div><b>${localization.joined} {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>${localization.players}:</b> {{i.players}} (+2)</div>
         <div>
-        <h2>Teams</h2>
+        <h2>${localization.teams}</h2>
         <span tooltip ng-repeat="u in i.teams">
         <img ng-src="{{u.picture}}" class="open-tooltip profile-image"/>
             <div class="tooltip card" team-card="u"></div>

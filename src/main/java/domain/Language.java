@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -23,6 +24,7 @@ public class Language extends DomainEntity {
 
 	//Getters and Setters 
 	@NotBlank
+	@SafeHtml
 	public String getLanguage() {
 		return language;
 	}
@@ -45,6 +47,7 @@ public class Language extends DomainEntity {
 		this.users = users;
 	}
 
+	@SafeHtml
 	public String getLongName() {
 		return longName;
 	}

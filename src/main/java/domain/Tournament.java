@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -69,6 +70,7 @@ public class Tournament extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml
 	public String getTitle() {
 		return title;
 	}
@@ -77,6 +79,7 @@ public class Tournament extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml
 	public String getDescription() {
 		return description;
 	}
@@ -85,6 +88,7 @@ public class Tournament extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml
 	public String getRules() {
 		return rules;
 	}
@@ -113,6 +117,7 @@ public class Tournament extends DomainEntity {
 		this.limitInscription = limitInscription;
 	}
 
+	@SafeHtml
 	public String getPicture(){return picture;}
 	public void setPicture(String picture){this.picture=picture;}
 

@@ -2,7 +2,7 @@
 <h2 class="text-center">{{loc.reportform.reportMatch}}</h2>
 <form name="reportMatchForm" ng-submit="sendReportMatchForm()">
     <label>{{loc.signupform.picture}}</label>
-    <input type="url" ng-model="reportMatch.image" name="image" placeholder="http://" />
+    <input type="url" ng-model="reportMatch.image" name="image" placeholder="http://"  required/>
     <div class="form-error" ng-show="reportMatchForm.image.$invalid && reportMatchForm.image.$dirty">
         <ul>
             <li>{{loc.reportform.empty}}</li>
