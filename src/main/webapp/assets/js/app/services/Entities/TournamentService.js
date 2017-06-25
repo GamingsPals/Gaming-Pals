@@ -211,11 +211,13 @@ app.service("TournamentService", function(xhr,Alerts,SystemMessages,localization
             if(new Date(a.limitPlay)>new Date()){
                 return false;
             }
+            console.log("ey1");
             if(typeof confrontationNextRound[0]!=="undefined"){
                 if(new Date(confrontationNextRound[0].limitPlay)< new Date()){
                     return false;
                 }
             }
+            console.log("ey2");
            if(a.participes.length===1) return true;
             return a.participes.some((b) => {
                 return b.winner === true;

@@ -827,7 +827,7 @@
 	<bean id="confrontation7" class="domain.Confrontation">
 		<property name="round" value="1" />
 		<property name="numberMatch" value="1" />
-		<property name="limitPlay" value="2017/04/27 15:00" />
+		<property name="limitPlay" value="2017/06/27 15:00" />
 		<property name="reportMatches">
 			<list>
 
@@ -864,7 +864,7 @@
 	<bean id="confrontation9" class="domain.Confrontation">
 		<property name="round" value="2" />
 		<property name="numberMatch" value="1" />
-		<property name="limitPlay" value="2017/05/28 10:20" />
+		<property name="limitPlay" value="2017/07/28 10:20" />
 		<property name="reportMatches">
 			<list>
 			</list>
@@ -1272,10 +1272,10 @@
 	</bean>
 
 	<bean id="configuration" class="domain.Configuration">
-		<property name="defaultHeader" value="assets/images/wallpapers/default.jpg" />
-		<property name="defaultAvatar" value="assets/images/avatars/default.png" />
-		<property name="defaultTeamHeader" value="assets/images/default/team.png"/>
-		<property name="defaultTournamentHeader" value="assets/images/default/tournament.jpg"/>
+		<property name="defaultHeader" value="https://gaming-pals.com/assets/images/wallpapers/default.jpg" />
+		<property name="defaultAvatar" value="https://gaming-pals.com/assets/images/avatars/default.png" />
+		<property name="defaultTeamHeader" value="https://gaming-pals.com/assets/images/default/team.png"/>
+		<property name="defaultTournamentHeader" value="https://gaming-pals.com/assets/images/default/tournament.jpg"/>
 	</bean>
 
 </beans>

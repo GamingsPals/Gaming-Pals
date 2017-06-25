@@ -22,6 +22,7 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
             });
             if($scope.auth.isAuthenticated()){
                 $scope.notifications.getNews();
+                $scope.stats();
                 if (!socket.connected){
                     socket.init($rootScope);
                     chat.handleListeners();
@@ -70,6 +71,6 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         })
     };
 
-    $scope.stats();
+
 
 });

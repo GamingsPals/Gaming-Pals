@@ -9233,6 +9233,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             });
             if($scope.auth.isAuthenticated()){
                 $scope.notifications.getNews();
+                $scope.stats();
                 if (!socket.connected){
                     socket.init($rootScope);
                     chat.handleListeners();
@@ -9281,7 +9282,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         })
     };
 
-    $scope.stats();
+
 
 });;;app.controller('ChatController',function($scope, socket,chat,auth,ActorService,middleware, dialog, $routeParams,
                                          $location,NotificationService){
@@ -9707,8 +9708,9 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         let data2 = {title: "Promote member",text: `Are you sure you want to promote this member to leader?`,
             confirmtext: "User promoted to Leader!",confirmtitle:"New leader!!"};
         data2.callback = (a)=>{
-            TeamService.promoteNewLeader($scope.team,form.user);
-            $scope.loadTeam($scope.team.id);
+            TeamService.promoteNewLeader($scope.team,form.user,()=>{
+                $scope.loadTeam($scope.team.id);
+            });
         };
         Alerts.confirm(data2);
     };
@@ -11112,11 +11114,13 @@ app.service("SearchService", function(xhr){
             if(new Date(a.limitPlay)>new Date()){
                 return false;
             }
+            console.log("ey1");
             if(typeof confrontationNextRound[0]!=="undefined"){
                 if(new Date(confrontationNextRound[0].limitPlay)< new Date()){
                     return false;
                 }
             }
+            console.log("ey2");
            if(a.participes.length===1) return true;
             return a.participes.some((b) => {
                 return b.winner === true;
