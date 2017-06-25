@@ -1,7 +1,7 @@
-<h1>Games</h1>
+<h1>{{loc.search.game}}</h1>
 
 <form name="gamesForm" ng-submit="gamesForm.$valid && addGame(form)">
-    Input a string to search for a game, then look for the game you desire in the select bellow
+    {{loc.game.input}}
     <input type="search" class="col" placeholder="Search a game" ng-model="search" ng-keydown="getGames(search)" />
     <i class="fa fa-search cursor-pointer" ng-click="getGames(search)"></i>
   <select name="games" ng-model="games" ng-change="tojson(games)">
@@ -9,19 +9,19 @@
       <option ng-repeat="item in SteamService._all|filter:search" value="{{item}}">{{item.name}}</option>
   </select>
     <div ng-if="selectedgame">
-        <h2>Add Game</h2>
+        <h2>{{loc.game.add}}</h2>
         <div class="col 5">
-            <label>Name *</label>
+            <label>{{loc.game.name}} *</label>
             <input name="name" type="text" ng-model="form.name"  required />
         <label>Steam ID *</label>
         <input name="gameid" type="text" ng-model="form.gameid" disabled  required/>
         </div>
         <div class="col s5">
-            <label>Header Image *</label>
+            <label>{{loc.game.header}} *</label>
             <input name="header" type="url" ng-model="form.header" required />
-            <label>Avatar Image *</label>
+            <label>{{loc.game.avatar}} *</label>
             <input name="picture" type="url" ng-model="form.picture"  required />
-            <label>Tag * (short name of the game)</label>
+            <label>Tag * {{loc.game.tag}}</label>
             <input name="tag" type="text" ng-model="form.tag"  required />
         </div>
 

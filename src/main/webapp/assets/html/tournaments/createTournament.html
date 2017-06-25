@@ -13,53 +13,53 @@
         <label>{{loc.tournament.title}} *</label>
         <input class="s12" type="text" placeholder="{{loc.tournament.title}}" name="title" ng-model="tournamentform.title" required />
         <div class="form-error" ng-show="Tournamentform.title.$invalid==true && Tournamentform.title.$dirty==true">
-            - Cannot be empty
+            - {{loc.reportForm.empty}}
         </div>
-        <label>Game *</label>
+        <label>{{loc.tournament.game}} *</label>
         <select ng-model="tournamentform.game" name="game" tabindex="0" required title="Game">
-            <option value="" selected>Select a Game</option>
+            <option value="" selected>{{loc.tournament.selectg}}</option>
             <option value="{{g.id}}" ng-repeat="g in games">{{g.name}}</option>
         </select>
         <div class="form-error" ng-show="Tournamentform.game.$invalid==true && Tournamentform.game.$dirty==true">
-            - You must select a team
+            - {{loc.tournament.must}}
         </div>
         <label>{{loc.tournament.description}} *</label>
         <textarea class="s12" title="{{loc.tournament.description}}" required name="description"
                   ng-model="tournamentform.description"></textarea>
         <div class="form-error" ng-show="Tournamentform.description.$invalid==true && Tournamentform.description.$dirty==true">
-            - Cannot be empty
+            - {{loc.reportForm.empty}}
         </div>
         <label> {{loc.tournament.rules}} *</label>
         <textarea class="s12"  title="{{loc.tournament.rules}} "
                   required name="rules" ng-model="tournamentform.rules"></textarea>
         <div class="form-error" ng-show="Tournamentform.rules.$invalid==true && Tournamentform.rules.$dirty==true">
-            - Cannot be empty
+            - {{loc.reportForm.empty}}
         </div>
     </div>
     <div class="col s12">
 		<label>{{loc.tournament.numberTeams}} *</label>
 		<select ng-model="tournamentform.numberTeams" name="numberTeams" tabindex="0" required>
-            <option value="">Select number of Teams</option>
+            <option value="">{{loc.tournament.selectt}}</option>
             <option value="4" selected>4 {{loc.tournament.teams}}</option>
             <option value="8">8 {{loc.tournament.teams}}</option>
             <option value="16">16 {{loc.tournament.teams}}</option>
             <option value="32">32 {{loc.tournament.teams}}</option>
         </select>
         <div class="form-error" ng-show="Tournamentform.numberTeams.$invalid==true && Tournamentform.numberTeams.$dirty==true">
-          - You must select a number of teams between 4 and 32
+          - {{loc.tournament.mustt}}
         </div>
-        <label>Teams size * </label>
+        <label>{{loc.tournament.size}} * </label>
         <input class="s4" name="players" type="number" required min="1" max="10" placeholder="(1-10)" ng-model="tournamentform.players" />
         <div class="form-error" ng-show="Tournamentform.players.$invalid==true && Tournamentform.players.$dirty==true">
             <ul>
-                <li>- Minimum 1 player and maximum 10 per team.</li>
-                <li>- Teams with this size and +2 will allow to join it because the 2 extras player act as <b>Subtitutes</b></li>
+                <li>- {{loc.tournament.min}}</li>
+                <li>- {{loc.tournament.sub1}} <b>{{loc.tournament.sub2}}</b></li>
             </ul>
         </div>
 		<label>{{loc.signupform.picture}}</label>
 		<input name="picture" class="s12" type="url" placeholder="http://" ng-model="tournamentform.picture" />
         <div class="form-error" ng-show="Tournamentform.picture.$invalid==true && Tournamentform.picture.$dirty==true">
-           - You must to input an url
+           - {{loc.tournament.mustu}}
         </div>
         <label> {{loc.tournament.inscriptionLimit}} *</label>
 		<input name="limitInscription" class="s4" required type="datetime-local"
@@ -69,7 +69,7 @@
                 value="{{date | date: 'yyyy-MM-ddTHH:mm:ss'}}" />
         <div class="form-error"
              ng-show="Tournamentform.limitInscription.$invalid==true && Tournamentform.limitInscription.$touched==true">
-           - Select a date after now
+           - {{loc.tournament.date}}
         </div>
     </div>
 

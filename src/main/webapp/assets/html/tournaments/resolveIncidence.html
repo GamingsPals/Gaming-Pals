@@ -1,22 +1,22 @@
 <section>
     <form ng-submit="resolve(selectedTeam,reportMatch)">
-        <h1>Contact</h1>
+        <h1>{{loc.indicende.contact}}</h1>
         <div>
 
 
-        <a  target="_blank" class="button" href="messages/{{TeamService.getLeader(reportMatch.confrontation.participes[0].team).userAccount.username}}"><i class="fa fa-envelope"></i> Contact </a>
-        {{reportMatch.confrontation.participes[0].team.name}} Leader
+        <a  target="_blank" class="button" href="messages/{{TeamService.getLeader(reportMatch.confrontation.participes[0].team).userAccount.username}}"><i class="fa fa-envelope"></i> {{loc.indicende.contact}} </a>
+        {{reportMatch.confrontation.participes[0].team.name}} {{loc.indicende.select}}
         </div>
         <br>
         <div>
-        <a  target="_blank" class="button" href="messages/{{TeamService.getLeader(reportMatch.confrontation.participes[1].team).userAccount.username}}"><i class="fa fa-envelope"></i> Contact </a>
-        {{reportMatch.confrontation.participes[1].team.name}} Leader
+        <a  target="_blank" class="button" href="messages/{{TeamService.getLeader(reportMatch.confrontation.participes[1].team).userAccount.username}}"><i class="fa fa-envelope"></i> {{loc.indicende.contact}} </a>
+        {{reportMatch.confrontation.participes[1].team.name}} {{loc.indicende.select}}
         </div>
-        <h1>Then decide:</h1>
+        <h1>{{loc.indicende.thenD}}</h1>
         <p>
-            Who won the game?</p>
+            {{loc.indicende.who}}</p>
         <select ng-model="selectedTeam">
-            <option value="">Select a Team:</option>
+            <option value="">{{loc.indicende.select}}</option>
             <option ng-repeat="t in reportMatch.confrontation.participes" value="{{t.team.id}}">{{t.team.name}}</option>
         </select>
         <div>

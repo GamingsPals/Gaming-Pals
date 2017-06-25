@@ -98,7 +98,8 @@
     "error8": "Seleccione un valor para este campo.",
     "error9": "Tienes que aceptar nuestros términos y condiciones para poder regitrarte",
     "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals",
-    "required": "Obligatorio"
+    "required": "Obligatorio",
+    "selectl": "Selecciona un lenguaje"
 
   },
   "main": {
@@ -116,7 +117,9 @@
  	 "and":"Y",
      "ourGames": "Nuestros juegos compatibles",
      "lTournament": "Últimos torneos",
-     "bUser": "Usuarios mejor valorados"
+     "bUser": "Usuarios mejor valorados",
+    "metrics": "Metricas",
+    "beetween": "(Entre 1 y 5)"
   },
   "addSummoner":{
   	"region": "Región",
@@ -133,7 +136,8 @@
     "dontTeam": "No tienes ningún equipo disponible para inscribirte en el torneo.",
     "started": "El torneo ya ha comenzado.",
     "full": "La inscripción está llena.",
-    "noteams": "No tienes ningún equipo disponible para entrar al torneo."
+    "noteams": "No tienes ningún equipo disponible para entrar al torneo.",
+    "cannottj": "Tu equipo no puede participar en el torneo: el tamaño del equipo (número de miembros) debe estar entre"
   },
   "team":{
   "searchMember":"Buscar un miembro:",
@@ -200,6 +204,19 @@
      "resolve": "Resolver",
      "seeP": "Ver imagen",
      "anyI": "No hay incidencias",
+    "change": "Cambiar el límite de tiempo del enfrentamiento",
+    "pleasec": "Por favor cambia el tiempo",
+    "game": "Juego",
+    "selectg": "Selecciona un juego",
+    "must": "Debes seleccionar un equipo",
+    "selectt": "Selecciona el número de equipos",
+    "mustt": "Debes seleccionar un número de equipos entre 4 y 32",
+    "size": "Número de equipos",
+    "min": "Mínimo 1 jugador y máximo 10 por equipos.",
+    "sub1": "Los equipos con este tamaño y +2 permitirán unirse a él porque el jugador de 2 extras actúa como",
+    "sub2": "Subtituto",
+    "mustu": "Debes poner una url",
+    "date": "Selecciona una fecha después de la actual",
      "admin":{
       "suretodelete": "Estás seguro de borrar el torneo ${args['tournament']}?",
       "deleted" :"${args['tournament']} ha sido borrado!"
@@ -414,6 +431,21 @@
     "list": "Lista de feedback",
     "comment": "Comentarios",
     "answers": "Mira las respuestas"
+  },
+  "game":{
+    "input": "Introduzca un texto para buscar un juego, luego busque el juego que desea",
+    "add": "Añadir juego",
+    "name": "Nombre",
+    "header": "Imagen de cabecera",
+    "avatar": "Image de avatar",
+    "tag": "(nombre corto del juego)"
+  },
+  "incidence":{
+    "contact": "Contactar",
+    "thenD": "Entonces decide:",
+    "who": "¿Quién gana el partido?",
+    "select": "Selecciona un equipo:",
+    "leader": "Lider"
   }
 
 

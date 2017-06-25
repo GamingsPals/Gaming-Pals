@@ -99,7 +99,8 @@
     "error8": "Please select a value for this field.",
     "error9": "You have to accept our Terms and Conditions in order to sign up",
     "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals",
-    "required": "Required"
+    "required": "Required",
+    "selectl": "Select a language"
   },
   "main": {
  	 "friendly": " Our community is 100% friendly and we do not allow by any means toxicity.",
@@ -116,7 +117,9 @@
  	 "and":"And",
      "ourGames": "Our Supported Games",
      "lTournament": "Latest Tournaments",
-     "bUser": "Best rated users"
+     "bUser": "Best rated users",
+    "metrics": "Metrics",
+    "beetween": "(Beetween 1 and 5)"
  },
   "addSummoner":{
   	"region": "Region",
@@ -133,7 +136,8 @@
     "dontTeam": "You don't have any Team that is available to inscribe into the tournament",
     "started": "Tournament has already started.",
     "full": "The inscription is full",
-    "noteams": "You don't have any team that can join the tournament."
+    "noteams": "You don't have any team that can join the tournament.",
+    "cannottj": "Your team cannot join the tournament: the team size (number of members) must be between"
   },
   "team":{
   "searchMember":"Search a member:",
@@ -200,6 +204,19 @@
      "resolve": "Resolve",
      "seeP": "See picture",
      "anyI": "There isn't any incidences yet",
+     "change": "Change Confrontation play limit time",
+     "pleasec": "Please change the time",
+     "game": "Game",
+     "selectg": "Select a Game",
+     "must": "You must select a team",
+     "selectt": "Select number of Teams",
+     "mustt": "You must select a number of teams between 4 and 32",
+    "size": "Teams size",
+    "min": "Minimum 1 player and maximum 10 per team.",
+    "sub1": "Teams with this size and +2 will allow to join it because the 2 extras player act as",
+    "sub2": "Subtitutes",
+    "mustu": "You must to input an url",
+    "date": "Select a date after now",
      "admin":{
        "suretodelete": "Are you sure to delete ${args['tournament']}  tournament?",
        "deleted" :"${args['tournament']} has been deleted!"
@@ -414,6 +431,21 @@
     "list": "List of Feedback",
     "comment": "Comment",
     "answers": "See answers"
+  },
+  "game":{
+    "input": "Input a string to search for a game, then look for the game you desire in the select bellow",
+    "add": "Add game",
+    "name": "Name",
+    "header": "Header image",
+    "avatar": "Avatar image",
+    "tag": "(short name of the game)"
+  },
+  "incidence":{
+    "contact": "Contact",
+    "thenD": "Then decide:",
+    "who": "Who won the game?",
+    "select": "Select a Team:",
+    "leader": "Leader"
   }
 
 }
