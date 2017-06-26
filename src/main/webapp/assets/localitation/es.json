@@ -138,7 +138,10 @@
   	"validateLOL":"Para validar que estás autenticado con tu cuenta de LoL necesitamos que hagas una cosa por nosotros, por favor logueate en tu cuenta de LoL y cambia el nombre de una de tus páginas de maestrías por esto:",
   	"checkLOL":"Una vez hecho, cliquea en 'Comprobar cuenta de Lol'",
   	"clickCheck": "Comprobar cuenta de Lol",
-  	"addSummoner":"Añadir invocador"
+  	"addSummoner":"Añadir invocador",
+    "doesntexist": "El nombre de invocador no existe en League of Legends",
+    "notverified": "La clave no ha sido verificada",
+    "error" :"Ha habido algún error al añadir el invocador, inténtalo de nuevo"
   },
   "assignTeam":{
   	"select":"Selecciona un equipo",

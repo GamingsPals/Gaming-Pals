@@ -1,11 +1,10 @@
-app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
+app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware,localization){
     middleware.needRol("ANY");
     $scope.LolData=LolApiService;
-    $scope.test =" Asdad";
     $scope.validateSummoner = function(){
         if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
             $scope.check = true;
-            $scope.search.key = md5($scope.search.summoner);
+            $scope.search.key = md5($scope.search.summoner.toLowerCase());
             $scope.search.key = $scope.search.key.substring(0, 25);
         }
     };
@@ -15,7 +14,7 @@ app.controller('AddSummonerController',function($scope,LolApiService,dialog,Acto
             $scope.error = false;
             ActorService.UserProfile();
         },function(data){
-            $scope.error = data.data.message;
+            $scope.error = localization.addSummoner[data.data.message];
         });
     }
 });

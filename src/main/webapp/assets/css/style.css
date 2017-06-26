@@ -643,7 +643,8 @@ input {
     border: 1px solid #73afc9; }
 
 select {
-  max-width: 100%; }
+  max-width: 100%;
+  display: block; }
 
 .plainform {
   margin: 0;

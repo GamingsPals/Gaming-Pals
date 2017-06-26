@@ -9442,11 +9442,10 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 });;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
     middleware.needRol("ANY");
     $scope.LolData=LolApiService;
-    $scope.test =" Asdad";
     $scope.validateSummoner = function(){
         if (typeof $scope.search.summoner!=="undefined" && typeof $scope.search.region!=="undefined"){
             $scope.check = true;
-            $scope.search.key = md5($scope.search.summoner);
+            $scope.search.key = md5($scope.search.summoner.toLowerCase());
             $scope.search.key = $scope.search.key.substring(0, 25);
         }
     };
@@ -9493,7 +9492,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 	};
 });
 ;app.controller('ProfileController', function($scope, middleware, ActorService,
-											 $routeParams, dialog,GameInfoService,SystemMessages) {
+											 $routeParams, dialog,GameInfoService,SystemMessages,localization) {
     middleware.needRol("ANY");
 	$scope.ActorService = ActorService;
 	$scope.ActorService.UserProfile($routeParams.username);
@@ -9505,7 +9504,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 
 	$scope.deleteGameInfo = function(gameInfo){
 		GameInfoService.delete(gameInfo,(a)=>{
-            SystemMessages.okmessage("Game Identity deleted successfully!");
+            SystemMessages.okmessage(localization.profileview.gameidentitydeleted);
             $scope.ActorService.UserProfile($routeParams.username);
         })
 	};
@@ -9523,7 +9522,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     }
 });
 ;app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
-                                                SystemMessages, dialog){
+                                                SystemMessages, dialog,localization){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
@@ -9531,14 +9530,16 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         });
         $scope.writerating = false;
         $scope.rateform = null;
-        SystemMessages.okmessage("Rating added");
+        SystemMessages.okmessage(localization.profileview.ratingadded);
         dialog.closeAll();
     }
 });;
-app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope, SystemMessages, dialog){
+app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope,
+                                                SystemMessages, dialog,localization){
     middleware.needRol("ANY");
     $scope.reportUser = function(){
-        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{SystemMessages.okmessage("Report sended!");
+        ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{
+            SystemMessages.okmessage(localization.profileview.reportSended);
             dialog.closeAll();});
 
     }
@@ -9824,16 +9825,16 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
         let vround = nrounds - i;
         switch (vround){
             case 0:
-                return "Final";
+                return loc.tournament.brackets.finals;
                 break;
             case 1:
-                return "Semi Finals";
+                return loc.tournament.brackets.semifinal;
                 break;
             case 2:
-                return "Quarter Finals";
+                return loc.tournament.brackets.quarterfinals;
                 break;
             default:
-                return "Round i";
+                return loc.tournament.brackets.round+" "+nrounds;
 
         }
     };

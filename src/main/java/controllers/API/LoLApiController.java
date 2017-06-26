@@ -51,15 +51,15 @@ public class LoLApiController extends ApiAbstractController{
             test = loLApiService.getSummonerByName(name, region);
             Assert.notNull(test);
         } catch (Exception e){
-            return notFoundError(response,"Summoner doesn't exist!");
+            return notFoundError(response,"doesntexist");
         }
         try{
-            Assert.isTrue(key.equals(HashPassword.md5(name).substring(0,25)));
+            Assert.isTrue(key.equals(HashPassword.md5(name.toLowerCase()).substring(0,25)));
             Assert.isTrue(loLApiService.checkMasteryVerified(test,key));
             user = userService.findByPrincipal();
             Assert.notNull(user);
         }catch (Exception e){
-            return unauthorized(response, "Key not verified");
+            return unauthorized(response, "notverified");
         }
 
         test.setGame(gameService.getGameByTag("lol"));
@@ -69,7 +69,7 @@ public class LoLApiController extends ApiAbstractController{
             loLApiService.saveSummoner(test);
             return ok(response,null);
         }catch (Exception e){
-            return internalservererror(response,"There was something wrong with your request!");
+            return internalservererror(response,"error");
         }
     }
     @ResponseBody

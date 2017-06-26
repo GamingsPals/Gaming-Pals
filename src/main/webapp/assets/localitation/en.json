@@ -138,7 +138,10 @@
   	"validateLOL":"To validate the authentication of your LoL Account we need you to do one thing for us, please log in into your LoL Account and change the name of a mastery page to this:",
   	"checkLOL":"Once is done, click check",
   	"clickCheck":"Check my LoL Account",
-  	"addSummoner":"Add summoner"
+  	"addSummoner":"Add summoner",
+    "doesntexist": "The summoner doesn't exist in League of Legends",
+    "notverified": "Key has not been verified",
+    "error" :"An error occurred, try again!"
   },
   "assignTeam":{
   	"select":"Select a Team",
