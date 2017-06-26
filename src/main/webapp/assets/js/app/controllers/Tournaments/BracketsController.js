@@ -7,16 +7,16 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
         let vround = nrounds - i;
         switch (vround){
             case 0:
-                return "Final";
+                return loc.tournament.brackets.finals;
                 break;
             case 1:
-                return "Semi Finals";
+                return loc.tournament.brackets.semifinal;
                 break;
             case 2:
-                return "Quarter Finals";
+                return loc.tournament.brackets.quarterfinals;
                 break;
             default:
-                return "Round i";
+                return loc.tournament.brackets.round+" "+nrounds;
 
         }
     };

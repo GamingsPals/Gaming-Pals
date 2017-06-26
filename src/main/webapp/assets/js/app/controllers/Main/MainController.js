@@ -22,7 +22,6 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
             });
             if($scope.auth.isAuthenticated()){
                 $scope.notifications.getNews();
-                $scope.stats();
                 if (!socket.connected){
                     socket.init($rootScope);
                     chat.handleListeners();
@@ -42,6 +41,13 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         $location.path("search").search("username",name);
     };
 
+    $scope.stats = ()=>{
+        DashBoardService.getDashboardData((a)=>{
+            $scope.lastTournaments = a.lastTournaments;
+            $scope.bestRatedUsers = a.bestRatedUsers;
+            $scope.games = a.games;
+        })
+    };
 
     $scope.aboutUs = function () {
         dialog.open("aboutUs",$scope);
@@ -50,6 +56,8 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
             window.location = 'https://' + window.location.hostname +
                 ":"+window.location.port+window.location.pathname + window.location.hash;
+        }else{
+            $scope.stats();
         }
     };
     $scope.checkProtocol();
@@ -63,13 +71,6 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
         return $location.path()==="/";
     };
 
-    $scope.stats = ()=>{
-        DashBoardService.getDashboardData((a)=>{
-            $scope.lastTournaments = a.lastTournaments;
-            $scope.bestRatedUsers = a.bestRatedUsers;
-            $scope.games = a.games;
-        })
-    };
 
 
 

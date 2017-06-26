@@ -6,7 +6,6 @@
 
 
 <form class="search-filter" method="get" ng-submit="filter(search)">
-    <h1>Filter</h1>
     <div class="col s6">
         <label for="username">
             {{loc.signupform.name}}
@@ -16,7 +15,6 @@
         {{loc.search.game}}
     </label>
     <select class="s8" multiple id="games" name="games" ng-model="search.games">
-        <option value="">{{loc.search.selectGame}}</option>
         <option value="{{i.id}}" ng-repeat="i in games">{{i.name}}</option>
     </select>
     </div>
@@ -25,7 +23,6 @@
             {{loc.search.languages}}
         </label>
         <select class="s8" multiple id="languages" name="languages" ng-model="search.languages">
-            <option value="">{{loc.search.selectlanguages}}</option>
             <option value="{{i.id}}" ng-repeat="i in languages">{{i.longName}}</option>
         </select>
         <label for="ratingAvg">

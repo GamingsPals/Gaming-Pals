@@ -81,7 +81,6 @@
        <select name="languages" multiple title="Languages" required ng-model="form.languages"
                ng-options="option.longName for option in languagesForm track by option.id"
        >
-           <option value="">Select your languages</option>
        </select>
 
         <div class="form-error" ng-messages="signupform.languages.$error" role="alert"

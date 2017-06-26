@@ -31,7 +31,6 @@ module.exports = function(grunt) {
                     'src/main/webapp/assets/js/app/menu.js',
                     'src/main/webapp/assets/js/flexslider/flexslider.js',
                     'src/main/webapp/assets/js/angular/ng-dialog/js/ngDialog.min.js',
-                    'src/main/webapp/assets/js/selectric/jquery.selectric.js'
 
                 ],
                 dest: 'src/main/webapp/assets/js/app.js'

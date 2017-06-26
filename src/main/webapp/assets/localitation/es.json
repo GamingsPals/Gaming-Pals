@@ -5,6 +5,8 @@
   "yes": "Si",
   "game1": "Juego",
   "cancel": "Cancelar",
+  "wrong": "Ha ocurrido algún error!",
+  "submit": "Enviar",
   "deleted": "Borrado",
   "error": "Ha habido un error, por favor inténtalo de nuevo",
   "profile": "Perfil",
@@ -31,6 +33,9 @@
     "noFollowing":"Este usuario aún no sigue a nadie.",
     "noTeam":"Este usuario aún no pertenece a ningún equipo.",
     "noRating":"¡Este usuario aún no tiene puntuaciones! Se el primero en puntuarlo.",
+    "reportSended": "Reporte enviado!",
+    "ratingadded": "Puntuación añadida!",
+    "gameidentitydeleted": "Identidad de juego borrada con éxito!",
     "writeRating":"Puntuar",
     "ban": "Banear usuario",
     "unban": "Desbanear usuario",
@@ -85,6 +90,8 @@
     "error3": "El campo debe tener menos de 32 carácteres",
     "password": "Contraseña",
     "rPassword": "Repita la contraseña",
+    "wrongusername": "El usuario introducido ya está en uso, por favor pruebe otro.",
+    "wrongemail": "El email introducido ya está en uso, por favor pruebe otro.",
     "error4": "Las contraseñas no coinciden",
     "pData": "Datos personales",
     "email": "Email",
@@ -99,7 +106,11 @@
     "error9": "Tienes que aceptar nuestros términos y condiciones para poder regitrarte",
     "success": "Se ha registrado correctamente en nuestro sistema, inicie sesión y comience a disfrutar de Gaming Pals",
     "required": "Obligatorio",
-    "selectl": "Selecciona un lenguaje"
+    "selectl": "Selecciona un lenguaje",
+    "accept": "Haciendo click en el siguiente recuadro acepto",
+    "terms": "los Términos y Condiciones.",
+    "younger": "Tienes que tener mas de diez años para registarte en Gaming Pals.",
+    "older": "Seguramente no seas tan mayor."
 
   },
   "main": {
@@ -160,7 +171,7 @@
     "edit": "Editar equipo",
     "invite": "Invitar un usuario al equipo",
     "isntU": "No hay ningún usuario seleccionado",
-    "kick": "Expulsar un miembro"
+    "kick": "Expulsar"
   },
   "whatispassword": "Con esta contraseña otros usuarios podrán entrar en el equipo sin invitarlos, es útil cuando aun no sabes los miembro del equipo. Compártela con los futuros miembros del equipo para que entren. No es obligatorio.",
   "tournament":{
@@ -179,11 +190,17 @@
  	 "inscriptionClosed":"¡Inscripción cerrada!",
  	 "inscribe":"INSCRIBIRSE",
  	 "inscriptedTeams":"Equipos inscriptos",
- 	 "bracket":"Emparejamiento",
+ 	 "bracket":"Emparejamientos",
+    "brackets":{
+      "finals": "Final",
+      "semifinals": "Semifinal",
+      "quarterfinals": "Cuartos de final",
+      "round": "Ronda"
+    },
  	 "awards":"Premios",
  	 "adminZone":"Zona del administrador",
  	 "advanceRounds":"Avanzar rondas",
- 	 "information":"Information",
+ 	 "information":"Información",
  	 "notFound":"Torneo no encontrado",
      "createAward": "Crear premio",
      "reportMatch": "Reportar partido",
@@ -429,7 +446,7 @@
     "feedback4": "Todavía no hay comentarios, ¡sé el primero!",
     "here": "Tu feedback aquí",
     "list": "Lista de feedback",
-    "comment": "Comentarios",
+    "comment": "Comentar",
     "answers": "Mira las respuestas"
   },
   "game":{

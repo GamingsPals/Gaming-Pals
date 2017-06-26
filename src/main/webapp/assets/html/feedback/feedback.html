@@ -20,7 +20,7 @@
         {{error[-1]}}
     </div>
     <div>
-    <input type="submit" value="Submit" ng-disabled="!formFeedback.$valid" />
+    <input type="submit" value="{{loc.submit}}" ng-disabled="!formFeedback.$valid" />
     </div>
 </form>
 <h1>{{loc.feedback.list}}</h1>
@@ -51,7 +51,7 @@
                     {{error[$index]}}
                 </div>
                 <div>
-                    <input type="submit" value="Submit"
+                    <input type="submit" value="{{loc.submit}}"
                            ng-disabled="repyform[$index].body==null || repyform[$index].body.length==0" />
                 </div>
             </form>

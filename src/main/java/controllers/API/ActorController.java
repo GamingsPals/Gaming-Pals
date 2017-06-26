@@ -16,6 +16,8 @@ import services.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -54,5 +56,42 @@ public class ActorController extends ApiAbstractController {
             return internalservererror(response,null);
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/actor/{actor2}/available")
+    public Object available(@RequestParam("mode") String mode, @PathVariable String actor2, HttpServletRequest request, HttpServletResponse response) {
+        Map<String,Object> result = new HashMap<>();
+        try{
+            switch (mode){
+                case "user":{
+                    Actor actor = actorService.findByUserAccountUsername(actor2);
+                    if(actor==null){
+                        result.put("available",true);
+                    }else{
+                        result.put("available",false);
+                    }
+                    break;
+                }
+                case "email":{
+                    Actor actor = actorService.findByEmail(actor2);
+                    if(actor==null){
+                        result.put("available",true);
+                    }else{
+                        result.put("available",false);
+                    }
+                    break;
+                }
+                default:{
+                    result.put("available",false);
+                }
+            }
+
+        }catch (Exception e){
+            result.put("available",false);
+        }
+
+        return result;
+    }
+
 
 }

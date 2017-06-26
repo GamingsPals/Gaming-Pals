@@ -1,5 +1,5 @@
 app.controller('WriteRatingController',function($scope, middleware, ActorService, $routeParams, $rootScope,
-                                                SystemMessages, dialog){
+                                                SystemMessages, dialog,localization){
     middleware.needRol("ANY");
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
@@ -7,7 +7,7 @@ app.controller('WriteRatingController',function($scope, middleware, ActorService
         });
         $scope.writerating = false;
         $scope.rateform = null;
-        SystemMessages.okmessage("Rating added");
+        SystemMessages.okmessage(localization.profileview.ratingadded);
         dialog.closeAll();
     }
 });

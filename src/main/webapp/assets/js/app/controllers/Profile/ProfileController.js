@@ -1,5 +1,5 @@
 app.controller('ProfileController', function($scope, middleware, ActorService,
-											 $routeParams, dialog,GameInfoService,SystemMessages) {
+											 $routeParams, dialog,GameInfoService,SystemMessages,localization) {
     middleware.needRol("ANY");
 	$scope.ActorService = ActorService;
 	$scope.ActorService.UserProfile($routeParams.username);
@@ -11,7 +11,7 @@ app.controller('ProfileController', function($scope, middleware, ActorService,
 
 	$scope.deleteGameInfo = function(gameInfo){
 		GameInfoService.delete(gameInfo,(a)=>{
-            SystemMessages.okmessage("Game Identity deleted successfully!");
+            SystemMessages.okmessage(localization.profileview.gameidentitydeleted);
             $scope.ActorService.UserProfile($routeParams.username);
         })
 	};

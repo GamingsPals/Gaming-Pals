@@ -115,6 +115,10 @@ public class ActorService {
 	}
 
     public Actor findByUserAccountUsername(String actor2) {
-		return actorRepository.findByUserAccountUsername(actor2);
+		return actorRepository.findByUserAccountUsername(actor2.toLowerCase());
     }
+
+	public Actor findByEmail(String actor2) {
+		return actorRepository.findByEmail(actor2.toLowerCase());
+	}
 }

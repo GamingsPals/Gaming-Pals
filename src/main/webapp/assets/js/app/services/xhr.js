@@ -17,7 +17,7 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                     error(data);
                 }
 
-                SystemMessages.errormessage("Something wrong has happened!");
+
             });
     };
 
@@ -51,7 +51,6 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                SystemMessages.errormessage("Something wrong has happened!");
             }
         );
     };

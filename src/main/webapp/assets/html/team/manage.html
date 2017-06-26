@@ -11,7 +11,8 @@
     <h2>{{loc.team.delete}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==false">
         {{loc.team.actionl}}</p>
-    <a class="button bg-red3" ng-click="delete()" ng-if="isLeader(auth.principal.actor)==true">Delete</a>
+    <a class="button bg-red3" ng-click="delete()" ng-if="isLeader(auth.principal.actor)==true">
+       {{loc.tournament.delete}}</a>
 </section>
 <section class="col s5 section">
     <h2>{{loc.team.promote}}</h2>

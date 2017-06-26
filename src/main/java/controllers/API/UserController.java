@@ -97,7 +97,15 @@ public class UserController extends ApiAbstractController {
 		try {
 			Assert.notNull(signupForm);
 		} catch (final Exception e) {
-			return this.notFoundError(response, null);
+			return notFoundError(response, null);
+		}
+		try{
+			Actor actor = actorService.findActorByUsername(signupForm.getUsername());
+			Actor actor1 = actorService.findByEmail(signupForm.getEmail());
+			Assert.isNull(actor);
+			Assert.isNull(actor1);
+		} catch (Exception e){
+			return badrequest(response);
 		}
 		try {
 			final User user = this.userService.create();

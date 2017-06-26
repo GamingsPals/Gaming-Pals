@@ -13,7 +13,6 @@ app.directive('passwordVerify', function() {
                                 return true;
                             }
                         }
-                        console.log("ey");
                         return viewValue === attrs.passwordVerify;
                     };
 

@@ -119,12 +119,12 @@
     </ul>
         <ul>
             <h1>{{loc.tournament.information}}</h1>
-            <li>{{loc.tournament.inscriptionLimit}}: {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
+            <li><b>{{loc.tournament.inscriptionLimit}}:</b> {{tournament.limitInscription | date:"dd MMM h:mm'h'"}}</li>
             <li><b>{{loc.game1}}: </b><img  class="game-icon" ng-src="{{tournament.game.picture}}" />
              {{tournament.game.name}}</li>
-            <li>{{loc.tournament.numberTeams}}: {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
-            <li>{{loc.tournament.teamsize}}
-                : {{tournament.players}} (+2)</li>
+            <li><b>{{loc.tournament.numberTeams}}:</b> {{tournament.teams.length}}/{{tournament.numberTeams}}</li>
+            <li><b>{{loc.tournament.teamsize}}
+                :</b> {{tournament.players}} (+2)</li>
         </ul>
     </div>
     </div>

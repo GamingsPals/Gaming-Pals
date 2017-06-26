@@ -11,9 +11,10 @@
         {{loc.signupform.username}} *
     </label>
     <input type="text" class="s10" name="username" ng-model="form.username" placeholder="Username" required ng-minlength="5" ng-maxlength="32"
-  minlength="5" maxlength="32"  />
+  minlength="5" maxlength="32" username-verify="" />
         <div class="form-error" ng-messages="signupform.username.$error" role="alert"
              ng-show="signupform.username.$invalid && signupform.username.$dirty">
+            <div ng-message="userExists">{{loc.signupform.wrongusername}} </div>
             <div ng-message="required">{{loc.signupform.error1}}</div>
             <div ng-message="minlength">{{loc.signupform.error2}}</div>
             <div ng-message="minlength">{{loc.signupform.error3}}</div>
@@ -44,10 +45,11 @@
     <label>
         {{loc.signupform.email}} *
     </label>
-    <input type="email"  class="s10"  name="email" placeholder=" {{loc.signupform.email}}" ng-model="form.email" title="Email" required=""/>
+    <input type="email"  class="s10"  name="email"  email-verify="" placeholder=" {{loc.signupform.email}}" ng-model="form.email" title="Email" required=""/>
         <div class="form-error" ng-messages="signupform.email.$error" role="alert"
              ng-show="signupform.email.$dirty && signupform.email.$invalid">
             <div ng-message="required">{{loc.signupform.error1}}</div>
+            <div ng-message="emailExists">{{loc.signupform.wrongemail}} </div>
             <div ng-message="email">{{loc.signupform.error5}}</div>
         </div>
      <label>
@@ -74,14 +76,13 @@
         <div class="form-error" ng-messages="signupform.age.$error" role="alert"
              ng-show="signupform.age.$dirty && signupform.age.$invalid">
             <div ng-message="pattern">{{loc.signupform.error7}}</div>
-            <div ng-message="min">You are probably not that older</div>
-            <div ng-message="max">You have to have more than 10 years to join Gaming Pals</div>
+            <div ng-message="min">{{older}}</div>
+            <div ng-message="max">{{younger}}</div>
         </div>
         <label>
             {{loc.signupform.languages}}
         </label>
        <select name="languages"  class="s10" multiple title="Languages" required ng-model="form.languages">
-           <option selected>{{loc.signupform.selectl}}</option>
            <option ng-repeat="language in languagesForn" value="{{language.id}}">{{language.longName}}</option>
        </select>
 
@@ -89,11 +90,13 @@
              ng-show="signupform.languages.$dirty && signupform.languages.$invalid">
             <div ng-message="required">{{loc.signupform.error8}}</div>
         </div>
+        <div>
         <input class="col" type="checkbox" name="legal" title="Legal" ng-model="accepted" required value="false" />
-        Checking this box you accept the <a class="link" href="legal">Terms and Conditions</a>
+        {{loc.signupform.accept}} <a class="link" href="legal">{{loc.signupform.terms}}</a>
         <div class="form-error" ng-messages="signupform.legal.$error" role="alert"
              ng-show="signupform.legal.$dirty && signupform.legal.$invalid">
             <div ng-message="required">{{loc.signupform.error9}}</div>
+        </div>
         </div>
 </div>
     <div class="red3">{{error}}</div>
@@ -106,7 +109,7 @@
     </div>
 <div ng-show="success">
    <div>{{loc.signupform.success}}</div>
-   <a class="link" href="login">Login</a>
+   <a class="button" target="_self" href="login">Login</a>
 </div>
 <div>
 

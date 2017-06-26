@@ -109,6 +109,7 @@ app.directive("gpPaginate",function($compile,$location,PaginationService){
 
                     element.html(template);
                     $compile(element.contents())(scope.$parent);
+                    if(PaginationService.getById(id).numberPages===1) $(element).hide();
                 }
             })
         }

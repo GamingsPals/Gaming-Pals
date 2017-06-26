@@ -9081,7 +9081,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 
     middleware.needRol("NONE");
     $scope.success = false;
-    $scope.form = storage.add($scope,"form");
+    $scope.form = {};
     $scope.languagesForn = [];
     let dialog2 = dialog.open("auth/signup",$scope);
     dialog.redirect(dialog2,(a)=>{
@@ -9098,7 +9098,6 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 	$scope.enviarForm = function(data) {
 		xhr.post("api/signup", data,function(){
             $scope.success = true;
-            storage.unwatch('form');
         },function(){
 		    $scope.error = "There was something wrong with your form, try again!";
             dialog.closeAll();
@@ -9233,7 +9232,6 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             });
             if($scope.auth.isAuthenticated()){
                 $scope.notifications.getNews();
-                $scope.stats();
                 if (!socket.connected){
                     socket.init($rootScope);
                     chat.handleListeners();
@@ -9253,6 +9251,13 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         $location.path("search").search("username",name);
     };
 
+    $scope.stats = ()=>{
+        DashBoardService.getDashboardData((a)=>{
+            $scope.lastTournaments = a.lastTournaments;
+            $scope.bestRatedUsers = a.bestRatedUsers;
+            $scope.games = a.games;
+        })
+    };
 
     $scope.aboutUs = function () {
         dialog.open("aboutUs",$scope);
@@ -9261,6 +9266,8 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         if($location.protocol()==="http"  && window.location.hostname!=="localhost"){
             window.location = 'https://' + window.location.hostname +
                 ":"+window.location.port+window.location.pathname + window.location.hash;
+        }else{
+            $scope.stats();
         }
     };
     $scope.checkProtocol();
@@ -9274,13 +9281,6 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         return $location.path()==="/";
     };
 
-    $scope.stats = ()=>{
-        DashBoardService.getDashboardData((a)=>{
-            $scope.lastTournaments = a.lastTournaments;
-            $scope.bestRatedUsers = a.bestRatedUsers;
-            $scope.games = a.games;
-        })
-    };
 
 
 
@@ -11462,7 +11462,7 @@ app.service("SystemMessages", function($timeout){
                     error(data);
                 }
 
-                SystemMessages.errormessage("Something wrong has happened!");
+
             });
     };
 
@@ -11496,7 +11496,6 @@ app.service("SystemMessages", function($timeout){
                 if (typeof error !== "undefined") {
                     error(data);
                 }
-                SystemMessages.errormessage("Something wrong has happened!");
             }
         );
     };
@@ -12130,6 +12129,7 @@ app.directive("gpPaginate",function($compile,$location,PaginationService){
 
                     element.html(template);
                     $compile(element.contents())(scope.$parent);
+                    if(PaginationService.getById(id).numberPages===1) $(element).hide();
                 }
             })
         }
@@ -12174,7 +12174,6 @@ app.filter('paginate', function(PaginationService) {
                                 return true;
                             }
                         }
-                        console.log("ey");
                         return viewValue === attrs.passwordVerify;
                     };
 
@@ -12235,22 +12234,6 @@ app.filter('paginate', function(PaginationService) {
         restrict: "A",
         link: function(scope,element,attrs){
             $(element).addClass("cursor-pointer").addClass("red3");
-        }
-    }
-});;
-app.directive("select",function(){
-    return{
-        restrict: "E",
-        link: function(scope,element,attrs){
-            let selectric = $(element).selectric(
-                {
-                    responsive: true,
-                    disableOnMobile: true
-                }
-            );
-            scope.$watch(function(){
-                $(element).data('selectric').refresh();
-            })
         }
     }
 });;app.directive("stored", function(){
@@ -12412,6 +12395,47 @@ app.directive("gamesTools",function($compile,auth,GameInfoService,ActorService){
         }
     }
 
+});;app.directive('usernameVerify', function($timeout,$http,$q,localization) {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            ngModel.$asyncValidators.userExists = function(modelValue) {
+                if(modelValue.length<5) return true;
+                return $http.get("/api/actor/"+modelValue+"/available?mode=user").then((a)=>{
+                    let data = a.data;
+                    if(!data.available){
+                        return $q.reject(localization.signupform.wrongusername);
+                    }
+                    return true;
+                })
+
+            };
+
+        }
+
+    }
+});
+
+app.directive('emailVerify', function($timeout,$http,$q,localization) {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            ngModel.$asyncValidators.emailExists = function(modelValue) {
+                return $http.get("/api/actor/"+modelValue+"/available?mode=email").then((a)=>{
+                    let data = a.data;
+                    if(!data.available){
+                        return $q.reject(localization.signupform.wrongemail);
+                    }
+                    return true;
+                })
+
+            };
+
+        }
+
+    }
 });;String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -12475,1085 +12499,4 @@ function loadSlider(){
 }
 
 ;/*! ng-dialog - v0.6.4 (https://github.com/likeastore/ngDialog) */
-!function(a,b){"undefined"!=typeof module&&module.exports?(b("undefined"==typeof angular?require("angular"):angular),module.exports="ngDialog"):"function"==typeof define&&define.amd?define(["angular"],b):b(a.angular)}(this,function(a){"use strict";var b=a.module("ngDialog",[]),c=a.element,d=a.isDefined,e=(document.body||document.documentElement).style,f=d(e.animation)||d(e.WebkitAnimation)||d(e.MozAnimation)||d(e.MsAnimation)||d(e.OAnimation),g="animationend webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend",h="a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]",i="ngdialog-disabled-animation",j={html:!1,body:!1},k={},l=[],m=!1,n=!1;return b.provider("ngDialog",function(){var b=this.defaults={className:"ngdialog-theme-default",appendClassName:"",disableAnimation:!1,plain:!1,showClose:!0,closeByDocument:!0,closeByEscape:!0,closeByNavigation:!1,appendTo:!1,preCloseCallback:!1,overlay:!0,cache:!0,trapFocus:!0,preserveFocus:!0,ariaAuto:!0,ariaRole:null,ariaLabelledById:null,ariaLabelledBySelector:null,ariaDescribedById:null,ariaDescribedBySelector:null,bodyClassName:"ngdialog-open",width:null,height:null};this.setForceHtmlReload=function(a){j.html=a||!1},this.setForceBodyReload=function(a){j.body=a||!1},this.setDefaults=function(c){a.extend(b,c)},this.setOpenOnePerName=function(a){n=a||!1};var d,e=0,o=0,p={};this.$get=["$document","$templateCache","$compile","$q","$http","$rootScope","$timeout","$window","$controller","$injector",function(q,r,s,t,u,v,w,x,y,z){var A=[],B={onDocumentKeydown:function(a){27===a.keyCode&&C.close("$escape")},activate:function(a){var b=a.data("$ngDialogOptions");b.trapFocus&&(a.on("keydown",B.onTrapFocusKeydown),A.body.on("keydown",B.onTrapFocusKeydown))},deactivate:function(a){a.off("keydown",B.onTrapFocusKeydown),A.body.off("keydown",B.onTrapFocusKeydown)},deactivateAll:function(b){a.forEach(b,function(b){var c=a.element(b);B.deactivate(c)})},setBodyPadding:function(a){var b=parseInt(A.body.css("padding-right")||0,10);A.body.css("padding-right",b+a+"px"),A.body.data("ng-dialog-original-padding",b),v.$broadcast("ngDialog.setPadding",a)},resetBodyPadding:function(){var a=A.body.data("ng-dialog-original-padding");a?A.body.css("padding-right",a+"px"):A.body.css("padding-right",""),v.$broadcast("ngDialog.setPadding",0)},performCloseDialog:function(a,b){var c=a.data("$ngDialogOptions"),e=a.attr("id"),h=k[e];if(h){if("undefined"!=typeof x.Hammer){var i=h.hammerTime;i.off("tap",d),i.destroy&&i.destroy(),delete h.hammerTime}else a.unbind("click");1===o&&A.body.unbind("keydown",B.onDocumentKeydown),a.hasClass("ngdialog-closing")||(o-=1);var j=a.data("$ngDialogPreviousFocus");j&&j.focus&&j.focus(),v.$broadcast("ngDialog.closing",a,b),o=o<0?0:o,f&&!c.disableAnimation?(h.$destroy(),a.unbind(g).bind(g,function(){B.closeDialogElement(a,b)}).addClass("ngdialog-closing")):(h.$destroy(),B.closeDialogElement(a,b)),p[e]&&(p[e].resolve({id:e,value:b,$dialog:a,remainingDialogs:o}),delete p[e]),k[e]&&delete k[e],l.splice(l.indexOf(e),1),l.length||(A.body.unbind("keydown",B.onDocumentKeydown),m=!1)}},closeDialogElement:function(a,b){var c=a.data("$ngDialogOptions");a.remove(),0===o&&(A.html.removeClass(c.bodyClassName),A.body.removeClass(c.bodyClassName),B.resetBodyPadding()),v.$broadcast("ngDialog.closed",a,b)},closeDialog:function(b,c){var d=b.data("$ngDialogPreCloseCallback");if(d&&a.isFunction(d)){var e=d.call(b,c);if(a.isObject(e))e.closePromise?e.closePromise.then(function(){B.performCloseDialog(b,c)},function(){return!1}):e.then(function(){B.performCloseDialog(b,c)},function(){return!1});else{if(e===!1)return!1;B.performCloseDialog(b,c)}}else B.performCloseDialog(b,c)},onTrapFocusKeydown:function(b){var c,d=a.element(b.currentTarget);if(d.hasClass("ngdialog"))c=d;else if(c=B.getActiveDialog(),null===c)return;var e=9===b.keyCode,f=b.shiftKey===!0;e&&B.handleTab(c,b,f)},handleTab:function(a,b,c){var d=B.getFocusableElements(a);if(0===d.length)return void(document.activeElement&&document.activeElement.blur&&document.activeElement.blur());var e=document.activeElement,f=Array.prototype.indexOf.call(d,e),g=f===-1,h=0===f,i=f===d.length-1,j=!1;c?(g||h)&&(d[d.length-1].focus(),j=!0):(g||i)&&(d[0].focus(),j=!0),j&&(b.preventDefault(),b.stopPropagation())},autoFocus:function(a){var b=a[0],d=b.querySelector("*[autofocus]");if(null===d||(d.focus(),document.activeElement!==d)){var e=B.getFocusableElements(a);if(e.length>0)return void e[0].focus();var f=B.filterVisibleElements(b.querySelectorAll("h1,h2,h3,h4,h5,h6,p,span"));if(f.length>0){var g=f[0];c(g).attr("tabindex","-1").css("outline","0"),g.focus()}}},getFocusableElements:function(a){var b=a[0],c=b.querySelectorAll(h),d=B.filterTabbableElements(c);return B.filterVisibleElements(d)},filterTabbableElements:function(a){for(var b=[],d=0;d<a.length;d++){var e=a[d];"-1"!==c(e).attr("tabindex")&&b.push(e)}return b},filterVisibleElements:function(a){for(var b=[],c=0;c<a.length;c++){var d=a[c];(d.offsetWidth>0||d.offsetHeight>0)&&b.push(d)}return b},getActiveDialog:function(){var a=document.querySelectorAll(".ngdialog");return 0===a.length?null:c(a[a.length-1])},applyAriaAttributes:function(a,b){if(b.ariaAuto){if(!b.ariaRole){var c=B.getFocusableElements(a).length>0?"dialog":"alertdialog";b.ariaRole=c}b.ariaLabelledBySelector||(b.ariaLabelledBySelector="h1,h2,h3,h4,h5,h6"),b.ariaDescribedBySelector||(b.ariaDescribedBySelector="article,section,p")}b.ariaRole&&a.attr("role",b.ariaRole),B.applyAriaAttribute(a,"aria-labelledby",b.ariaLabelledById,b.ariaLabelledBySelector),B.applyAriaAttribute(a,"aria-describedby",b.ariaDescribedById,b.ariaDescribedBySelector)},applyAriaAttribute:function(a,b,d,e){if(d&&a.attr(b,d),e){var f=a.attr("id"),g=a[0].querySelector(e);if(!g)return;var h=f+"-"+b;return c(g).attr("id",h),a.attr(b,h),h}},detectUIRouter:function(){try{return a.module("ui.router"),!0}catch(b){return!1}},getRouterLocationEventName:function(){return B.detectUIRouter()?"$stateChangeStart":"$locationChangeStart"}},C={__PRIVATE__:B,open:function(f){function g(b,c){var c=c||{};return c.headers=c.headers||{},a.extend(c.headers,{Accept:"text/html"}),v.$broadcast("ngDialog.templateLoading",b),u.get(b,c).then(function(a){return v.$broadcast("ngDialog.templateLoaded",b),a.data||""})}function h(b){return b?a.isString(b)&&q.plain?b:"boolean"!=typeof q.cache||q.cache?g(b,{cache:r}):g(b,{cache:!1}):"Empty template"}var j=null;if(f=f||{},!(n&&f.name&&(j=f.name.toLowerCase().replace(/\s/g,"-")+"-dialog",this.isOpen(j)))){var q=a.copy(b),D=++e;j=j||"ngdialog"+D,l.push(j),"undefined"!=typeof q.data&&("undefined"==typeof f.data&&(f.data={}),f.data=a.merge(a.copy(q.data),f.data)),a.extend(q,f);var E;p[j]=E=t.defer();var F;k[j]=F=a.isObject(q.scope)?q.scope.$new():v.$new();var G,H,I,J=a.extend({},q.resolve);return a.forEach(J,function(b,c){J[c]=a.isString(b)?z.get(b):z.invoke(b,null,null,c)}),t.all({template:h(q.template||q.templateUrl),locals:t.all(J)}).then(function(b){var e=b.template,f=b.locals;q.showClose&&(e+='<div class="ngdialog-close"></div>');var g=q.overlay?"":" ngdialog-no-overlay";if(G=c('<div id="'+j+'" class="ngdialog'+g+'"></div>'),G.html(q.overlay?'<div class="ngdialog-overlay"></div><div class="ngdialog-content" role="document">'+e+"</div>":'<div class="ngdialog-content" role="document">'+e+"</div>"),G.data("$ngDialogOptions",q),F.ngDialogId=j,q.data&&a.isString(q.data)){var h=q.data.replace(/^\s*/,"")[0];F.ngDialogData="{"===h||"["===h?a.fromJson(q.data):new String(q.data),F.ngDialogData.ngDialogId=j}else q.data&&a.isObject(q.data)&&(F.ngDialogData=q.data,F.ngDialogData.ngDialogId=j);if(q.className&&G.addClass(q.className),q.appendClassName&&G.addClass(q.appendClassName),q.width&&(I=G[0].querySelector(".ngdialog-content"),a.isString(q.width)?I.style.width=q.width:I.style.width=q.width+"px"),q.height&&(I=G[0].querySelector(".ngdialog-content"),a.isString(q.height)?I.style.height=q.height:I.style.height=q.height+"px"),q.disableAnimation&&G.addClass(i),H=q.appendTo&&a.isString(q.appendTo)?a.element(document.querySelector(q.appendTo)):A.body,B.applyAriaAttributes(G,q),q.preCloseCallback){var k;a.isFunction(q.preCloseCallback)?k=q.preCloseCallback:a.isString(q.preCloseCallback)&&F&&(a.isFunction(F[q.preCloseCallback])?k=F[q.preCloseCallback]:F.$parent&&a.isFunction(F.$parent[q.preCloseCallback])?k=F.$parent[q.preCloseCallback]:v&&a.isFunction(v[q.preCloseCallback])&&(k=v[q.preCloseCallback])),k&&G.data("$ngDialogPreCloseCallback",k)}if(F.closeThisDialog=function(a){B.closeDialog(G,a)},q.controller&&(a.isString(q.controller)||a.isArray(q.controller)||a.isFunction(q.controller))){var l;q.controllerAs&&a.isString(q.controllerAs)&&(l=q.controllerAs);var n=y(q.controller,a.extend(f,{$scope:F,$element:G}),!0,l);q.bindToController&&a.extend(n.instance,{ngDialogId:F.ngDialogId,ngDialogData:F.ngDialogData,closeThisDialog:F.closeThisDialog,confirm:F.confirm}),"function"==typeof n?G.data("$ngDialogControllerController",n()):G.data("$ngDialogControllerController",n)}if(w(function(){var a=document.querySelectorAll(".ngdialog");B.deactivateAll(a),s(G)(F);var b=x.innerWidth-A.body.prop("clientWidth");A.html.addClass(q.bodyClassName),A.body.addClass(q.bodyClassName);var c=b-(x.innerWidth-A.body.prop("clientWidth"));c>0&&B.setBodyPadding(c),H.append(G),B.activate(G),q.trapFocus&&B.autoFocus(G),q.name?v.$broadcast("ngDialog.opened",{dialog:G,name:q.name}):v.$broadcast("ngDialog.opened",G)}),m||(A.body.bind("keydown",B.onDocumentKeydown),m=!0),q.closeByNavigation){var p=B.getRouterLocationEventName();v.$on(p,function(a){B.closeDialog(G)===!1&&a.preventDefault()})}if(q.preserveFocus&&G.data("$ngDialogPreviousFocus",document.activeElement),d=function(a){var b=!!q.closeByDocument&&c(a.target).hasClass("ngdialog-overlay"),d=c(a.target).hasClass("ngdialog-close");(b||d)&&C.close(G.attr("id"),d?"$closeButton":"$document")},"undefined"!=typeof x.Hammer){var r=F.hammerTime=x.Hammer(G[0]);r.on("tap",d)}else G.bind("click",d);return o+=1,C}),{id:j,closePromise:E.promise,close:function(a){B.closeDialog(G,a)}}}},openConfirm:function(d){var e=t.defer(),f=a.copy(b);d=d||{},"undefined"!=typeof f.data&&("undefined"==typeof d.data&&(d.data={}),d.data=a.merge(a.copy(f.data),d.data)),a.extend(f,d),f.scope=a.isObject(f.scope)?f.scope.$new():v.$new(),f.scope.confirm=function(a){e.resolve(a);var b=c(document.getElementById(g.id));B.performCloseDialog(b,a)};var g=C.open(f);if(g)return g.closePromise.then(function(a){return a?e.reject(a.value):e.reject()}),e.promise},isOpen:function(a){var b=c(document.getElementById(a));return b.length>0},close:function(a,b){var d=c(document.getElementById(a));if(d.length)B.closeDialog(d,b);else if("$escape"===a){var e=l[l.length-1];d=c(document.getElementById(e)),d.data("$ngDialogOptions").closeByEscape&&B.closeDialog(d,"$escape")}else C.closeAll(b);return C},closeAll:function(a){for(var b=document.querySelectorAll(".ngdialog"),d=b.length-1;d>=0;d--){var e=b[d];B.closeDialog(c(e),a)}},getOpenDialogs:function(){return l},getDefaults:function(){return b}};return a.forEach(["html","body"],function(a){if(A[a]=q.find(a),j[a]){var b=B.getRouterLocationEventName();v.$on(b,function(){A[a]=q.find(a)})}}),C}]}),b.directive("ngDialog",["ngDialog",function(b){return{restrict:"A",scope:{ngDialogScope:"="},link:function(c,d,e){d.on("click",function(d){d.preventDefault();var f=a.isDefined(c.ngDialogScope)?c.ngDialogScope:"noScope";a.isDefined(e.ngDialogClosePrevious)&&b.close(e.ngDialogClosePrevious);var g=b.getDefaults();b.open({template:e.ngDialog,className:e.ngDialogClass||g.className,appendClassName:e.ngDialogAppendClass,controller:e.ngDialogController,controllerAs:e.ngDialogControllerAs,bindToController:e.ngDialogBindToController,disableAnimation:e.ngDialogDisableAnimation,scope:f,data:e.ngDialogData,showClose:"false"!==e.ngDialogShowClose&&("true"===e.ngDialogShowClose||g.showClose),closeByDocument:"false"!==e.ngDialogCloseByDocument&&("true"===e.ngDialogCloseByDocument||g.closeByDocument),closeByEscape:"false"!==e.ngDialogCloseByEscape&&("true"===e.ngDialogCloseByEscape||g.closeByEscape),overlay:"false"!==e.ngDialogOverlay&&("true"===e.ngDialogOverlay||g.overlay),preCloseCallback:e.ngDialogPreCloseCallback||g.preCloseCallback,bodyClassName:e.ngDialogBodyClass||g.bodyClassName})})}}}]),b});;(function(factory) {
-  /* global define */
-  /* istanbul ignore next */
-  if ( typeof define === 'function' && define.amd ) {
-    define(['jquery'], factory);
-  } else if ( typeof module === 'object' && module.exports ) {
-    // Node/CommonJS
-    module.exports = function( root, jQuery ) {
-      if ( jQuery === undefined ) {
-        if ( typeof window !== 'undefined' ) {
-          jQuery = require('jquery');
-        } else {
-          jQuery = require('jquery')(root);
-        }
-      }
-      factory(jQuery);
-      return jQuery;
-    };
-  } else {
-    // Browser globals
-    factory(jQuery);
-  }
-}(function($) {
-  'use strict';
-
-  var $doc = $(document);
-  var $win = $(window);
-
-  var pluginName = 'selectric';
-  var classList = 'Input Items Open Disabled TempShow HideSelect Wrapper Focus Hover Responsive Above Scroll Group GroupLabel';
-  var eventNamespaceSuffix = '.sl';
-
-  var chars = ['a', 'e', 'i', 'o', 'u', 'n', 'c', 'y'];
-  var diacritics = [
-    /[\xE0-\xE5]/g, // a
-    /[\xE8-\xEB]/g, // e
-    /[\xEC-\xEF]/g, // i
-    /[\xF2-\xF6]/g, // o
-    /[\xF9-\xFC]/g, // u
-    /[\xF1]/g,      // n
-    /[\xE7]/g,      // c
-    /[\xFD-\xFF]/g  // y
-  ];
-
-  /**
-   * Create an instance of Selectric
-   *
-   * @constructor
-   * @param {Node} element - The &lt;select&gt; element
-   * @param {object}  opts - Options
-   */
-  var Selectric = function(element, opts) {
-    var _this = this;
-
-    _this.element = element;
-    _this.$element = $(element);
-
-    _this.state = {
-      multiple       : !!_this.$element.attr('multiple'),
-      enabled        : false,
-      opened         : false,
-      currValue      : -1,
-      selectedIdx    : -1,
-      highlightedIdx : -1
-    };
-
-    _this.eventTriggers = {
-      open    : _this.open,
-      close   : _this.close,
-      destroy : _this.destroy,
-      refresh : _this.refresh,
-      init    : _this.init
-    };
-
-    _this.init(opts);
-  };
-
-  Selectric.prototype = {
-    utils: {
-      /**
-       * Detect mobile browser
-       *
-       * @return {boolean}
-       */
-      isMobile: function() {
-        return /android|ip(hone|od|ad)/i.test(navigator.userAgent);
-      },
-
-      /**
-       * Escape especial characters in string (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
-       *
-       * @param  {string} str - The string to be escaped
-       * @return {string}       The string with the special characters escaped
-       */
-      escapeRegExp: function(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-      },
-
-      /**
-       * Replace diacritics
-       *
-       * @param  {string} str - The string to replace the diacritics
-       * @return {string}       The string with diacritics replaced with ascii characters
-       */
-      replaceDiacritics: function(str) {
-        var k = diacritics.length;
-
-        while (k--) {
-          str = str.toLowerCase().replace(diacritics[k], chars[k]);
-        }
-
-        return str;
-      },
-
-      /**
-       * Format string
-       * https://gist.github.com/atesgoral/984375
-       *
-       * @param  {string} f - String to be formated
-       * @return {string}     String formated
-       */
-      format: function(f) {
-        var a = arguments; // store outer arguments
-        return ('' + f) // force format specifier to String
-          .replace( // replace tokens in format specifier
-            /\{(?:(\d+)|(\w+))\}/g, // match {token} references
-            function(
-              s, // the matched string (ignored)
-              i, // an argument index
-              p // a property name
-            ) {
-              return p && a[1] // if property name and first argument exist
-                ? a[1][p] // return property from first argument
-                : a[i]; // assume argument index and return i-th argument
-            });
-      },
-
-      /**
-       * Get the next enabled item in the options list.
-       *
-       * @param  {object} selectItems - The options object.
-       * @param  {number}    selected - Index of the currently selected option.
-       * @return {object}               The next enabled item.
-       */
-      nextEnabledItem: function(selectItems, selected) {
-        while ( selectItems[ selected = (selected + 1) % selectItems.length ].disabled ) {
-          // empty
-        }
-        return selected;
-      },
-
-      /**
-       * Get the previous enabled item in the options list.
-       *
-       * @param  {object} selectItems - The options object.
-       * @param  {number}    selected - Index of the currently selected option.
-       * @return {object}               The previous enabled item.
-       */
-      previousEnabledItem: function(selectItems, selected) {
-        while ( selectItems[ selected = (selected > 0 ? selected : selectItems.length) - 1 ].disabled ) {
-          // empty
-        }
-        return selected;
-      },
-
-      /**
-       * Transform camelCase string to dash-case.
-       *
-       * @param  {string} str - The camelCased string.
-       * @return {string}       The string transformed to dash-case.
-       */
-      toDash: function(str) {
-        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-      },
-
-      /**
-       * Calls the events registered with function name.
-       *
-       * @param {string}    fn - The name of the function.
-       * @param {number} scope - Scope that should be set on the function.
-       */
-      triggerCallback: function(fn, scope) {
-        var elm = scope.element;
-        var func = scope.options['on' + fn];
-        var args = [elm].concat([].slice.call(arguments).slice(1));
-
-        if ( $.isFunction(func) ) {
-          func.apply(elm, args);
-        }
-
-        $(elm).trigger(pluginName + '-' + this.toDash(fn), args);
-      },
-
-      /**
-       * Transform array list to concatenated string and remove empty values
-       * @param  {array} arr - Class list
-       * @return {string}      Concatenated string
-       */
-      arrayToClassname: function(arr) {
-        var newArr = $.grep(arr, function(item) {
-          return !!item;
-        });
-
-        return $.trim(newArr.join(' '));
-      }
-    },
-
-    /** Initializes */
-    init: function(opts) {
-      var _this = this;
-
-      // Set options
-      _this.options = $.extend(true, {}, $.fn[pluginName].defaults, _this.options, opts);
-
-      _this.utils.triggerCallback('BeforeInit', _this);
-
-      // Preserve data
-      _this.destroy(true);
-
-      // Disable on mobile browsers
-      if ( _this.options.disableOnMobile && _this.utils.isMobile() ) {
-        _this.disableOnMobile = true;
-        return;
-      }
-
-      // Get classes
-      _this.classes = _this.getClassNames();
-
-      // Create elements
-      var input              = $('<input/>', { 'class': _this.classes.input, 'readonly': _this.utils.isMobile() });
-      var items              = $('<div/>',   { 'class': _this.classes.items, 'tabindex': -1 });
-      var itemsScroll        = $('<div/>',   { 'class': _this.classes.scroll });
-      var wrapper            = $('<div/>',   { 'class': _this.classes.prefix, 'html': _this.options.arrowButtonMarkup });
-      var label              = $('<span/>',  { 'class': 'label' });
-      var outerWrapper       = _this.$element.wrap('<div/>').parent().append(wrapper.prepend(label), items, input);
-      var hideSelectWrapper  = $('<div/>',   { 'class': _this.classes.hideselect });
-
-      _this.elements = {
-        input        : input,
-        items        : items,
-        itemsScroll  : itemsScroll,
-        wrapper      : wrapper,
-        label        : label,
-        outerWrapper : outerWrapper
-      };
-
-      if ( _this.options.nativeOnMobile && _this.utils.isMobile() ) {
-        _this.elements.input = undefined;
-        hideSelectWrapper.addClass(_this.classes.prefix + '-is-native');
-
-        _this.$element.on('change', function() {
-          _this.refresh();
-        });
-      }
-
-      _this.$element
-        .on(_this.eventTriggers)
-        .wrap(hideSelectWrapper);
-
-      _this.originalTabindex = _this.$element.prop('tabindex');
-      _this.$element.prop('tabindex', -1);
-
-      _this.populate();
-      _this.activate();
-
-      _this.utils.triggerCallback('Init', _this);
-    },
-
-    /** Activates the plugin */
-    activate: function() {
-      var _this = this;
-      var hiddenChildren = _this.elements.items.closest(':visible').children(':hidden').addClass(_this.classes.tempshow);
-      var originalWidth = _this.$element.width();
-
-      hiddenChildren.removeClass(_this.classes.tempshow);
-
-      _this.utils.triggerCallback('BeforeActivate', _this);
-
-      _this.elements.outerWrapper.prop('class',
-        _this.utils.arrayToClassname([
-          _this.classes.wrapper,
-          _this.$element.prop('class').replace(/\S+/g, _this.classes.prefix + '-$&'),
-          _this.options.responsive ? _this.classes.responsive : ''
-        ])
-      );
-
-      if ( _this.options.inheritOriginalWidth && originalWidth > 0 ) {
-        _this.elements.outerWrapper.width(originalWidth);
-      }
-
-      _this.unbindEvents();
-
-      if ( !_this.$element.prop('disabled') ) {
-        _this.state.enabled = true;
-
-        // Not disabled, so... Removing disabled class
-        _this.elements.outerWrapper.removeClass(_this.classes.disabled);
-
-        // Remove styles from items box
-        // Fix incorrect height when refreshed is triggered with fewer options
-        _this.$li = _this.elements.items.removeAttr('style').find('li');
-
-        _this.bindEvents();
-      } else {
-        _this.elements.outerWrapper.addClass(_this.classes.disabled);
-
-        if ( _this.elements.input ) {
-          _this.elements.input.prop('disabled', true);
-        }
-      }
-
-      _this.utils.triggerCallback('Activate', _this);
-    },
-
-    /**
-     * Generate classNames for elements
-     *
-     * @return {object} Classes object
-     */
-    getClassNames: function() {
-      var _this = this;
-      var customClass = _this.options.customClass;
-      var classesObj = {};
-
-      $.each(classList.split(' '), function(i, currClass) {
-        var c = customClass.prefix + currClass;
-        classesObj[currClass.toLowerCase()] = customClass.camelCase ? c : _this.utils.toDash(c);
-      });
-
-      classesObj.prefix = customClass.prefix;
-
-      return classesObj;
-    },
-
-    /** Set the label text */
-    setLabel: function() {
-      var _this = this;
-      var labelBuilder = _this.options.labelBuilder;
-
-      if ( _this.state.multiple ) {
-        // Make sure currentValues is an array
-        var currentValues = $.isArray(_this.state.currValue) ? _this.state.currValue : [_this.state.currValue];
-        // I'm not happy with this, but currentValues can be an empty
-        // array and we need to fallback to the default option.
-        currentValues = currentValues.length === 0 ? [0] : currentValues;
-
-        var labelMarkup = $.map(currentValues, function(value) {
-          return $.grep(_this.lookupItems, function(item) {
-            return item.index === value;
-          })[0]; // we don't want nested arrays here
-        });
-
-        labelMarkup = $.grep(labelMarkup, function(item) {
-          // Hide default (please choose) if more then one element were selected.
-          // If no option value were given value is set to option text by default
-          if ( labelMarkup.length > 1 || labelMarkup.length === 0 ) {
-            return $.trim(item.value) !== '';
-          }
-          return item;
-        });
-
-        labelMarkup = $.map(labelMarkup, function(item) {
-          return $.isFunction(labelBuilder)
-            ? labelBuilder(item)
-            : _this.utils.format(labelBuilder, item);
-        });
-
-        // Limit the amount of selected values shown in label
-        if ( _this.options.multiple.maxLabelEntries ) {
-          if ( labelMarkup.length >= _this.options.multiple.maxLabelEntries + 1 ) {
-            labelMarkup = labelMarkup.slice(0, _this.options.multiple.maxLabelEntries);
-            labelMarkup.push(
-              $.isFunction(labelBuilder)
-                ? labelBuilder({ text: '...' })
-                : _this.utils.format(labelBuilder, { text: '...' }));
-          } else {
-            labelMarkup.slice(labelMarkup.length - 1);
-          }
-        }
-        _this.elements.label.html(labelMarkup.join(_this.options.multiple.separator));
-
-      } else {
-        var currItem = _this.lookupItems[_this.state.currValue];
-
-        _this.elements.label.html(
-          $.isFunction(labelBuilder)
-            ? labelBuilder(currItem)
-            : _this.utils.format(labelBuilder, currItem)
-        );
-      }
-    },
-
-    /** Get and save the available options */
-    populate: function() {
-      var _this = this;
-      var $options = _this.$element.children();
-      var $justOptions = _this.$element.find('option');
-      var $selected = $justOptions.filter(':selected');
-      var selectedIndex = $justOptions.index($selected);
-      var currIndex = 0;
-      var emptyValue = (_this.state.multiple ? [] : 0);
-
-      if ( $selected.length > 1 && _this.state.multiple ) {
-        selectedIndex = [];
-        $selected.each(function() {
-          selectedIndex.push($(this).index());
-        });
-      }
-
-      _this.state.currValue = (~selectedIndex ? selectedIndex : emptyValue);
-      _this.state.selectedIdx = _this.state.currValue;
-      _this.state.highlightedIdx = _this.state.currValue;
-      _this.items = [];
-      _this.lookupItems = [];
-
-      if ( $options.length ) {
-        // Build options markup
-        $options.each(function(i) {
-          var $elm = $(this);
-
-          if ( $elm.is('optgroup') ) {
-
-            var optionsGroup = {
-              element       : $elm,
-              label         : $elm.prop('label'),
-              groupDisabled : $elm.prop('disabled'),
-              items         : []
-            };
-
-            $elm.children().each(function(i) {
-              var $elm = $(this);
-
-              optionsGroup.items[i] = _this.getItemData(currIndex, $elm, optionsGroup.groupDisabled || $elm.prop('disabled'));
-
-              _this.lookupItems[currIndex] = optionsGroup.items[i];
-
-              currIndex++;
-            });
-
-            _this.items[i] = optionsGroup;
-
-          } else {
-
-            _this.items[i] = _this.getItemData(currIndex, $elm, $elm.prop('disabled'));
-
-            _this.lookupItems[currIndex] = _this.items[i];
-
-            currIndex++;
-
-          }
-        });
-
-        _this.setLabel();
-        _this.elements.items.append( _this.elements.itemsScroll.html( _this.getItemsMarkup(_this.items) ) );
-      }
-    },
-
-    /**
-     * Generate items object data
-     * @param  {integer} index      - Current item index
-     * @param  {node}    $elm       - Current element node
-     * @param  {boolean} isDisabled - Current element disabled state
-     * @return {object}               Item object
-     */
-    getItemData: function(index, $elm, isDisabled) {
-      var _this = this;
-
-      return {
-        index     : index,
-        element   : $elm,
-        value     : $elm.val(),
-        className : $elm.prop('class'),
-        text      : $elm.html(),
-        slug      : $.trim(_this.utils.replaceDiacritics($elm.html())),
-        selected  : $elm.prop('selected'),
-        disabled  : isDisabled
-      };
-    },
-
-    /**
-     * Generate options markup
-     *
-     * @param  {object} items - Object containing all available options
-     * @return {string}         HTML for the options box
-     */
-    getItemsMarkup: function(items) {
-      var _this = this;
-      var markup = '<ul>';
-
-      if ( $.isFunction(_this.options.listBuilder) && _this.options.listBuilder ) {
-        items = _this.options.listBuilder(items);
-      }
-
-      $.each(items, function(i, elm) {
-        if ( elm.label !== undefined ) {
-
-          markup += _this.utils.format('<ul class="{1}"><li class="{2}">{3}</li>',
-            _this.utils.arrayToClassname([
-              _this.classes.group,
-              elm.groupDisabled ? 'disabled' : '',
-              elm.element.prop('class')
-            ]),
-            _this.classes.grouplabel,
-            elm.element.prop('label')
-          );
-
-          $.each(elm.items, function(i, elm) {
-            markup += _this.getItemMarkup(elm.index, elm);
-          });
-
-          markup += '</ul>';
-
-        } else {
-
-          markup += _this.getItemMarkup(elm.index, elm);
-
-        }
-      });
-
-      return markup + '</ul>';
-    },
-
-    /**
-     * Generate every option markup
-     *
-     * @param  {number} index    - Index of current item
-     * @param  {object} itemData - Current item
-     * @return {string}            HTML for the option
-     */
-    getItemMarkup: function(index, itemData) {
-      var _this = this;
-      var itemBuilder = _this.options.optionsItemBuilder;
-      // limit access to item data to provide a simple interface
-      // to most relevant options.
-      var filteredItemData = {
-        value: itemData.value,
-        text : itemData.text,
-        slug : itemData.slug,
-        index: itemData.index
-      };
-
-      return _this.utils.format('<li data-index="{1}" class="{2}">{3}</li>',
-        index,
-        _this.utils.arrayToClassname([
-          itemData.className,
-          index === _this.items.length - 1  ? 'last'     : '',
-          itemData.disabled                 ? 'disabled' : '',
-          itemData.selected                 ? 'selected' : ''
-        ]),
-        $.isFunction(itemBuilder)
-          ? _this.utils.format(itemBuilder(itemData), itemData)
-          : _this.utils.format(itemBuilder, filteredItemData)
-      );
-    },
-
-    /** Remove events on the elements */
-    unbindEvents: function() {
-      var _this = this;
-
-      _this.elements.wrapper
-        .add(_this.$element)
-        .add(_this.elements.outerWrapper)
-        .add(_this.elements.input)
-        .off(eventNamespaceSuffix);
-    },
-
-    /** Bind events on the elements */
-    bindEvents: function() {
-      var _this = this;
-
-      _this.elements.outerWrapper.on('mouseenter' + eventNamespaceSuffix + ' mouseleave' + eventNamespaceSuffix, function(e) {
-        $(this).toggleClass(_this.classes.hover, e.type === 'mouseenter');
-
-        // Delay close effect when openOnHover is true
-        if ( _this.options.openOnHover ) {
-          clearTimeout(_this.closeTimer);
-
-          if ( e.type === 'mouseleave' ) {
-            _this.closeTimer = setTimeout($.proxy(_this.close, _this), _this.options.hoverIntentTimeout);
-          } else {
-            _this.open();
-          }
-        }
-      });
-
-      // Toggle open/close
-      _this.elements.wrapper.on('click' + eventNamespaceSuffix, function(e) {
-        _this.state.opened ? _this.close() : _this.open(e);
-      });
-
-      // Translate original element focus event to dummy input.
-      // Disabled on mobile devices because the default option list isn't
-      // shown due the fact that hidden input gets focused
-      if ( !(_this.options.nativeOnMobile && _this.utils.isMobile()) ) {
-        _this.$element.on('focus' + eventNamespaceSuffix, function() {
-          _this.elements.input.focus();
-        });
-
-        _this.elements.input
-          .prop({ tabindex: _this.originalTabindex, disabled: false })
-          .on('keydown' + eventNamespaceSuffix, $.proxy(_this.handleKeys, _this))
-          .on('focusin' + eventNamespaceSuffix, function(e) {
-            _this.elements.outerWrapper.addClass(_this.classes.focus);
-
-            // Prevent the flicker when focusing out and back again in the browser window
-            _this.elements.input.one('blur', function() {
-              _this.elements.input.blur();
-            });
-
-            if ( _this.options.openOnFocus && !_this.state.opened ) {
-              _this.open(e);
-            }
-          })
-          .on('focusout' + eventNamespaceSuffix, function() {
-            _this.elements.outerWrapper.removeClass(_this.classes.focus);
-          })
-          .on('input propertychange', function() {
-            var val = _this.elements.input.val();
-            var searchRegExp = new RegExp('^' + _this.utils.escapeRegExp(val), 'i');
-
-            // Clear search
-            clearTimeout(_this.resetStr);
-            _this.resetStr = setTimeout(function() {
-              _this.elements.input.val('');
-            }, _this.options.keySearchTimeout);
-
-            if ( val.length ) {
-              // Search in select options
-              $.each(_this.items, function(i, elm) {
-                if ( !elm.disabled && searchRegExp.test(elm.text) || searchRegExp.test(elm.slug) ) {
-                  _this.highlight(i);
-                  return;
-                }
-              });
-            }
-          });
-      }
-
-      _this.$li.on({
-        // Prevent <input> blur on Chrome
-        mousedown: function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        },
-        click: function() {
-          _this.select($(this).data('index'));
-
-          // Chrome doesn't close options box if select is wrapped with a label
-          // We need to 'return false' to avoid that
-          return false;
-        }
-      });
-    },
-
-    /**
-     * Behavior when keyboard keys is pressed
-     *
-     * @param {object} e - Event object
-     */
-    handleKeys: function(e) {
-      var _this = this;
-      var key = e.which;
-      var keys = _this.options.keys;
-
-      var isPrevKey = $.inArray(key, keys.previous) > -1;
-      var isNextKey = $.inArray(key, keys.next) > -1;
-      var isSelectKey = $.inArray(key, keys.select) > -1;
-      var isOpenKey = $.inArray(key, keys.open) > -1;
-      var idx = _this.state.highlightedIdx;
-      var isFirstOrLastItem = (isPrevKey && idx === 0) || (isNextKey && (idx + 1) === _this.items.length);
-      var goToItem = 0;
-
-      // Enter / Space
-      if ( key === 13 || key === 32 ) {
-        e.preventDefault();
-      }
-
-      // If it's a directional key
-      if ( isPrevKey || isNextKey ) {
-        if ( !_this.options.allowWrap && isFirstOrLastItem ) {
-          return;
-        }
-
-        if ( isPrevKey ) {
-          goToItem = _this.utils.previousEnabledItem(_this.lookupItems, idx);
-        }
-
-        if ( isNextKey ) {
-          goToItem = _this.utils.nextEnabledItem(_this.lookupItems, idx);
-        }
-
-        _this.highlight(goToItem);
-      }
-
-      // Tab / Enter / ESC
-      if ( isSelectKey && _this.state.opened ) {
-        _this.select(idx);
-
-        if ( !_this.state.multiple || !_this.options.multiple.keepMenuOpen ) {
-          _this.close();
-        }
-
-        return;
-      }
-
-      // Space / Enter / Left / Up / Right / Down
-      if ( isOpenKey && !_this.state.opened ) {
-        _this.open();
-      }
-    },
-
-    /** Update the items object */
-    refresh: function() {
-      var _this = this;
-
-      _this.populate();
-      _this.activate();
-      _this.utils.triggerCallback('Refresh', _this);
-    },
-
-    /** Set options box width/height */
-    setOptionsDimensions: function() {
-      var _this = this;
-
-      // Calculate options box height
-      // Set a temporary class on the hidden parent of the element
-      var hiddenChildren = _this.elements.items.closest(':visible').children(':hidden').addClass(_this.classes.tempshow);
-      var maxHeight = _this.options.maxHeight;
-      var itemsWidth = _this.elements.items.outerWidth();
-      var wrapperWidth = _this.elements.wrapper.outerWidth() - (itemsWidth - _this.elements.items.width());
-
-      // Set the dimensions, minimum is wrapper width, expand for long items if option is true
-      if ( !_this.options.expandToItemText || wrapperWidth > itemsWidth ) {
-        _this.finalWidth = wrapperWidth;
-      } else {
-        // Make sure the scrollbar width is included
-        _this.elements.items.css('overflow', 'scroll');
-
-        // Set a really long width for _this.elements.outerWrapper
-        _this.elements.outerWrapper.width(9e4);
-        _this.finalWidth = _this.elements.items.width();
-        // Set scroll bar to auto
-        _this.elements.items.css('overflow', '');
-        _this.elements.outerWrapper.width('');
-      }
-
-      _this.elements.items.width(_this.finalWidth).height() > maxHeight && _this.elements.items.height(maxHeight);
-
-      // Remove the temporary class
-      hiddenChildren.removeClass(_this.classes.tempshow);
-    },
-
-    /** Detect if the options box is inside the window */
-    isInViewport: function() {
-      var _this = this;
-      var scrollTop = $win.scrollTop();
-      var winHeight = $win.height();
-      var uiPosX = _this.elements.outerWrapper.offset().top;
-      var uiHeight = _this.elements.outerWrapper.outerHeight();
-
-      var fitsDown = (uiPosX + uiHeight + _this.itemsHeight) <= (scrollTop + winHeight);
-      var fitsAbove = (uiPosX - _this.itemsHeight) > scrollTop;
-
-      // If it does not fit below, only render it
-      // above it fit's there.
-      // It's acceptable that the user needs to
-      // scroll the viewport to see the cut off UI
-      var renderAbove = !fitsDown && fitsAbove;
-
-      _this.elements.outerWrapper.toggleClass(_this.classes.above, renderAbove);
-    },
-
-    /**
-     * Detect if currently selected option is visible and scroll the options box to show it
-     *
-     * @param {Number|Array} index - Index of the selected items
-     */
-    detectItemVisibility: function(index) {
-      var _this = this;
-      var $filteredLi = _this.$li.filter('[data-index]');
-
-      if ( _this.state.multiple ) {
-        // If index is an array, we can assume a multiple select and we
-        // want to scroll to the uppermost selected item!
-        // Math.min.apply(Math, index) returns the lowest entry in an Array.
-        index = ($.isArray(index) && index.length === 0) ? 0 : index;
-        index = $.isArray(index) ? Math.min.apply(Math, index) : index;
-      }
-
-      var liHeight = $filteredLi.eq(index).outerHeight();
-      var liTop = $filteredLi[index].offsetTop;
-      var itemsScrollTop = _this.elements.itemsScroll.scrollTop();
-      var scrollT = liTop + liHeight * 2;
-
-      _this.elements.itemsScroll.scrollTop(
-        scrollT > itemsScrollTop + _this.itemsHeight ? scrollT - _this.itemsHeight :
-          liTop - liHeight < itemsScrollTop ? liTop - liHeight :
-            itemsScrollTop
-      );
-    },
-
-    /**
-     * Open the select options box
-     *
-     * @param {Event} e - Event
-     */
-    open: function(e) {
-      var _this = this;
-
-      if ( _this.options.nativeOnMobile && _this.utils.isMobile()) {
-        return false;
-      }
-
-      _this.utils.triggerCallback('BeforeOpen', _this);
-
-      if ( e ) {
-        e.preventDefault();
-        if (_this.options.stopPropagation) {
-          e.stopPropagation();
-        }
-      }
-
-      if ( _this.state.enabled ) {
-        _this.setOptionsDimensions();
-
-        // Find any other opened instances of select and close it
-        $('.' + _this.classes.hideselect, '.' + _this.classes.open).children()[pluginName]('close');
-
-        _this.state.opened = true;
-        _this.itemsHeight = _this.elements.items.outerHeight();
-        _this.itemsInnerHeight = _this.elements.items.height();
-
-        // Toggle options box visibility
-        _this.elements.outerWrapper.addClass(_this.classes.open);
-
-        // Give dummy input focus
-        _this.elements.input.val('');
-        if ( e && e.type !== 'focusin' ) {
-          _this.elements.input.focus();
-        }
-
-        // Delayed binds events on Document to make label clicks work
-        setTimeout(function() {
-          $doc
-            .on('click' + eventNamespaceSuffix, $.proxy(_this.close, _this))
-            .on('scroll' + eventNamespaceSuffix, $.proxy(_this.isInViewport, _this));
-        }, 1);
-
-        _this.isInViewport();
-
-        // Prevent window scroll when using mouse wheel inside items box
-        if ( _this.options.preventWindowScroll ) {
-          /* istanbul ignore next */
-          $doc.on('mousewheel' + eventNamespaceSuffix + ' DOMMouseScroll' + eventNamespaceSuffix, '.' + _this.classes.scroll, function(e) {
-            var orgEvent = e.originalEvent;
-            var scrollTop = $(this).scrollTop();
-            var deltaY = 0;
-
-            if ( 'detail'      in orgEvent ) { deltaY = orgEvent.detail * -1; }
-            if ( 'wheelDelta'  in orgEvent ) { deltaY = orgEvent.wheelDelta;  }
-            if ( 'wheelDeltaY' in orgEvent ) { deltaY = orgEvent.wheelDeltaY; }
-            if ( 'deltaY'      in orgEvent ) { deltaY = orgEvent.deltaY * -1; }
-
-            if ( scrollTop === (this.scrollHeight - _this.itemsInnerHeight) && deltaY < 0 || scrollTop === 0 && deltaY > 0 ) {
-              e.preventDefault();
-            }
-          });
-        }
-
-        _this.detectItemVisibility(_this.state.selectedIdx);
-
-        _this.highlight(_this.state.multiple ? -1 : _this.state.selectedIdx);
-
-        _this.utils.triggerCallback('Open', _this);
-      }
-    },
-
-    /** Close the select options box */
-    close: function() {
-      var _this = this;
-
-      _this.utils.triggerCallback('BeforeClose', _this);
-
-      // Remove custom events on document
-      $doc.off(eventNamespaceSuffix);
-
-      // Remove visible class to hide options box
-      _this.elements.outerWrapper.removeClass(_this.classes.open);
-
-      _this.state.opened = false;
-
-      _this.utils.triggerCallback('Close', _this);
-    },
-
-    /** Select current option and change the label */
-    change: function() {
-      var _this = this;
-
-      _this.utils.triggerCallback('BeforeChange', _this);
-
-      if ( _this.state.multiple ) {
-        // Reset old selected
-        $.each(_this.lookupItems, function(idx) {
-          _this.lookupItems[idx].selected = false;
-          _this.$element.find('option').prop('selected', false);
-        });
-
-        // Set new selected
-        $.each(_this.state.selectedIdx, function(idx, value) {
-          _this.lookupItems[value].selected = true;
-          _this.$element.find('option').eq(value).prop('selected', true);
-        });
-
-        _this.state.currValue = _this.state.selectedIdx;
-
-        _this.setLabel();
-
-        _this.utils.triggerCallback('Change', _this);
-      } else if ( _this.state.currValue !== _this.state.selectedIdx ) {
-        // Apply changed value to original select
-        _this.$element
-          .prop('selectedIndex', _this.state.currValue = _this.state.selectedIdx)
-          .data('value', _this.lookupItems[_this.state.selectedIdx].text);
-
-        // Change label text
-        _this.setLabel();
-
-        _this.utils.triggerCallback('Change', _this);
-      }
-    },
-
-    /**
-     * Highlight option
-     * @param {number} index - Index of the options that will be highlighted
-     */
-    highlight: function(index) {
-      var _this = this;
-      var $filteredLi = _this.$li.filter('[data-index]').removeClass('highlighted');
-
-      _this.utils.triggerCallback('BeforeHighlight', _this);
-
-      // Parameter index is required and should not be a disabled item
-      if ( index === undefined || index === -1 || _this.lookupItems[index].disabled ) {
-        return;
-      }
-
-      $filteredLi
-        .eq(_this.state.highlightedIdx = index)
-        .addClass('highlighted');
-
-      _this.detectItemVisibility(index);
-
-      _this.utils.triggerCallback('Highlight', _this);
-    },
-
-    /**
-     * Select option
-     *
-     * @param {number} index - Index of the option that will be selected
-     */
-    select: function(index) {
-      var _this = this;
-      var $filteredLi = _this.$li.filter('[data-index]');
-
-      _this.utils.triggerCallback('BeforeSelect', _this, index);
-
-      // Parameter index is required and should not be a disabled item
-      if ( index === undefined || index === -1 || _this.lookupItems[index].disabled ) {
-        return;
-      }
-
-      if ( _this.state.multiple ) {
-        // Make sure selectedIdx is an array
-        _this.state.selectedIdx = $.isArray(_this.state.selectedIdx) ? _this.state.selectedIdx : [_this.state.selectedIdx];
-
-        var hasSelectedIndex = $.inArray(index, _this.state.selectedIdx);
-        if ( hasSelectedIndex !== -1 ) {
-          _this.state.selectedIdx.splice(hasSelectedIndex, 1);
-        } else {
-          _this.state.selectedIdx.push(index);
-        }
-
-        $filteredLi
-          .removeClass('selected')
-          .filter(function(index) {
-            return $.inArray(index, _this.state.selectedIdx) !== -1;
-          })
-          .addClass('selected');
-      } else {
-        $filteredLi
-          .removeClass('selected')
-          .eq(_this.state.selectedIdx = index)
-          .addClass('selected');
-      }
-
-      if ( !_this.state.multiple || !_this.options.multiple.keepMenuOpen ) {
-        _this.close();
-      }
-
-      _this.change();
-
-      _this.utils.triggerCallback('Select', _this, index);
-    },
-
-    /**
-     * Unbind and remove
-     *
-     * @param {boolean} preserveData - Check if the data on the element should be removed too
-     */
-    destroy: function(preserveData) {
-      var _this = this;
-
-      if ( _this.state && _this.state.enabled ) {
-        _this.elements.items.add(_this.elements.wrapper).add(_this.elements.input).remove();
-
-        if ( !preserveData ) {
-          _this.$element.removeData(pluginName).removeData('value');
-        }
-
-        _this.$element.prop('tabindex', _this.originalTabindex).off(eventNamespaceSuffix).off(_this.eventTriggers).unwrap().unwrap();
-
-        _this.state.enabled = false;
-      }
-    }
-  };
-
-  // A really lightweight plugin wrapper around the constructor,
-  // preventing against multiple instantiations
-  $.fn[pluginName] = function(args) {
-    return this.each(function() {
-      var data = $.data(this, pluginName);
-
-      if ( data && !data.disableOnMobile ) {
-        (typeof args === 'string' && data[args]) ? data[args]() : data.init(args);
-      } else {
-        $.data(this, pluginName, new Selectric(this, args));
-      }
-    });
-  };
-
-  /**
-   * Default plugin options
-   *
-   * @type {object}
-   */
-  $.fn[pluginName].defaults = {
-    onChange             : function(elm) { $(elm).change(); },
-    maxHeight            : 300,
-    keySearchTimeout     : 500,
-    arrowButtonMarkup    : '<b class="sbutton">&#x25be;</b>',
-    disableOnMobile      : false,
-    nativeOnMobile       : true,
-    openOnFocus          : true,
-    openOnHover          : false,
-    hoverIntentTimeout   : 500,
-    expandToItemText     : false,
-    responsive           : false,
-    preventWindowScroll  : true,
-    inheritOriginalWidth : false,
-    allowWrap            : true,
-    stopPropagation      : true,
-    optionsItemBuilder   : '{text}', // function(itemData, element, index)
-    labelBuilder         : '{text}', // function(currItem)
-    listBuilder          : false,    // function(items)
-    keys                 : {
-      previous : [37, 38],                 // Left / Up
-      next     : [39, 40],                 // Right / Down
-      select   : [9, 13, 27],              // Tab / Enter / Escape
-      open     : [13, 32, 37, 38, 39, 40], // Enter / Space / Left / Up / Right / Down
-      close    : [9, 27]                   // Tab / Escape
-    },
-    customClass          : {
-      prefix: pluginName,
-      camelCase: false
-    },
-    multiple              : {
-      separator: ', ',
-      keepMenuOpen: true,
-      maxLabelEntries: false
-    }
-  };
-}));
+!function(a,b){"undefined"!=typeof module&&module.exports?(b("undefined"==typeof angular?require("angular"):angular),module.exports="ngDialog"):"function"==typeof define&&define.amd?define(["angular"],b):b(a.angular)}(this,function(a){"use strict";var b=a.module("ngDialog",[]),c=a.element,d=a.isDefined,e=(document.body||document.documentElement).style,f=d(e.animation)||d(e.WebkitAnimation)||d(e.MozAnimation)||d(e.MsAnimation)||d(e.OAnimation),g="animationend webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend",h="a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]",i="ngdialog-disabled-animation",j={html:!1,body:!1},k={},l=[],m=!1,n=!1;return b.provider("ngDialog",function(){var b=this.defaults={className:"ngdialog-theme-default",appendClassName:"",disableAnimation:!1,plain:!1,showClose:!0,closeByDocument:!0,closeByEscape:!0,closeByNavigation:!1,appendTo:!1,preCloseCallback:!1,overlay:!0,cache:!0,trapFocus:!0,preserveFocus:!0,ariaAuto:!0,ariaRole:null,ariaLabelledById:null,ariaLabelledBySelector:null,ariaDescribedById:null,ariaDescribedBySelector:null,bodyClassName:"ngdialog-open",width:null,height:null};this.setForceHtmlReload=function(a){j.html=a||!1},this.setForceBodyReload=function(a){j.body=a||!1},this.setDefaults=function(c){a.extend(b,c)},this.setOpenOnePerName=function(a){n=a||!1};var d,e=0,o=0,p={};this.$get=["$document","$templateCache","$compile","$q","$http","$rootScope","$timeout","$window","$controller","$injector",function(q,r,s,t,u,v,w,x,y,z){var A=[],B={onDocumentKeydown:function(a){27===a.keyCode&&C.close("$escape")},activate:function(a){var b=a.data("$ngDialogOptions");b.trapFocus&&(a.on("keydown",B.onTrapFocusKeydown),A.body.on("keydown",B.onTrapFocusKeydown))},deactivate:function(a){a.off("keydown",B.onTrapFocusKeydown),A.body.off("keydown",B.onTrapFocusKeydown)},deactivateAll:function(b){a.forEach(b,function(b){var c=a.element(b);B.deactivate(c)})},setBodyPadding:function(a){var b=parseInt(A.body.css("padding-right")||0,10);A.body.css("padding-right",b+a+"px"),A.body.data("ng-dialog-original-padding",b),v.$broadcast("ngDialog.setPadding",a)},resetBodyPadding:function(){var a=A.body.data("ng-dialog-original-padding");a?A.body.css("padding-right",a+"px"):A.body.css("padding-right",""),v.$broadcast("ngDialog.setPadding",0)},performCloseDialog:function(a,b){var c=a.data("$ngDialogOptions"),e=a.attr("id"),h=k[e];if(h){if("undefined"!=typeof x.Hammer){var i=h.hammerTime;i.off("tap",d),i.destroy&&i.destroy(),delete h.hammerTime}else a.unbind("click");1===o&&A.body.unbind("keydown",B.onDocumentKeydown),a.hasClass("ngdialog-closing")||(o-=1);var j=a.data("$ngDialogPreviousFocus");j&&j.focus&&j.focus(),v.$broadcast("ngDialog.closing",a,b),o=o<0?0:o,f&&!c.disableAnimation?(h.$destroy(),a.unbind(g).bind(g,function(){B.closeDialogElement(a,b)}).addClass("ngdialog-closing")):(h.$destroy(),B.closeDialogElement(a,b)),p[e]&&(p[e].resolve({id:e,value:b,$dialog:a,remainingDialogs:o}),delete p[e]),k[e]&&delete k[e],l.splice(l.indexOf(e),1),l.length||(A.body.unbind("keydown",B.onDocumentKeydown),m=!1)}},closeDialogElement:function(a,b){var c=a.data("$ngDialogOptions");a.remove(),0===o&&(A.html.removeClass(c.bodyClassName),A.body.removeClass(c.bodyClassName),B.resetBodyPadding()),v.$broadcast("ngDialog.closed",a,b)},closeDialog:function(b,c){var d=b.data("$ngDialogPreCloseCallback");if(d&&a.isFunction(d)){var e=d.call(b,c);if(a.isObject(e))e.closePromise?e.closePromise.then(function(){B.performCloseDialog(b,c)},function(){return!1}):e.then(function(){B.performCloseDialog(b,c)},function(){return!1});else{if(e===!1)return!1;B.performCloseDialog(b,c)}}else B.performCloseDialog(b,c)},onTrapFocusKeydown:function(b){var c,d=a.element(b.currentTarget);if(d.hasClass("ngdialog"))c=d;else if(c=B.getActiveDialog(),null===c)return;var e=9===b.keyCode,f=b.shiftKey===!0;e&&B.handleTab(c,b,f)},handleTab:function(a,b,c){var d=B.getFocusableElements(a);if(0===d.length)return void(document.activeElement&&document.activeElement.blur&&document.activeElement.blur());var e=document.activeElement,f=Array.prototype.indexOf.call(d,e),g=f===-1,h=0===f,i=f===d.length-1,j=!1;c?(g||h)&&(d[d.length-1].focus(),j=!0):(g||i)&&(d[0].focus(),j=!0),j&&(b.preventDefault(),b.stopPropagation())},autoFocus:function(a){var b=a[0],d=b.querySelector("*[autofocus]");if(null===d||(d.focus(),document.activeElement!==d)){var e=B.getFocusableElements(a);if(e.length>0)return void e[0].focus();var f=B.filterVisibleElements(b.querySelectorAll("h1,h2,h3,h4,h5,h6,p,span"));if(f.length>0){var g=f[0];c(g).attr("tabindex","-1").css("outline","0"),g.focus()}}},getFocusableElements:function(a){var b=a[0],c=b.querySelectorAll(h),d=B.filterTabbableElements(c);return B.filterVisibleElements(d)},filterTabbableElements:function(a){for(var b=[],d=0;d<a.length;d++){var e=a[d];"-1"!==c(e).attr("tabindex")&&b.push(e)}return b},filterVisibleElements:function(a){for(var b=[],c=0;c<a.length;c++){var d=a[c];(d.offsetWidth>0||d.offsetHeight>0)&&b.push(d)}return b},getActiveDialog:function(){var a=document.querySelectorAll(".ngdialog");return 0===a.length?null:c(a[a.length-1])},applyAriaAttributes:function(a,b){if(b.ariaAuto){if(!b.ariaRole){var c=B.getFocusableElements(a).length>0?"dialog":"alertdialog";b.ariaRole=c}b.ariaLabelledBySelector||(b.ariaLabelledBySelector="h1,h2,h3,h4,h5,h6"),b.ariaDescribedBySelector||(b.ariaDescribedBySelector="article,section,p")}b.ariaRole&&a.attr("role",b.ariaRole),B.applyAriaAttribute(a,"aria-labelledby",b.ariaLabelledById,b.ariaLabelledBySelector),B.applyAriaAttribute(a,"aria-describedby",b.ariaDescribedById,b.ariaDescribedBySelector)},applyAriaAttribute:function(a,b,d,e){if(d&&a.attr(b,d),e){var f=a.attr("id"),g=a[0].querySelector(e);if(!g)return;var h=f+"-"+b;return c(g).attr("id",h),a.attr(b,h),h}},detectUIRouter:function(){try{return a.module("ui.router"),!0}catch(b){return!1}},getRouterLocationEventName:function(){return B.detectUIRouter()?"$stateChangeStart":"$locationChangeStart"}},C={__PRIVATE__:B,open:function(f){function g(b,c){var c=c||{};return c.headers=c.headers||{},a.extend(c.headers,{Accept:"text/html"}),v.$broadcast("ngDialog.templateLoading",b),u.get(b,c).then(function(a){return v.$broadcast("ngDialog.templateLoaded",b),a.data||""})}function h(b){return b?a.isString(b)&&q.plain?b:"boolean"!=typeof q.cache||q.cache?g(b,{cache:r}):g(b,{cache:!1}):"Empty template"}var j=null;if(f=f||{},!(n&&f.name&&(j=f.name.toLowerCase().replace(/\s/g,"-")+"-dialog",this.isOpen(j)))){var q=a.copy(b),D=++e;j=j||"ngdialog"+D,l.push(j),"undefined"!=typeof q.data&&("undefined"==typeof f.data&&(f.data={}),f.data=a.merge(a.copy(q.data),f.data)),a.extend(q,f);var E;p[j]=E=t.defer();var F;k[j]=F=a.isObject(q.scope)?q.scope.$new():v.$new();var G,H,I,J=a.extend({},q.resolve);return a.forEach(J,function(b,c){J[c]=a.isString(b)?z.get(b):z.invoke(b,null,null,c)}),t.all({template:h(q.template||q.templateUrl),locals:t.all(J)}).then(function(b){var e=b.template,f=b.locals;q.showClose&&(e+='<div class="ngdialog-close"></div>');var g=q.overlay?"":" ngdialog-no-overlay";if(G=c('<div id="'+j+'" class="ngdialog'+g+'"></div>'),G.html(q.overlay?'<div class="ngdialog-overlay"></div><div class="ngdialog-content" role="document">'+e+"</div>":'<div class="ngdialog-content" role="document">'+e+"</div>"),G.data("$ngDialogOptions",q),F.ngDialogId=j,q.data&&a.isString(q.data)){var h=q.data.replace(/^\s*/,"")[0];F.ngDialogData="{"===h||"["===h?a.fromJson(q.data):new String(q.data),F.ngDialogData.ngDialogId=j}else q.data&&a.isObject(q.data)&&(F.ngDialogData=q.data,F.ngDialogData.ngDialogId=j);if(q.className&&G.addClass(q.className),q.appendClassName&&G.addClass(q.appendClassName),q.width&&(I=G[0].querySelector(".ngdialog-content"),a.isString(q.width)?I.style.width=q.width:I.style.width=q.width+"px"),q.height&&(I=G[0].querySelector(".ngdialog-content"),a.isString(q.height)?I.style.height=q.height:I.style.height=q.height+"px"),q.disableAnimation&&G.addClass(i),H=q.appendTo&&a.isString(q.appendTo)?a.element(document.querySelector(q.appendTo)):A.body,B.applyAriaAttributes(G,q),q.preCloseCallback){var k;a.isFunction(q.preCloseCallback)?k=q.preCloseCallback:a.isString(q.preCloseCallback)&&F&&(a.isFunction(F[q.preCloseCallback])?k=F[q.preCloseCallback]:F.$parent&&a.isFunction(F.$parent[q.preCloseCallback])?k=F.$parent[q.preCloseCallback]:v&&a.isFunction(v[q.preCloseCallback])&&(k=v[q.preCloseCallback])),k&&G.data("$ngDialogPreCloseCallback",k)}if(F.closeThisDialog=function(a){B.closeDialog(G,a)},q.controller&&(a.isString(q.controller)||a.isArray(q.controller)||a.isFunction(q.controller))){var l;q.controllerAs&&a.isString(q.controllerAs)&&(l=q.controllerAs);var n=y(q.controller,a.extend(f,{$scope:F,$element:G}),!0,l);q.bindToController&&a.extend(n.instance,{ngDialogId:F.ngDialogId,ngDialogData:F.ngDialogData,closeThisDialog:F.closeThisDialog,confirm:F.confirm}),"function"==typeof n?G.data("$ngDialogControllerController",n()):G.data("$ngDialogControllerController",n)}if(w(function(){var a=document.querySelectorAll(".ngdialog");B.deactivateAll(a),s(G)(F);var b=x.innerWidth-A.body.prop("clientWidth");A.html.addClass(q.bodyClassName),A.body.addClass(q.bodyClassName);var c=b-(x.innerWidth-A.body.prop("clientWidth"));c>0&&B.setBodyPadding(c),H.append(G),B.activate(G),q.trapFocus&&B.autoFocus(G),q.name?v.$broadcast("ngDialog.opened",{dialog:G,name:q.name}):v.$broadcast("ngDialog.opened",G)}),m||(A.body.bind("keydown",B.onDocumentKeydown),m=!0),q.closeByNavigation){var p=B.getRouterLocationEventName();v.$on(p,function(a){B.closeDialog(G)===!1&&a.preventDefault()})}if(q.preserveFocus&&G.data("$ngDialogPreviousFocus",document.activeElement),d=function(a){var b=!!q.closeByDocument&&c(a.target).hasClass("ngdialog-overlay"),d=c(a.target).hasClass("ngdialog-close");(b||d)&&C.close(G.attr("id"),d?"$closeButton":"$document")},"undefined"!=typeof x.Hammer){var r=F.hammerTime=x.Hammer(G[0]);r.on("tap",d)}else G.bind("click",d);return o+=1,C}),{id:j,closePromise:E.promise,close:function(a){B.closeDialog(G,a)}}}},openConfirm:function(d){var e=t.defer(),f=a.copy(b);d=d||{},"undefined"!=typeof f.data&&("undefined"==typeof d.data&&(d.data={}),d.data=a.merge(a.copy(f.data),d.data)),a.extend(f,d),f.scope=a.isObject(f.scope)?f.scope.$new():v.$new(),f.scope.confirm=function(a){e.resolve(a);var b=c(document.getElementById(g.id));B.performCloseDialog(b,a)};var g=C.open(f);if(g)return g.closePromise.then(function(a){return a?e.reject(a.value):e.reject()}),e.promise},isOpen:function(a){var b=c(document.getElementById(a));return b.length>0},close:function(a,b){var d=c(document.getElementById(a));if(d.length)B.closeDialog(d,b);else if("$escape"===a){var e=l[l.length-1];d=c(document.getElementById(e)),d.data("$ngDialogOptions").closeByEscape&&B.closeDialog(d,"$escape")}else C.closeAll(b);return C},closeAll:function(a){for(var b=document.querySelectorAll(".ngdialog"),d=b.length-1;d>=0;d--){var e=b[d];B.closeDialog(c(e),a)}},getOpenDialogs:function(){return l},getDefaults:function(){return b}};return a.forEach(["html","body"],function(a){if(A[a]=q.find(a),j[a]){var b=B.getRouterLocationEventName();v.$on(b,function(){A[a]=q.find(a)})}}),C}]}),b.directive("ngDialog",["ngDialog",function(b){return{restrict:"A",scope:{ngDialogScope:"="},link:function(c,d,e){d.on("click",function(d){d.preventDefault();var f=a.isDefined(c.ngDialogScope)?c.ngDialogScope:"noScope";a.isDefined(e.ngDialogClosePrevious)&&b.close(e.ngDialogClosePrevious);var g=b.getDefaults();b.open({template:e.ngDialog,className:e.ngDialogClass||g.className,appendClassName:e.ngDialogAppendClass,controller:e.ngDialogController,controllerAs:e.ngDialogControllerAs,bindToController:e.ngDialogBindToController,disableAnimation:e.ngDialogDisableAnimation,scope:f,data:e.ngDialogData,showClose:"false"!==e.ngDialogShowClose&&("true"===e.ngDialogShowClose||g.showClose),closeByDocument:"false"!==e.ngDialogCloseByDocument&&("true"===e.ngDialogCloseByDocument||g.closeByDocument),closeByEscape:"false"!==e.ngDialogCloseByEscape&&("true"===e.ngDialogCloseByEscape||g.closeByEscape),overlay:"false"!==e.ngDialogOverlay&&("true"===e.ngDialogOverlay||g.overlay),preCloseCallback:e.ngDialogPreCloseCallback||g.preCloseCallback,bodyClassName:e.ngDialogBodyClass||g.bodyClassName})})}}}]),b});

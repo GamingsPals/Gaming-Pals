@@ -5,7 +5,9 @@
   "cancel": "Cancel",
   "tournaments" :"Tournaments",
   "game1": "Game",
+  "wrong": "Something wrong has happened!",
   "deleted": "Deleted",
+  "submit": "Submit",
   "profile": "Profile",
   "error": "There has been an error, please try again!",
   "games": "Games",
@@ -47,6 +49,9 @@
     "noRating":"This user hasn't got any rating yet! Be the first.",
     "writeRating":"Write a Rating",
     "ban": "Ban user",
+    "reportSended": "Report sended!",
+    "ratingadded": "Rating added!",
+    "gameidentitydeleted": "Game Identity deleted successfully!",
     "unban": "Unban user",
     "addSteamAccount":"Add Steam Game",
     "steam":{
@@ -85,6 +90,8 @@
     "error2": "The username have to be longer than 5 characters",
     "error3": "The username have to be shorter than 32 characters",
     "password": "Password",
+    "wrongusername": "The introduced username is already in use, please try another one",
+    "wrongemail": "The introduced email is already in use, please try another one",
     "rPassword": "Repeat password",
     "error4": "Password don't match",
     "pData": "Personal Data",
@@ -100,7 +107,11 @@
     "error9": "You have to accept our Terms and Conditions in order to sign up",
     "success": "You've signup correctly in our system, try to log in and start being a Gaming Pals",
     "required": "Required",
-    "selectl": "Select a language"
+    "selectl": "Select a language",
+    "accept": "By Checking this Box, you accept the",
+    "terms": "Terms and Conditions",
+    "younger": "You have to have more than 10 years to join Gaming Pals",
+    "older": "You are probably not that older"
   },
   "main": {
  	 "friendly": " Our community is 100% friendly and we do not allow by any means toxicity.",
@@ -160,13 +171,14 @@
     "edit": "Edit team",
     "invite": "Invite a member to the Team",
     "isntU": "There isn't any user selected yet",
-    "kick": "Kick out a member"
+    "kick": "Kick out"
   },
   "whatispassword": "With this password others users can enter the team without you inviting them is useful when you don't know yet the members of your team, share the pass with future members. It is not mandatory.",
   "tournament":{
  	 "create":"Create a Tournament",
  	 "title": "Title",
  	 "description":"Description",
+    "inscription": "Inscription",
  	 "rules":"Rules",
  	 "numberTeams":"Number of teams ",
  	 "selectValue":"Select value",
@@ -179,6 +191,12 @@
  	 "inscribe":"JOIN IN",
  	 "inscriptedTeams":"Inscripted Teams",
  	 "bracket":"Bracket",
+    "brackets":{
+      "finals": "Final",
+      "semifinals": "Semifinal",
+      "quarterfinals": "Quarter final",
+      "round": "Round"
+    },
  	 "awards":"Awards",
  	 "adminZone":"Admin zone",
  	 "advanceRounds":"Advance Rounds",
@@ -241,7 +259,7 @@
   	"newFollowers":"New Followers",
   	"noTeamInvitations":"You haven't received invitations recently",
   	"reject":"Reject",
-  	"accept":"accept",
+  	"accept":"Accept",
   	"noNewFollowers":"You haven't been followed recently",
   	"followYou":"Has followed you"
   },
