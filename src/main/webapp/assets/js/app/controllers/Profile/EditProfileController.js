@@ -1,5 +1,5 @@
 app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth,
-                                                 SweetAlert,$route) {
+                                                 SweetAlert,$route,localization) {
     middleware.needRol("USER");
     $scope.languagesForm = [];
     LanguageService.getAll(function(data){
@@ -22,11 +22,11 @@ app.controller('EditProfileController', function($scope, middleware, xhr, $locat
         });
 	    xhr.post("api/user/edit", result,function(){
 		auth.load(()=>{
-            SweetAlert.swal("Profile Edited", "Your profile has been edited successfully!", "success");
+            SweetAlert.swal(localization.confirmProfile.edited, localization.confirmProfile.editedSuccess, localization.confirmProfile.successE);
             $scope.chargeForms();
         },true);
         },function(){
-		    $scope.error = "There was something wrong with your form, try again!"
+		    $scope.error = localization.confirmProfile.try
         });
 
 	};

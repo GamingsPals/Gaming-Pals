@@ -2,10 +2,10 @@
 
 <form name="gamesForm" ng-submit="gamesForm.$valid && addGame(form)">
     {{loc.game.input}}
-    <input type="search" class="col" placeholder="Search a game" ng-model="search" ng-keydown="getGames(search)" />
+    <input type="search" class="col" placeholder={{loc.game.searchG}} ng-model="search" ng-keydown="getGames(search)" />
     <i class="fa fa-search cursor-pointer" ng-click="getGames(search)"></i>
   <select name="games" ng-model="games" ng-change="tojson(games)">
-      <option value="" ng-show="SteamService._all.length===0">Select a Game</option>
+      <option value="" ng-show="SteamService._all.length===0">{{loc.game.game}}</option>
       <option ng-repeat="item in SteamService._all|filter:search" value="{{item}}">{{item.name}}</option>
   </select>
     <div ng-if="selectedgame">

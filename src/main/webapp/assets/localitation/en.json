@@ -176,6 +176,39 @@
     "isntU": "There isn't any user selected yet",
     "kick": "Kick out"
   },
+  "confirmTeam":{
+    "invite": "Are you sure you want to invite these users to the team?",
+    "confirmInvite": "You won't be able to undone it!",
+    "inviteSend": "Invitation are sended",
+    "sended": "Sended!",
+    "delete": "Are you sure you want to delete this team?",
+    "deleteConfirm": "You won't be able to recover it!",
+    "deleteSend": "The Team has been deleted!",
+    "deleted": "Deleted!",
+    "edited": "Team edited!",
+    "leave": "Leave the Team",
+    "leaveConfirm": "Are you sure you want to leave this team?",
+    "left": "You have left the Team",
+    "promote": "Promote member",
+    "promoteConfirm": "Are you sure you want to promote this member to leader?",
+    "promoted": "User promoted to Leader!",
+    "newLeader": "New leader!",
+    "kick": "Kick member",
+    "kickConfirm": "Are you sure you want to kick this member out of the team?",
+    "kicked": "User kicked out!",
+    "joined": "You've joined the team!",
+    "passwordDidnt": "The password didn't match!"
+  },
+  "confirmProfile":{
+    "errorSteam": "There were some errors, please try again or check your Steam ID",
+    "edited": "Profile Edited",
+    "editedSuccess": "Your profile has been edited successfully!",
+    "successE": "success",
+    "try": "There was something wrong with your form, try again!"
+  },
+  "adminConfirm":{
+    "gameA": "Game Added Succesfuly"
+  },
   "whatispassword": "With this password others users can enter the team without you inviting them is useful when you don't know yet the members of your team, share the pass with future members. It is not mandatory.",
   "tournament":{
  	 "create":"Create a Tournament",
@@ -459,7 +492,9 @@
     "name": "Name",
     "header": "Header image",
     "avatar": "Avatar image",
-    "tag": "(short name of the game)"
+    "tag": "(short name of the game)",
+    "game": "Select a game",
+    "searchG": "Search a game"
   },
   "incidence":{
     "contact": "Contact",

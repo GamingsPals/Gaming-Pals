@@ -1,5 +1,5 @@
 app.controller('AdminPanelController',function($scope,ActorService,middleware,
-                                               AdminService,$routeParams,$location, SteamService,SweetAlert){
+                                               AdminService,$routeParams,$location, SteamService,SweetAlert,localization){
     middleware.needRol("ADMIN,MODERATOR");
     $scope.getBannedUsers = ()=>{
         AdminService.getBannedUsers((a)=>{
@@ -26,7 +26,7 @@ app.controller('AdminPanelController',function($scope,ActorService,middleware,
 
     $scope.addGame =function(game){
         SteamService.addGame(game,((a)=>{
-            SweetAlert.swal("Game Added Succesfuly",`You have added ${game.name}succesfully`,"succes");
+            SweetAlert.swal(localization.adminConfirm.gameA,`You have added ${game.name}succesfully`,localization.confirmProfile.successE);
             $scope.search = '';
             delete $scope.selectedgame;
             delete $scope.form;

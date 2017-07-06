@@ -176,6 +176,39 @@
     "isntU": "No hay ningún usuario seleccionado",
     "kick": "Expulsar"
   },
+  "confirmTeam":{
+    "invite": "¿Estás seguro que quieres invitar a estos usuarios al equipo?",
+    "confirmInvite": "¡No podrás deshacerlo!",
+    "inviteSend": "La invitación ha sido enviada",
+    "sended": "¡Enviada!",
+    "delete": "¿Estás seguro que quieres eliminar este equipo?",
+    "deleteConfirm": "¡No podrás recuperarlo!",
+    "deleteSend": "¡El equipo ha sido eliminado!",
+    "deleted": "¡Eliminado!",
+    "edited": "¡Equipo editado!",
+    "leave": "Dejar el equipo",
+    "leaveConfirm": "¿Estás seguro que quieres dejar el equipo?",
+    "left": "Has dejado el equipo",
+    "promote": "Promover miembro",
+    "promoteConfirm": "¿Estás seguro que quieres promover este miembro a líder?",
+    "promoted": "¡Usuario promovido a líder!",
+    "newLeader": "¡Nuevo lider!",
+    "kick": "Expulsar miembro",
+    "kickConfirm": "¿Estás seguro que quieres expulsar a este miembro del equipo?",
+    "kicked": "¡Usuario Expulsado!",
+    "joined": "¡Te has unido al equipo!",
+    "passwordDidnt": "¡La contraseña no coincide!"
+  },
+  "confirmProfile":{
+    "errorSteam": "Hubo algunos errores, inténtalo de nuevo o comprueba tu Steam ID",
+    "edited": "Perfil editado",
+    "editedSuccess": "¡Tu perfil ha sido editado con éxito!",
+    "successE": "éxito",
+    "try": "Había algo mal con tu formulario, inténtalo de nuevo!"
+  },
+  "adminConfirm":{
+    "gameA": "Juego añadido con éxito"
+  },
   "whatispassword": "Con esta contraseña otros usuarios podrán entrar en el equipo sin invitarlos, es útil cuando aun no sabes los miembro del equipo. Compártela con los futuros miembros del equipo para que entren. No es obligatorio.",
   "tournament":{
  	 "create":"Crear un torneo",
@@ -458,7 +491,9 @@
     "name": "Nombre",
     "header": "Imagen de cabecera",
     "avatar": "Image de avatar",
-    "tag": "(nombre corto del juego)"
+    "tag": "(nombre corto del juego)",
+    "game": "Selecciona un juego",
+    "searchG": "Busca un juego"
   },
   "incidence":{
     "contact": "Contactar",

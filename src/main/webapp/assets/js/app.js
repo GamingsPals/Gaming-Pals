@@ -8988,7 +8988,7 @@ routes = [
 
     $locationProvider.html5Mode(true);
 });;;;app.controller('AdminPanelController',function($scope,ActorService,middleware,
-                                               AdminService,$routeParams,$location, SteamService,SweetAlert){
+                                               AdminService,$routeParams,$location, SteamService,SweetAlert,localization){
     middleware.needRol("ADMIN,MODERATOR");
     $scope.getBannedUsers = ()=>{
         AdminService.getBannedUsers((a)=>{
@@ -9015,7 +9015,7 @@ routes = [
 
     $scope.addGame =function(game){
         SteamService.addGame(game,((a)=>{
-            SweetAlert.swal("Game Added Succesfuly",`You have added ${game.name}succesfully`,"succes");
+            SweetAlert.swal(localization.adminConfirm.gameA,`You have added ${game.name}succesfully`,localization.confirmProfile.successE);
             $scope.search = '';
             delete $scope.selectedgame;
             delete $scope.form;
@@ -9077,7 +9077,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 
 	}
 });
-;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog,storage) {
+;app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog,storage,localization) {
 
     middleware.needRol("NONE");
     $scope.success = false;
@@ -9099,7 +9099,7 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
 		xhr.post("api/signup", data,function(){
             $scope.success = true;
         },function(){
-		    $scope.error = "There was something wrong with your form, try again!";
+		    $scope.error = localization.confirmProfile.try;
             dialog.closeAll();
         });
 
@@ -9414,7 +9414,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
 	};
 	$scope.ejecutaPaypal();
 });
-;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
+;;app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog,localization){
     $scope.searched = false;
     $scope.validateSteam = function(){
         xhr.post("api/steam/add",$scope.steam,(a)=>{
@@ -9422,7 +9422,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.ActorService.UserProfile();
             $scope.error = "";
         },(p)=>{
-            $scope.error = "There were some errors, please try again or check your Steam ID";
+            $scope.error = localization.confirmProfile.errorSteam;
         })
     };
 
@@ -9432,14 +9432,14 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.searched = true;
             $scope.error = "";
         }),(p)=>{
-            $scope.error = "There were some errors, please try again or check your Steam ID";
+            $scope.error = localization.confirmProfile.errorSteam;
         })
     };
 
     $scope.tutorialSteam = function(){
         dialog.open("profile/steamtutorial");
     }
-});;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware){
+});;app.controller('AddSummonerController',function($scope,LolApiService,dialog,ActorService,middleware,localization){
     middleware.needRol("ANY");
     $scope.LolData=LolApiService;
     $scope.validateSummoner = function(){
@@ -9455,11 +9455,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.error = false;
             ActorService.UserProfile();
         },function(data){
-            $scope.error = data.data.message;
+            $scope.error = localization.addSummoner[data.data.message];
         });
     }
 });;app.controller('EditProfileController', function($scope, middleware, xhr, $location,LanguageService,dialog,auth,
-                                                 SweetAlert,$route) {
+                                                 SweetAlert,$route,localization) {
     middleware.needRol("USER");
     $scope.languagesForm = [];
     LanguageService.getAll(function(data){
@@ -9482,11 +9482,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         });
 	    xhr.post("api/user/edit", result,function(){
 		auth.load(()=>{
-            SweetAlert.swal("Profile Edited", "Your profile has been edited successfully!", "success");
+            SweetAlert.swal(localization.confirmProfile.edited, localization.confirmProfile.editedSuccess, localization.confirmProfile.successE);
             $scope.chargeForms();
         },true);
         },function(){
-		    $scope.error = "There was something wrong with your form, try again!"
+		    $scope.error = localization.confirmProfile.try
         });
 
 	};
@@ -9640,7 +9640,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         })
     }
 });;app.controller("ManageTeamController",function($scope,auth,middleware,$routeParams,xhr,SystemMessages,
-                                               TeamService,UserService,SweetAlert,$location,Alerts){
+                                               TeamService,UserService,SweetAlert,$location,Alerts, localization){
     $scope.team = $scope.$parent.team;
     $scope.inviteForm = {};
     $scope.inviteForm.members = [];
@@ -9661,9 +9661,8 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 
     $scope.inviteMembers = function(form){
         let data = {"users": form.members};
-        let datamESSAGE = {title: "Are you sure you want to invite these users to the team?",text:"You won't be able to " +
-        "undone it!",
-            confirmtext:"Invitation are sended",confirmtitle:"Sended!"};
+        let datamESSAGE = {title: localization.confirmTeam.invite,text: localization.confirmTeam.confirmInvite,
+            confirmtext:localization.confirmTeam.inviteSend,confirmtitle:localization.confirmTeam.sended};
         datamESSAGE.callback = (a)=>{
             TeamService.invite($scope.team,data,(a)=>{
                 $scope.loadTeam($scope.team.id);
@@ -9673,11 +9672,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
     $scope.delete = function(){
-        let data = {title: "Are you sure you want to delete this team?",text:"You won't be able to recover it!",
-        confirmtext:"The Team has been deleted!",confirmtitle:"Deleted!"};
+        let data = {title: localization.confirmTeam.delete,text:localization.confirmTeam.deleteConfirm,
+        confirmtext:localization.confirmTeam.deleteSend,confirmtitle:localization.confirmTeam.deleted};
         data.callback= (a)=>{
             xhr.get(`api/team/${$scope.team.id}/delete`,(data2)=>{
-                SystemMessages.okmessage("Team deleted!");
+                SystemMessages.okmessage(localization.confirmTeam.deleted);
                 $location.path("/");
             })
         };
@@ -9689,16 +9688,16 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         let data = form;
         xhr.post(`api/team/${$scope.team.id}/edit`,data,(data2)=>{
             $location.path("team/"+$scope.team.id);
-            SystemMessages.okmessage("Team edited!");
+            SystemMessages.okmessage(localization.confirmTeam.edited);
         })
     };
     $scope.leaveTeam = function(actor){
-        let data = {title: "Leave the Team",text: "Are you sure you want to leave this team?",confirmtitle:"You have left the Team",
+        let data = {title: localization.confirmTeam.leave,text: localization.confirmTeam.leaveConfirm,confirmtitle:localization.confirmTeam.left,
         confirmtext: ""};
         data.callback =(a)=>{
             xhr.get(`api/team/${$scope.team.id}/leave`,(data2)=>{
                 $location.path("team/"+$scope.team.id);
-                SystemMessages.okmessage("You have left the Team!");
+                SystemMessages.okmessage(localization.confirmTeam.left);
             })
         };
         Alerts.confirm(data);
@@ -9706,8 +9705,8 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
     $scope.promoteNewLeader = function(form){
-        let data2 = {title: "Promote member",text: `Are you sure you want to promote this member to leader?`,
-            confirmtext: "User promoted to Leader!",confirmtitle:"New leader!!"};
+        let data2 = {title: localization.confirmTeam.promote,text: localization.confirmTeam.promoteConfirm,
+            confirmtext: localization.confirmTeam.promoted,confirmtitle:localization.confirmTeam.newLeader};
         data2.callback = (a)=>{
             TeamService.promoteNewLeader($scope.team,form.user,()=>{
                 $scope.loadTeam($scope.team.id);
@@ -9717,8 +9716,8 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     };
 
     $scope.kickMember = function(form){
-        let data2 = {title: "Kick member",text: `Are you sure you want to kick this member out of the team?`,
-            confirmtext: "User kicked out!",confirmtitle:"Kicked out!!"};
+        let data2 = {title: localization.confirmTeam.kick,text: localization.confirmTeam.kickConfirm,
+            confirmtext: localization.confirmTeam.kicked,confirmtitle:localization.confirmTeam.kicked};
         data2.callback = (a)=>{
             TeamService.kickMember($scope.team,form.member);
             $scope.loadTeam($scope.team.id);
@@ -9748,7 +9747,7 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         })
     };
 
-});;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService,UserService,SweetAlert,$location){
+});;app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService,UserService,SweetAlert,$location,localization){
     middleware.needRol("USER,ADMIN");
     $scope.notFound = true;
     $scope.url = "team/"+$routeParams.name;
@@ -9780,11 +9779,11 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
     $scope.join = function(form){
         let password = form.password;
         xhr.get(`api/team/${$scope.team.id}/join?password=${password}`,(a)=>{
-            SweetAlert.swal("You've joined the team!");
+            SweetAlert.swal(localization.confirmTeam.joined);
             $scope.loadTeam($scope.team.name);
             $location.path("team/"+$scope.team.name);
         },(a)=>{
-            SweetAlert.warning("The password didn't match!")
+            SweetAlert.warning(localization.confirmTeam.passwordDidnt)
         })
     };
 

@@ -1,4 +1,4 @@
-app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog){
+app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialog,localization){
     $scope.searched = false;
     $scope.validateSteam = function(){
         xhr.post("api/steam/add",$scope.steam,(a)=>{
@@ -6,7 +6,7 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
             $scope.ActorService.UserProfile();
             $scope.error = "";
         },(p)=>{
-            $scope.error = "There were some errors, please try again or check your Steam ID";
+            $scope.error = localization.confirmProfile.errorSteam;
         })
     };
 
@@ -16,7 +16,7 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
             $scope.searched = true;
             $scope.error = "";
         }),(p)=>{
-            $scope.error = "There were some errors, please try again or check your Steam ID";
+            $scope.error = localization.confirmProfile.errorSteam;
         })
     };
 

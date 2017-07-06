@@ -1,4 +1,4 @@
-app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog,storage) {
+app.controller('SignupController', function($scope, middleware, xhr, $location,LanguageService, dialog,storage,localization) {
 
     middleware.needRol("NONE");
     $scope.success = false;
@@ -20,7 +20,7 @@ app.controller('SignupController', function($scope, middleware, xhr, $location,L
 		xhr.post("api/signup", data,function(){
             $scope.success = true;
         },function(){
-		    $scope.error = "There was something wrong with your form, try again!";
+		    $scope.error = localization.confirmProfile.try;
             dialog.closeAll();
         });
 

@@ -1,4 +1,4 @@
-app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService,UserService,SweetAlert,$location){
+app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr,TeamService,UserService,SweetAlert,$location,localization){
     middleware.needRol("USER,ADMIN");
     $scope.notFound = true;
     $scope.url = "team/"+$routeParams.name;
@@ -30,11 +30,11 @@ app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr
     $scope.join = function(form){
         let password = form.password;
         xhr.get(`api/team/${$scope.team.id}/join?password=${password}`,(a)=>{
-            SweetAlert.swal("You've joined the team!");
+            SweetAlert.swal(localization.confirmTeam.joined);
             $scope.loadTeam($scope.team.name);
             $location.path("team/"+$scope.team.name);
         },(a)=>{
-            SweetAlert.warning("The password didn't match!")
+            SweetAlert.warning(localization.confirmTeam.passwordDidnt)
         })
     };
 
