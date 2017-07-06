@@ -164,6 +164,7 @@
     "needpassword": "You need the password of the team to join it, please write it down if you know it",
     "password": "Password",
     "leave": "Leave the team",
+    "leave1": "Leave",
     "cantl": "You can't leave the team if you are the leader, promote other team member in order to be able to leave the team",
     "jointournaments": "Played Tournaments",
     "delete": "Delete the team",

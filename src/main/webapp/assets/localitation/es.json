@@ -164,6 +164,7 @@
     "needpassword": "Necesita la contraseña del equipo para unirse, por favor escriba al líder si lo conoce.",
     "password": "Contraseña",
     "leave": "Dejar el equipo",
+    "leave1": "Dejar",
     "cantl": "No puede dejar el equipo si es el líder, promueva a otro miembro del equipo para poder hacerlo",
     "jointournaments": "Torneos jugados",
     "delete": "Eliminar equipo",
