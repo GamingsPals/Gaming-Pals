@@ -5,7 +5,8 @@
 <section class="col s5 section">
     <h2>{{loc.team.leave}}</h2>
     <p ng-if="isLeader(auth.principal.actor)==true">{{loc.team.cantl}}</p>
-    <a class="button bg-red3" ng-if="isLeader(auth.principal.actor)==false" ng-click="leaveTeam(auth.principal.actor)">{{loc.team.leave1}}</a>
+    <a class="button bg-red3" ng-if="isLeader(auth.principal.actor)==false" ng-click="leaveTeam(auth.principal.actor)">
+        {{loc.team.leave}}</a>
 </section>
 <section class="col s5 section">
     <h2>{{loc.team.delete}}</h2>

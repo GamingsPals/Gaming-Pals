@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import domain.notifications.TeamInvitationNotification;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,6 +25,17 @@ public class Team extends DomainEntity {
 	private User leader;
 	private String password;
 	private Collection<ReportMatch> reportMatches;
+	private Collection<TeamInvitationNotification> teamInvitationNotifications;
+
+	@OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
+	@JsonIgnore
+	public Collection<TeamInvitationNotification> getTeamInvitationNotifications() {
+		return teamInvitationNotifications;
+	}
+
+	public void setTeamInvitationNotifications(Collection<TeamInvitationNotification> teamInvitationNotifications) {
+		this.teamInvitationNotifications = teamInvitationNotifications;
+	}
 
 	// Constructor
 	public Team() {

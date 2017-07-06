@@ -5,12 +5,12 @@
 <div class="content">
 
 
-<form class="search-filter" method="get" ng-submit="filter(search)">
+<div class="search-filter">
     <div class="col s6">
         <label for="username">
             {{loc.signupform.name}}
         </label>
-        <input type="text" id="username" name="username" ng-model="search.username" placeholder="{{loc.signupform.name}}..."/>
+        <input type="text" id="username" name="username" ng-model="search.userAccount.username" placeholder="{{loc.signupform.name}}..."/>
     <label for="games">
         {{loc.search.game}}
     </label>
@@ -23,24 +23,20 @@
             {{loc.search.languages}}
         </label>
         <select class="s8" multiple id="languages" name="languages" ng-model="search.languages">
-            <option value="{{i.id}}" ng-repeat="i in languages">{{i.longName}}</option>
+            <option value="es">Spanish</option>
+            <option value="en">English</option>
         </select>
-        <label for="ratingAvg">
-            {{loc.search.ratingavg}}
-        </label>
-        <input id="ratingAvg" type="number" min="1" max="5" placeholder="Rating Avg." ng-model="search.ratingAvg"/>
     </div>
-    <input type="submit"  value="{{loc.search.filter}}" /> <a href="search" class="small">{{loc.search.resetFilter}}</a>
+    <a ng-class="button" href="#" class="small" ng-click="search={}">{{loc.search.resetFilter}}</a>
 
-</form>
+</div>
 <div class="card" user-card="item"
-     ng-repeat="item in As.search|paginate:'search'"></div>
-
+     ng-repeat="item in users |paginate:'search':pepe|search:search"></div>
 <ul class="pagination"
-    gp-paginate-url="true"
-    gp-paginate-items="As.search"
+    gp-paginate-items="users"
     gp-paginate
     gp-paginate-limit="6"
-    gp-paginate-id="search">
+    gp-paginate-id="search"
+>
 </ul>
 </div>

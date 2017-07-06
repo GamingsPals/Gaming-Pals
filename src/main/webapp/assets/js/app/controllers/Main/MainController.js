@@ -1,6 +1,6 @@
 app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
 ,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,
-                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService){
+                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService,$window){
     localization.init($scope);
     $scope.TeamService = TeamService;
     $scope.AdminService = AdminService;
@@ -47,6 +47,11 @@ app.controller('MainController',function($scope, localization, $rootScope, auth,
             $scope.bestRatedUsers = a.bestRatedUsers;
             $scope.games = a.games;
         })
+    };
+
+    $scope.changeLan = function(lan){
+        localization.changeLan(lan);
+        $window.location.reload();
     };
 
     $scope.aboutUs = function () {

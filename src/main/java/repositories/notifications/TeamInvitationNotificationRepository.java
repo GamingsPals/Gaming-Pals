@@ -23,4 +23,7 @@ public interface TeamInvitationNotificationRepository extends JpaRepository<Team
 
     @Query("select n from TeamInvitationNotification n where n.actor=?1 and n.readed=false")
     Collection<TeamInvitationNotification> findByActorNews(Actor actor);
+
+    @Query("select n from TeamInvitationNotification n where n.actor=?1 and n.team=?2 and n.readed=false")
+    TeamInvitationNotification findNotificationByUserTeam(User e, Team team);
 }

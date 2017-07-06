@@ -15,15 +15,6 @@
 <meta name=”description” content="Be prepared to a hole new gaming experience joining our community. 0% Toxicity. 100% Fun." />
 
 
-<style type="text/css">
-.paypal {
-	border: 0;
-	z-index: 14;
-	top: 0;
-	left: 0;
-	display: line;
-}
-</style>
 <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +24,6 @@
 <link href="assets/css/style.min.css" rel="stylesheet" />
 <script src="assets/js/md5.js"></script>
 <script src="assets/js/app.js"></script>
-
 <title>GamingPals</title>
 
 
@@ -169,11 +159,11 @@
 				<li><a href="legal">
 						{{loc.layout.legalNote}}</a></li>
 				<li><a class="cursor-pointer" href="#"
-					ng-click="loc.changeLan('en')"><flag lang="en"></flag> </a> <a
-					class="cursor-pointer" href="#" ng-click="loc.changeLan('es')"><flag
+					ng-click="changeLan('en')"><flag lang="en"></flag> </a> <a
+					class="cursor-pointer" href="#" ng-click="changeLan('es')"><flag
 							lang="es"></flag></a></li>
 			</ul>
-			<div class="text-center">© 2017-2017 Gaming-Pals.com</div>
+			<div class="text-center">© 2017 Gaming-Pals.com</div>
 		</footer>
 	</div>
 	<div class="message-system {{SystemMessages.color}}"

@@ -76,11 +76,15 @@ public class TeamInvitationNotificationService {
     public void newInvitation(User e, Team team) {
         Assert.notNull(e);
         Assert.notNull(team);
-        TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
-        teamInvitationNotification.setTeam(team);
-        teamInvitationNotification.setUser(e);
-        teamInvitationNotification.setActor(e);
-        save(teamInvitationNotification);
+        TeamInvitationNotification exists = teamInvitationNotificationRepository.
+                findNotificationByUserTeam(e,team);
+        if(exists==null) {
+            TeamInvitationNotification teamInvitationNotification = new TeamInvitationNotification();
+            teamInvitationNotification.setTeam(team);
+            teamInvitationNotification.setUser(e);
+            teamInvitationNotification.setActor(e);
+            save(teamInvitationNotification);
+        }
     }
 
     public void newInvitations(Collection<User> users, Team team) {

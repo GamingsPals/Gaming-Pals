@@ -1,32 +1,22 @@
 
-app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, LanguageService){
+app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, UserService){
     middleware.needRol("ANY");
-    $scope.As = SearchService;
-    $scope.search = {};
-    $scope.page = (typeof $location.search().page!=="undefined") ? $location.search().page : 1;
-    $scope.limit = 6;
-    $scope.As.filter($location.search());
-    $scope.search = $location.search();
-    $scope.filter = function(object){
-        object.page=1;
-        delete object._csrf;
-        for(let i in object){
-            if(object.hasOwnProperty(i)){
-                $location.search(i,object[i]);
-            }
-        }
-    };
+    $scope.As = UserService;
+    $scope.search = {"pepe":1};
+
+    $scope.As.addCallback((a)=>{
+        $scope.users = a;
+    });
+
 
     $scope.GameInfoService.addCallbackOnDelete((a)=>{
-        $scope.As.filter($location.search());
+        $scope.As.findAll((a)=>{
+            $scope.users = a;
+        });
     });
 
     GameService.all((a)=>{
         $scope.games = a.data;
     });
-    LanguageService.getAll(function(data){
-        $scope.languages = data;
-    });
 
-    $location.search("_csrf",null);
 });

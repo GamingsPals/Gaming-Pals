@@ -55,7 +55,7 @@
      <label>
         {{loc.signupform.picture}}
     </label>
-    <input type="url"  class="s10" placeholder=" {{loc.signupform.picture}}" name="picture" ng-model="form.picture" title="Picture"/>
+    <input type="url"  class="s10" placeholder="{{loc.signupform.picture}}" name="picture" ng-model="form.picture" title="Picture"/>
         <div class="form-error" ng-messages="signupform.picture.$error" role="alert"
              ng-show="signupform.picture.$dirty && signupform.picture.$invalid">
             <div ng-message="url">{{loc.signupform.error6}}</div>
@@ -63,7 +63,7 @@
         <label>
             {{loc.signupform.headerImage}}
         </label>
-        <input type="url"  class="s10" placeholder=" {{loc.signupform.headerImage}}" name="header" ng-model="form.header" title="Header"/>
+        <input type="url"  class="s10" placeholder="{{loc.signupform.headerImage}}" name="header" ng-model="form.header" title="Header"/>
         <div class="form-error" ng-messages="signupform.header.$error" role="alert"
              ng-show="signupform.header.$dirty && signupform.header.$invalid">
             <div ng-message="url">{{loc.signupform.error6}}</div>
@@ -71,8 +71,8 @@
 	<label>
         {{loc.signupform.age}} *
     </label>
-    <input type="date"  class="s10" placeholder="{{loc.signupform.age}}" name="age" title="Age" ng-model="form.age"
-           required min="1900-01-01" max="{{mindate | date:'yyyy-MM-dd'}}"/>
+    <input type="date"  class="s10" name="age" title="Age" ng-model="form.age"
+           required min="1900-01-01" max="{{mindate | date:'yyyy-MM-dd'}}" date-verify=""/>
         <div class="form-error" ng-messages="signupform.age.$error" role="alert"
              ng-show="signupform.age.$dirty && signupform.age.$invalid">
             <div ng-message="pattern">{{loc.signupform.error7}}</div>

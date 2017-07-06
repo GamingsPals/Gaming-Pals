@@ -57,34 +57,32 @@ public class TeamInvitationController extends ApiAbstractController {
         try {
             Team team = invitation.getTeam();
             List<User> userList = new ArrayList<>(team.getUsers());
-            Assert.isTrue(!userList.contains(user));
-            userList.add(user);
-            team.setUsers(userList);
-            teamService.save(team);
-            invitation.setReaded(true);
-            teamInvitationNotificationService.save(invitation);
-            return ok(response,null);
+            if(!userList.contains(user)) {
+                userList.add(user);
+                team.setUsers(userList);
+                teamService.save(team);
+                invitation.setReaded(true);
+                teamInvitationNotificationService.save(invitation);
+            }
+                return ok(response, null);
         } catch (Exception e){
             return internalservererror(response,null);
         }
     }
 
     @RequestMapping(value = "/invitations/{invitation}/reject")
-    public Object reject(TeamInvitationNotification invitation, HttpServletResponse response)
+    public Object reject(@PathVariable("invitation") TeamInvitationNotification invitation, HttpServletResponse response)
             throws Exception{
-        Actor actor = actorService.findActorByPrincipal();
-        User user;
         try{
             Assert.notNull(invitation);
         }catch (Exception e){
             return notFoundError(response,null);
         }
         try{
-            user = (User) actor;
-            Assert.isTrue(invitation.getUser().getId() == user.getId());
+            User actor = userService.findByPrincipal();
+            Assert.isTrue(invitation.getUser().getId() == actor.getId());
         } catch (Exception e){
             return unauthorized(response,null);
-
         }
         try {
             invitation.setReaded(true);

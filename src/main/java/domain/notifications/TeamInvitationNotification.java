@@ -18,7 +18,7 @@ public class TeamInvitationNotification extends Notification {
         this.type = Type.TeamInvitation;
     }
 
-    @OneToOne
+    @ManyToOne
     public Team getTeam() {
         return team;
     }

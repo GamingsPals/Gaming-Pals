@@ -1,7 +1,7 @@
 
-app.controller("BracketsController",function($scope,TournamentService,dialog,SystemMessages){
+app.controller("BracketsController",function($scope,TournamentService,dialog,SystemMessages,localization){
     $scope.ts = TournamentService;
-
+    let loc = localization;
     $scope.getRound = function(i){
         let nrounds = $scope.ts.nrounds($scope.tournament);
         let vround = nrounds - i;
@@ -10,13 +10,13 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
                 return loc.tournament.brackets.finals;
                 break;
             case 1:
-                return loc.tournament.brackets.semifinal;
+                return loc.tournament.brackets.semifinals;
                 break;
             case 2:
                 return loc.tournament.brackets.quarterfinals;
                 break;
             default:
-                return loc.tournament.brackets.round+" "+nrounds;
+                return loc.tournament.brackets.round+" "+vround;
 
         }
     };

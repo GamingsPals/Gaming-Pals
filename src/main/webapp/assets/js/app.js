@@ -9210,7 +9210,7 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     });
 });;app.controller('MainController',function($scope, localization, $rootScope, auth, SystemMessages, $sanitize
 ,ActorService,UserService,$location,NotificationService,socket,chat, dialog,PaginationService,AdminService,
-                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService){
+                                         TournamentService, TeamService, GameInfoService,SweetAlert,DashBoardService,$window){
     localization.init($scope);
     $scope.TeamService = TeamService;
     $scope.AdminService = AdminService;
@@ -9257,6 +9257,11 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.bestRatedUsers = a.bestRatedUsers;
             $scope.games = a.games;
         })
+    };
+
+    $scope.changeLan = function(lan){
+        localization.changeLan(lan);
+        $window.location.reload();
     };
 
     $scope.aboutUs = function () {
@@ -9562,38 +9567,29 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
     }
 });
 ;
-app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, LanguageService){
+app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, UserService){
     middleware.needRol("ANY");
-    $scope.As = SearchService;
-    $scope.search = {};
-    $scope.page = (typeof $location.search().page!=="undefined") ? $location.search().page : 1;
-    $scope.limit = 6;
-    $scope.As.filter($location.search());
-    $scope.search = $location.search();
-    $scope.filter = function(object){
-        object.page=1;
-        delete object._csrf;
-        for(let i in object){
-            if(object.hasOwnProperty(i)){
-                $location.search(i,object[i]);
-            }
-        }
-    };
+    $scope.As = UserService;
+    $scope.search = {"pepe":1};
+
+    $scope.As.addCallback((a)=>{
+        $scope.users = a;
+    });
+
 
     $scope.GameInfoService.addCallbackOnDelete((a)=>{
-        $scope.As.filter($location.search());
+        $scope.As.findAll((a)=>{
+            $scope.users = a;
+        });
     });
 
     GameService.all((a)=>{
         $scope.games = a.data;
     });
-    LanguageService.getAll(function(data){
-        $scope.languages = data;
-    });
 
-    $location.search("_csrf",null);
 });
-;;app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware,SweetAlert){
+;;app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware,SweetAlert,SystemMessages,
+localization){
     middleware.needRol("USER");
 
     $scope.teamform = {};
@@ -9635,6 +9631,10 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
             $location.path(`team/${data2.data.name}`);
             dialog.close(dialog2,()=>{
                 $location.path(`team/${data2.data.id}`);
+                $scope.error = null;
+                SystemMessages.okmessage(localization.team.created)
+            },()=>{
+                $scope.error = localization.error;
             });
 
         })
@@ -9816,9 +9816,9 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
 	$scope.As.getAwards($scope.$parent.$parent.tournmanentId);
 });
 ;
-app.controller("BracketsController",function($scope,TournamentService,dialog,SystemMessages){
+app.controller("BracketsController",function($scope,TournamentService,dialog,SystemMessages,localization){
     $scope.ts = TournamentService;
-
+    let loc = localization;
     $scope.getRound = function(i){
         let nrounds = $scope.ts.nrounds($scope.tournament);
         let vround = nrounds - i;
@@ -9827,13 +9827,13 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
                 return loc.tournament.brackets.finals;
                 break;
             case 1:
-                return loc.tournament.brackets.semifinal;
+                return loc.tournament.brackets.semifinals;
                 break;
             case 2:
                 return loc.tournament.brackets.quarterfinals;
                 break;
             default:
-                return loc.tournament.brackets.round+" "+nrounds;
+                return loc.tournament.brackets.round+" "+vround;
 
         }
     };
@@ -11525,6 +11525,34 @@ app.service("SystemMessages", function($timeout){
 
         return obj;
     }
+});;app.filter ('search', function(){
+    return function(obj,search){
+        let result = [];
+        if(typeof obj==="undefined") return obj;
+       obj.forEach((a)=>{
+           if(typeof search.userAccount!=="undefined"){
+               if(a.userAccount.username.toLowerCase().indexOf(search.userAccount.username.toLowerCase())===-1){
+                   return false;
+               }
+           }
+           if(typeof search.games!=="undefined"){
+               let games = a.gameInfo.filter((g)=>{
+                  return search.games.indexOf(g.game.id.toString())!==-1;
+               });
+               if(games.length!==search.games.length) return false;
+           }
+           if(typeof search.languages!=="undefined"){
+               let languages = a.languages.filter((l)=>{
+                   return search.languages.indexOf(l.language)!==-1;
+               });
+               if(languages.length!==search.languages.length) return false;
+           }
+
+           result.push(a);
+       });
+
+        return result;
+    }
 });;app.filter ('tojson', function(){
 
 
@@ -11769,6 +11797,23 @@ app.directive("tournamentCard",function($compile,localization,auth){
 
 });
 
+;
+
+app.directive("input",function(localization,$compile){
+    return {
+        restrict: "E",
+        link: function(scope,element,attrs){
+            if(attrs.type==="date"){
+                $(element).attr("placeholder", "yyyy-mm-dd");
+                $(element).after(`<span class='small'>${localization.datetimeexample} 2017-07-21</span>`);
+            }
+            if(attrs.type==="datetime-local"){
+                $(element).attr("placeholder", "yyyy-mm-ddTHH:MM:SS");
+                $(element).after(`<span class='small'>${localization.datetimeexample} 2017-07-21T23:00:00</span>`);
+            }
+        }
+    }
+});
 ;app.directive("dialog", function(dialog){
     return {
         restrict: "A",

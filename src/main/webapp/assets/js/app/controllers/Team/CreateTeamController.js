@@ -1,4 +1,5 @@
-app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware,SweetAlert){
+app.controller('CreateTeamController',function($scope,UserService,xhr,$location,dialog,middleware,SweetAlert,SystemMessages,
+localization){
     middleware.needRol("USER");
 
     $scope.teamform = {};
@@ -40,6 +41,10 @@ app.controller('CreateTeamController',function($scope,UserService,xhr,$location,
             $location.path(`team/${data2.data.name}`);
             dialog.close(dialog2,()=>{
                 $location.path(`team/${data2.data.id}`);
+                $scope.error = null;
+                SystemMessages.okmessage(localization.team.created)
+            },()=>{
+                $scope.error = localization.error;
             });
 
         })
