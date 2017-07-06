@@ -8,7 +8,7 @@
     <label>
         {{loc.signupform.username}} *
     </label>
-    <input  class="s10"  type="text" name="username" ng-model="form.username" placeholder="Username" required ng-minlength="5" ng-maxlength="32"
+    <input  class="s10"  type="text" name="username" ng-model="form.username" placeholder="{{loc.signupform.username}}" required ng-minlength="5" ng-maxlength="32"
   minlength="5" maxlength="32"  />
         <div class="form-error" ng-messages="signupform.username.$error" role="alert"
              ng-show="signupform.username.$invalid && signupform.username.$dirty">

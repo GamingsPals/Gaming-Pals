@@ -10,7 +10,7 @@
     <label>
         {{loc.signupform.username}} *
     </label>
-    <input type="text" class="s10" name="username" ng-model="form.username" placeholder="Username" required ng-minlength="5" ng-maxlength="32"
+    <input type="text" class="s10" name="username" ng-model="form.username" placeholder="{{loc.signupform.username}}" required ng-minlength="5" ng-maxlength="32"
   minlength="5" maxlength="32" username-verify="" />
         <div class="form-error" ng-messages="signupform.username.$error" role="alert"
              ng-show="signupform.username.$invalid && signupform.username.$dirty">
