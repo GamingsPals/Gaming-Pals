@@ -94,7 +94,7 @@ public class UserService {
 		return this.userRepository.findOne(userId);
 	}
 
-	@Cacheable("allusers")
+
 	public Collection<User> findAll() {
 		return this.userRepository.findAll();
 	}
@@ -265,8 +265,10 @@ public class UserService {
 		Assert.notNull(user);
 		user.setAge(signupForm.getAge());
 		if (signupForm.getPassword() != null) {
+		    if(signupForm.getPassword().length()>5){
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
+            }
 		}
 		user.getUserAccount().setUsername(signupForm.getUsername());
 		user.setPicture(signupForm.getPicture());
@@ -291,7 +293,6 @@ public class UserService {
 		this.save(user);
 	}
 
-    @Cacheable("maindata")
     public Map<String,Object> mainStatData(){
 		List<User> users = findBestRanked();
 		List<Tournament> tournaments = tournamentService.findLatest(3);

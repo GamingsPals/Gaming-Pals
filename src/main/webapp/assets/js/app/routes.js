@@ -27,6 +27,12 @@ routes = [
         }
     },
     {
+        route : "/banned",
+        options : {
+            templateUrl : "banned",
+        }
+    },
+    {
         route : "/feedback",
         options : {
             templateUrl : "feedback/feedback",

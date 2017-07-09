@@ -51,7 +51,7 @@
         <label>{{loc.signupform.password}} <a href="#" ng-click="passwordInfo()">
             <i class="fa fa-question-circle"></i> </a> </label>
         <input type="password" class="s12" name="passwordteam" ng-model="formEdit.password" min="6" max="20" />
-        <input type="submit" value="Edit" ng-disabled="editForm.$valid==false" />
+        <input type="submit" value="{{loc.edit}}" ng-disabled="editForm.$valid==false" />
     </form>
 </section>
 
@@ -73,7 +73,7 @@
         </div>
         <h2>{{loc.team.members}}</h2>
         <div class="s12 col" ng-repeat="i in selectedmembers">
-            <div style="margin:15px;font-size:0.7em;"><a class="button" ng-click="removeMember(i)">Remove</a>
+            <div style="margin:15px;font-size:0.7em;"><a class="button" ng-click="removeMember(i)">{{loc.remove}}</a>
             </div>
             <div class="card s12" user-card="i" >
             </div>
@@ -82,7 +82,7 @@
             {{loc.team.isntU}}
         </div>
         <div>
-            <input type="submit" value="Invite" ng-disabled="inviteForm.members.length==0" />
+            <input type="submit" value="{{loc.invite}}" ng-disabled="inviteForm.members.length==0" />
         </div>
     </form>
 </section>

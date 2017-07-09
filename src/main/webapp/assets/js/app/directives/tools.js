@@ -13,9 +13,9 @@ app.directive("adminTools",function($compile,localization,ActorService){
             let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li ng-if="adminTools.userAccount.locked==false">
+                    <li ng-if="adminTools.userAccount.banned==false">
                     <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.ban}</a></li>
-                    <li ng-if="adminTools.userAccount.locked==true">
+                    <li ng-if="adminTools.userAccount.banned==true">
                     <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.unban}</a></li>
                         </ul>
                     </div>`;

@@ -18,6 +18,9 @@
   "players": "Jugadores",
   "joined": "Apuntados",
   "teams": "Equipos",
+  "edit": "Editar",
+  "invite": "Invitar",
+  "remove": "Borrar",
   "profileview": {
     "editprofile": "Editar Perfil",
     "follow" : "Seguir",
@@ -227,6 +230,7 @@
  	 "tournaments":"Torneos",
  	 "started":"¡EN MARCHA!",
  	 "inscriptionClosed":"¡Inscripción cerrada!",
+    "incidences": "Incidencias",
  	 "inscribe":"INSCRIBIRSE",
  	 "inscriptedTeams":"Equipos inscriptos",
  	 "bracket":"Emparejamientos",
@@ -504,6 +508,12 @@
     "who": "¿Quién gana el partido?",
     "select": "Selecciona un equipo:",
     "leader": "Lider"
+  },
+
+  "bannedView":{
+    "ups": "¡Ups! Estás baneado",
+    "itseems": "Parece que estás baneado de la página web por tú comportamiento con otros miembros de la comunidad, te recomendamos que te tomes un tiempo pensando qué has podido hacer mal e intentar corregirlo. Por favor",
+    "contact": " contacta con nosotros cuando creas que estés listo"
   }
 
 

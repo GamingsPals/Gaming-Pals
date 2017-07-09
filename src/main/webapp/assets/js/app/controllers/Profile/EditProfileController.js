@@ -10,7 +10,6 @@ app.controller('EditProfileController', function($scope, middleware, xhr, $locat
             $scope.form = auth.principal.actor;
             $scope.form.username = $scope.form.userAccount.username;
             $scope.form.age = new Date($scope.form.age);
-            console.log($scope.form.languages);
         }
     };
     $scope.chargeForms();
@@ -21,8 +20,8 @@ app.controller('EditProfileController', function($scope, middleware, xhr, $locat
             result.languages[key] = value.id;
         });
 	    xhr.post("api/user/edit", result,function(){
-		auth.load(()=>{
-            SweetAlert.swal(localization.confirmProfile.edited, localization.confirmProfile.editedSuccess, localization.confirmProfile.successE);
+            auth.load(()=>{
+                SweetAlert.swal(localization.confirmProfile.edited);
             $scope.chargeForms();
         },true);
         },function(){

@@ -18,6 +18,9 @@
   "players": "Players",
   "joined": "Joined",
   "teams": "Teams",
+  "edit": "Edit",
+  "invite": "Invite",
+  "remove": "Remove",
   "admin":{
     "reports":{
       "suretodelete": "Are you sure you want to delete this report?",
@@ -227,6 +230,7 @@
       "match": "Match",
  	 "started":"STARTED!",
  	 "inscriptionClosed":"Inscription Closed!",
+    "incidences": "Incidences",
  	 "inscribe":"JOIN IN",
  	 "inscriptedTeams":"Inscripted Teams",
  	 "bracket":"Bracket",
@@ -505,6 +509,11 @@
     "who": "Who won the game?",
     "select": "Select a Team:",
     "leader": "Leader"
+  },
+  "bannedView":{
+    "ups" :"Ups! You are banned",
+    "itseems": "It seems you are banned from our community. Your behaviour with other players may have not been the best. We encourage you to think about it and to improve your behaviour. Please",
+    "contact": " Contact us when you think you are ready"
   }
 
 }

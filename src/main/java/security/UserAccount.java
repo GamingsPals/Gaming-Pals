@@ -46,6 +46,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 		this.authorities = new ArrayList<Authority>();
 		this.locked = false;
+		this.banned = false;
 	}
 
 	// Attributes -------------------------------------------------------------
@@ -56,6 +57,15 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String password;
 	private Collection<Authority> authorities;
 	private Boolean locked;
+	private Boolean banned;
+
+	public Boolean getBanned() {
+		return banned;
+	}
+
+	public void setBanned(Boolean banned) {
+		this.banned = banned;
+	}
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)

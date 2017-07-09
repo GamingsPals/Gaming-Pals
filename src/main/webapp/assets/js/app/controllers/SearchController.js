@@ -8,6 +8,8 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         $scope.users = a;
     });
 
+    $scope.As.findAll();
+
 
     $scope.GameInfoService.addCallbackOnDelete((a)=>{
         $scope.As.findAll((a)=>{

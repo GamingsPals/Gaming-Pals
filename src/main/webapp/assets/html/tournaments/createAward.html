@@ -1,11 +1,17 @@
 <div ng-controller="CreateAwardController">
     <h2 class="text-center">{{loc.awardForm.createAward}}</h2>
     <form name="awardForm" ng-submit="sendAwardForm()">
-        <label>{{loc.awardForm.image}}</label>
-        <input type="url" ng-model="award.image" placeholder="http://"  />
-        <label>{{loc.awardForm.description}}</label>
+        <label>{{loc.awardForm.image}} *</label>
+        <input name="image" type="url" ng-model="award.image" placeholder="http://" required  />
+        <div class="form-error" ng-messages="awardForm.image.$error" role="alert"
+             ng-show="awardForm.image.$dirty && awardForm.image.$invalid">
+            <div ng-message="url">{{loc.signupform.error6}}</div>
+        </div>
+        <label>{{loc.awardForm.description}} *</label>
         <input type="text" placeholder="{{loc.awardForm.description}}" ng-model="award.description" required />
 
         <input type="submit" value="{{loc.awardForm.create}}" />
     </form>
+
+    <div>* {{loc.signupform.required}}</div>
 </div>

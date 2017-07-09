@@ -8822,6 +8822,12 @@ routes = [
         }
     },
     {
+        route : "/banned",
+        options : {
+            templateUrl : "banned",
+        }
+    },
+    {
         route : "/feedback",
         options : {
             templateUrl : "feedback/feedback",
@@ -9475,7 +9481,6 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             $scope.form = auth.principal.actor;
             $scope.form.username = $scope.form.userAccount.username;
             $scope.form.age = new Date($scope.form.age);
-            console.log($scope.form.languages);
         }
     };
     $scope.chargeForms();
@@ -9486,8 +9491,8 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
             result.languages[key] = value.id;
         });
 	    xhr.post("api/user/edit", result,function(){
-		auth.load(()=>{
-            SweetAlert.swal(localization.confirmProfile.edited, localization.confirmProfile.editedSuccess, localization.confirmProfile.successE);
+            auth.load(()=>{
+                SweetAlert.swal(localization.confirmProfile.edited);
             $scope.chargeForms();
         },true);
         },function(){
@@ -9576,6 +9581,8 @@ app.controller('SearchController',function($scope,SearchService,$location,middle
         $scope.users = a;
     });
 
+    $scope.As.findAll();
+
 
     $scope.GameInfoService.addCallbackOnDelete((a)=>{
         $scope.As.findAll((a)=>{
@@ -9649,6 +9656,11 @@ localization){
 
     UserService.addCallback((a)=>{
         $scope.allusers = a.slice();
+        $scope.allusers = $scope.allusers.filter((a)=>{
+            return !$scope.team.users.some((b)=>{
+                return b.id==a.id;
+            })
+        })
     });
     UserService.findAll();
 
@@ -9666,6 +9678,11 @@ localization){
         datamESSAGE.callback = (a)=>{
             TeamService.invite($scope.team,data,(a)=>{
                 $scope.loadTeam($scope.team.id);
+                form.members.forEach((c)=>{
+                    let key = $scope.allusers.indexOf(c);
+                    $scope.allusers.splice(key,1);
+                });
+                $scope.selectedmembers = [];
             });
         };
         Alerts.confirm(datamESSAGE);
@@ -12325,9 +12342,9 @@ app.filter('paginate', function(PaginationService) {
             let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
-                    <li ng-if="adminTools.userAccount.locked==false">
+                    <li ng-if="adminTools.userAccount.banned==false">
                     <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.ban}</a></li>
-                    <li ng-if="adminTools.userAccount.locked==true">
+                    <li ng-if="adminTools.userAccount.banned==true">
                     <a href="#" ng-click="AdminService.ban(adminTools)">${localization.admin.bans.unban}</a></li>
                         </ul>
                     </div>`;

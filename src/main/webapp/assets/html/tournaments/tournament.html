@@ -26,9 +26,6 @@
         <li ng-if="auth.hasRole('ADMIN')"  ng-class="(mode == 'incidences') ? 'active' : ''">
             <a  href="{{url}}/incidences" class="profile-tabs">
                 {{loc.tournament.indi}}</a></li>
-        <li  ng-if="auth.hasRole('ADMIN')"   ng-class="(mode == 'reports') ? 'active' : ''">
-            <a  href="{{url}}/reports" class="profile-tabs">
-                {{loc.tournament.reports}}</a></li>
     </ul>
 </div>
     <div class="content-margin">

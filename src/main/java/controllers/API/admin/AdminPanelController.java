@@ -49,8 +49,8 @@ public class AdminPanelController extends ApiAbstractController {
 			return badrequest(response,null);
 		}
 		try{
-			Boolean ban = !user.getUserAccount().getLocked();
-			user.getUserAccount().setLocked(ban);
+			Boolean ban = !user.getUserAccount().getBanned();
+			user.getUserAccount().setBanned(ban);
 			userService.save(user);
 
 			return ok(response,null);

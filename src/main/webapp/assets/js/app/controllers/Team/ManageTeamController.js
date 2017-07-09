@@ -8,6 +8,11 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
 
     UserService.addCallback((a)=>{
         $scope.allusers = a.slice();
+        $scope.allusers = $scope.allusers.filter((a)=>{
+            return !$scope.team.users.some((b)=>{
+                return b.id==a.id;
+            })
+        })
     });
     UserService.findAll();
 
@@ -25,6 +30,11 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
         datamESSAGE.callback = (a)=>{
             TeamService.invite($scope.team,data,(a)=>{
                 $scope.loadTeam($scope.team.id);
+                form.members.forEach((c)=>{
+                    let key = $scope.allusers.indexOf(c);
+                    $scope.allusers.splice(key,1);
+                });
+                $scope.selectedmembers = [];
             });
         };
         Alerts.confirm(datamESSAGE);

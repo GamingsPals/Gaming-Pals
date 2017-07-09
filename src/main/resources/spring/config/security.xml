@@ -10,7 +10,6 @@
 
 	<!-- Security infrastructure -->
     <bean id="addToken" class="security.AddTokenAuthenticationSuccessHandler" />
-	<bean id="removeToken" class="security.RemoveTokenAuthenticationSuccessHandler" />
 
 	<bean id="loginService" class="security.LoginService" />
 
@@ -46,8 +45,6 @@
 
 		<security:logout
 			invalidate-session="true"
-		success-handler-ref="removeToken"
-
         />
 
 		<security:csrf/>

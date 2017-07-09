@@ -78,7 +78,7 @@
   padding: 1em;
   position: relative;
   width: 70%;
-  max-height: 180%;
+  max-height: 100%;
   overflow-y: auto;
 }
 
