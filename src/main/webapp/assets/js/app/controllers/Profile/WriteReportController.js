@@ -5,7 +5,12 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
     $scope.reportUser = function(){
         ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{
             SystemMessages.okmessage(localization.profileview.reportSended);
-            dialog.closeAll();});
+            dialog.closeAll();
+            $scope.error = false;
+            }
+            ,()=>{
+            $scope.error = true;
+            });
 
     }
 });

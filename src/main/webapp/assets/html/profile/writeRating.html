@@ -30,5 +30,7 @@
         <textarea class="not-resizable" required ng-model="rateform.comment" id="comment" name="comment"></textarea>
         <input type="submit" ng-disabled="!rateForm.$valid" value="{{loc.rate}}" />
     </form>
+    <div class="form-error" ng-show="error">{{loc.wrong}}</div>
     <div>* {{loc.signupform.required}}</div>
+
 </div>

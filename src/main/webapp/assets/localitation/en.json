@@ -17,6 +17,7 @@
   "sendmessage": "Message",
   "players": "Players",
   "joined": "Joined",
+  "joinedteams": "Teams",
   "teams": "Teams",
   "edit": "Edit",
   "invite": "Invite",
@@ -272,12 +273,17 @@
      "must": "You must select a team",
      "selectt": "Select number of Teams",
      "mustt": "You must select a number of teams between 4 and 32",
-    "size": "Teams size",
+    "size": "Players per Team",
     "min": "Minimum 1 player and maximum 10 per team.",
     "sub1": "Teams with this size and +2 will allow to join it because the 2 extras player act as",
     "sub2": "Subtitutes",
     "mustu": "You must to input an url",
     "date": "Select a date after now",
+    "errorsendingreport": "Error sending report",
+    "awardcreated": "Award created!",
+    "reportsended": "Report sended!",
+    "errorcreatingaward": "Error creating award",
+    "incidenceresolvedcorrectly": "Incidencie resolved correctly!",
      "admin":{
        "suretodelete": "Are you sure to delete ${args['tournament']}  tournament?",
        "deleted" :"${args['tournament']} has been deleted!"
@@ -514,6 +520,11 @@
     "ups" :"Ups! You are banned",
     "itseems": "It seems you are banned from our community. Your behaviour with other players may have not been the best. We encourage you to think about it and to improve your behaviour. Please",
     "contact": " Contact us when you think you are ready"
+  },
+  "gameView":{
+    "users": "Users",
+    "nousers": "This game hasn't got any users that has registered this game. Be the first!",
+    "notournaments": "This game hasn't got any tournament so far"
   }
 
 }

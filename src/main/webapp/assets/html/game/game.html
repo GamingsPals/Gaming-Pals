@@ -1,0 +1,54 @@
+<article ng-show="notFound==true" ng-cloak>
+
+    <div  class="tournament-header" >
+        <h1>{{game.name}} <img style="width:30px!important;" class="game-icon" ng-src="{{game.picture}}" /> </h1>
+        <img ng-src="{{game.header}}"/>
+    </div>
+<div class="profile-nav" menu="">
+    <div class="profile-nav-mbutton om">
+        <a href="#"><i class="fa fa-ellipsis-v"></i></a></div>
+    <ul>
+        <li ng-class="(mode=='users') ? 'active' : ''">
+            <a class="profile-tabs" href="{{url}}/users">
+               {{loc.gameView.users}}</a></li>
+        <li  ng-class="(mode=='tournaments') ? 'active' : ''">
+            <a  href="{{url}}/tournaments" class="profile-tabs">
+                 {{loc.tournaments}}</a></li>
+    </ul>
+</div>
+    <div class="content-margin">
+
+<div class="col s12 content-color" style="min-height: 500px">
+    <div ng-if="mode=='users'">
+        <h1>{{loc.gameView.users}}</h1>
+        <div class="card" user-card="item"
+             ng-repeat="item in usersgame|paginate:'usersgame'"></div>
+        <div ng-if="usersgame.length==0">
+            {{loc.gameView.nousers}}
+        </div>
+        <ul class="pagination"
+            gp-paginate-items="usersgame"
+            gp-paginate
+            gp-paginate-limit="6"
+            gp-paginate-id="usersgame"
+        >
+        </ul>
+    </div>
+    <div ng-if="mode=='tournaments'">
+        <h1> {{loc.tournaments}}</h1>
+        <div class="blockcard" ng-repeat="i in tournaments|paginate:'tournaments'|filter:search" tournament-card="i">
+        </div>
+        <div ng-if="tournaments.length==0">
+            {{loc.gameView.notournaments}}
+        </div>
+        <ul class="pagination"
+            gp-paginate
+            gp-paginate-items="tournaments"
+            gp-paginate-id="tournaments"
+            gp-paginate-limit="6"></ul>
+
+    </div>
+<article ng-show="notFound==false" ng-cloak>
+    <giant>{{loc.tournament.notFound}}</giant>
+</article>
+<div class="clear-both s12"></div>

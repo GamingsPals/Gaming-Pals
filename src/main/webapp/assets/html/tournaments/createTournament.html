@@ -27,13 +27,14 @@
         <textarea class="s12" title="{{loc.tournament.description}}" required name="description"
                   ng-model="tournamentform.description"></textarea>
         <div class="form-error" ng-show="Tournamentform.description.$invalid==true && Tournamentform.description.$dirty==true">
-            - {{loc.reportForm.empty}}
+            - {{loc.reportform.empty}}
         </div>
         <label> {{loc.tournament.rules}} *</label>
         <textarea class="s12"  title="{{loc.tournament.rules}} "
                   required name="rules" ng-model="tournamentform.rules"></textarea>
-        <div class="form-error" ng-show="Tournamentform.rules.$invalid==true && Tournamentform.rules.$dirty==true">
-            - {{loc.reportForm.empty}}
+        <div class="form-error" ng-show="Tournamentform.rules.$invalid==true && Tournamentform.rules.$dirty==true
+">
+            - {{loc.reportform.empty}}
         </div>
     </div>
     <div class="col s12">
@@ -67,6 +68,7 @@
                placeholder="{{loc.tournament.inscriptionLimit}}"
                ng-model="tournamentform.limitInscription"
                 value="{{date | date: 'yyyy-MM-ddTHH:mm:ss'}}" />
+        <span class="form-error" ng-if="tournamentform.limitInscription == null">{{loc.tournament.pleasec}}</span>
         <div class="form-error"
              ng-show="Tournamentform.limitInscription.$invalid==true && Tournamentform.limitInscription.$touched==true">
            - {{loc.tournament.date}}

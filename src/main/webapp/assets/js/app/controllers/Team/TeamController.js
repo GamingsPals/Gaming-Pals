@@ -31,8 +31,8 @@ app.controller("TeamController",function($scope,auth,middleware,$routeParams,xhr
         let password = form.password;
         xhr.get(`api/team/${$scope.team.id}/join?password=${password}`,(a)=>{
             SweetAlert.swal(localization.confirmTeam.joined);
-            $scope.loadTeam($scope.team.name);
-            $location.path("team/"+$scope.team.name);
+            $scope.loadTeam($scope.team.id);
+            $location.path("team/"+$scope.team.id);
         },(a)=>{
             SweetAlert.warning(localization.confirmTeam.passwordDidnt)
         })

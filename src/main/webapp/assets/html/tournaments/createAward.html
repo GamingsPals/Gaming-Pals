@@ -2,16 +2,19 @@
     <h2 class="text-center">{{loc.awardForm.createAward}}</h2>
     <form name="awardForm" ng-submit="sendAwardForm()">
         <label>{{loc.awardForm.image}} *</label>
-        <input name="image" type="url" ng-model="award.image" placeholder="http://" required  />
+        <input name="image" type="url" class="s10" ng-model="award.image" placeholder="http://" required  />
         <div class="form-error" ng-messages="awardForm.image.$error" role="alert"
              ng-show="awardForm.image.$dirty && awardForm.image.$invalid">
             <div ng-message="url">{{loc.signupform.error6}}</div>
         </div>
         <label>{{loc.awardForm.description}} *</label>
-        <input type="text" placeholder="{{loc.awardForm.description}}" ng-model="award.description" required />
+        <textarea ng-model="award.description" required title="{{loc.tournament.description}}"></textarea>
 
-        <input type="submit" value="{{loc.awardForm.create}}" />
+        <input type="submit" value="{{loc.awardForm.create}}" ng-disabled="awardForm.$invalid" />
     </form>
 
     <div>* {{loc.signupform.required}}</div>
+    <div class="form-error" ng-show="error!=false">{{loc.wrong}}</div>
 </div>
+
+

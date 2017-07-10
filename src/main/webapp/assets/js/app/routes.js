@@ -180,5 +180,18 @@ routes = [
 				controller : "Notifications"
 			}
 		},
+    {
+        route : "/game/:id",
+        options : {
+            templateUrl : "game/game",
+            controller : "Game"
+        }
+    }, {
+        route : "/game/:id/:menu",
+        options : {
+            templateUrl : "game/game",
+            controller : "Game"
+        }
+    },
 
 ];

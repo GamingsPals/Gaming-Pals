@@ -91,4 +91,5 @@ public class Rating extends DomainEntity {
 		this.ratedUser = isValuedUser;
 	}
 
+
 }

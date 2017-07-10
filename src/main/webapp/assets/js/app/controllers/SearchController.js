@@ -2,7 +2,12 @@
 app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, UserService){
     middleware.needRol("ANY");
     $scope.As = UserService;
-    $scope.search = {"pepe":1};
+    let search = $location.search();
+    $scope.search = {};
+    if(typeof search.username!=="undefined"){
+        $scope.search.userAccount={};
+        $scope.search.userAccount.username = search.username;
+    }
 
     $scope.As.addCallback((a)=>{
         $scope.users = a;

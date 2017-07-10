@@ -42,7 +42,6 @@ app.directive("tournamentTools",function($compile,auth, TournamentService){
             scope.$watch('tournamentTools',()=>{
                 scope.auth = auth;
                 scope.TournamentService = TournamentService;
-                console.log(TournamentService.canBeDeleted(scope.tournamentTools));
                 let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
@@ -72,9 +71,6 @@ app.directive("gamesTools",function($compile,auth,GameInfoService,ActorService){
             scope.$parent.auth = auth;
             scope.$parent.user = scope.user;
             scope.$parent.GameInfoService = GameInfoService;
-            scope.$parent.GameInfoService.addCallbackOnDelete((a)=>{
-                ActorService.UserProfile();
-            });
             scope.$watch('gamesTools',()=>{
                 let template = ` <div class="dropdown" 
                     ng-if="auth.hasRole('USER') && auth.isPrincipal(user)" dropdown>

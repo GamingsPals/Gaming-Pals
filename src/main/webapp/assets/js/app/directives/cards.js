@@ -177,7 +177,7 @@ app.directive("tournamentCard",function($compile,localization,auth){
              ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
              <div style="font-size:0.8em;">{{i.game.name}}</div></span>
         <p>{{i.description}}</p>
-        <div><b>${localization.joined} {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>${localization.joinedteams}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
         <div><b>${localization.players}:</b> {{i.players}} (+2)</div>
         <div>
         <h2>${localization.teams}</h2>

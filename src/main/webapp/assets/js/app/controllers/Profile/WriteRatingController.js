@@ -4,10 +4,14 @@ app.controller('WriteRatingController',function($scope, middleware, ActorService
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
             ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
+            $scope.writerating = false;
+            $scope.rateform = null;
+            SystemMessages.okmessage(localization.profileview.ratingadded);
+            $scope.error = null;
+            dialog.closeAll();
+        },()=>{
+            $scope.error = true;
         });
-        $scope.writerating = false;
-        $scope.rateform = null;
-        SystemMessages.okmessage(localization.profileview.ratingadded);
-        dialog.closeAll();
+
     }
 });

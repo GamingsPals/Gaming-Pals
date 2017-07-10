@@ -2,7 +2,7 @@
     <label for="id">
         Steam ID <small>(<a href="#" ng-click="tutorialSteam()">{{loc.profileview.steam.help}})</a></small>
     </label>
-    <input name="id" id="id" type="text" placeholder="Steam Id..." ng-model="steam.id" class="s9" required/>
+    <input name="id" id="id" type="text" placeholder="Steam Id..." ng-model="steam.id" class="s9" required pattern="\d*"/>
     <p>{{loc.steam.clickCheck}}</p>
     <input type="button" class="button cursor-pointer" ng-disabled="steamaccountform.id.$invalid"
            ng-click="checkGames()" value="{{loc.steam.check}}" />
@@ -11,8 +11,7 @@
        {{loc.steam.availablesGames}}
 
     <select multiple name="games" id="games" ng-model="steam.games" class="s9" required>
-        <option value="">{{loc.steam.selectGames}}</option>
-        <option value="{{i.id}}" ng-repeat="i in games">{{i.name}}</option>
+        <option value="{{i.id}}" ng-repeat="i in games track by $index">{{i.name}}</option>
     </select>
         <label>
             {{loc.steam.yourUsernameSteam}}

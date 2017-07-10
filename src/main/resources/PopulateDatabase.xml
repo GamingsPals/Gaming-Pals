@@ -687,7 +687,7 @@
 		<property name="numberTeams" value="4" />
         <property name="players" value="1"/>
         <property name="game" ref="game1" />
-		<property name="limitInscription" value="2017/06/27 14:30" />
+		<property name="limitInscription" value="2017/07/27 14:30" />
 		<property name="rules" value="You can't flame others" />
 		<property name="picture"
 			value="http://euw.leagueoflegends.com/sites/default/files/upload/art/poolparty_wallpaper.jpg" />

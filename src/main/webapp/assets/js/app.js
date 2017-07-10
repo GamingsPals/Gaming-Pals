@@ -8975,6 +8975,19 @@ routes = [
 				controller : "Notifications"
 			}
 		},
+    {
+        route : "/game/:id",
+        options : {
+            templateUrl : "game/game",
+            controller : "Game"
+        }
+    }, {
+        route : "/game/:id/:menu",
+        options : {
+            templateUrl : "game/game",
+            controller : "Game"
+        }
+    },
 
 ];
 ;app.config(function($routeProvider,$locationProvider){
@@ -9179,6 +9192,22 @@ app.controller('LoginController',function($scope,dialog,middleware,$location,aut
         });
         return puntuacion;
     };
+});;;app.controller("GameController",function($scope,auth,middleware,$routeParams,xhr){
+    middleware.needRol("USER,ADMIN");
+    $scope.auth = auth;
+    let id = $routeParams.id;
+    $scope.url = "game/"+id;
+    $scope.mode = $routeParams.menu;
+   if(typeof $scope.mode ==="undefined"){
+       $scope.mode = "users";
+   }
+    $scope.tabs=$scope.mode;
+    xhr.get("/api/game/"+id,(a)=>{
+        $scope.game = a.data.game;
+        $scope.tournaments = a.data.tournaments;
+        $scope.usersgame = a.data.users;
+        $scope.notFound = true;
+    })
 });;
 app.controller('HomeController',function($scope){
 });;
@@ -9441,8 +9470,10 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
         xhr.get("api/steam/"+$scope.steam.id,((a)=>{
             $scope.games = a.data;
             $scope.searched = true;
-            $scope.error = "";
+            $scope.error =undefined;
         }),(p)=>{
+            $scope.games = null;
+            $scope.searched = false;
             $scope.error = localization.confirmProfile.errorSteam;
         })
     };
@@ -9537,11 +9568,15 @@ app.controller('LolstatsController',function($scope,MatchService,$routeParams,mi
     $scope.rateUser = function(){
         ActorService.rate(ActorService.actor.actor.id,$scope.rateform,()=>{
             ActorService.UserProfile(ActorService.actor.actor.userAccount.username);
+            $scope.writerating = false;
+            $scope.rateform = null;
+            SystemMessages.okmessage(localization.profileview.ratingadded);
+            $scope.error = null;
+            dialog.closeAll();
+        },()=>{
+            $scope.error = true;
         });
-        $scope.writerating = false;
-        $scope.rateform = null;
-        SystemMessages.okmessage(localization.profileview.ratingadded);
-        dialog.closeAll();
+
     }
 });;
 app.controller('WriteReportController',function($scope, middleware, ActorService, $routeParams, $rootScope,
@@ -9550,7 +9585,12 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
     $scope.reportUser = function(){
         ActorService.report(ActorService.actor.actor.id,$scope.reportform,()=>{
             SystemMessages.okmessage(localization.profileview.reportSended);
-            dialog.closeAll();});
+            dialog.closeAll();
+            $scope.error = false;
+            }
+            ,()=>{
+            $scope.error = true;
+            });
 
     }
 });;app.controller('ProfileController', function($scope, middleware, ActorService, $routeParams, dialog) {
@@ -9575,7 +9615,12 @@ app.controller('WriteReportController',function($scope, middleware, ActorService
 app.controller('SearchController',function($scope,SearchService,$location,middleware, GameService, UserService){
     middleware.needRol("ANY");
     $scope.As = UserService;
-    $scope.search = {"pepe":1};
+    let search = $location.search();
+    $scope.search = {};
+    if(typeof search.username!=="undefined"){
+        $scope.search.userAccount={};
+        $scope.search.userAccount.username = search.username;
+    }
 
     $scope.As.addCallback((a)=>{
         $scope.users = a;
@@ -9737,6 +9782,7 @@ localization){
             confirmtext: localization.confirmTeam.kicked,confirmtitle:localization.confirmTeam.kicked};
         data2.callback = (a)=>{
             TeamService.kickMember($scope.team,form.member);
+            $scope.kickForm.member = null;
             $scope.loadTeam($scope.team.id);
         };
 
@@ -9797,8 +9843,8 @@ localization){
         let password = form.password;
         xhr.get(`api/team/${$scope.team.id}/join?password=${password}`,(a)=>{
             SweetAlert.swal(localization.confirmTeam.joined);
-            $scope.loadTeam($scope.team.name);
-            $location.path("team/"+$scope.team.name);
+            $scope.loadTeam($scope.team.id);
+            $location.path("team/"+$scope.team.id);
         },(a)=>{
             SweetAlert.warning(localization.confirmTeam.passwordDidnt)
         })
@@ -9912,29 +9958,32 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
         return result;
     }
 });
-;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
+;app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware,localization) {
     middleware.needRol("ADMIN");
     $scope.sendAwardForm = function() {
-        console.log($scope.award);
         TournamentService.createAward($scope.$parent.tournament, $scope.award, ()=>{
-            SystemMessages.okmessage("Award create!");
+            SystemMessages.okmessage(localization.tournament.awardcreated);
             $scope.loadTournament();
+            $scope.error = undefined;
             dialog.closeAll();
-        }),(a)=>{
-            SystemMessages.errormessage("Error creating Tournament");
-        }
+        },(a)=>{
+            $scope.error = true;
+            console.log("Ey");
+            SystemMessages.errormessage(localization.tournament.errorcreatingaward);
+        });
     }
 });;app.controller('CreateTournamentController', function($scope, xhr, $location,middleware,dialog,TournamentService,localization) {
     middleware.needRol("ADMIN");
 	$scope.enviarTournamentForm = function(data) {
 		xhr.post("api/createTournament",data, function(){
             $location.path("/tournaments");
+            $scope.error = false;
 		},(a)=>{
 			$scope.error = localization.error;
 		});
 	}
 });
-;app.controller("IncidencesController", function($scope,TournamentService,subscriber,dialog,SystemMessages){
+;app.controller("IncidencesController", function($scope,TournamentService,subscriber,dialog,SystemMessages,localization){
 
 
     $scope.resolveDialog = function(a){
@@ -9949,7 +9998,7 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
     subscriber.add("tournament:resolve",(a)=>{
         dialog.closeAll();
         $scope.loadTournament();
-        SystemMessages.okmessage("Incidence resolved correctly!")
+        SystemMessages.okmessage(localization.tournament.incidenceresolvedcorrectly);
     })
 
 
@@ -9992,7 +10041,7 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
 
             })
         },(a)=>{
-            $scope.notFound = false;
+            $location.path("tournaments");
         });
     };
     $scope.loadTournament();
@@ -10041,7 +10090,7 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
 
    $scope.delete = function(tournament){
        TournamentService.delete(tournament,(a)=>{
-           $location.path("tournament/list");
+           $location.path("tournaments");
        })
    };
 
@@ -10067,11 +10116,13 @@ app.controller("BracketsController",function($scope,TournamentService,dialog,Sys
     $scope.sendReportMatchForm = function() {
         $scope.reportMatch.team = $scope.matchtoreport.team.id;
         TournamentService.reportMatch($scope.matchtoreport.confrontation.id,$scope.reportMatch,()=>{
-            SystemMessages.okmessage("Report send!");
+            SystemMessages.okmessage(localization.tournament.reportsend);
             $scope.loadTournament();
+            $scope.error = false;
             dialog.closeAll();
         },(a)=>{
-            SystemMessages.errormessage("Error sendin Report");
+            $scope.error = true;
+            SystemMessages.errormessage(localization.tournament.errorsendingreport);
             dialog.closeAll();
         });
     }
@@ -10662,29 +10713,26 @@ function closeDropdowns (){
     };
 
 
-});;app.service("GameInfoService", function(xhr,SystemMessages){
+});;app.service("GameInfoService", function(xhr,SystemMessages,ActorService){
 
     this.callbacksDelete = [];
 
     this.addCallbackOnDelete = function(callback){
         if(typeof callback!=="undefined"){
-            this.callbacksDelete.push(callback);
+            if(this.callbacksDelete.indexOf(callback)!=="undefined"){
+                this.callbacksDelete.push(callback);
+            }
         }
     };
 
     this.delete = function(gameInfo,callback){
-        console.log(gameInfo);
         let object = this;
         xhr.get("/api/gameinfo/"+gameInfo.id+"/delete",(a)=>{
             if(typeof callback!=="undefined"){
                 callback(a);
             }
                 closeDropdowns();
-                object.callbacksDelete.forEach((i)=>{
-                    if(typeof i==="function") {
-                        i(a);
-                    }
-                });
+                ActorService.UserProfile();
         });
     }
     
@@ -11508,6 +11556,7 @@ app.service("SystemMessages", function($timeout){
                 if(typeof sucess !== "undefined"){
                     sucess(data);
                 }
+                $rootScope.wrong = null;
             },
             function(data) {
                 if (typeof error !== "undefined") {
@@ -11755,7 +11804,7 @@ app.directive("tournamentCard",function($compile,localization,auth){
              ><img class="game-icon float-right" ng-src="{{i.game.picture}}"/>
              <div style="font-size:0.8em;">{{i.game.name}}</div></span>
         <p>{{i.description}}</p>
-        <div><b>${localization.joined} {{loc.tournament.teams}}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
+        <div><b>${localization.joinedteams}:</b> {{i.teams.length}}/{{i.numberTeams}} </div>
         <div><b>${localization.players}:</b> {{i.players}} (+2)</div>
         <div>
         <h2>${localization.teams}</h2>
@@ -12371,7 +12420,6 @@ app.directive("tournamentTools",function($compile,auth, TournamentService){
             scope.$watch('tournamentTools',()=>{
                 scope.auth = auth;
                 scope.TournamentService = TournamentService;
-                console.log(TournamentService.canBeDeleted(scope.tournamentTools));
                 let template = ` <div class="dropdown" ng-if="auth.hasRole('ADMIN')" dropdown>
                     <a href="#" class="dropdown-button"><i class="fa fa-gear"></i></a>
                       <ul>
@@ -12401,9 +12449,6 @@ app.directive("gamesTools",function($compile,auth,GameInfoService,ActorService){
             scope.$parent.auth = auth;
             scope.$parent.user = scope.user;
             scope.$parent.GameInfoService = GameInfoService;
-            scope.$parent.GameInfoService.addCallbackOnDelete((a)=>{
-                ActorService.UserProfile();
-            });
             scope.$watch('gamesTools',()=>{
                 let template = ` <div class="dropdown" 
                     ng-if="auth.hasRole('USER') && auth.isPrincipal(user)" dropdown>

@@ -14,8 +14,10 @@ app.controller("AddSteamAccountController",function($scope,xhr,UserService,dialo
         xhr.get("api/steam/"+$scope.steam.id,((a)=>{
             $scope.games = a.data;
             $scope.searched = true;
-            $scope.error = "";
+            $scope.error =undefined;
         }),(p)=>{
+            $scope.games = null;
+            $scope.searched = false;
             $scope.error = localization.confirmProfile.errorSteam;
         })
     };

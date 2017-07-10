@@ -265,7 +265,7 @@ public class UserService {
 		Assert.notNull(user);
 		user.setAge(signupForm.getAge());
 		if (signupForm.getPassword() != null) {
-		    if(signupForm.getPassword().length()>5){
+		    if(signupForm.getPassword().length()>4 && signupForm.getPassword().length()<33){
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			user.getUserAccount().setPassword(encoder.encodePassword(signupForm.getPassword(), null));
             }
@@ -305,4 +305,5 @@ public class UserService {
 
 		return result;
     }
+
 }

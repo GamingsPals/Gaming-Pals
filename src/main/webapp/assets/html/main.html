@@ -19,7 +19,7 @@
         <h1>{{loc.main.ourGames}}</h1>
         <div class="card blockcard s12"  ng-repeat="g in games">
             <div class="card-header">
-                <h1><a href="search?games={{g.id}}"> {{g.name}}</a></h1>
+                <h1><a href="game/{{g.id}}"> {{g.name}}</a></h1>
                 <img class="card-header-header" ng-src="{{g.header}}">
             </div>
         </div>

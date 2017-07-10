@@ -89,6 +89,7 @@ app.controller("ManageTeamController",function($scope,auth,middleware,$routePara
             confirmtext: localization.confirmTeam.kicked,confirmtitle:localization.confirmTeam.kicked};
         data2.callback = (a)=>{
             TeamService.kickMember($scope.team,form.member);
+            $scope.kickForm.member = null;
             $scope.loadTeam($scope.team.id);
         };
 

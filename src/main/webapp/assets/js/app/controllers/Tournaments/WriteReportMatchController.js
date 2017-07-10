@@ -3,11 +3,13 @@ app.controller('WriteReportMatchController', function($scope, SystemMessages, di
     $scope.sendReportMatchForm = function() {
         $scope.reportMatch.team = $scope.matchtoreport.team.id;
         TournamentService.reportMatch($scope.matchtoreport.confrontation.id,$scope.reportMatch,()=>{
-            SystemMessages.okmessage("Report send!");
+            SystemMessages.okmessage(localization.tournament.reportsend);
             $scope.loadTournament();
+            $scope.error = false;
             dialog.closeAll();
         },(a)=>{
-            SystemMessages.errormessage("Error sendin Report");
+            $scope.error = true;
+            SystemMessages.errormessage(localization.tournament.errorsendingreport);
             dialog.closeAll();
         });
     }

@@ -1,4 +1,4 @@
-app.controller("IncidencesController", function($scope,TournamentService,subscriber,dialog,SystemMessages){
+app.controller("IncidencesController", function($scope,TournamentService,subscriber,dialog,SystemMessages,localization){
 
 
     $scope.resolveDialog = function(a){
@@ -13,7 +13,7 @@ app.controller("IncidencesController", function($scope,TournamentService,subscri
     subscriber.add("tournament:resolve",(a)=>{
         dialog.closeAll();
         $scope.loadTournament();
-        SystemMessages.okmessage("Incidence resolved correctly!")
+        SystemMessages.okmessage(localization.tournament.incidenceresolvedcorrectly);
     })
 
 

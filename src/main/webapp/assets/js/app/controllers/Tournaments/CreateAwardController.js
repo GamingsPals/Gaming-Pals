@@ -1,13 +1,15 @@
-app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware) {
+app.controller('CreateAwardController', function($scope, SystemMessages, dialog, TournamentService,middleware,localization) {
     middleware.needRol("ADMIN");
     $scope.sendAwardForm = function() {
-        console.log($scope.award);
         TournamentService.createAward($scope.$parent.tournament, $scope.award, ()=>{
-            SystemMessages.okmessage("Award create!");
+            SystemMessages.okmessage(localization.tournament.awardcreated);
             $scope.loadTournament();
+            $scope.error = undefined;
             dialog.closeAll();
-        }),(a)=>{
-            SystemMessages.errormessage("Error creating Tournament");
-        }
+        },(a)=>{
+            $scope.error = true;
+            console.log("Ey");
+            SystemMessages.errormessage(localization.tournament.errorcreatingaward);
+        });
     }
 });

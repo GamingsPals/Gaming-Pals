@@ -28,7 +28,7 @@
         <label>
             {{loc.signupform.password}}
         </label>
-        <input  class="s10"  type="password" name="password"  title="Password"  ng-model="form.password" ng-minlength="0" ng-maxlength="32"
+        <input  class="s10"  type="password" name="password"  title="Password"  ng-model="form.password" ng-minlength="5" ng-maxlength="32"
                minlength="5" maxlength="32" />
         <div class="form-error" ng-messages="signupform.password.$error" role="alert"
              ng-show="signupform.password.$dirty && signupform.password.$invalid">

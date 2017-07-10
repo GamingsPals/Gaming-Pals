@@ -46,6 +46,7 @@ app.service("xhr",function($http, SystemMessages, $rootScope) {
                 if(typeof sucess !== "undefined"){
                     sucess(data);
                 }
+                $rootScope.wrong = null;
             },
             function(data) {
                 if (typeof error !== "undefined") {

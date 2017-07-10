@@ -36,7 +36,7 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
 
             })
         },(a)=>{
-            $scope.notFound = false;
+            $location.path("tournaments");
         });
     };
     $scope.loadTournament();
@@ -85,7 +85,7 @@ app.controller("TournamentController",function($scope,auth,middleware,$routePara
 
    $scope.delete = function(tournament){
        TournamentService.delete(tournament,(a)=>{
-           $location.path("tournament/list");
+           $location.path("tournaments");
        })
    };
 

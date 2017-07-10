@@ -17,6 +17,7 @@
   "sendmessage": "Mensaje",
   "players": "Jugadores",
   "joined": "Apuntados",
+  "joinedteams": "Equipos apuntados",
   "teams": "Equipos",
   "edit": "Editar",
   "invite": "Invitar",
@@ -271,12 +272,17 @@
     "must": "Debes seleccionar un equipo",
     "selectt": "Selecciona el número de equipos",
     "mustt": "Debes seleccionar un número de equipos entre 4 y 32",
-    "size": "Número de equipos",
+    "size": "Número de jugadores por equipo",
     "min": "Mínimo 1 jugador y máximo 10 por equipos.",
     "sub1": "Los equipos con este tamaño y +2 permitirán unirse a él porque el jugador de 2 extras actúa como",
     "sub2": "Subtituto",
     "mustu": "Debes poner una url",
     "date": "Selecciona una fecha después de la actual",
+    "errorsendingreport": "Error al enviar el reporte",
+    "awardcreated": "Premio creado!",
+    "reportsended": "Reporte enviado!",
+    "errorcreatingaward": "Error creando el premio",
+    "incidenceresolvedcorrectly": "Incidencia resulta correctamente!",
      "admin":{
       "suretodelete": "Estás seguro de borrar el torneo ${args['tournament']}?",
       "deleted" :"${args['tournament']} ha sido borrado!"
@@ -514,6 +520,11 @@
     "ups": "¡Ups! Estás baneado",
     "itseems": "Parece que estás baneado de la página web por tú comportamiento con otros miembros de la comunidad, te recomendamos que te tomes un tiempo pensando qué has podido hacer mal e intentar corregirlo. Por favor",
     "contact": " contacta con nosotros cuando creas que estés listo"
+  },
+  "gameView":{
+    "users": "Usuarios",
+    "nousers": "De momento no hay usuarios que hayan registrado una identidad en este juego ¡Se el primero!",
+    "notournaments": "Este juego no tiene ningún torneo por el momento"
   }
 
 

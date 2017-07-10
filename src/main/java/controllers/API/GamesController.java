@@ -59,6 +59,35 @@ public class GamesController extends ApiAbstractController {
 		}
 	}
 
+	@RequestMapping(value = "/game/{game}")
+	public Object game(@PathVariable("game")Game game,HttpServletResponse response){
+		Actor actor;
+		try{
+			actor = actorService.findActorByPrincipal();
+			Assert.notNull(actor);
+		} catch (Exception e){
+			return unauthorized(response);
+		}
+		try{
+			Assert.notNull(game);
+		} catch (Exception e){
+			return badrequest(response);
+		}
+		try{
+			Map<String,Object> result = new HashMap<>();
+			result.put("game",game);
+			List<User> users = new ArrayList<>();
+			for(GameInfo g:game.getGameInfos()){
+				users.add(g.getUser());
+			}
+			result.put("users",users);
+			result.put("tournaments",game.getTournaments());
+			return result;
+		} catch (Exception e){
+			return internalservererror(response);
+		}
+	}
+
 	@RequestMapping(value = "/games/all")
 	public Object allgames(HttpServletResponse response) throws Exception {
 		try {
